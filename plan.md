@@ -201,14 +201,18 @@ Edge metadata:
 
 - Python <-> Java gateway
     - py4j vs jni considerations
+
 - Simple query API: RPC
     - Traversal queries, visit/leaves/... + count
     - Limits and filtering
 
 - Expressivity
+    - not arbitrary requests, not something for researchers
     - examples of data queries that cannot be made using this simple language
     - mixed solution java impl / http queries
-    - exploration of graph query languages
+    - exploration of graph query languages (future works)
+
+(Hakim's work?)
 
 # The structure of the graph
 
@@ -223,23 +227,19 @@ Topology paper:
 - Connected components
 - Clustering distribution
 - Average path
-- Multiplication coefficient (SANER benchmark)
 
 ## Structure of projects and forks
-(Have that in applications?)
 
 Forks paper
 
 
-# Applications
+# Applications / Case studies
 
 ## Derived metadata
 
 - Paper with kevin
-
-## Scheduling predictions (NOT DONE)
-
-- Look at timestamps of commits to know which project should be scheduled when
+    - Produce filesystem diff dataset
+    (Clarify contribution)
 
 ## Sharding (NOT DONE)
 
@@ -253,5 +253,17 @@ graph. We have to do a best-effort sharding that minimizes roundtrips
 
 Evaluation of how well we can do that using different sharding methods:
 - BFS order
+- LLP order
 - Fork cliques (duplication size?)
 - connected components at the revision level (duplication size?)
+
+## (Scheduling predictions (NOT DONE))
+
+- Look at timestamps of commits to know which project should be scheduled when
+
+
+
+# ideas
+
+- benchmark: community detection (louvain / world of code)
+    - Show why repartition is interesting

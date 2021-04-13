@@ -3,16 +3,16 @@
 ## Context
 
 Software Heritage is an ambitious digital preservation initiative that is
-amassing unprecedented amounts of software source code from a variety of
-origins, and keeps track of all their evolution history, as captured by version
+amassing unprecedented quantities of software source code from a variety of
+origins, keeping track of all their evolution history as captured by version
 control systems (VCS). The Software Heritage archive has grown to be the
 largest and most comprehensive corpus of public software artifacts,
 encompassing all the major source code hosts (e.g. GitHub, Gitlab, Bitbucket,
-Google Code) and supporting a variety of VCS (e.g. Git, Mercurial, SVN) and
+Google Code), supporting a variety of VCS (e.g. Git, Mercurial, SVN) and
 package managers (Debian, NixOS, PyPI, NPM...).
 
 This data is stored in a canonical format and deduplicated across the entire
-archive at the level of software artifacts, which constructs a giant shared
+archive at the level of software artifacts, which constructs an immense shared
 graph of software development, where the nodes are the source files,
 directories and commits, and the edges carry the names of the files and the
 links between commits and directories.
@@ -23,20 +23,20 @@ analysing and extracting knowledge both from the contents of the data and from
 the structure of the development history graph. Making this data accessible to
 researchers could unlock new capabilities in the software mining field. Being
 able to run experiments on the entire graph of public software development
-could help us gain an deeper understanding of the evolution of software at a
-macro level, and the underlying social structures that compose it. It would
-also reduce the barriers of entry to empirical studies by lowering the costs of
-data collection and eliminating the need for manual data scraping and
+could help us gain a deeper understanding of the evolution of software at a
+macro level, and the underlying social structures of software projects. It
+would also reduce the barriers of entry to empirical studies by lowering the
+costs of data collection and eliminating the need for manual data scraping and
 retrieval, as well as facilitate replicating studies at larger scales using
 comprehensive data samples.
 
 The exploitation of such an unprecedented source code collection poses
 significant challenges in terms of availability, data representation, system
-architecture and scalability. The giant graph in the Software Heritage archive
-contains more than 20 billion nodes and 200 billion edges, growing faster every
-day. At this scale, few off-the-shelf tools can be used for general purpose
-data analysis, and new techniques must be built on the state of the art of
-large graph processing.
+architecture and scalability. The graph in the Software Heritage archive
+contains more than 20 billion nodes and 200 billion edges and grows faster
+every day. At this scale, few off-the-shelf tools can be used for general
+purpose data analysis, and new techniques must be built on the state of the art
+of large graph processing.
 
 ## Data availability
 
@@ -103,8 +103,9 @@ the archive, and make some "teaser" datasets available using these techniques.
 Understanding the structure of the development graph is a fundamental step
 towards scale-out analysis, as it can help us determine how to partition the
 data into tightly knit clusters. Moreover, getting a better sense of the
-topology of its different layers as well as their edge cases will help us
-better organize the data for some domain-specific algorithms.
+topology of its different layers as well as the various edge cases and outliers
+found in it will help us better organize the data for some domain-specific
+algorithms.
 
 As a first step, we look at the low-level topological properties of the graph,
 by systematically measuring a few key metrics on its different layers:

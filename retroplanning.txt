@@ -1,0 +1,21 @@
+https://www.math.univ-paris-diderot.fr/_media/formations/doctorats/frise_chrono_proce_dure_e_che_ances_de_la_soutenance.pdf
+
+Travail :
+
+
+Avril, Mai, Juin, Juillet : rédaction
+    Avril : intro, SWH, large scale analysis/benevol paper, making available
+    Mai : Graph representation, graph compression, algorithms
+    Juin : Graph structure, applications
+    Juillet : reboucher les trous
+
+Août : Mise au point finale, relecture et correction (prévoir ~2 semaines de vacances)
+Septembre, octobre : Préparation de la soutenance
+
+Procédures :
+
+1er aout : constitution du jury, date de soutenance, réservation de la salle de soutenance
+1er septembre : envoi de la thèse aux rapporteurs
+1er octobre : dépot électronique de la thèse, autorisation de soutenir
+15 octobre : convocation du jury
+1er novembre : soutenance

@@ -38,7 +38,7 @@ day. At this scale, few off-the-shelf tools can be used for general purpose
 data analysis, and new techniques must be built on the state of the art of
 large graph processing.
 
-# Data availability
+## Data availability
 
 To better understand the kinds of data that need to be made available, we
 systematically categorize the functional requirements of researchers in
@@ -72,7 +72,7 @@ for which this relational format is suitable, as well as its limitations,
 notably the difficulty of running experiments that require graph traversal
 algorithms (e.g walking down a commit chain).
 
-# Graph representation
+## Graph representation
 
 As the graph dataset is an inherently recursive structure, big data analysis
 tools that exploit the "flatness" of data to scale-out their processing cannot
@@ -98,7 +98,7 @@ extract representative graph subdatasets of any given size from the archive. We
 discuss various implementations of ways to obtain a "view" of a given part of
 the archive, and make some "teaser" datasets available using these techniques.
 
-# Graph structure
+## Graph structure
 
 Understanding the structure of the development graph is a fundamental step
 towards scale-out analysis, as it can help us determine how to partition the
@@ -123,7 +123,7 @@ algorithm to arrange the list of all the repositories in the archive in
 forking relationships). We compute these structures for the entire Software
 Heritage graph and measure their size distributions.
 
-# Applications
+## Applications
 
 Having both a deeper understanding of the underlying structure of the graph as
 well as a platform to run experiments makes it possible to try out different

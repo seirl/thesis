@@ -146,9 +146,9 @@ Put everything in a public S3 bucket, indexed by hash -> already scalable
 - Neo4J/AIGraph don't scale to our size
     - cite constraints
 
-## NetworkX
+## GraphFrames
 
-- Graph queries with NetworkX
+- Graph queries with GraphFrames
 - Extremely expensive
 - Pretty slow (especially if you multiply by the number of machines)
 - Requires implementation of parallel graph algorithms

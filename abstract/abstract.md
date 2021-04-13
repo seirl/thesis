@@ -4,7 +4,7 @@
 
 Software Heritage is an ambitious digital preservation initiative that is
 amassing unprecedented quantities of software source code from a variety of
-origins, keeping track of all their evolution history as captured by version
+origins, keeping track of all their evolution histories as captured by version
 control systems (VCS). The Software Heritage archive has grown to be the
 largest and most comprehensive corpus of public software artifacts,
 encompassing all the major source code hosts (e.g. GitHub, Gitlab, Bitbucket,

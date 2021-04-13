@@ -36,7 +36,7 @@ architecture and scalability. The giant graph in the Software Heritage archive
 contains more than 20 billion nodes and 200 billion edges, growing faster every
 day. At this scale, few off-the-shelf tools can be used for general purpose
 data analysis, and new techniques must be built on the state of the art of
-large graph analysis.
+large graph processing.
 
 # Data availability
 
@@ -76,7 +76,7 @@ algorithms (e.g walking down a commit chain).
 
 As the graph dataset is an inherently recursive structure, big data analysis
 tools that exploit the "flatness" of data to scale-out their processing cannot
-be used in a similar fashion on problems that are not embarassingly parallel.
+be used in a similar fashion on problems that are not embarrassingly parallel.
 A naive scale-out approach to randomly assign the artifacts to different shards
 is not very efficient, as a traversal algorithm will require jumping
 between different shards all the time. We investigate existing scale-out

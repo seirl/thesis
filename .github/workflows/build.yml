@@ -10,7 +10,7 @@ jobs:
           fetch-depth: 2
 
       - name: Compile LaTeX document
-        uses: seirl/latex-diff-action@v1
+        uses: seirl/latex-diff-action@master
         with:
           root_file: main.tex
           working_directory: .

@@ -1,11 +1,17 @@
-all: main.pdf
+MAIN = main
+BUILD = _build
 
-main.pdf:
-	latexmk -xelatex -outdir=_build main.tex
-	mv _build/main.pdf main.pdf
+all: $(MAIN).pdf
+
+$(MAIN).pdf:
+	latexmk -xelatex -outdir=$(BUILD) $(MAIN).tex
+	mv $(BUILD)/$(MAIN).pdf $(MAIN).pdf
+
+$(MAIN).expanded.tex:
+	latexpand $(MAIN).tex > $@
 
 clean:
-	$(RM) -r _build
+	$(RM) -r $(BUILD)
 
 distclean: clean
 	$(RM) main.pdf

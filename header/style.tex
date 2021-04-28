@@ -1,0 +1,258 @@
+% Layout
+\newsubfloat{figure}
+\newsubfloat{table}
+
+% Better page layout for A4 paper, see memoir manual.
+\settrimmedsize{297mm}{210mm}{*}
+\setlength{\trimtop}{0pt}
+\setlength{\trimedge}{\stockwidth}
+\addtolength{\trimedge}{-\paperwidth}
+\settypeblocksize{634pt}{448.13pt}{*}
+\setulmargins{4cm}{*}{*}
+\setlrmargins{*}{*}{1.5}
+\setmarginnotes{17pt}{51pt}{\onelineskip}
+\setheadfoot{\onelineskip}{2\onelineskip}
+\setheaderspaces{*}{2\onelineskip}{*}
+\checkandfixthelayout
+%
+\frenchspacing
+
+% Font with math support: New Century Schoolbook
+% \usepackage{lmodern,textcomp}
+\usepackage{fontspec}
+\usepackage{fouriernc}
+\setmainfont{TeX Gyre Schola}
+
+% 1.5 line spacing
+\OnehalfSpacing
+
+% Sets numbering division level
+\setsecnumdepth{subsection}
+\maxsecnumdepth{subsubsection}
+
+% Chapter style (taken and slightly modified from Lars Madsen Memoir Chapter
+% Styles document
+\usepackage{calc,soul,fourier}
+\makeatletter
+\newlength\dlf@normtxtw
+\setlength\dlf@normtxtw{\textwidth}
+\newsavebox{\feline@chapter}
+\newcommand\feline@chapter@marker[1][4cm]{%
+	\sbox\feline@chapter{%
+		\resizebox{!}{#1}{\fboxsep=1pt%
+			\colorbox{black}{\color{white}\thechapter}%
+		}}%
+		\rotatebox{90}{%
+			\resizebox{%
+				\heightof{\usebox{\feline@chapter}}+\depthof{\usebox{\feline@chapter}}}%
+			{!}{\scshape\so\@chapapp}}\quad%
+		\raisebox{\depthof{\usebox{\feline@chapter}}}{\usebox{\feline@chapter}}%
+}
+\newcommand\feline@chm[1][4cm]{%
+	\sbox\feline@chapter{\feline@chapter@marker[#1]}%
+	\makebox[0pt][c]{% aka \rlap
+		\makebox[1cm][r]{\usebox\feline@chapter}%
+	}}
+\makechapterstyle{daleifmodif}{
+	\renewcommand\chapnamefont{\normalfont\Large\scshape\so}
+	\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape}
+	\renewcommand\chapternamenum{} \renewcommand\printchaptername{}
+	\renewcommand\printchapternum{\null\hspace{2.5cm}\feline@chm[2.5cm]}%\renewcommand\afterchapternum{\par\vskip\midchapskip}
+	\renewcommand\printchaptertitle[1]{\color{black}\chaptitlefont ##1\par}
+}
+\makeatother
+\chapterstyle{daleifmodif}
+
+\renewcommand\partnamefont{\normalfont\Large\scshape\so}
+\renewcommand\parttitlefont{\normalfont\Huge\bfseries\scshape}
+\renewcommand\printpartnum{\hspace{0.5cm}\thepart}
+
+%\renewcommand\sectionnamefont{\normalfont\scshape\so}
+
+%
+% UoB guidelines:
+%
+% The pages should be numbered consecutively at the bottom centre of the
+% page.
+\makepagestyle{myvf}
+\makeoddfoot{myvf}{}{\thepage}{}
+\makeevenfoot{myvf}{}{\thepage}{}
+\makeheadrule{myvf}{\textwidth}{\normalrulethickness}
+\makeevenhead{myvf}{\small\textsc{\leftmark}}{}{}
+\makeoddhead{myvf}{}{}{\small\textsc{\rightmark}}
+\pagestyle{myvf}
+%
+% Oscar's command (it works):
+% Fills blank pages until next odd-numbered page. Used to emulate single-sided
+% frontmatter. This will work for title, abstract and declaration. Though the
+% contents sections will each start on an odd-numbered page they will
+% spill over onto the even-numbered pages if extending beyond one page
+% (hopefully, this is ok).
+\newcommand{\clearemptydoublepage}{\newpage{\thispagestyle{empty}\cleardoublepage}}
+%
+%
+% Creates indexes for Table of Contents, List of Figures, List of Tables and Index
+\makeindex
+% \printglossaries below creates a list of abbreviations. \gls and related
+% commands are then used throughout the text, so that latex can automatically
+% keep track of which abbreviations have already been defined in the text.
+%
+% The import command enables each chapter tex file to use relative paths when
+% accessing supplementary files. For example, to include
+% chapters/brewing/images/figure1.png from chapters/brewing/brewing.tex we can
+% use
+% \includegraphics{images/figure1}
+% instead of
+% \includegraphics{chapters/brewing/images/figure1}
+\usepackage{import}
+
+% Add other packages needed for chapters here. For example:
+%\usepackage{lipsum}					%Needed to create dummy text
+\usepackage{amsfonts} 					%Calls Amer. Math. Soc. (AMS) fonts
+\usepackage[centertags]{amsmath}			%Writes maths centred down
+%\usepackage{stmaryrd}					%New AMS symbols
+\usepackage{amssymb}					%Calls AMS symbols
+\usepackage{amsthm}					%Calls AMS theorem environment
+\usepackage{newlfont}					%Helpful package for fonts and symbols
+%\usepackage{layouts}					%Layout diagrams
+\usepackage{graphicx}					%Calls figure environment
+%\usepackage{longtable,rotating}			%Long tab environments including rotation.
+%\usepackage[applemac]{inputenc}			%Needed to encode non-english characters
+									%directly for mac
+%\usepackage{colortbl}					%Makes coloured tables
+%\usepackage{wasysym}					%More math symbols
+%\usepackage{mathrsfs}					%Even more math symbols
+\usepackage{float}						%Helps to place figures, tables, etc.
+%\usepackage{verbatim}					%Permits pre-formated text insertion
+\usepackage{upgreek }					%Calls other kind of greek alphabet
+\usepackage{latexsym}					%Extra symbols
+\usepackage[square,numbers,
+		     sort&compress]{natbib}		%Calls bibliography commands
+\usepackage{url}						%Supports url commands
+%\usepackage{etex}						%eTeXÕs extended support for counters
+%\usepackage{fixltx2e}					%Eliminates some in felicities of the
+									%original LaTeX kernel
+\usepackage[english]{babel}		%For languages characters and hyphenation
+\usepackage{color}                    				%Creates coloured text and background
+\usepackage[colorlinks=true,
+		     allcolors=black,backref]{hyperref}              %Creates hyperlinks in cross references
+\usepackage{memhfixc}					%Must be used on memoir document
+									%class after hyperref
+%\usepackage{enumerate}					%For enumeration counter
+%\usepackage{footnote}					%For footnotes
+\usepackage{microtype}					%Makes pdf look better.
+%\usepackage{rotfloat}					%For rotating and float environments as tables,
+									%figures, etc.
+%\usepackage{alltt}						%LaTeX commands are not disabled in
+									%verbatim-like environment
+\usepackage[version=0.96]{pgf}			%PGF/TikZ is a tandem of languages for producing vector graphics from a
+\usepackage{tikz}						%geometric/algebraic description.
+\usetikzlibrary{arrows,shapes,snakes,
+		       automata,backgrounds,
+		       petri,topaths,calc}				%To use diverse features from tikz
+%
+%Reduce widows  (the last line of a paragraph at the start of a page) and orphans
+% (the first line of paragraph at the end of a page)
+\widowpenalty=1000
+\clubpenalty=1000
+%
+% New command definitions for my thesis
+%
+
+\newcommand{\pgftextcircled}[1]{                                                                    %Defines encircled text
+    \setbox0=\hbox{#1}%
+    \dimen0\wd0%
+    \divide\dimen0 by 2%
+    \begin{tikzpicture}[baseline=(a.base)]%
+        \useasboundingbox (-\the\dimen0,0pt) rectangle (\the\dimen0,1pt);
+        \node[circle,draw,outer sep=0pt,inner sep=0.1ex] (a) {#1};
+    \end{tikzpicture}
+}
+                            %Defines arctanh
+%Change tombstone symbol
+\newcommand{\blackged}{\hfill$\blacksquare$}
+\newcommand{\whiteged}{\hfill$\square$}
+\newcounter{proofcount}
+\renewenvironment{proof}[1][\proofname.]{\par
+ \ifnum \theproofcount>0 \pushQED{\whiteged} \else \pushQED{\blackged} \fi%
+ \refstepcounter{proofcount}
+ \normalfont
+ \trivlist
+ \item[\hskip\labelsep
+       \itshape
+   {\bf\em #1}]\ignorespaces
+}{%
+ \addtocounter{proofcount}{-1}
+ \popQED\endtrivlist
+}
+%
+%
+% New definition of square root:
+% it renames \sqrt as \oldsqrt
+\let\oldsqrt\sqrt
+% it defines the new \sqrt in terms of the old one
+\def\sqrt{\mathpalette\DHLhksqrt}
+\def\DHLhksqrt#1#2{%
+\setbox0=\hbox{$#1\oldsqrt{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+%
+% My caption style
+\newcommand{\mycaption}[2][\@empty]{
+	\captionnamefont{\scshape}
+	\changecaptionwidth
+	\captionwidth{0.9\linewidth}
+	\captiondelim{.\:}
+	\indentcaption{0.75cm}
+	\captionstyle[\centering]{}
+	\setlength{\belowcaptionskip}{10pt}
+	\ifx \@empty#1 \caption{#2}\else \caption[#1]{#2}
+}
+%
+% My subcaption style
+\newcommand{\mysubcaption}[2][\@empty]{
+	\subcaptionsize{\small}
+	\hangsubcaption
+	\subcaptionlabelfont{\rmfamily}
+	\sidecapstyle{\raggedright}
+	\setlength{\belowcaptionskip}{10pt}
+	\ifx \@empty#1 \subcaption{#2}\else \subcaption[#1]{#2}
+}
+%
+%An initial of the very first character of the content
+\usepackage{lettrine}
+\newcommand{\initial}[1]{%
+	\lettrine[lines=3,lhang=0.33,nindent=0em]{
+		\color{gray}
+     		{\textsc{#1}}}{}}
+%
+% Theorem styles used in my thesis
+%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{plain}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[chapter]
+\theoremstyle{plain}
+\newtheorem{result}{Result}[chapter]
+\theoremstyle{plain}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{plain}
+\newtheorem{property}{Property}[chapter]
+\theoremstyle{plain}
+\newtheorem{remark}{Remark}[chapter]
+
+\theoremstyle{plain} % just in case the style had changed
+\newcommand{\thistheoremname}{}
+\newtheorem*{genericthm*}{\thistheoremname}
+\newenvironment{namedthm*}[1]
+  {\renewcommand{\thistheoremname}{#1}%
+   \begin{genericthm*}}
+  {\end{genericthm*}}

@@ -1,0 +1,119 @@
+% add 'draft' to enable draft option on (see below)
+\documentclass[a4paper,11pt,openbib]{memoir}
+
+\input{header/packages}
+\input{header/style}
+\input{header/commands}
+
+% Draft
+\ifdraftdoc
+    \usepackage{draftwatermark}
+    \SetWatermarkScale{0.3}
+    \SetWatermarkText{\bf Draft: \today}
+\fi
+
+\begin{document}
+% Relax constraint on constant page height
+\raggedbottom
+
+\frontmatter
+\pagenumbering{roman}
+%
+\input{frontmatter/title}
+\clearemptydoublepage
+
+%
+\input{frontmatter/abstract}
+\clearemptydoublepage
+%
+\input{frontmatter/dedication}
+\clearemptydoublepage
+%
+
+
+%%%%% TABLE OF CONTENTS
+\renewcommand{\contentsname}{Table of Contents}
+\maxtocdepth{subsection}
+\tableofcontents*
+\addtocontents{toc}{\par\nobreak \mbox{}\hfill{\bf Page}\par\nobreak}
+%\clearemptydoublepage
+%
+
+\iffalse
+%%%%% LIST OF TABLES
+\listoftables
+\addtocontents{lot}{\par\nobreak\textbf{{\scshape Table} \hfill Page}\par\nobreak}
+\clearemptydoublepage
+%%%%% LIST OF FIGURES
+\listoffigures
+\addtocontents{lof}{\par\nobreak\textbf{{\scshape Figure} \hfill Page}\par\nobreak}
+\clearemptydoublepage
+\fi
+%
+%
+% The bulk of the document is delegated to these chapter files in
+% subdirectories.
+\mainmatter
+%
+
+%\part{Prelude}
+
+\import{chapters/}{0-introduction.tex}
+
+\import{chapters/}{1-large-scale-analysis.tex}
+
+\import{chapters/}{2-data-availability.tex}
+
+\import{chapters/}{3-graph-representation.tex}
+
+\import{chapters/}{4-graph-structure.tex}
+
+\import{chapters/}{5-applications.tex}
+
+\import{chapters/}{6-conclusion.tex}
+
+%\part*{Conclusions}
+%\addcontentsline{toc}{part}{Conclusions}
+
+% \import{chapters/}{7-conclusion.tex}
+
+%\clearemptydoublepage
+%
+%
+% APPENDIX
+\iffalse
+\appendix
+% \import{chapters/appendices/}{app0A.tex}
+\clearemptydoublepage
+\fi
+
+
+%
+% Apparently the guidelines don't say anything about citations or
+% bibliography styles so I guess we can use anything.
+\backmatter
+\bibliographystyle{siam}
+\refstepcounter{chapter}
+\bibliography{thesis}
+
+
+
+
+%% credits for the template
+\clearemptydoublepage
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\centering{%
+\footnotesize{{\LaTeX{} thesis template adapted from \href{https://www.overleaf.com/latex/templates/university-of-bristol-thesis-template/kzqrfvyxxcdm#.W1h6jeFfiEJ}{V\'ictor F. Bre\~na-Medina's template} (Creative Commons CC BY 4.0)}
+
+\url{https://frama.link/thesis_template}}
+}
+
+
+%\clearemptydoublepage
+%
+% Add index
+%\printindex
+%
+\end{document}

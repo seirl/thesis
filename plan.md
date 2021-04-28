@@ -263,6 +263,12 @@ Evaluation of how well we can do that using different sharding methods:
 
 
 
+# Future work
+
+- How to mix parallel processing and recursive structures? swh-graph but
+  compute things on nodes in parallel
+
+
 # ideas
 
 - benchmark: community detection (louvain / world of code)

@@ -1,4 +1,4 @@
-# Organizing the graph of public software development for ultra-large-scale mining
+# Organizing the graph of public software development for universal mining
 
 ## Context
 

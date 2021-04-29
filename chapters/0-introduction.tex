@@ -17,7 +17,7 @@ profound awareness of how pervasive long-lived software is in the world's
 digital infrastructure, and there is a clear need for research to be focusing
 not just on the software source code itself, but also on its dynamic evolution
 over time. Methodologically sound empirical studies have a particularly
-important role to play as the basis for improving software maintainance tools,
+important role to play as the basis for improving software maintenance tools,
 methods and processes.
 
 Historically, performing software evolution research was challenging and
@@ -52,6 +52,68 @@ version control used by \gls{DVCS} makes it so that each user can retrieve the
 full development history locally, which allows complex development patterns
 like ``branches'' and ``forks'' to be directly embedded inside the change
 history.
+
+\section{Universal software mining}
+
+\gls{DVCS} hosting platforms have allowed researchers to easily retrieve and
+process software repositories for mining purposes and made the literature on
+software evolution abundant~\cite{herraiz2013evolution}. Yet, most present-day
+evolution studies still focus on the evolutive patterns of \emph{individual}
+software projects, which is particularly interesting to ascertain which factors
+contribute to maximize software health~\cite{DBLP:conf/icse/2018soheal}.
+
+Larger-scale studies can sometimes analyze hundreds or thousands of
+repositories at the same time, but their approach has generally remained
+limited in scope: researchers will tend to focus on some specific sampling
+rule, e.g., retrieving the top ten thousands repositories in a specific
+programming language from a particular hosting platform. This can introduce
+various sources of selection bias, as the most popular repositories in the most
+popular platforms could be unrepresentative of development practices at large.
+
+At an even larger scale, some studies have been performed on up to the entirety
+of a specific software ecosystem like app stores or package
+managers~\cite{gonzalez2009macro,debsources-ese-2016}, but those were limited
+to the granularity of software releases and did not study finer-grained history
+data like commits.
+
+Arguably, one of the next frontiers in the field would be to attain
+\emph{universal software mining}, the methodological analysis of software at
+the largest scale possible down to a fine granularity of software artifacts.
+At present, the largest scale possible is that of the \emph{software commons},
+i.e., the body of all software which is available at little or no cost and
+which can be reused with few
+restrictions~\cite{1999-beagle-in-commons,kranich2008information}.
+
+Unlocking this capability would have profound implications on the field of
+software mining. First, it would considerably \textbf{reduce barriers of entry}
+for empirical studies, by removing the need for researchers to manually
+retrieve thousands of repositories from various sources to perform their
+analyses: having access to the entire body of the software commons in a single
+centralized location would allow them to simply request a subset of the data
+they are interested in to perform their analysis, and obtain it in a format
+that is convenient for data processing. It would also \textbf{enhance study
+replicability} by providing an entry point to a static collection of already
+available data that can be used to rerun studies at will.
+In addition, it would significantly \textbf{reduce potential sources of
+selection bias} by offering a representative view of the software found in
+all different kinds of formats, on diverse more or less popular hosting
+platforms, tracked by a variety of \gls{VCS}.  Finally, the exhaustiveness of
+the data would allow us to get a \textbf{detailed high-level view of the social
+processes and interactions} that govern software development, by looking at the
+global network of the programming community in its entirety rather than
+focusing on a particular subset.
+
+Systematic initiatives~\cite{flossmole2006,gao2007archive,mockus2009}
+have been established to gather as much public \gls{VCS} data as possible in a
+single centralized place. Two recent initiatives, World of
+Code~\cite{mockus2019woc} and Software Heritage~\cite{swhipres2017,
+swhcacm2018} go one step further and aim to build a sustainable and accessible
+archive of \emph{all} the source code artifacts of the software commons, down
+to the level of the source code files.
+
+In this thesis, I explore the ways the body of software commons stored in the
+Software Heritage archive can be organized and made available for
+\emph{universal software mining}.
 
 \section{Software Heritage}
 

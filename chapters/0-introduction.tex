@@ -1,6 +1,57 @@
 \chapter{Introduction}
 
-\lipsum[3]
+\section{The rise of large-scale software mining}
+
+\emph{Software mining} is a field of empirical software engineering which aims
+to study datasets of extant software to uncover patterns and knowledge that can
+help improve future software development. By organizing the knowledge obtained
+from software mining studies, researchers can build models using statistics and
+machine learning techniques that can then be queried to get design insights and
+analytics, discover bugs, or even obtain a high-level architectural view of
+how software components interact together.
+
+Software mining particularly shines in the context of \emph{software
+evolution}, which studies the dynamic behavior of software as it is maintained
+and enhanced over its lifetime. The software engineering industry has a
+profound awareness of how pervasive long-lived software is in the world's
+digital infrastructure, and there is a clear need for research to be focusing
+not just on the software source code itself, but also on its dynamic evolution
+over time. Methodologically sound empirical studies have a particularly
+important role to play as the basis for improving software maintainance tools,
+methods and processes.
+
+Historically, performing software evolution research was challenging and
+focused on small amounts of data, one software project at a time. In one
+seminal empirical work~\cite{belady1976model} in the '70s, Belady and Lehman
+studied 20 releases of the OS/360 operating system and drew some observations
+on the complexity growth of a large software project. This scale of study was
+increasing slowly up until the late '90s, with Basili et
+al.~\cite{basili1996understanding} studying 25 releases of around 100 different
+software projects at NASA Goddard.  In a 1999
+paper~\cite{kemerer1999empirical}, Kemerer and Slaughter highlighted the
+inherent challenges of collecting empirical data to study software evolution:
+researchers had to collect data at a minimum of two different points in time,
+which required sustainable research efforts over a long period, or
+collaborating with organizations that retained useful software measurement data
+and development history.
+
+These constraints drastically shifted in the past decades with the rise in
+popularity of Free/Open Source Software (FOSS) and collaborative development
+platforms~\cite{kalliamvakou2014promises}. Developers have started making
+publicly available a large wealth of \emph{software artifacts}: the source code
+files and directories of the software projects, as well as their complete
+development history over time and all its associated metadata, which have in
+turn benefited empirical software engineering research fields such as software
+mining and software evolution. This was made possible especially thanks to the
+emergence of \gls{VCS}, collaborative software development systems which track
+the history of development by retaining the successive states of the source
+code over time. They have been frequently analyzed~\cite{kagdi2007msrsurvey}
+due to the rich view they provide on software evolution, and their ease of
+exploitation since the advent of \gls{DVCS}. The peer-to-peer approach to
+version control used by \gls{DVCS} makes it so that each user can retrieve the
+full development history locally, which allows complex development patterns
+like ``branches'' and ``forks'' to be directly embedded inside the change
+history.
 
 \section{Software Heritage}
 

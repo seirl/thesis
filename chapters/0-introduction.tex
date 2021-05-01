@@ -85,7 +85,7 @@ which can be reused with few
 restrictions~\cite{1999-beagle-in-commons,kranich2008information}.
 
 Unlocking this capability would have profound implications on the field of
-software mining. First, it would considerably \textbf{reduce barriers of entry}
+software mining. First, it would considerably \textbf{reduce barriers to entry}
 for empirical studies, by removing the need for researchers to manually
 retrieve thousands of repositories from various sources to perform their
 analyses: having access to the entire body of the software commons in a single
@@ -109,12 +109,35 @@ single centralized place. Two recent initiatives, World of
 Code~\cite{mockus2019woc} and Software Heritage~\cite{swhipres2017,
 swhcacm2018} go one step further and aim to build a sustainable and accessible
 archive of \emph{all} the source code artifacts of the software commons, down
-to the level of the source code files.
+to the level of the source code files. Even though full coverage w.r.t.\ the
+software commons is by nature a moving target for any archive, the far-reaching
+comprehensiveness and diversity of Software Heritage makes it the current best
+approximation for an exhaustive corpus of public software development.
 
 In this thesis, I explore the ways the body of software commons stored in the
-Software Heritage archive can be organized and made available for
-\emph{universal software mining}.
+Software Heritage archive can be organized and made accessible to researchers
+for the purpose of \strong{universal software mining}.
 
-\section{Software Heritage}
+\section{Availability vs.\ accessibility}
 
-\lipsum[3]
+To understand the motivations and design decisions behind the work presented in
+this thesis, it is important to establish the difference between making data
+\emph{available} and \emph{accessible}.  The data collected in the Software
+Heritage archive is already \emph{available} insofar as it is at everyone's
+disposal by sole virtue of being public. Publishing periodical hard drive dumps
+of the storage would theoretically be another way of making the data available,
+as anyone would be able to retrieve it and exploit it.
+
+What we aim to achieve by building a research platform for universal software
+mining is to make the data not only available but also \emph{accessible}, which
+means that the data should be presented in a way that is already suitable for
+analysis purposes. Using the data should be convenient and frictionless,
+as the platform only has value to researchers to the extent that its data can
+be easily leveraged for many kinds of experiments. Merely providing raw data
+dumps do not solve the accessibility problem, and what we need instead is a
+comprehensive understanding of the needs of researchers in order to develop
+reusable tools and infrastructures that can be built upon, instead of having
+those be constantly rebuilt for one-off purposes. Simply put, the goal is to
+build an \emph{abstraction} that allows researchers to absolve themselves from
+the low-level technicalities of software mining to focus on their own
+experiments.

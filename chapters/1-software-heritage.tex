@@ -16,11 +16,11 @@ associated metadata.
 As software has become a key technology lying at the heart of our modern
 civilization, it has become clear that it embodies a growing part of our shared
 cultural, scientific and technical heritage, and as a result it has attracted
-a growing attention from the digital preservation community.
+growing attention from the digital preservation community.
 More specifically, the main focus of archival efforts have been on the software
 \emph{source code}, which is where this technical knowledge is embedded, rather
-than executable binaries which are mostly unreadable for human beings and
-stripped of all development insights.
+than executable binaries which are mostly unreadable for humans and stripped of
+all development insights.
 
 As a way to pursue this three-fold mission of collecting, preserving and
 sharing the software commons, the Software Heritage project aims at becoming
@@ -57,27 +57,27 @@ time, etc.
 \subsection{Finding all the software}
 
 While the Software Heritage archive aims to assemble and preserve \emph{all}
-the software, all the software projects are not equal in terms of how easy they
-are to collect. \figref{fig:swh-collect-axes} shows how this complexity can be
+the software, all software projects are not equal in terms of ease of
+collection. \figref{fig:swh-collect-axes} shows how this complexity can be
 mapped on two axes. The Open ↔ Closed axis references whether the public has
 the rights to access and use a given piece of software, or whether it is
 well-guarded behind copyright, proprietary licenses or even trade secrets.
 The Online ↔ Offline axis indicates whether the software is already online in a
 digital format on a (potentially private) network, or whether it would require
-efforts to retrieve it from a physical medium, like offline hard drives or even
-old source listings.
+efforts to retrieve it from a physical medium, such as offline hard drives or
+even old source listings.
 
 Each quadrant will entail different resources and techniques to be ingested in
-the archive. Naturally, the Software Heritage project has for now mostly
-focused its resources on the top-right quadrant, i.e., software that is already
-publicly available online on code hosting platforms, due to how comparatively
-easy it is to automate the retrieval of large quantities of software.
-Throughout this thesis, we focus on what we call \emph{public development},
-which mainly refers to this quadrant of open and online software.
+the archive. Naturally, the Software Heritage project has thus far focused its
+resources predominantly on the top-right quadrant, i.e., software that is
+already publicly available online on code hosting platforms, due to how
+comparatively easy it is to automate the retrieval of large quantities of
+software.  Throughout this thesis, we focus on what we call \emph{public
+development}, which mainly refers to this quadrant of open and online software.
 
 Note that this has implications for empirical research: knowledge gained from
 studies on the data amassed by Software Heritage will necessarily have a
-selection bias, because it will capture the patterns that are specifically
+selection bias, as it will capture the patterns that are specifically
 found in public development. A general rule is that the more accessible a
 piece of software already is (by being present on well-known hosting
 platforms), the more likely it is to be archived in Software Heritage.
@@ -107,7 +107,7 @@ platforms), the more likely it is to be archived in Software Heritage.
 
 \emph{Software origins} are abstract objects representing the places where we
 can find a given piece of software. In practice, they are often represented in
-the form of an URL, pointing to the web page where a given software was found.
+the form of a URL, pointing to the web page where a given software was found.
 
 Origins are conceptually different from \emph{projects}. A specific software
 project can be found in multiple origins, especially in the case of \gls{DVCS}
@@ -129,17 +129,17 @@ hosted at \url{https://github.com/gregkh/linux}. All in all, there can be
 thousands of origins hosted in different places, all pointing to the same
 software.
 
-Often, origins are found in code hosting platforms called \emph{software
+Origins are often found in code hosting platforms called \emph{software
 forges}. These forges are hubs for software development, aggregating and
 organizing code repositories as well as their associated project metadata like
-issues, bug reports, continuous integration services, etc.
-These forges can be centralized services where any developer is free to upload
-their own repository. GitHub is by far the largest example of such a
-centralized platform, totaling 40 million users and more than 190 million
-repositories as of January 2020. Other forges like Gitlab or Phabricator
-function on a more decentralized model, where the code of the forge itself is
-open source, and organizations can self-host their own instances of the forge
-to store and organize their projects.
+issues, bug reports, continuous integration services, etc.  These forges can be
+centralized services where any developer is free to upload their own
+repository. GitHub is by far the largest example of such a centralized
+platform, totaling 40 million users and more than 190 million repositories as
+of January 2020. Other forges like Gitlab or Phabricator function on a more
+decentralized model, where the code of the forge itself is open source, and
+organizations can self-host their own instances of the forge to store and
+organize their projects.
 
 Another source of origins is curated software ecosystems, like app stores or
 package manager repositories. For instance, Linux distributions like Debian
@@ -199,23 +199,25 @@ thanks to a comprehensive data model described in section \TODO{}.
 
 One of the stated goals of the Software Heritage project is exhaustiveness,
 which implies not making value judgments as to what constitutes ``important''
-or ``notable'' software. At no point in this process happens any filtering that
-would remove software articats considered unimportant or irrelevant: binary
-files, unpopular projects, source file in unknown languages etc.\ are all
-ingested as first-class citizens in the archive. The only limits enforced are
-technical limitations and help prevent abuse: software artifacts larger than a
-few hundred megabytes are considered to be outside of the scope of the archive
-and are not inserted in it.
+or ``notable'' software. At no point in this process does any filtering occur
+that would remove software artifacts considered unimportant or irrelevant:
+binary files, unpopular projects, source file in unknown languages etc.\ are
+all ingested as first-class citizens in the archive. The only limits enforced
+are technical limitations and those that help prevent abuse: software artifacts
+larger than a few hundred megabytes are considered to be outside of the scope
+of the archive and are not inserted in it.
 
 A rationale for that design choice is that there is no way to know \emph{a
 priori} which software is going to be notable in the future, as most software
 projects start small then gain popularity over time. By the time a project
-would have reached notability status, traces of his past history could have
+would have reached notability threshold, traces of its past history could have
 already been lost. This exhaustiveness principle allows us to follow in real
 time the evolution and growth of projects and the social processes that govern
 their communities.
 
 \section{Current scale and future growth}
+
+\subsection{Coverage}
 
 % scale
 % growth

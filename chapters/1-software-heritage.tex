@@ -215,9 +215,79 @@ already been lost. This exhaustiveness principle allows us to follow in real
 time the evolution and growth of projects and the social processes that govern
 their communities.
 
-\section{Current scale and future growth}
+% Scope?
+\section{The world's largest repository of source code}
 
 \subsection{Coverage}
 
-% scale
-% growth
+Software Heritage has a coverage from a wide array of sources thanks to its
+numerous listers and loaders and its extensible framework for adding new data
+sources. The loaders are capable to process and ingest the three most popular
+\gls{VCS} currently in use: Git, Mercurial and SVN\@. They also handle the
+packages of the Linux distributions Debian, Nix and Guix, as well as those from
+the repositories PyPI, CRAN, NPM and Packagist (respectively for the Python, R,
+Javascript and PHP programming languages).
+
+The listers are configured to run on the major code hosting platforms, and the
+archive contains a full copy of Github, Bitbucket, GitLab, SourceForge and the
+GNU project. They also periodically crawl the repositories of hundreds of
+decentralized instances of Phabricator, Gitlab, cgit, Launchpad and Gitea.
+Some of the projects preserved in the archive were also recovered from defunct
+hosting platforms such as Gitorious and Google Code, then loaded as a one-shot
+task, as those sources do not require recurrent listing.
+
+This extensive and far-reaching coverage has implications for research, as it
+allows us to identify heterogenous properties that appear when doing analysis
+across different \gls{VCS} used on different hosting platforms. Finding
+patterns and training models on the Software Heritage archive can be a way to
+ensure robustness and applicability to a diverse mosaic of collaboration and
+development practices.
+
+\subsection{Current scale and future growth}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{../img/swh-size}
+    \caption{Size of the Software Heritage archive as of May 3, 2021}%
+    \label{fig:swh-size}
+\end{figure}
+
+As of May 2021, the archive has ingested more than 10 billion source files from
+156 million software origins. In the \gls{VCS} history, we identified as much
+as 42 million different authors of more than 2.1 billion commits.
+\figref{fig:swh-size} shows the growth of the archive over time in terms of the
+number of source files, commits and projects stored.
+
+Together, these source code files would weigh around 750\,TiB in total.
+However, they are compressed in the main in-house storage, which reduces their
+on-disk size to around half of that.\TODO{more precise number?} The main
+PostgreSQL database that stores the other kinds of data (directory trees,
+development history and origins) weighs around 7\,TiB, including database
+indexes on some fields to allow for more efficient retrieval operations.
+
+The archive is of course expected to grow over time as more and more listers,
+loaders and data sources are added to the crawling process, but maybe more
+importantly because of the natural growth rate of the quantity of code produced
+worldwide over the years. In~\cite{swh-provenance-emse}, Rousseau, Di Cosmo and
+Zacchiroli project this growth using the commit timestamps over a period of
+more than 40 years, and find that the amount of commits in public source code
+doubles every $\approx 30$ months, while the number of unique source code files
+doubles every $\approx 22$ months. Zacchiroli further
+confirmed~\cite{ieee-sw-gender-swh} this exponential trend while studying
+historical gender differences in public software development.
+
+The massive scale of the archive as well as its projected growth in the
+foreseeable future highlights the architectural need for large scale
+infrastructures to collect, store, analyze and make the data accessible to
+researchers. This has a key implication taken into account throughout this
+thesis, that designs of research platforms should precautiously take that
+growth into account and aim to be as scalable as possible to be sustainable in
+the long term.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{../img/commit-growth}
+    \caption{Total number of yearly commits, increasing
+    exponentially~\cite{ieee-sw-gender-swh}}%
+    \label{fig:swh-commit-growth}
+\end{figure}

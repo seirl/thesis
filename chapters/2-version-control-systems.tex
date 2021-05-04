@@ -13,6 +13,80 @@ This chapter describes a generic model for how data is stored in most
 \gls{VCS}; it is very close to Git, the most popular of these systems, while
 being abstract enough to be independent of any specific implementation.
 
-\section{Files and directories}
+\section{A simple code repository model}
 
+\subsection{Files and directories}
 
+The fundamental elements in a source code repository are, naturally, source
+code files. Developers tend to organize their code in different logical units
+that are then hierarchized in different levels of directories. At the lowest
+granularity, programmers write \emph{functions} that perform a specific task or
+computation. A \emph{source code file} is generally a collection of
+conceptually related functions, put together as a single logical unit. Source
+files that define the behavior of a logically distinct component of a program
+are also often logically grouped in the same directory, sometimes called a
+\emph{module} or \emph{package}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{.40\textwidth}
+        \dirtree{%
+            .1 /.
+                .2 README.txt.
+                .2 src.
+                    .3 evalexpr.c.
+                    .3 parser.
+                        .4 ast.c.
+                        .4 parser.c.
+                        .4 lexer.c.
+                .2 tests.
+                    .3 eval.c.
+                    .3 operands.c.
+        }
+        \caption{Directory listing}
+        \label{fig:vcs-dir-flat}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{.58\textwidth}
+        \centering
+        \input{../tikz/figures/dir-tree.tikz}
+        \caption{Represented as a tree structure}%
+        \label{fig:vcs-dir-tree}
+    \end{subfigure}
+    \caption{Example of a directory hierarchy for a code repository}
+    \label{fig:vcs-dir-project}
+\end{figure}
+
+The example in \figref{fig:vcs-dir-flat} illustrates a file hierarchy for a
+project meant to evaluate simple mathematic expressions. There is always one
+root directory containing the entire project, that we represent with a slash.
+At the root level, there is a README file, a directory containing C
+source code files with some of them organized in a parser module, and a test
+directory containing tests also written in C.
+
+The file hierarchy in this example project can naturally be conceptualized as a
+tree data structure, by representing the directories and the file contents as
+the vertices, with their respective names on the edges. The resulting tree is
+shown in \figref{fig:vcs-dir-tree}.
+
+\subsection{Commits}
+
+The concept of \acrlong{VCS} arose from the need of keeping track of the
+changes happening in the code. This ability is critically important for
+software systems, as it allows potentially erroneous changes to be reverted
+without having to remember what the previous behavior used to be. Besides, the
+ability to retain institutional knowledge on a codebase by having the
+possibility to look up past source code changes was very valuable.
+
+Traditionally, this ``versioning'' could be done by simply copying the software
+source tree to a new directory for each new version and keeping the old
+versions as archives of the past state of the code. This manual process is
+generally tedious and discourages small incremental changes, because of how
+convoluted it generally is to create an entire new source tree. It also hinders
+collaboration between developers, who have to exchange work in progress source
+files and can easily lose track of which version they are working on.
+
+However, this basic concept of keeping track of "snapshots" of how the source
+tree used to look like at different points in time was a key design insight in
+the development of most modern \gls{VCS}. They introduce the notion of
+``commits'', which we can conceptualize as a chain of frozen past states of a
+source tree that were recorded at various points in time during development.

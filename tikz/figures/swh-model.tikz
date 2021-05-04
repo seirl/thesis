@@ -1,0 +1,47 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=origin] (0) at (1, 1.25) {B};
+		\node [style=origin] (42) at (-0.60, 1.25) {A};
+		\node [style=revision] (2) at (2, -1) {};
+		\node [style=directory] (9) at (2, -2) {};
+		\node [style=directory] (10) at (1, -2) {};
+		\node [style=revision] (11) at (1, -1) {};
+		\node [style=revision] (12) at (0, -1) {};
+		\node [style=directory] (14) at (1.5, -3) {};
+		\node [style=directory] (15) at (0.5, -3) {};
+		\node [style=content] (16) at (1.5, -4) {};
+		\node [style=content] (17) at (2.25, -4) {};
+		\node [style=content] (18) at (0.75, -4) {};
+		\node [style=content] (19) at (0, -4) {};
+		\node [style=release] (20) at (1, 0) {};
+		\node [style=snapshot] (21) at (2, 0.5) {};
+		\node [style=snapshot] (22) at (0, 0.5) {};
+		\node [text width=3cm] (23) at (4.5, 1.25) {repositories};
+		\node [text width=3cm] (24) at (4.5, 0.5) {snapshots};
+		\node [text width=3cm] (25) at (4.5, 0) {releases};
+		\node [text width=3cm] (26) at (4.5, -1) {commits};
+		\node [text width=3cm] (27) at (4.5, -2.5) {directories};
+		\node [text width=3cm] (28) at (4.5, -4) {blobs};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (11) to (12);
+		\draw [style=arrow] (2) to (11);
+		\draw [style=arrow] (11) to (10);
+		\draw [style=arrow] (2) to (9);
+		\draw [style=arrow] (12) to (15);
+		\draw [style=arrow] (10) to (15);
+		\draw [style=arrow] (10) to (14);
+		\draw [style=arrow] (9) to (14);
+		\draw [style=arrow] (15) to (19);
+		\draw [style=arrow] (15) to (18);
+		\draw [style=arrow] (14) to (16);
+		\draw [style=arrow] (14) to (17);
+		\draw [style=arrow] (20) to (11);
+		\draw [style=arrow] (21) to (2);
+		\draw [style=arrow] (21) to (20);
+		\draw [style=arrow] (0) to (21);
+		\draw [style=arrow] (0) to (22);
+		\draw [style=arrow] (22) to (12);
+		\draw [style=arrow] (42) to (22);
+	\end{pgfonlayer}
+\end{tikzpicture}

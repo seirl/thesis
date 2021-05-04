@@ -1,0 +1,125 @@
+\makeatletter
+\pgfkeys{/tikz/.cd,
+  tab height/.initial=3pt,
+  tab width/.initial=10pt,
+  tab slope/.initial=1.5pt,
+  cover xoff/.initial=5pt,
+  cover yoff/.initial=2pt,
+}
+%% Note: use '\setlength{\pgf@xd}{\pgf@xb}' rather than '\pgf@xd=\pgf@xb'
+%% ??? for some reason \pgf@ytt etc. didn't work, but \pgf@ytt does
+\newlength\pgf@ytt
+\newlength\pgf@xe
+\newlength\pgf@xf
+\newlength\pgf@xg
+\newlength\pgf@yg
+\newlength\pgf@xh
+%% this didn't work
+\newlength\pgf@xo  %% note: \pgf@xx is pre-defined by pgf to mean something
+
+%% from 95.2 Communicating with the Basic Layer via Macros
+% \newdimen\pgf@xta \newdimen\pgf@xtb \newdimen\pgf@ytt
+% \newdimen\pgf@xoa \newdimen\pgf@xob \newdimen\pgf@yoo
+\pgfdeclareshape{document}{ % or 'directory'
+  %% this is nearly a rectangle
+  \inheritsavedanchors[from=rectangle]
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+
+  \savedmacro\tabheight{%
+    \edef\tabheight{\pgfkeysvalueof{/tikz/tab height}}%
+  }
+  \savedmacro\tabwidth{%
+    \edef\tabwidth{\pgfkeysvalueof{/tikz/tab width}}%
+  }
+  \savedmacro\tabslope{%
+    \edef\tabslope{\pgfkeysvalueof{/tikz/tab slope}}%
+  }
+  \savedmacro\coverxoff{%
+    \edef\coverxoff{\pgfkeysvalueof{/tikz/cover xoff}}%
+  }
+  \savedmacro\coveryoff{%
+    \edef\coveryoff{\pgfkeysvalueof{/tikz/cover yoff}}%
+  }
+  %% this didn't work; probably needs \pgf@process somewhere...
+  % \setlength{\pgf@xo}{\coverxoff}
+  % \setlength{\pgf@xo}{0.5\pgf@xo}
+
+  %% this didn't work either
+  % \setlength{\pgf@xo}{2pt}
+  % \advance\pgf@xo by \coverxoff\relax
+
+  %% this didn't work either
+  % \pgf@xx=0pt
+  % \advance\pgf@xx by \coverxoff\relax
+  % \pgf@xx=0.5\pgf@xx
+
+  %% fallback, so this at least compile
+  %% but moves text, because \pgf@xx is sed for node contents positioning
+  % \pgf@xx=2pt % this should be 0.5 of \coverxoff
+
+  % \inheritanchor[from=rectangle]{west}
+  \anchor{west}{
+    \pgf@process{\northeast}%
+    \pgf@ya=.5\pgf@y%
+    \pgf@process{\southwest}%
+    \pgf@y=.5\pgf@y%
+    % \advance\pgf@y by  \pgf@ya%
+    % \advance\pgf@x by -2pt%
+  }
+  % \inheritanchor[from=rectangle]{east}
+  \anchor{east}{%
+    \pgf@process{\southwest}%
+    \pgf@ya=.5\pgf@y%
+    \pgf@process{\northeast}%
+    \pgf@y=.5\pgf@y%
+    % \advance\pgf@y by  \pgf@ya%
+    % \advance\pgf@x by  2pt%
+  }
+  \backgroundpath{% this is new
+    %% store lower left in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    %% correction due to open front cover
+    % \advance\pgf@xa by -2pt
+    % \advance\pgf@xb by -2pt
+    %%
+    %% compute edges of the "divider tab" in the back cover
+    %%
+    \setlength{\pgf@ytt}{\pgf@yb}
+    \advance\pgf@ytt by \tabheight
+    \setlength{\pgf@xe}{\pgf@xa}
+    \advance\pgf@xe by \tabwidth % or make it dependent on box width
+    \setlength{\pgf@xf}{\pgf@xe}
+    \advance\pgf@xf by \tabslope % or make it dependent on divider height
+    %%
+    %% compute edges of second cover of a folder ("open" cover)
+    %%
+    \setlength{\pgf@xg}{\pgf@xa}
+    \advance\pgf@xg by \coverxoff % perhaps as an angle of open
+    \setlength{\pgf@xh}{\pgf@xb}
+    \advance\pgf@xh by \coverxoff
+    \setlength{\pgf@yg}{\pgf@yb}
+    \advance\pgf@yg by-\coveryoff % perhaps as an angle of open
+    %%
+    %% construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ytt}}
+    \pgfpathlineto{\pgfpoint{\pgf@xe}{\pgf@ytt}}
+    \pgfpathlineto{\pgfpoint{\pgf@xf}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}} % break for open cover
+    \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    % \pfgpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}} % ??? causes error ???
+    \pgfpathclose
+    %% construct secondary path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    % \pgfpathlineto{\pgfpoint{\pgf@xg}{\pgf@yg}}
+    % \pgfpathlineto{\pgfpoint{\pgf@xh}{\pgf@yg}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+  }
+}
+\makeatother

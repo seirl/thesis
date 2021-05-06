@@ -7,13 +7,13 @@ source code trees, development history and hosting data stored in the archive.
 In the next chapter, we will look at how the Software Heritage data model is a
 graph built on the relationships between software artifacts. However, to better
 grasp this model, it is good to first get a better understanding of how
-software artifacts are captured in the data model of traditional \gls{VCS}.
+these objects are captured in the data model of traditional \gls{VCS}.
 
 This chapter describes a generic model for how data is stored in most
 \gls{VCS}; it is very close to Git, the most popular of these systems, while
 being abstract enough to be independent of any specific implementation.
 
-\section{A simple code repository model}
+\section{A simple repository model}
 
 \subsection{Files and directories}
 
@@ -32,7 +32,6 @@ are also often logically grouped in the same directory, sometimes called a
     \begin{subfigure}[b]{.40\textwidth}
         \dirtree{%
             .1 /.
-                .2 README.txt.
                 .2 src.
                     .3 evalexpr.c.
                     .3 parser.
@@ -43,50 +42,171 @@ are also often logically grouped in the same directory, sometimes called a
                     .3 eval.c.
                     .3 operands.c.
         }
-        \caption{Directory listing}
+        \caption{Directory listing.}
         \label{fig:vcs-dir-flat}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{.58\textwidth}
         \centering
         \input{../tikz/figures/dir-tree.tikz}
-        \caption{Represented as a tree structure}%
+        \caption{Represented as a tree structure.}%
         \label{fig:vcs-dir-tree}
     \end{subfigure}
-    \caption{Example of a directory hierarchy for a code repository}
+    \caption{Example of a directory hierarchy for a code repository.}
     \label{fig:vcs-dir-project}
 \end{figure}
 
 The example in \figref{fig:vcs-dir-flat} illustrates a file hierarchy for a
 project meant to evaluate simple mathematic expressions. There is always one
 root directory containing the entire project, that we represent with a slash.
-At the root level, there is a README file, a directory containing C
-source code files with some of them organized in a parser module, and a test
-directory containing tests also written in C.
+At the root level, there is a directory containing C source code files, with
+some of them organized in a ``parser'' module, and a test directory containing
+tests also written in C.
 
-The file hierarchy in this example project can naturally be conceptualized as a
+The file hierarchy in this example project can naturally be visualized as a
 tree data structure, by representing the directories and the file contents as
 the vertices, with their respective names on the edges. The resulting tree is
 shown in \figref{fig:vcs-dir-tree}.
 
-\subsection{Commits}
+\subsection{Revisions}
 
-The concept of \acrlong{VCS} arose from the need of keeping track of the
+The concept of \acrlong{VCS} arose from a need to keep track of the
 changes happening in the code. This ability is critically important for
 software systems, as it allows potentially erroneous changes to be reverted
-without having to remember what the previous behavior used to be. Besides, the
+without having to recall or reconstruct the previous behavior. Furthermore, the
 ability to retain institutional knowledge on a codebase by having the
-possibility to look up past source code changes was very valuable.
+possibility to look up past source code changes is very valuable.
 
 Traditionally, this ``versioning'' could be done by simply copying the software
-source tree to a new directory for each new version and keeping the old
-versions as archives of the past state of the code. This manual process is
-generally tedious and discourages small incremental changes, because of how
-convoluted it generally is to create an entire new source tree. It also hinders
-collaboration between developers, who have to exchange work in progress source
-files and can easily lose track of which version they are working on.
+source tree to a new directory for each new version and keeping around the old
+versions as archives of the past state of the code. Generally, creating an
+entire new source tree is convoluted, making this manual process tedious and
+discouraging small incremental changes. In addition, it also hinders
+collaboration between developers, who have to exchange the source files they
+are working on and can easily lose track of which version they are developing
+on.
 
-However, this basic concept of keeping track of "snapshots" of how the source
-tree used to look like at different points in time was a key design insight in
-the development of most modern \gls{VCS}. They introduce the notion of
-``commits'', which we can conceptualize as a chain of frozen past states of a
-source tree that were recorded at various points in time during development.
+However, this basic concept of keeping track of "snapshots" of what the source
+tree used to be at different points in time was a key design insight in the
+development of most modern \gls{VCS}. They introduce the notion of
+\emph{revisions}, which can be conceptualized as a chain of frozen past states
+of a source tree that were recorded at various points in time during
+development. In some systems, these successive states are known are
+\emph{commits}, or sometimes \emph{changesets}, but they all refer to the same
+abstract concept.
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/rev-chain-example.tikz}
+    \caption{Three revisions in the example repository, forming a chain of
+    past states of the source tree.}%
+    \label{fig:vcs-rev-chain-example}
+\end{figure}
+
+\figref{fig:vcs-rev-chain-example} shows three successive states of the source
+tree from our example repository, recorded as three different revisions. The
+revisions all point to a full copy of the source tree, exactly as it was when its
+state was ``frozen''. Each revision also contains a reference to the revision
+immediately preceding itself, as a way to keep track of the order in which the
+changes were made.\footnote{Note that, somewhat confusingly, this implies that
+the arrows are in the opposite direction of time: each revision holds a
+reference to its \emph{previous} revision, and thus points towards the
+\emph{past}.} By iteratively walking the chain of parents from a given revision,
+it is thus possible to visit all the previous states of the repository on which
+this revision was based.
+
+Along with its source tree and a reference to its parent, a revision also
+typically contains additional metadata: the \emph{date and time} at which it
+was created, its \emph{author}, and a \emph{message} describing the changes it
+introduced since the last state of the code. Retaining this information
+directly in the \gls{VCS} allows to precisely track down when a given change
+was made, who authored the change and the rationale given for it. Most systems
+expose this information in two ways: as a \emph{log}, where one can look at an
+ordered list of all the changes that were made to the source tree (or even a
+specific file or sub-directory), and through an \emph{annotate} (or
+\emph{blame}) command that shows the revision in which each line of a given
+file was modified for the last time.
+
+\subsection{Branching and merging}
+
+A crucial challenge in collaborative software development is that the changes
+generally do not happen in a linear fashion. To efficiently share tasks amongst
+multiple people, development teams need the ability to work on the codebase
+simultaneously, which requires having several versions of the repository in
+parallel. In a \gls{VCS}, this is typically achieved through \emph{branching}:
+from a single revision, developers can create multiple states of the repository
+that can be modified separately and in parallel, which splits the revision
+chain.  Generally, developers working on different branches will then attempt
+to integrate their respective changes to the main codebase by \emph{merging}
+them.  This merging operation combines the split chains back into a single
+state, called a \emph{merge revision}.
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/rev-branching-merging.tikz}
+    \caption{Branching and merging.}%
+    \label{fig:vcs-rev-branching-merging}
+\end{figure}
+
+\figref{fig:vcs-rev-branching-merging} shows an example of branching and
+merging in a revision history.  As can be seen on the merge revision, this
+concept extends the simple model introduced above by allowing revisions to
+refer to multiple parent revisions as a way to support merging.
+
+When working with multiple revision chains in parallel, it is useful to give
+them a name to keep track of their purpose. For that, we can use
+\emph{branch} objects, which are simple references to the tip of a revision
+chain and which get automatically updated when new revisions are added to it.
+
+In most simple development workflows, developers tend to always keep a main
+branch that is long-lived and reflects the current state of the project, and
+various kinds of additional ``topic'' branches which contain features that are
+currently being worked on in parallel. \figref{fig:vcs-rev-branches} shows an
+example of three branches pointing to different revision chains. Note that
+since branches are just pointers, there is no obvious notion of a revision
+\emph{belonging} to a specific branch, but rather revisions are
+\emph{accessible} from one or even several branches.
+
+\begin{figure}[b]
+    \centering
+    \input{../tikz/figures/rev-branches.tikz}
+    \caption{Feature branches keeping track of parallel revision chains.}%
+    \label{fig:vcs-rev-branches}
+\end{figure}
+
+\subsection{Releases}
+
+Some revisions in the development history are particularly important because
+they represent specific milestones in the history of a software. This is often
+the case for \emph{software releases}, where the software is distributed to
+its users as part of its release cycle, usually being given a numbered version
+like ``\texttt{v2.4.3}''.
+
+To be able to refer to these special revisions using mnemonic names like the
+software versions themselves, \gls{VCS} allow developers to add named markers,
+or \emph{tags}, to some revisions.
+While branches already provide a way to refer to a specific revision by a
+mnemonic name, they are by nature dynamic and ever-changing, as adding more
+revisions to a branch will change the tip of the branch and thus the revision
+the branch is pointing to. In contrast, \emph{releases} are static and always
+refer to one specific commit.
+\figref{fig:vcs-rel-example} shows an example of two releases as first-class
+objects in the development history that point to specific revisions.
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/rel-example.tikz}
+    \caption{Example of a development history with two revisions tagged as
+    \emph{releases}, each corresponding to a new version of the software.}%
+    \label{fig:vcs-rel-example}
+\end{figure}
+
+Similarly to revisions, but unlike branch names which are just hollow named
+references, releases can also contain additional metadata: the \emph{date} at
+which they were created, the \emph{author} of the release, and a \emph{message}
+describing the release.
+
+While releases and branches are typically meant to point to revisions, the data
+model of some \gls{VCS} also support the possibility of making them reference
+other objects, like files and directories. While this is a generally rare
+occurrence, there are some examples of this happening in the wild, and our
+data model should accommodate for that possibility.

@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=revision] (0) at (0, 0) {};
+		\node [style=revision] (1) at (2, 0) {};
+		\node [style=revision] (2) at (4, 0) {};
+		\node [style=revision] (3) at (6, 0) {};
+		\node [style=revision] (4) at (8, 0) {};
+		\node [style=revision] (7) at (3, -1) {};
+		\node [style=revision] (8) at (5, -1) {};
+		\node [style=branch] (10) at (10, 2) {main};
+		\node [style=revision] (12) at (7, -1) {};
+		\node [style=revision] (13) at (10, 0) {};
+		\node [style=revision] (14) at (6, -2) {};
+		\node [style=revision] (15) at (8, -2) {};
+		\node [style=release, label={\textbf{v2.0}}] (16) at (8, 2) {};
+		\node [style=release, label={\textbf{v1.0}}] (17) at (4, 2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (1) to (0);
+		\draw [style=arrow] (2) to (1);
+		\draw [style=arrow] (3) to (2);
+		\draw [style=arrow] (4) to (3);
+		\draw [style=arrow] (8) to (7);
+		\draw [style=arrow] (12) to (8);
+		\draw [style=arrow] (4) to (12);
+		\draw [style=arrow] (7) to (1);
+		\draw [style=dashed arrow] (10) to (13);
+		\draw [style=arrow] (13) to (4);
+		\draw [style=arrow] (14) to (8);
+		\draw [style=arrow] (15) to (14);
+		\draw [style=dashed arrow] (16) to (4);
+		\draw [style=dashed arrow] (17) to (2);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1,0 +1,49 @@
+\begin{tikzpicture}[scale=1.5, font={\small}]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=directory] (10) at (2, -1.5) {};
+		\node [style=directory] (14) at (2, -2.25) {};
+		\node [style=content] (16) at (2, -3) {};
+		\node [style=content] (17) at (2.5, -3) {};
+		\node [style=content] (18) at (1.5, -3) {};
+		\node [style=content] (19) at (1.25, -2.25) {};
+		\node [style=directory] (20) at (2, -0.75) {};
+		\node [style=revision, label={[align=center]\textbf{Second revision} \\ Add parser}] (23) at (2, 0) {};
+		\node [style=revision, label={[align=center]\textbf{Third revision} \\ Add tests}] (24) at (5, 0) {};
+		\node [style=directory] (25) at (5.5, -1.5) {};
+		\node [style=directory] (26) at (4.5, -1.5) {};
+		\node [style=directory] (27) at (4.5, -2.25) {};
+		\node [style=content] (28) at (4.5, -3) {};
+		\node [style=content] (29) at (5, -3) {};
+		\node [style=content] (30) at (4, -3) {};
+		\node [style=content] (31) at (3.75, -2.25) {};
+		\node [style=directory] (32) at (5, -0.75) {};
+		\node [style=content] (33) at (5.25, -2.25) {};
+		\node [style=content] (34) at (5.75, -2.25) {};
+		\node [style=revision, label={[align=center]\textbf{First revision} \\ Initial prototype}] (35) at (-1, 0) {};
+		\node [style=directory] (36) at (-1, -0.75) {};
+		\node [style=content] (37) at (-1, -1.5) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (10) to (14);
+		\draw [style=arrow] (14) to (16);
+		\draw [style=arrow] (14) to (17);
+		\draw [style=arrow] (20) to node [above, sloped] {\tiny src} (10);
+		\draw [style=arrow] (10) to (19);
+		\draw [style=arrow] (14) to (18);
+		\draw [style=arrow] (23) to (20);
+		\draw [style=arrow] (24) to (23);
+		\draw [style=arrow] (26) to (27);
+		\draw [style=arrow] (27) to (28);
+		\draw [style=arrow] (27) to (29);
+		\draw [style=arrow] (32) to node [above, sloped] {\tiny src} (26);
+		\draw [style=arrow] (32) to node [above, sloped] {\tiny tests} (25);
+		\draw [style=arrow] (26) to (31);
+		\draw [style=arrow] (27) to (30);
+		\draw [style=arrow] (25) to (33);
+		\draw [style=arrow] (25) to (34);
+		\draw [style=arrow] (24) to (32);
+		\draw [style=arrow] (23) to (35);
+		\draw [style=arrow] (35) to (36);
+		\draw [style=arrow] (36) to (37);
+	\end{pgfonlayer}
+\end{tikzpicture}

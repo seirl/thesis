@@ -210,3 +210,128 @@ model of some \gls{VCS} also support the possibility of making them reference
 other objects, like files and directories. While this is a generally rare
 occurrence, there are some examples of this happening in the wild, and our
 data model should accommodate for that possibility.
+
+\section{Artifact deduplication}
+
+The simple repository model we described is general enough to represent the
+data stored in the majority of \acrlong{VCS}, both at the level of the files
+and directories that constitute the source tree, and at the level of the
+development history by capturing the successive states of this source tree over
+time.
+
+One immediately apparent issue that arises when trying to implement this model
+in a naive way is the sheer amount of \emph{duplication} of identical data
+across revisions: creating a new revision for a single line change duplicates
+the entire source tree and all the files it contains. This drawback goes
+opposite to one of the goal of modern \gls{VCS}, which is to encourage a high
+granularity of development history to isolate every logical change in a
+separate revision.
+
+However, it is possible to integrate \emph{deduplication} in the model as a way
+to reduce its footprint. This section details how we can leverage cryptographic
+hash functions to achieve deduplication at the level of single objects and
+entire subtrees.
+
+\subsection{Cryptographic hash functions}
+
+The basic primitive used for deduplication in many \gls{VCS} are
+\emph{cryptographic hash functions}: mathematical algorithms that can map
+arbitrary data into a single fixed-length virtually unique identifier. By
+computing the identifier, or \emph{hash}, of each object, it is possible to
+check when two objects are identical very quickly by simply comparing their
+hashes. Because they have a fixed length, comparing two hashes is an operation
+with a time complexity of $O(1)$.
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \node [
+                shape=rectangle, draw=black, align=left, font=\tiny,
+                label={[above]Input text}
+            ] (input) at (0, 0)
+                {%
+                    L'argoumante était églomatique et s'impliquait \\
+                    beaucoup plus qu'à l'exparité. Le plus déjà se \\
+                    plussissait. Plus qu'à l'exparité s'étrangent et se \\
+                    consument les pregmes endiablés de la légume.
+            };
+
+            \node [
+                shape=ellipse, draw=black, align=left, fill=blue!20,
+                label={[above,align=center]Cryptographic \\ hash function}
+            ] (hash) at (5.5, 0) {SHA-256};
+
+            \node [
+                shape=rectangle, draw=black, align=center, font=\footnotesize,
+                label={[above]Result hash}
+            ] (output) at (10, 0) {
+                % \texttt{7a50e30ada8f09b2}%
+                % \texttt{24d348d314de4c09} \\
+                % \texttt{ae0ebcb443334442}%
+                % \texttt{70cc832ebfc6bc0c}
+
+                \texttt{7a50e30ada8f09b224d34} \\
+                \texttt{8d314de4c09ae0ebcb443} \\
+                \texttt{33444270cc832ebfc6bc0c}
+            };
+
+            \draw[->, >=Stealth] (input) to (hash);
+            \draw[->, >=Stealth] (hash) to (output);
+        \end{tikzpicture}
+    \end{center}
+    \caption{A cryptographic hash function converts data of arbitrary size to a
+    fixed-length and virtually unique identifier.}%
+    \label{fig:}
+\end{figure}
+
+Due to the pigeonhole principle, the identifiers cannot be truly unique. If the
+resulting hash is 256 bits long, there must be at least one \emph{collision}
+in a set of $2^256+1$ elements, that is, at least two elements must have the
+same hash. For sufficiently large hash sizes however, assuming the hash
+function is resistant to cryptanalytic attacks, it is in practice impossible to
+generate a collision as it would require inordinate amounts of time and
+computing power, and we can thus be confident that no such collisions exist.
+Finding a collision in a 256 bit collision resistant cryptographic hash
+function would take more than 2600 times the lifespan of the universe.
+
+In some cases, the hash functions can have weaknesses that are exploited by
+cryptanalytic attacks. This is the case of SHA-1, the hash function used by
+default as a deduplication method for Git, where a collision was found in
+2017~\cite{stevens2017first}.
+Various methods can be deployed to reduce susceptibility to these collision
+attacks, including detecting and rejecting payloads designed to produce
+collisions, or migrating to more secure hash functions. In this thesis, we
+always assume that cryptographic hash functions map to a single unique
+identifier and discard the possibility of collisions.
+
+\subsection{Deduplicating single files}
+
+Armed with cryptographic hashes, it becomes relatively easy to deduplicate the
+identical files that get copied between each revision. We systematically
+compute the hash of each file and only store them once. If a new directory
+references a file with a hash that has already been stored, instead of storing
+the file again, the directory just references the file that is already in the
+storage.
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/deduplicate-contents.tikz}
+    \caption{Deduplication of files with identical hashes. The transparent
+    files are detected as duplicate objects, removed and replaced by a pointer
+    to the already existing objects (red arrows).}%
+    \label{fig:deduplicate-contents}
+\end{figure}
+
+\figref{fig:deduplicate-contents} shows an example of deduplication at the file
+level, based on the example repository shown in
+\figref{fig:vcs-rev-chain-example}. The \gls{VCS} computes the hash of each
+file (for simplicity purposes, hashes are represented as single letters). As
+more revisions are added to the repository, the multiple states of the source
+tree will tend to reference files that have already been stored in the system.
+Because the hash of these files will match the hash of the previous files, they
+will get deduplicated and only stored once. Here, the file with hash A is
+present in three different directories and the files with hashes B, C and D are
+present in two different directories, but these directories all reference the
+same unique objects.
+
+\subsection{Deduplicating subtrees}

@@ -7,13 +7,13 @@
 \tikzstyle{origin}=[fill=white, draw=black, shape=cloud, tikzit fill={rgb,255: red,0; green,166; blue,255}]
 \tikzstyle{revision}=[fill={rgb,255: red,230; green,242; blue,242}, draw=black, shape=regular polygon, regular polygon sides=3, minimum width=20pt, inner sep=0pt]
 \tikzstyle{directory}=[fill={rgb,255: red,218; green,219; blue,231}, draw=black, shape=document, tab width=6pt, tab height=2pt, minimum width=14pt, minimum height=8pt]
-\tikzstyle{content}=[fill={rgb,255: red,198; green,192; blue,193}, draw=black, shape=cylinder, shape border rotate=90, minimum width=12pt, minimum height=13pt]
+\tikzstyle{content}=[fill={rgb,255: red,198; green,192; blue,193}, draw=black, shape=cylinder, shape border rotate=90, minimum width=12pt, minimum height=13pt, aspect=0.30]
 \tikzstyle{release}=[fill={rgb,255: red,255; green,252; blue,204}, draw=black, shape=star]
 \tikzstyle{snapshot}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9]
 \tikzstyle{branch}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9, dashed]
 
 % Edge styles
-\tikzstyle{arrow}=[-Stealth, thick]
+\tikzstyle{arrow}=[->, >=Stealth, thick]
 \tikzstyle{cluster}=[-, draw=gray, smooth, dashed]
-\tikzstyle{red arrow}=[draw=red, -Stealth, thick]
-\tikzstyle{dashed arrow}=[dashed, -Stealth, draw=black]
+\tikzstyle{red arrow}=[draw={red!60}, ->, >=Stealth, thick, tikzit draw=red]
+\tikzstyle{dashed arrow}=[dashed, ->, >=Stealth, draw=black]

@@ -1,5 +1,5 @@
 % add 'draft' to enable draft option on (see below)
-\documentclass[a4paper,11pt,openbib]{memoir}
+\documentclass[a4paper,11pt,openbib,draft]{memoir}
 
 \input{header/packages}
 \input{header/style}
@@ -9,9 +9,10 @@
 
 % Draft
 \ifdraftdoc
-    \usepackage{draftwatermark}
+    \usepackage[colorspec=0.9]{draftwatermark}
     \SetWatermarkScale{0.3}
     \SetWatermarkText{\bf Draft: \today}
+    \setkeys{Gin}{draft=false}  % Display images in draft mode
 \fi
 
 \begin{document}

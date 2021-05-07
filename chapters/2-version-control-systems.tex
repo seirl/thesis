@@ -7,10 +7,10 @@ source code trees, development history and hosting data stored in the archive.
 In the next chapter, we will look at how the Software Heritage data model is a
 graph built on the relationships between software artifacts. However, to better
 grasp this model, it is good to first get a better understanding of how
-these objects are captured in the data model of traditional \gls{VCS}.
+these objects are captured in the data model of traditional \glspl{VCS}.
 
 This chapter describes a generic model for how data is stored in most
-\gls{VCS}; it is very close to Git, the most popular of these systems, while
+\glspl{VCS}; it is very close to Git, the most popular of these systems, while
 being abstract enough to be independent of any specific implementation.
 
 \section{A simple repository model}
@@ -18,8 +18,8 @@ being abstract enough to be independent of any specific implementation.
 \subsection{Files and directories}
 
 The fundamental elements in a source code repository are, naturally, source
-code files. Developers tend to organize their code in different logical units
-that are then hierarchized in different levels of directories. At the lowest
+code files. Developers tend to organize their code in several logical units
+that are then hierarchized in multiple levels of directories. At the lowest
 granularity, programmers write \emph{functions} that perform a specific task or
 computation. A \emph{source code file} is generally a collection of
 conceptually related functions, put together as a single logical unit. Source
@@ -56,7 +56,7 @@ are also often logically grouped in the same directory, sometimes called a
 \end{figure}
 
 The example in \figref{fig:vcs-dir-flat} illustrates a file hierarchy for a
-project meant to evaluate simple mathematic expressions. There is always one
+project meant to evaluate simple mathematical expressions. There is always one
 root directory containing the entire project, that we represent with a slash.
 At the root level, there is a directory containing C source code files, with
 some of them organized in a ``parser'' module, and a test directory containing
@@ -80,14 +80,13 @@ Traditionally, this ``versioning'' could be done by simply copying the software
 source tree to a new directory for each new version and keeping around the old
 versions as archives of the past state of the code. Generally, creating an
 entire new source tree is convoluted, making this manual process tedious and
-discouraging small incremental changes. In addition, it also hinders
-collaboration between developers, who have to exchange the source files they
-are working on and can easily lose track of which version they are developing
-on.
+discouraging small incremental changes. In addition, it hinders collaboration
+between developers, who have to exchange work in progress source files and can
+easily lose track of which version they are developing on.
 
-However, this basic concept of keeping track of "snapshots" of what the source
-tree used to be at different points in time was a key design insight in the
-development of most modern \gls{VCS}. They introduce the notion of
+However, this basic concept of keeping track of "snapshots" of the state of the
+source tree at different points in time was a key design insight in the
+development of most modern \glspl{VCS}. They introduce the notion of
 \emph{revisions}, which can be conceptualized as a chain of frozen past states
 of a source tree that were recorded at various points in time during
 development. In some systems, these successive states are known are
@@ -118,11 +117,11 @@ Along with its source tree and a reference to its parent, a revision also
 typically contains additional metadata: the \emph{date and time} at which it
 was created, its \emph{author}, and a \emph{message} describing the changes it
 introduced since the last state of the code. Retaining this information
-directly in the \gls{VCS} allows to precisely track down when a given change
-was made, who authored the change and the rationale given for it. Most systems
-expose this information in two ways: as a \emph{log}, where one can look at an
-ordered list of all the changes that were made to the source tree (or even a
-specific file or sub-directory), and through an \emph{annotate} (or
+directly in the \gls{VCS} allows one to precisely track down when a given
+change was made, who authored the change and the rationale given for it. Most
+systems expose this information in two ways: as a \emph{log}, where one can
+look at an ordered list of all the changes that were made to the source tree
+(or even a specific file or sub-directory), and through an \emph{annotate} (or
 \emph{blame}) command that shows the revision in which each line of a given
 file was modified for the last time.
 
@@ -182,12 +181,12 @@ its users as part of its release cycle, usually being given a numbered version
 like ``\texttt{v2.4.3}''.
 
 To be able to refer to these special revisions using mnemonic names like the
-software versions themselves, \gls{VCS} allow developers to add named markers,
+software versions themselves, \glspl{VCS} allow developers to add named markers,
 or \emph{tags}, to some revisions.
 While branches already provide a way to refer to a specific revision by a
 mnemonic name, they are by nature dynamic and ever-changing, as adding more
 revisions to a branch will change the tip of the branch and thus the revision
-the branch is pointing to. In contrast, \emph{releases} are static and always
+to which the branch points. In contrast, \emph{releases} are static and always
 refer to one specific revision.
 \figref{fig:vcs-rel-example} shows an example of two releases as first-class
 objects in the development history that point to two specific revisions.
@@ -201,16 +200,16 @@ objects in the development history that point to two specific revisions.
     \label{fig:vcs-rel-example}
 \end{figure}
 
-As with revisions, but unlike branch names which are just hollow named
+As with revisions, but unlike branch names which are just shallow named
 references, releases can also contain additional metadata: the \emph{date} at
 which they were created, the \emph{author} of the release, and a \emph{message}
 describing the release.
 
 While releases and branches are typically meant to point to revisions, the data
-model of some \gls{VCS} also support the possibility of making them reference
-other objects, like files and directories. While this is a generally rare
-occurrence, there are some examples of this happening in the wild, and our
-data model should accommodate for that possibility.
+model of some \glspl{VCS} also support the possibility of making them reference
+other objects, such as files and directories. While this is a generally rare
+occurrence, there are some examples of this happening in real-world
+repositories, and our data model should accommodate for that possibility.
 
 \section{Artifact deduplication}
 
@@ -221,10 +220,10 @@ development history by capturing the successive states of this source tree over
 time.
 
 One immediately apparent issue that arises when trying to implement this model
-in a naive way is the sheer amount of \emph{duplication} of identical data
+in a naïve way is the sheer amount of \emph{duplication} of identical data
 across revisions: creating a new revision for a single line change duplicates
 the entire source tree and all the files it contains. This drawback goes
-opposite to one of the goal of modern \gls{VCS}, which is to encourage a high
+opposite to one of the goal of modern \glspl{VCS}, which is to encourage a high
 granularity of development history to isolate every logical change in a
 separate revision.
 
@@ -235,7 +234,7 @@ entire subtrees.
 
 \subsection{Cryptographic hash functions}
 
-The basic primitive used for deduplication in many \gls{VCS} are
+The basic primitive used for deduplication in many \glspl{VCS} are
 \emph{cryptographic hash functions}: mathematical algorithms that can map
 arbitrary data into a single fixed-length virtually unique identifier. By
 computing the identifier, or \emph{hash}, of each object, it is possible to
@@ -280,10 +279,9 @@ with a time complexity of $O(1)$.
             \draw[->, >=Stealth] (hash) to (output);
         \end{tikzpicture}
     \end{center}
-    \caption{A cryptographic hash function converts data of arbitrary size to a
-    fixed-length and virtually unique identifier.}%
-    \label{fig:}
-\end{figure}
+    \caption{A cryptographic hash function deterministically converts data of
+    arbitrary size to a fixed-length and virtually unique identifier.}%
+\label{fig:} \end{figure}
 
 Due to the pigeonhole principle, the identifiers cannot be truly unique. If the
 resulting hash is 256 bits long, there must be at least one \emph{collision}
@@ -293,8 +291,8 @@ function is resistant to cryptanalytic attacks, it is in practice impossible to
 generate a collision as it would require inordinate amounts of time and
 computing power, and we can thus be confident that no such collision exists.
 Finding a collision in a 256-bit collision resistant cryptographic hash
-function would take more than 2600~times the lifespan of the universe, which
-means it is impossible for all intents and purposes.
+function would take more than \num{2600}~times the lifespan of the universe,
+rendering it impossible for all intents and purposes.
 
 In some cases, the hash functions can have weaknesses that are exploited by
 cryptanalytic attacks. This is the case of SHA-1, the hash function used by
@@ -310,10 +308,10 @@ single unique identifier and discard the possibility of collisions.
 
 Armed with cryptographic hashes, it becomes relatively easy to deduplicate the
 identical files that get copied between each revision. We systematically
-compute the hash of each file and only store them once. If a new directory
-references a file with a hash that has already been stored, instead of storing
-the file again, the directory just references the file that is already in the
-storage.
+compute the hash of each file and store them only once. If a new directory
+references a file with a hash that has already been stored, the directory
+simply references the file that is already in the storage rather than storing
+the file again.
 
 \begin{figure}
     \centering
@@ -337,3 +335,133 @@ and D are present in two different directories, but these directories all
 reference the same unique objects.
 
 \subsection{Deduplicating subtrees}
+
+While deduplicating the files that remain identical between successive
+revisions significantly reduces the memory impact of the model, each version
+still requires recreating and storing an entire file hierarchy. In a repository
+with $n$ directories, modifying a single file creates $O(n)$ new directories.
+This is quite inefficient, considering that the majority of directories are
+unchanged between the two revisions.
+
+Instead of solely deduplicating files, which are only the leaves of the source
+trees, a better approach could be to deduplicate \emph{shared subtrees}: if a
+node and all its descendants are not modified between two revisions, they
+should not be copied and instead be stored as a single tree.
+
+The challenge of doing so arises from the difficulty of checking whether two
+subtrees are identical, which is typically an operation with a time complexity
+of $O(n)$, as it requires recursively checking that all the descendant of the
+root of the subtree are identical. To improve this, we can instead
+\emph{recursively compute a cryptographic hash} for each directory, that will
+be dependent of the hashes of all its children. Put simply, if a single element
+anywhere in the subtree changes, its hash will also change, which will then
+change the hash of its parent and recursively do so up to the top of the
+subtree.
+
+Using this hashing scheme, if two subtrees have the same hash, it will mean
+that they are entirely identical, from their root down to their leaves. This
+again makes checking the equality of two subtrees a simple hash comparison,
+which has a time complexity of $O(1)$. Because these cryptographic hashes
+can perfectly identify the entire content of a subtree, we call them
+\emph{intrinsic hashes}: in some sense, these hashes are an algorithmic way to
+capture the essential nature of a directory and all its contents.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{.53\textwidth}
+        \centering
+        \input{../tikz/figures/deduplicate-subtrees.tikz}
+        % \caption{TODO}%
+    \end{subfigure}\hfill{\Huge $\rightarrow$}\hfill%
+    \begin{subfigure}{.35\textwidth}
+        \centering
+        \input{../tikz/figures/deduplicated-repo.tikz}
+        % \caption{TODO}%
+    \end{subfigure}
+    \caption{Deduplication of an entire subtree in the example repository. An
+    intrinsic hash is recursively computed for each directory, allowing the
+storage to deduplicate the unmodified ``\texttt{src}'' directory between the
+second and third revisions.}
+    \label{fig:deduplicate-subtree}
+\end{figure}
+
+\figref{fig:deduplicate-subtree} shows this subtree deduplication in action. In
+the same vein as for file deduplication, we now recursively compute the
+intrinsic hash of each object in the source trees. Whenever a new directory has
+to be added, its hash is compared to the hashes of the directories already
+present in the main storage. If a matching hash is found, the new directory is
+deduplicated and replaced by a reference to the already existing directory.
+
+\subsection{Merkle trees and \glspl{DAG}}
+
+The hashing scheme we described is generalized and applied to all the objects
+in the graph of development history, like revisions and tags. All the software
+artifacts will be attributed an intrinsic hash recursively computed from the
+objects it refers to (e.g in the case of revisions, its parents and thus,
+recursively, its descendants). These intrinsic hashes will be the primary
+identifiers of the software artifacts, and guarantee their unicity in the graph
+of the \gls{VCS}.
+
+This technique of building trees identified by a cryptographic hash that is
+recursively dependent on its entire chain of descendants has first been
+described by Merkle~\cite{Merkle}. We call \emph{Merkle tree} or \emph{hash
+tree} a tree in which every node is labelled with the cryptographic hash of a
+data manifest containing its key and the hashes of its child nodes.
+
+In our case, the structure that contains the development history is technically
+not a tree, but a \emph{\gls{DAG}}: a tree can only have one parent node, which
+is not the case if a software artifact is referenced by two other artifacts. We
+thus call this structure a \textbf{Merkle DAG}. Note that it, by definition,
+cannot contain any cycles: because adding a node requires the hash of all its
+children be already known to compute its own hash, a cycle would require
+computing two mutually dependent cryptographic hashes, which is at least as
+hard as finding a collision.
+
+In addition to how they allow us to identify and deduplicate software
+artifacts, intrinsic hashes also have the side benefit of enabling data
+integrity checks at any time when using a \gls{VCS}. If any piece of data is
+corrupted in the development history, rehashing the nodes in the graph would
+yield different hashes. This can be used to precisely track down the pieces of
+corrupted data and reject them, which is particularly useful in the case of
+\glspl{DVCS} where artifacts can be broadcasted through unreliable data links and
+from potentially untrusted sources.
+
+\subsection{Purely functional persistence}
+
+Because the goal of \glspl{VCS} is to preserve the history of the software
+artifacts they track, the Merkle DAG on which they base their data model is
+designed to be \emph{persistent}: updating a file or a directory in a source
+tree does not destroy the existing version of the subtree, but rather creates a
+new version that coexists with the old one. As we have seen in the previous
+sections, persistence is the basis upon which \glspl{VCS} store successive
+states of the development history, and is achieved by \emph{copying} the
+subgraphs that need to be modified, and \emph{sharing} all the nodes unaffected
+by the update.
+
+These kinds of data structures which are immutable, persistent and which use
+data sharing to minimize memory usage were systematically categorized in a
+seminal work by Okasaki~\cite{okasaki1999purely}, where he describes them as
+\emph{purely functional data structures}.
+
+Purely functional \glspl{DAG} like the ones used in our model to store source
+code trees have interesting properties, notably in terms of memory complexity.
+As shown in \figref{fig:okasaki-complexity}, creating a new revision with a
+single node changed only requires to recreate the nodes constituting the chain
+of parents from the changed node to the root of the tree. A revision changing a
+node in a source tree of size $n$ and height $h$ will therefore have a memory
+complexity of $O(h)$. If the tree is balanced, as well-hierarchized source code
+trees generally tend to be, this memory complexity will approach $O(\log(n))$.
+
+All in all, Merkle \glspl{DAG} are an overarching keystone of the development
+of modern \glspl{VCS} thanks to their ability to \emph{deduplicate} common
+artifacts, to \emph{ensure integrity} of the data they contain, and to their
+memory efficiency through \emph{purely functional data sharing}.
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/okasaki-complexity.tikz}
+    \caption{Modifying a single file between two revisions in a source tree of
+    height $h$ only requires $O(h)$ new nodes, thanks to data sharing in purely
+    functional trees.}%
+    \label{fig:okasaki-complexity}
+\end{figure}

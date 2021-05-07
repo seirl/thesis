@@ -1,0 +1,51 @@
+\begin{tikzpicture}[scale=1.5, font={\small}]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=directory] (10) at (2, -1.5) {3};
+		\node [style=directory] (14) at (2, -2.25) {4};
+		\node [style=content] (16) at (2, -3.5) {C};
+		\node [style=content] (17) at (2.5, -3.5) {D};
+		\node [style=content] (18) at (1.5, -3.5) {B};
+		\node [style=content, fill=white, dotted] (19) at (1.25, -2.25) {A};
+		\node [style=directory] (20) at (2, -0.75) {2};
+		\node [style=revision] (23) at (2, 0) {};
+		\node [style=revision] (24) at (4.25, 0) {};
+		\node [style=directory] (25) at (4.75, -1.5) {6};
+		\node [style=directory, fill=white, dotted] (26) at (3.75, -1.5) {3};
+		\node [style=directory, fill=white, dotted] (27) at (3.75, -2.25) {4};
+		\node [style=content, fill=white, dotted] (28) at (3.75, -3.5) {C};
+		\node [style=content, fill=white, dotted] (29) at (4.25, -3.5) {D};
+		\node [style=content, fill=white, dotted] (30) at (3.25, -3.5) {B};
+		\node [style=content, fill=white, dotted] (31) at (3, -2.25) {A};
+		\node [style=directory] (32) at (4.25, -0.75) {5};
+		\node [style=content] (33) at (4.5, -2.25) {E};
+		\node [style=content] (34) at (5, -2.25) {F};
+		\node [style=revision] (35) at (0.25, 0) {};
+		\node [style=directory] (36) at (0.25, -0.75) {1};
+		\node [style=content] (37) at (0.25, -2.25) {A};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (10) to (14);
+		\draw [style=arrow] (14) to (16);
+		\draw [style=arrow] (14) to (17);
+		\draw [style=arrow] (20) to node [above, sloped] {\tiny src} (10);
+		\draw [style=dashed arrow, dotted] (10) to (19);
+		\draw [style=arrow] (14) to (18);
+		\draw [style=arrow] (23) to (20);
+		\draw [style=arrow] (24) to (23);
+		\draw [style=dashed arrow, dotted] (26) to (27);
+		\draw [style=dashed arrow, dotted] (27) to (28);
+		\draw [style=dashed arrow, dotted] (27) to (29);
+		\draw [style=dashed arrow, dotted] (32) to node [above, sloped, color={black!60}] {\tiny src} (26);
+		\draw [style=arrow] (32) to node [above, sloped] {\tiny tests} (25);
+		\draw [style=dashed arrow, dotted] (26) to (31);
+		\draw [style=dashed arrow, dotted] (27) to (30);
+		\draw [style=arrow] (25) to (33);
+		\draw [style=arrow] (25) to (34);
+		\draw [style=arrow] (24) to (32);
+		\draw [style=arrow] (23) to (35);
+		\draw [style=arrow] (35) to (36);
+		\draw [style=arrow] (36) to (37);
+		\draw [style=red arrow, bend right=15] (10) to (37);
+		\draw [style=red arrow] (32) to node [above, sloped, color={red!70!black}] {\tiny src} (10);
+	\end{pgfonlayer}
+\end{tikzpicture}

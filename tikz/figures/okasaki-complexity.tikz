@@ -1,0 +1,51 @@
+\begin{tikzpicture}[scale=1.5, font={\small}]
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=directory] (10) at (1.5, -1.5) {};
+		\node [style=directory] (14) at (1.5, -2.25) {};
+		\node [style=content] (16) at (1.25, -3.25) {C};
+		\node [style=content] (17) at (1.75, -3.25) {D};
+		\node [style=directory] (20) at (2, -0.75) {};
+		\node [style=revision] (23) at (2, 0) {};
+		\node [style=revision] (24) at (6, 0) {};
+		\node [style=directory] (25) at (2.5, -1.5) {};
+		\node [style=directory] (29) at (2.5, -2.25) {};
+		\node [style=directory] (30) at (3.25, -2.25) {};
+		\node [style=content] (31) at (2.75, -3.25) {F};
+		\node [style=content] (32) at (3.25, -3.25) {G};
+		\node [style=content] (33) at (3.75, -3.25) {H};
+		\node [style=directory] (37) at (6, -0.75) {};
+		\node [style=directory] (38) at (6, -1.5) {};
+		\node [style=directory] (39) at (6, -2.25) {};
+		\node [style=content] (40) at (6, -3.25) {H'};
+		\node [style=directory] (42) at (0.75, -2.25) {};
+		\node [style=content] (43) at (2.25, -3.25) {E};
+		\node [style=content] (44) at (0.75, -3.25) {B};
+		\node [style=content] (45) at (0.25, -3.25) {A};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (10) to (14);
+		\draw [style=arrow] (14) to (16);
+		\draw [style=arrow] (14) to (17);
+		\draw [style=arrow] (20) to (10);
+		\draw [style=arrow] (24) to (23);
+		\draw [style=arrow] (25) to (29);
+		\draw [style=arrow] (29) to (31);
+		\draw [style=arrow] (30) to (32);
+		\draw [style=arrow] (10) to (42);
+		\draw [style=arrow] (42) to (44);
+		\draw [style=arrow] (42) to (45);
+		\draw [style=arrow] (29) to (43);
+		\draw [style=arrow, in=-315, out=-150, looseness=1.25] (38) to (29);
+		\draw [style=arrow, in=-300, out=-150, looseness=1.25] (39) to (32);
+		\draw [style=arrow, in=-330, out=-150, looseness=1.25] (37) to (10);
+		\draw [style=red arrow] (20) to (25);
+		\draw [style=red arrow] (25) to (30);
+		\draw [style=red arrow] (23) to (20);
+		\draw [style=red arrow] (30) to (33);
+		\draw [style=red arrow] (24) to (37);
+		\draw [style=red arrow] (37) to (38);
+		\draw [style=red arrow] (38) to (39);
+		\draw [style=red arrow] (39) to (40);
+		\draw [decorate, decoration={brace,raise=20pt,amplitude=10pt}] (24) to node [right=35pt, style=none] {$h$} (40);
+	\end{pgfonlayer}
+\end{tikzpicture}

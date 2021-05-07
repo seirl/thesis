@@ -15,5 +15,6 @@
 % Edge styles
 \tikzstyle{arrow}=[->, >=Stealth, thick]
 \tikzstyle{cluster}=[-, draw=gray, smooth, dashed]
-\tikzstyle{red arrow}=[draw={red!60}, ->, >=Stealth, thick, tikzit draw=red]
+\tikzstyle{red arrow}=[draw={red!70!black}, ->, >=Stealth, thick, tikzit draw=red]
 \tikzstyle{dashed arrow}=[dashed, ->, >=Stealth, draw=black]
+\tikzstyle{blue arrow}=[->, draw={blue!70}, >=Stealth, thick, tikzit draw=blue]

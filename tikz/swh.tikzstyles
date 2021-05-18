@@ -8,9 +8,24 @@
 \tikzstyle{revision}=[fill={rgb,255: red,230; green,242; blue,242}, draw=black, shape=regular polygon, regular polygon sides=3, minimum width=20pt, inner sep=0pt]
 \tikzstyle{directory}=[fill={rgb,255: red,218; green,219; blue,231}, draw=black, shape=document, tab width=6pt, tab height=2pt, minimum width=14pt, minimum height=8pt]
 \tikzstyle{content}=[fill={rgb,255: red,198; green,192; blue,193}, draw=black, shape=cylinder, shape border rotate=90, minimum width=12pt, minimum height=13pt, aspect=0.30]
-\tikzstyle{release}=[fill={rgb,255: red,255; green,252; blue,204}, draw=black, shape=star]
+\tikzstyle{release}=[fill={rgb,255: red,255; green,252; blue,204}, draw=black, shape=star, inner sep=0pt, minimum width=20pt]
 \tikzstyle{snapshot}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9]
 \tikzstyle{branch}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9, dashed]
+
+% \tikzstyle{releaseemph}=[release,fill={rgb,255: red,255; green,247; blue,135}]
+% \tikzstyle{revisionemph}=[revision,fill={rgb,255: red,183; green,217; blue,217}]
+% \tikzstyle{directoryemph}=[directory,fill={rgb,255: red,177; green,179; blue,204}]
+% \tikzstyle{contentemph}=[content,fill={rgb,255: red,170; green,161; blue,162}]
+
+% \tikzstyle{releaseemph}=[release,pattern=north west lines, pattern color=lime]
+% \tikzstyle{revisionemph}=[revision,pattern=north west lines, pattern color=green]
+% \tikzstyle{directoryemph}=[directory,pattern=north west lines, pattern color=teal]
+% \tikzstyle{contentemph}=[content,pattern=north west lines, pattern color=lightgray]
+
+% \tikzstyle{releaseemph}=[release,very thick,draw=brown]
+% \tikzstyle{revisionemph}=[revision,very thick,draw=brown]
+% \tikzstyle{directoryemph}=[directory,very thick,draw=brown]
+% \tikzstyle{contentemph}=[content,very thick,draw=brown]
 
 % Edge styles
 \tikzstyle{arrow}=[->, >=Stealth, thick]

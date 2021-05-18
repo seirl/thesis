@@ -9,18 +9,17 @@ The Software Heritage archive is continuously ingesting software artifacts from
 a wide array of sources, including different VCS and package managers that
 each have their own internal data model. The main purpose of the Software
 Heritage data model is to provide a generic structure in which the individual
-object types proper to each specific system can be mapped to abstract concepts.
-Git ``commits'', SVN ``revisions'' and Mercurial ``changesets'' all correspond
-to the same abstract concept of a frozen state of the source tree, and thus
-they are all \emph{canonicalized} as a single type of artifact that we call
-``revisions''.
+object types specific to each system can be mapped to abstract concepts.  Git
+``commits'', SVN ``revisions'' and Mercurial ``changesets'' all correspond to
+the same idea of a frozen state of the source tree, and thus they are all
+\emph{canonicalized} as a single type of artifact that we call ``revisions''.
 
 By stripping the implementation peculiarities of the individual data sources,
 the artifacts are boiled down to a purely abstract form. This unifies the
 representation of all the artifacts stored in the archive, which is
 particularly interesting for research: since all the artifacts are already
-stored in canonical form, we can provide an uniform interface for researchers
-to study artifacts coming from all kinds of different sources. This isolates
+stored in canonical form, we can provide a uniform interface for researchers
+to study artifacts coming from a variety of different sources. This isolates
 the complexity of handling artifacts sourced from different \glspl{VCS} behind
 an abstraction layer; researchers can then run analyses on the abstract
 artifacts instead of having to deal with each specific system.
@@ -32,10 +31,10 @@ model:
 \begin{tikzpicture}\node[style=content,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Contents}} (or ``blobs'') are the raw content of the source
-code files. They only represent the actual binary data contained in the files;
-file \emph{names} are external and directory-dependent, and are not included in
-this type of artifact. They are identified by an intrinsic hash of the full
-binary data they contain.
+code files. They represent only the concrete binary data contained in the
+files; file \emph{names} are external and directory-dependent, and are not
+included in this type of artifact. Contents are identified by an intrinsic hash
+of the full binary data they contain.
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=directory,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
@@ -43,14 +42,14 @@ binary data they contain.
 \paragraph{\textbf{Directories}} are the source code trees. They contain a
 list of \emph{named} directory entries, each entry pointing to content objects
 (``file entries''), other directories (``directory entries''), or revisions
-(``revision entries''). Each entry is associated to a local binary name (i.e.,
-a relative path without any path separator) and permission metadata.
+(``revision entries''). Each entry is associated with a local binary name
+(i.e., a relative path without any path separator) and permission metadata.
 Revision entries are used to encode directories referencing a specific
-revision, like for Git submodules and Mercurial subrepositories.
-The permission integer can encode arbitrary permissions such as whether the
-file is an executable, a symbolic link, who can read or write in it, etc.
-They are identified by an intrinsic hash of the textual manifest of all their
-entries and their own identifiers.
+revision, for instance Git submodules and Mercurial subrepositories.  The
+permission integer can encode arbitrary permissions such as whether the file is
+an executable, a symbolic link, who can read or write in it, etc.  They are
+identified by an intrinsic hash of the textual manifest of all their entries
+and their own identifiers.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -68,7 +67,7 @@ associated with the following commit metadata:
     \item \emph{author}: the name and e-mail of the person who authored the
         revision.
     \item \emph{committer}: the name and e-mail of the person who applied the
-        revision to the project on behalf of the original author. Often, this
+        revision to the project on behalf of the original author. Often this
         field contains the same information as the author field.
     \item \emph{date}: the date at which the revision was authored, including
         timezone information.
@@ -81,13 +80,13 @@ Finally, each revision points to an ordered list of all its parent revisions,
 referenced using their own intrinsic identifier. The order does not have a
 strict semantic meaning, it is mostly used as a guide by tools that show the
 difference between two revisions. The first parent is generally considered to
-be issued from the ``main'' branch that the revision gets merged onto, and thus
+be issued from the ``main'' branch that the revision is merged onto, and thus
 diffing tools will show the impact of this revision on the main branch by
 default.
 
 Revisions are identified by an intrinsic hash of a textual manifest containing
 all their metadata, the hash of their parents, and the hash of the root
-directory of the source tree they refer to.
+directory of the source tree they reference.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -129,18 +128,18 @@ the branches and releases in a repository. These artifacts are not typically
 part of \glspl{VCS}, because they generally have no need to retain the
 information of the past states of the full repository, as the important
 historical information for developers is already tracked by revisions. In the
-case of a software archive however, we need to keep track of the successive
-state of the repositories for each crawling \emph{visit}, which includes
-retaining old information about which branches and tags used to be present in
-the repository, and what they were pointing to.
+case of a software archive however, we need to track the successive state of
+the repositories for each crawling \emph{visit}, which includes retaining old
+information about which branches and tags were formerly present in the
+repository, and what they pointed to.
 
 More specifically, each snapshot contains a list of references to other
 artifacts, which have an associated binary name (e.g., ``refs/heads/main'' or
 ``refs/tags/v0.1.2'') and the intrinsic hash of the artifact they reference.
 Most references are either to revisions (in the case of branches) or release
-objects, but they can also rarely point to directories and contents, which is
-supported by some \glspl{VCS} and also present in some rare cases in real-world
-repositories.
+objects, but on rare occasions they they can also point to directories and
+contents, which is supported by some \glspl{VCS} and also sometimes present in
+real-world repositories.
 
 The data model also supports \emph{branch aliasing}: some branches stored in
 snapshots do not point to a specific artifact, but rather reference another
@@ -149,7 +148,7 @@ the target of the branch they reference.
 
 Snapshots are also deduplicated and identified by an intrinsic hash, computed
 from a manifest of each branch name and the intrinsic identifier of their
-target. Therefore, they also benefit from the advantageous space-complexity of
+target. Therefore they also benefit from the advantageous space-complexity of
 purely functional persistent structures as described in
 Section~\ref{sec:purely-functional}: if two consecutive visits of the same
 repository show that nothing changed in the interval, the visits can both share
@@ -161,19 +160,20 @@ store the set of branches and tags twice.
 \begin{tikzpicture}\node [style=origin,scale=1.9] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Origins}} are objects referencing the specific places from
-which source code artifacts have been retrieved to be ingested in the archive.
-They are represented by a canonical URL (e.g., the address at which one can
-\texttt{git clone} a repository or \texttt{wget} a source code tarball.)
+which source code artifacts have been retrieved to be ingested into the
+archive.  They are represented by a canonical URL (e.g., the address at which
+one can \texttt{git clone} a repository or \texttt{wget} a source code
+tarball.)
 
-Origins represent specific places of archival, and are distinct from the more
-abstract notion of \emph{projects}: a project is an entity that can relate
-together different development resources, including websites, issue trackers,
-mailing lists, and software origins. A software project can migrate its
-development from one origin to another for various reasons, and even migrate to
-a different \gls{VCS}. Projects are ontologically complex notions that are not
-directly present in the archive; the data model is mostly concerned about
-directly addressable and concrete artifacts, and \emph{origins} are better
-suited for this purpose.
+Origins only represent specific locations which host code, and are distinct
+from the more abstract notion of \emph{projects}: a project is an entity that
+can relate together different development resources, including websites, issue
+trackers, mailing lists, and software origins. A software project can migrate
+its development from one origin to another for various reasons, and even
+migrate to a different \gls{VCS}. Projects are ontologically complex notions
+that are not directly present in the archive; the data model is mostly
+concerned about directly addressable and concrete artifacts, and \emph{origins}
+are better suited for this purpose.
 
 \section{Consolidating software artifacts in a unified archive}
 
@@ -194,13 +194,13 @@ fetched as dependencies (e.g., Git submodules or Mercurial subrepositories),
 which further entangles the relationships between different software projects.
 
 \glspl{VCS} and the abstract software artifacts used by Software Heritage
-already allows us to canonicalize and deduplicate objects inside a single
+already allow us to canonicalize and deduplicate objects inside a single
 software project. This principle can be generalized to deduplicate the
 artifacts found in several projects \emph{across the entire archive}.
-This process of systematically gathering and storing all the publicly available
+This process of systematically gathering and storing all publicly available
 software artifacts in a deduplicated and canonical fashion is inherently a way
 to materialize an immense highly interconnected graph, linking together all
-the derivative works and shared codebases.
+derivative works and shared codebases.
 
 This process is illustrated in~\figref{fig:consolidating-archive}. The
 intrinsic cryptographic hashes of the software artifacts are used to enforce
@@ -215,25 +215,25 @@ all the artifacts in the archive.
     \label{fig:consolidating-archive}
 \end{figure}
 
-In short, this means that whenever a directory, a file or any artifact is
+In short, this means that whenever a directory, file or any artifact is
 referenced by multiple projects, it will get deduplicated as a single node in
-the graph, and will be directly referenced by all the projects and artifacts
+the graph, and will be directly referenced by all projects and artifacts
 that contain it. As an example, there is only one artifact for the empty
 content (a blob of length zero) in the entire archive, and millions of
 directories reference it.
 
-Merging all the archived repositories in a single large collection of software
-artifacts leverages all the benefits of Merkle \gls{DAG} models for single
-repository to the entire archive: simple identification of unique artifacts,
+Merging all archived repositories into a single large collection of software
+artifacts leverages all of the benefits of Merkle \gls{DAG} models for single
+repositories to the entire archive: simple identification of unique artifacts,
 built-in data integrity checks, very high rate of deduplication and reduced
 storage costs.
 
 In addition, storing canonical artifacts only once in the archive is also
 semantically useful for research. Essentially, it becomes easy to visualize
-and analyze code reuse: walking back the \gls{DAG} can tell us the list of all
+and analyze code reuse: walking back the \gls{DAG} can generate a list of all
 the projects that contain a specific piece of code. By looking at the commit
-chains in the graph, it is possible to find out when any given file was copied,
-and all the changes that were subsequently made to it.
+chains in the graph, it is possible to discover when any given file was copied,
+and all changes that were subsequently made to it.
 We can easily draw research applications for software evolution from this
 capability: by having direct access to the history of changes of a specific
 fragment of code in the entire corpus of public software commons, it could be

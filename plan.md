@@ -47,7 +47,8 @@
 
 - prototyping: subdatasets
 
-- (to be placed): how to do all of this in a scalable way?
+- challenges: how to do all of this in a scalable way?
+    - quantifying duplication
 
 
 # Making the data available

@@ -1,0 +1,39 @@
+digraph G {
+    // rankdir=LR;
+    nodesep=1;
+    ranksep=1;
+    overlap=scalexy;
+    splines=true;
+    node [width=1, fontsize=11];
+    edge [fontsize=10, labeldistance=1.5];
+
+    origin;
+    subgraph cluster_0 {
+        label = "Merkle DAG";
+        subgraph {
+            rank = same;
+            snapshot;
+            release;
+        }
+        revision;
+        directory;
+        content;
+    }
+
+    origin -> snapshot [taillabel="*", headlabel="*"];
+
+    release -> revision [taillabel="*", headlabel=1];
+    release -> directory [taillabel="*", headlabel=1, style=dotted, fontcolor=grey, color=grey];
+    release -> content [taillabel="*", headlabel=1, style=dotted, fontcolor=grey, color=grey];
+
+    snapshot -> release [taillabel="*", headlabel="*"];
+    snapshot -> revision [taillabel="*", headlabel="*"];
+    snapshot -> directory [taillabel="*", headlabel="*", style=dotted, fontcolor=grey, color=grey];
+    snapshot -> content [taillabel="*", headlabel="*", style=dotted, fontcolor=grey, color=grey];
+
+    revision -> revision [taillabel="*", headlabel="*"];
+    revision -> directory [taillabel="*", headlabel=1];
+    directory -> content [taillabel="*", headlabel="*"];
+    directory -> directory [taillabel="*", headlabel="*"];
+    directory -> revision [taillabel="*", headlabel="*"];
+}

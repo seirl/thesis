@@ -1,4 +1,4 @@
-\chapter{The Software Heritage Data Model}
+\chapter{The Software Heritage Graph}
 
 % This chapter describes the abstract data model of the Software Heritage
 % archive.
@@ -90,7 +90,7 @@ directory of the source tree they reference.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
-\begin{tikzpicture}\node [style=release,scale=1.3] (0) at (0, 0) {};\end{tikzpicture}
+\begin{tikzpicture}\node [style=release,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Releases}} (or ``tags'') denote marker objects that label
 specific revisions as project milestones. These usually denote the revisions
@@ -128,7 +128,7 @@ the branches and releases in a repository. These artifacts are not typically
 part of \glspl{VCS}, because they generally have no need to retain the
 information of the past states of the full repository, as the important
 historical information for developers is already tracked by revisions. In the
-case of a software archive however, we need to track the successive state of
+case of a software archive however, we need to track the successive states of
 the repositories for each crawling \emph{visit}, which includes retaining old
 information about which branches and tags were formerly present in the
 repository, and what they pointed to.
@@ -231,7 +231,7 @@ storage costs.
 In addition, storing canonical artifacts only once in the archive is also
 semantically useful for research. Essentially, it becomes easy to visualize
 and analyze code reuse: walking back the \gls{DAG} can generate a list of all
-the projects that contain a specific piece of code. By looking at the commit
+projects that contain a specific piece of code. By looking at the commit
 chains in the graph, it is possible to discover when any given file was copied,
 and all changes that were subsequently made to it.
 We can easily draw research applications for software evolution from this
@@ -242,3 +242,137 @@ piece of code will be modified in the future. Overall, materializing these
 relationships between canonical software artifacts has the potential to widen
 the frontier of software mining by providing access to a unique corpus of
 provenance data and evolution history of the artifacts.
+
+
+\section{The Software Heritage Merkle DAG}
+
+\subsection{Overview}
+
+After having walked through the key principles that underpin the design of the
+Software Heritage archive, this section describes its data model in more
+detail.
+
+The archive is stored as a single large Merkle \gls{DAG}, as depicted
+in~\figref{fig:swh-model}. In this graph, all software artifacts we have
+described correspond to the nodes, which can be of six different kinds:
+contents, directories, revisions, releases, snapshots and origins.
+All the nodes are deduplicated and identified by a single intrinsic
+identifier, recursively computed from the identifiers of its descendants, which
+serves as the primary key in the Merkle \gls{DAG}.
+
+The edges between the nodes emerge naturally: directory entries point to other
+directories or file contents; revisions point to directories and previous
+revisions; releases point to revisions; snapshots point to revisions and
+releases; origins point to the snapshots that they contained in past visits.
+The cardinality diagram shown in~\figref{fig:swh-cardinality} formalizes the
+different kinds of edges in the graph and their numerical relationships: edges
+noted $\prescript{\ast}{}\rightarrow^1$ represent \emph{many-to-one}
+relationships (e.g., a revision only points to a single directory, but a
+directory can be pointed by multiple revisions) and edges noted
+$\prescript{\ast}{}\rightarrow^\ast$ are \emph{many-to-many} relationships
+(e.g., a directory can point to multiple contents, and a content can be pointed
+by multiple directories).
+
+\begin{figure}
+    \centering
+    \input{../tikz/figures/swh-model.tikz}
+    \caption{The Software Heritage Archive: a unified Merkle \gls{DAG} of all
+    the software artifacts in public development.}%
+    \label{fig:swh-model}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{../img/swh-cardinality}
+    \caption{Cardinality diagram of the possible relationships between the node
+    types in the archive, highlighting the difference between
+    \emph{many-to-one} and \emph{many-to-many} edge types.}%
+    \label{fig:swh-cardinality}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../img/swh-merkle-dag}
+    \caption{Detailed view of the Merkle \gls{DAG}, with object contents,
+    metadata fields and intrinsic hashes.}%
+    \label{fig:swh-cardinality}
+\end{figure}
+
+\subsection{Persistent identifiers}
+
+The intrinsic hashes used to identify the nodes can be used to provide a
+standardized and portable way of referring to the artifacts in the archive. This
+is achieved by \glspl{SWHID}, short strings that identify a single object
+and which are guaranteed to remain stable over time.
+\glspl{SWHID} are represented following this basic syntax:
+
+\texttt{swh:<scheme version>:<object type>:<object id>}
+
+The current version of the identifier scheme, stored in the second field, is
+\texttt{1}. The third field contains a three-letter code for the object type
+(\texttt{snp} for snapshots, \texttt{rel} for releases, \texttt{rev} for
+revisions, \texttt{dir} for directories and \texttt{cnt} for contents). The
+last field contains an hexadecimal-encoded intrinsic hash computed with the
+SHA-1 algorithm on the content and metadata of the object.
+
+Here are a few examples of \glspl{SWHID} and the objects they point to:
+
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item \texttt{swh:1:cnt:94a9ed024d3859793618152ea559a168bbcbb5e2} points to
+        the content of a file containing the full text of the GPL-3 license.
+    \item \texttt{swh:1:rev:309cf2674ee7a0749978cf8265ab91a60aea0f7d} points to
+        a revision in the development history of the Darktable photography
+        application.
+    \item \texttt{swh:1:snp:c7c108084bc0bf3d81436bf980b46e98bd338453} points to
+        a snapshot of the entire Git repository of Darktable as of May 4, 2017.
+\end{itemize}
+
+\glspl{SWHID} have interesting uses for research replicability: studies
+citing software by URL can be subject to \emph{link rot}, which could make it
+harder to run the software again as a way to independently verify the study
+results. Because \glspl{SWHID} are persistent, using these identifiers to cite
+scientific software is a way to ensure that the citation remains unambiguous
+and resilient to URL changes. \glspl{SWHID} can be computed independently and
+do not require a centralized authority for assignation, as they are solely
+computed from the intrinsic properties of the object they refer to.
+
+\section{Infrastructure}
+
+At a physical level, the archive is stored using a few different technologies,
+due to the differences in technical requirements for storing the different
+layers of the graph~\cite{swhipres2017}.
+
+Most notably, the source contents require orders of magnitude more space
+($\approx 300$ TiB as of May 2020) than the rest of the archive and are thus
+stored on dedicated key-value object storages, keyed by their intrinsic hash.
+In the in-house infrastructure, the object hashes allow for efficient
+horizontal sharding, by assigning hash prefixes to specific servers. This
+technique is used to trivially implement a reasonably performant and redundant
+storage.
+Key-value object storages are an almost universal primitive in cloud offerings,
+which allows us to store an entire copy of the content layers in two different
+clouds: the Azure Blob Storage and Amazon AWS S3.
+
+On the other hand, the upper layers of the archive require significantly less
+storage space ($\approx 6$ TiB) but have different functional requirements, as
+they have more associated metadata (author names, revision messages, children
+nodes, …) that need to be made searchable and joinable. This part of the graph
+is stored in a \gls{RDBMS}, where nodes and edges have a few associated
+relational tables that describe it. This allows to easily build indexes, e.g.,
+on the hashes stored in the different fields, which can then be used to
+randomly access specific nodes and edges, and to efficiently \emph{join} tables
+together to combine data from multiple node types by following their links.
+
+This approach can have scalability issues, as inserting data in traditional
+\glspl{RDBMS} gets exponentially slower as the tables grow.  Other storage
+systems for the graph are under study to circumvent this problem, notably the
+use of key-value document storages like Cassandra or ScyllaDB.
+
+One last relevant component is the \emph{journal}, which serves as a
+synchronization pipeline across the infrastructure. In order to keep the
+variety of storage backends (object storage, database, document stores…)
+consistent together, the journal acts as a persistent log of the archive, where
+all the ingested objects are pushed in order. All the backends and their
+replicas can then subscribe to the journal and read its messages to keep
+themselves up to date with the current state of the archive.

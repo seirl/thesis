@@ -254,7 +254,7 @@ detail.
 
 The archive is stored as a single large Merkle \gls{DAG}, as depicted
 in~\figref{fig:swh-model}. In this graph, all software artifacts we have
-described correspond to the nodes, which can be of six different kinds:
+described correspond to the nodes, which can be of six different types:
 contents, directories, revisions, releases, snapshots and origins.
 All the nodes are deduplicated and identified by a single intrinsic
 identifier, recursively computed from the identifiers of its descendants, which
@@ -265,13 +265,13 @@ directories or file contents; revisions point to directories and previous
 revisions; releases point to revisions; snapshots point to revisions and
 releases; origins point to the snapshots that they contained in past visits.
 The cardinality diagram shown in~\figref{fig:swh-cardinality} formalizes the
-different kinds of edges in the graph and their numerical relationships: edges
+different sorts of edges in the graph and their numerical relationships: edges
 noted $\prescript{\ast}{}\rightarrow^1$ represent \emph{many-to-one}
 relationships (e.g., a revision only points to a single directory, but a
 directory can be pointed by multiple revisions) and edges noted
 $\prescript{\ast}{}\rightarrow^\ast$ are \emph{many-to-many} relationships
-(e.g., a directory can point to multiple contents, and a content can be pointed
-by multiple directories).
+(e.g., a directory can point to multiple contents, and a single content can be
+pointed by multiple directories).
 
 \begin{figure}
     \centering
@@ -304,7 +304,7 @@ The intrinsic hashes used to identify the nodes can be used to provide a
 standardized and portable way of referring to the artifacts in the archive. This
 is achieved by \glspl{SWHID}, short strings that identify a single object
 and which are guaranteed to remain stable over time.
-\glspl{SWHID} are represented following this basic syntax:
+\glspl{SWHID} are represented following the following basic syntax:
 
 \texttt{swh:<scheme version>:<object type>:<object id>}
 
@@ -312,7 +312,7 @@ The current version of the identifier scheme, stored in the second field, is
 \texttt{1}. The third field contains a three-letter code for the object type
 (\texttt{snp} for snapshots, \texttt{rel} for releases, \texttt{rev} for
 revisions, \texttt{dir} for directories and \texttt{cnt} for contents). The
-last field contains an hexadecimal-encoded intrinsic hash computed with the
+last field contains a hexadecimal-encoded intrinsic hash computed with the
 SHA-1 algorithm on the content and metadata of the object.
 
 Here are a few examples of \glspl{SWHID} and the objects they point to:
@@ -334,10 +334,11 @@ harder to run the software again as a way to independently verify the study
 results. Because \glspl{SWHID} are persistent, using these identifiers to cite
 scientific software is a way to ensure that the citation remains unambiguous
 and resilient to URL changes. \glspl{SWHID} can be computed independently and
-do not require a centralized authority for assignation, as they are solely
+do not require a centralized authority for allocation, as they are solely
 computed from the intrinsic properties of the object they refer to.
 
 \section{Infrastructure}
+\label{sec:swh-infrastructure}
 
 At a physical level, the archive is stored using a few different technologies,
 due to the differences in technical requirements for storing the different
@@ -359,10 +360,11 @@ storage space ($\approx 6$ TiB) but have different functional requirements, as
 they have more associated metadata (author names, revision messages, children
 nodes, …) that need to be made searchable and joinable. This part of the graph
 is stored in a \gls{RDBMS}, where nodes and edges have a few associated
-relational tables that describe it. This allows to easily build indexes, e.g.,
-on the hashes stored in the different fields, which can then be used to
-randomly access specific nodes and edges, and to efficiently \emph{join} tables
-together to combine data from multiple node types by following their links.
+relational tables that describe it. These systems can be leveraged to build
+indexes, e.g., on the hashes stored in the different fields, which can then be
+used to randomly access specific nodes and edges, and to efficiently
+\emph{join} tables together to combine data from multiple node types by
+following their links.
 
 This approach can have scalability issues, as inserting data in traditional
 \glspl{RDBMS} gets exponentially slower as the tables grow.  Other storage

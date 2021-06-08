@@ -11,13 +11,13 @@ our scope to the software artifacts themselves, as studying external project
 management metadata (issues, \acrshort{CI}, mailing list discussions, etc.) is
 a largely different problem, although relevant to the field in its own way.
 
-For that purpose, we first catalogued different use-cases by looking at
+For that purpose, we first catalogued different use cases by looking at
 software mining studies and qualitatively assessing which types of data they
 were extracting for their own purposes. This gives us a general idea of the
-general queries researchers would want to run on the archive given the
-opportunity to do so.
+queries researchers would want to run on the archive, given the opportunity to
+do so.
 
-Of course, we cannot restrain ourselves to use cases we find in the literature,
+Of course, we cannot limit ourselves to use cases we find in the literature,
 as the scopes of past studies are endogenous to the infrastructure researchers
 had at their disposal while conducting it. Part of our goal in making Software
 Heritage a platform for universal software mining is to make new research
@@ -508,7 +508,7 @@ the different data selection features, computation primitives and result
 aggregations when running queries on the dataset. The semantics of the language
 have to provide ways of representing and combining those different operations
 so that the breadth of computations that queries are able to represent is as
-wide and generic as possible for the use-cases we identified.
+wide and generic as possible for the use cases we identified.
 
 \section{Roadmap}
 
@@ -522,29 +522,29 @@ wide and generic as possible for the use-cases we identified.
 
 A preliminary step of this work is to make the dataset available in some
 format suitable for scale-out analysis, so that Software Heritage and other
-researchers can try out a few experiments and document their own use-cases.
+researchers can try out a few experiments and document their own use cases.
 Some public cloud computing providers like Amazon Web Services or Google Cloud
 have public datasets programs, on which we can make the Software Heritage
 dataset publicly available without bearing the cost of the storage.
 
 While allowing people to run queries directly on a public cloud instance is
 well-suited for one-off experiments, it does not always work well for more intensive
-use-cases. Researchers having access to hardware resources and software engineering
+use cases. Researchers having access to hardware resources and software engineering
 skills might find it more cost-efficient to run their experiments on a local
 copy of the archive. As we build a pipeline to keep the Software Heritage
 public datasets up to date, we need to provide a way for researchers to have
 their own local copy of the dataset for in-house processing.
 
 Once the dataset is available in some format for people to run queries on it,
-we will be able to collect more real-world use-cases as a way to improve our
+we will be able to collect more real-world use cases as a way to improve our
 understanding of researchers' needs, which in turn guides the platform design:
 what are the types of queries that scientists want to run? What are the data
 and metadata filters that they need?  What is the kind of information that is
 the most often retrieved from the data model?
 
-After having collected these use-cases, it is then be possible to elicit a
+After having collected these use cases, it is then be possible to elicit a
 domain specific language that can cover the kind of queries required
-for the use-cases we identified, to offer a more accessible interface than
+for the use cases we identified, to offer a more accessible interface than
 doing raw queries on the database. This language will have to be expressive
 enough to address the difficulties we outlined, notably by allowing flexible
 manipulations of the data representations. It should also be as simple as

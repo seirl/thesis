@@ -36,10 +36,11 @@ accepted at the 17th Belgium-Netherlands Software Evolution Workshop (BENEVOL
 
 \subsection{Literature Review}
 
-Being familiar with the software mining literature, and after various
-preliminary conversations with researchers working in the field, we have
-preconceived notions of how they design studies on software repositories. We
-know the process is generally two-fold. The first step is to precisely
+After various preliminary conversations with researchers working in the field
+and having a familiarity with the software mining literature, we have
+preconceived notions of how studies on software repositories are designed,
+which generally happens in a two-fold process.
+The first step is to precisely
 \emph{select} the software artifacts that are relevant for the study using a
 variety of criteria: studies on Java source code will select files ending with
 the \texttt{.java} extension, studies on large projects will require a given
@@ -49,11 +50,11 @@ processing algorithms.
 
 To validate this understanding of the literature more rigorously, we
 systematically reviewed 54 papers published in the \emph{16th International
-Conference on Mining Software Repositories (MSR 2019)}. In each paper, we were
-looking for two important pieces of information: (1) what were the
-\emph{selection criteria} used to narrow down the study to work on a specific
-set of software artifacts, and (2) which types of \emph{analyzed data} are
-required for their analyses.
+Conference on Mining Software Repositories (MSR 2019)}. In each paper, we
+sought two important pieces of information: (1) what were the \emph{selection
+criteria} used to narrow the study to work on a specific set of software
+artifacts, and (2) which types of \emph{analyzed data} were required for their
+analyses.
 
 \begin{figure}[b]
 \begin{tikzpicture}[x=1pt,y=1pt,font=\tiny]
@@ -174,10 +175,10 @@ review.
 
 \subsection{Selection criteria}
 
-The review allowed us to confirm the common study pattern in two steps that we
-identified: selection of a subset of artifacts on some criteria, then analysis
-of the selected artifacts. Table~\ref{tab:selection-criteria} shows a detailed
-tally of the different criteria we observed in the study designs.
+This review allowed confirmation of the two steps identified in most study
+patterns: criteria-based selection of a subset of artifacts, followed by
+analysis of selected artifacts. Table~\ref{tab:selection-criteria} shows a
+detailed tally of the different criteria we observed in the study designs.
 
 \begin{table}
     \begin{tabular}{l l c}
@@ -218,12 +219,12 @@ implementation:
 
 \item \emph{Artifact Properties} (crit.\ e, g, j, n, m): selection is
     often done on properties that are directly stored as part of the artifacts
-    themselves, like commit authors or dates, file names etc. This data is
+    themselves: commit authors or dates, file names etc. This data is
     already present in the database and should only require indexes that allow
     to return all objects matching a given property, assuming these indexes
-    were performant enough.
+    are sufficiently performant.
 
-\item \emph{External Metadata} (crit.\ a, l): when the selection uses
+\item \emph{External Metadata} (crit.\ a, l): where the selection uses
     metadata that is not part of the software data tracked in the archive
     itself (contextual popularity information such as number of GitHub stars or
     pull requests). While external metadata is out of scope for this thesis, we
@@ -242,16 +243,16 @@ implementation:
     number of file changes introduced in a given commit requires computing the
     difference between the directory subtrees of all successive commit pairs.
 
-\item \emph{Code Search} (crit.\ c): when the selection happens on the contents
-    of the files themselves. Finding all the files containing a specific string
-    or pattern is significantly harder than filtering on other artifacts
-    properties. As we noted in Section~\ref{sec:swh-infrastructure}, the
-    total size of the file contents is around two orders of magnitude larger
-    than the rest of the database, which makes indexing a lot more demanding in
-    terms of infrastructure requirements. In addition, the problem of full-text
-    search in source code is a notably hard one, as it requires a high level of
+\item \emph{Code Search} (crit.\ c): where the selection happens on the contents
+    of the files themselves. Finding all files containing a specific string or
+    pattern is significantly harder than filtering on other artifact
+    properties. As we noted in Section~\ref{sec:swh-infrastructure}, the total
+    size of the file contents is around two orders of magnitude larger than the
+    rest of the database, dramatically increasing the infrastructure
+    requirements of indexing. In addition, the problem of full-text search
+    in source code is a notably hard one, as it requires a high level of
     expressiveness to be able to match on specific tokens or API uses.
-\end{itemize}
+    \end{itemize}
 
 Each selection criteria described here defines one specific filter on the
 objects, but researchers generally combine these filters together to narrow
@@ -262,8 +263,8 @@ expressiveness in the selection phase.
 
 \subsection{Analyzed Data}
 
-After having selected the relevant objects of study using specific filters and
-heuristics, researchers perform on them the analysis that constitutes the core
+Having selected the relevant objects of study using specific filters and
+heuristics, researchers perform the analysis that constitutes the core
 of their experimental design. In order to make this possible in Software
 Heritage, it is necessary to understand which categories of data need to be
 made accessible.
@@ -285,8 +286,7 @@ made accessible.
 
 In the MSR review, we identified 6 categories of data that were
 frequently analyzed in mining studies, shown in Table~\ref{tab:analyzed-data}.
-
-By far the most common type of analyzed artifacts is contents, highlighting the
+By far the most common type of analyzed artifacts are contents, highlighting the
 clear need to make the source code files easily accessible. While there are
 some studies which only rely on the upper layers of the artifact graph like
 community detection algorithms, research on the source files themselves is
@@ -296,10 +296,10 @@ Studies generally also require basic artifact properties like file names,
 commit messages, dates and authors, etc. Those fields should be relatively easy
 to provide from the Merkle DAG of the archive. Some studies also depend on the
 topology of the subgraphs themselves: commit chains when analyzing software
-evolution, subtrees when looking at file hierarchies. This is important to keep
-in mind, as it means we cannot always simply provide an unorganized flat stream
-of artifacts, and need to leave open the possibility of running algorithms on
-the graph which links them together.
+evolution, or source subtrees when looking at file hierarchies. This is
+important to keep in mind, as it means we cannot always simply provide an
+unorganized flat stream of artifacts, and need to leave open the possibility of
+running algorithms on the graph which links them together.
 
 Here again, studies will tend to use derived data which can be computed from
 the data in the archive. The most prominent example is commit diffs, as a lot
@@ -308,26 +308,26 @@ of studies look at the \emph{changes} that were introduced by each commit.
 Some types of derived data can pose additional challenges. For instance,
 computing dependency graphs will involve a different process for each
 programming language, or even each package manager. For complex cases such as
-this one, our focus should be to make sure all the objects required to compute
-the derived data can be provided, so that researchers can generate the corpus
+this one, our focus should be to make sure all objects required to compute the
+derived data can be provided, so that researchers can generate the corpus
 themselves.
 
 \section{Functional requirements}
 
-While a literature review gives us a good understanding of how \emph{current}
+A cursory review of the literature gives us a good understanding of how \emph{current}
 software mining studies are designed and the main categories of data they
-exploit, they should not necessarily be our sole guide for the capabilities we
-want to provide in a research platform. While the current literature reflect
+exploit, but it should not necessarily be our sole guide for the capabilities we
+want to provide in a research platform. While the current literature reflects
 the state of what is currently achievable for researchers, one of our goals is
-to open-up new possibilities by leveraging the unique properties of the
-archive, notably its canonical format, diversity and universality.
+to open new possibilities by leveraging the unique properties of the
+archive: notably its canonical format, diversity, and universality.
 
 To that end, the efforts in building a mining platform in Software Heritage
 should primarily focus on capabilities that would be uniquely impactful on the
 state of the art when applied to this particular software development corpus.
 Mining studies on handcrafted datasets, small number of repositories or
 using metadata more easily accessible in other platforms (e.g., dependency
-graphs, call graphs), while important to the field, might not be the most
+graphs, call graphs), while important to the field, might not be best
 suited for Software Heritage, at least in its first iterations. As a general
 rule of thumb, a major strength of running experiments on the archive is that
 the universality of the corpus can allow researchers to analyze public source
@@ -344,20 +344,20 @@ file contents stored in the archive based on some specific criteria. Those
 requests are usually made in the purpose of analysing the code itself: code
 patterns recognition, language detection, static analysis, malware detection,
 and so on.  Occasionally, those requests also require some data preprocessing
-to be applied to the file contents before the analysis (comments removal, data
+to be applied to the file contents before the analysis (comment removal, data
 or binary strings removal, etc.).
 
 \textbf{Filtering on metadata}. It is generally useful to filter the query
-results depending on some criteria on the metadata of the files. This metadata
-can be either already present in the archived repositories (file extensions,
+results depending on some criteria on the file metadata. This metadata
+can either already be present in the archived repositories (file extensions,
 file names, file sizes, directory depth…), or derived from the data (MIME
 types, detected programming language, license…). This metadata has to be
 precomputed and indexed along with the files.
 
 \textbf{Content search}. The ability to perform full-text search for
 specific code fragments or patterns is very useful to focus
-computations on the relevant parts of the code, and it requires an up
-to date full-text search index.
+computations on the relevant parts of the code, and it requires an up-to-date
+full-text search index.
 
 \textbf{History graph}: The ability to access the revision history graph along
 with its associated metadata (authors, commit messages, etc.) and being able to
@@ -388,23 +388,23 @@ history graph of a repository while filtering on their associated metadata.
 \subsection{Data volume}
 
 Most of the challenges which stand in the way of providing some form of access
-to the data directly stem from the sheer size of the software archive. Allowing
-people to locally retrieve a large chunk of the archive to perform local
-computations is very impractical at the Software Heritage scale in most cases,
+to the data directly stem from the sheer size of the software archive. In most
+cases, allowing people to locally retrieve a large chunk of the archive to
+perform local computations is very impractical at the Software Heritage scale,
 both from a network transfer perspective and for the undue burden it would
 cause on local storage requirements.
 
 Handling the file contents of the archive requires a lot of resources and
 expertise. The total size of the blobs (currently $\approx 700$ TB) require
-a lot of storage capacity, and the blobs cannot easily be stored on a single
-machine using consumer-grade storage. The unusual size distribution of the
-blobs, whose median size is approximately 3~kB, makes it also hard to use
-industry-grade storage solutions, because they often are not designed to store
-a large quantity of very small files. On conventional systems, some limitations
-on inode management may apply. Other distributed storage solutions like Ceph
-cannot easily handle a large amount of small files (because of the per-file
-overhead needed for replication~\cite{dandrimont2018cephml}), and require some
-form of custom content packing to take place beforehand.
+large amounts of storage capacity, and the blobs cannot easily be stored on a
+single machine using consumer-grade storage. The unusual size distribution of
+the blobs, whose median size is approximately 3~kB, also makes it challenging
+to use industry-grade storage solutions, as they generally are not designed to
+store a large quantity of very small files. On conventional systems, some
+limitations on inode management may apply. Other distributed storage solutions
+like Ceph cannot easily handle a large amount of small files (because of the
+per-file overhead needed for replication~\cite{dandrimont2018cephml}), and
+require some form of custom content packing to take place beforehand.
 
 Compressing the blobs works well to reduce the size with a compression
 ratio of $\approx 2$ (estimated on a random sample of about 1\% of the
@@ -438,15 +438,15 @@ to them is to help them transform the data from a format well-suited for
 
 Files and directories contained in a specific revision are usually expected to
 be represented as on-disk filesystem trees, so the children of the
-directories can directly be accessed through the primitives of the filesystem.
-In the Software Heritage archive, the de-duplication requires this to go
+directories can be directly accessed through the primitives of the filesystem.
+In the Software Heritage archive, the deduplication requires this to go
 through an additional index of the hashes of the directories. The interface
 therefore has to provide a utility to ``flatten'' the compact representation
 into a more classical directory structure, although doing so systematically
 would invalidate the benefits of de-duplication.
 
 For the revision graph itself, there is no current standard of representation,
-so most of the research experiments so far have worked on tool-specific
+so most of the research experiments thus far have worked on tool-specific
 representations (often depending on the version control system used). While
 there is value in providing a universal representation for commit-level
 software evolution from different sources, it is still important to provide a
@@ -465,11 +465,11 @@ the volume of edges, and reducing as much as possible the amount of
 indirections that require index hits for performance reasons.
 
 Moreover, maintaining this (bottom-up) provenance index is harder than its
-top-down counterparts, since there is no way to know in advance all the objects
-of the relationship, and thus represent them with an intrinsic hash for
+top-down counterparts, since there is no way to know all the objects of the
+relationship a priori, and thus represent them with an intrinsic hash for
 indexing. These mappings will therefore have to be dynamic, meaning a
-provenance query for a given software artifact will give different responses
-as more snapshots get archived.
+provenance query for a given software artifact will give different responses as
+more snapshots get archived.
 
 \subsection{Repeatability and reproducibility}
 
@@ -480,35 +480,36 @@ intrinsic hashes guarantee full consistency of the data at the snapshot level,
 it might be useful to provide a way to describe the state of the \emph{entire
   archive} at some point in time. If we are able to reconstruct a previous
 state of the archive from a timestamp, including this timestamp along
-with the experiment methodology will allow the experiment to be repeated on the
-exact same dataset as when it was performed for the first time. That way, an
-experiment can be \emph{repeated} by performing it on the timestamped state of
-the archive, and \emph{reproduced} by performing it on a different dataset.
+with the experiment methodology will allow it to be repeated on the exact same
+dataset as when it was performed for the first time. That way, an experiment
+can be \emph{repeated} by performing it on the timestamped state of the
+archive, and \emph{reproduced} by performing it on a different dataset.
 
-The naive way to get an intrinsic identifier a Merkle DAG is simply to hash the
-list of roots, however it does not work when the graph is incomplete. As the
-Software Heritage DAG can have a lot of holes (missing revisions, files, etc.)
-that can be added or removed without changing the intrinsic identifier of the
-nodes, relying solely on those hashes is not sufficient to reliably get a
-hash of the archive as a whole.
+The usual way to get an intrinsic identifier a Merkle DAG is simply to hash the
+list of its roots. However, it does not work in this case because the graph is
+incomplete: the Software Heritage DAG can have a lot of holes (missing
+revisions, files, etc.) that can be added or removed without changing the
+intrinsic identifier of the nodes, relying solely on those hashes is not
+sufficient to reliably obtain a hash of the archive as a whole.
 
 A better way to achieve this would be to use the journal described in
 Section~\ref{sec:swh-infrastructure} by adding timestamps to each inserted
-objects, then read all the objects from the journal up to the archive timestamp.
+object, then read all the objects from the journal up to the archive timestamp.
 
 \subsection{Expressiveness}
 
 Researchers who want to run analyses on the Software Heritage dataset will
 perform \emph{queries} on the archive to describe the computations and the part
 of the archive they will be run on. Running these queries on the archive will
-require a query API that can express these different use cases.
+require an API that can express these different use cases.
 
-The expressive power of the query language determines how easy it is to use
-the different data selection features, computation primitives and result
-aggregations when running queries on the dataset. The semantics of the language
-have to provide ways of representing and combining those different operations
-so that the breadth of computations that queries are able to represent is as
-wide and generic as possible for the use cases we identified.
+The expressive power of the query language determines how easy it is to use the
+different data selection features, computation primitives and result
+aggregations when running data selection queries on the dataset. The semantics
+of the language have to provide ways of representing and combining those
+different operations so that the breadth of computations that queries are able
+to represent is as wide and generic as possible for the use cases we
+identified.
 
 \section{Roadmap}
 
@@ -524,7 +525,7 @@ A preliminary step of this work is to make the dataset available in some
 format suitable for scale-out analysis, so that Software Heritage and other
 researchers can try out a few experiments and document their own use cases.
 Some public cloud computing providers like Amazon Web Services or Google Cloud
-have public datasets programs, on which we can make the Software Heritage
+have public dataset programs, on which we can make the Software Heritage
 dataset publicly available without bearing the cost of the storage.
 
 While allowing people to run queries directly on a public cloud instance is
@@ -539,11 +540,11 @@ Once the dataset is available in some format for people to run queries on it,
 we will be able to collect more real-world use cases as a way to improve our
 understanding of researchers' needs, which in turn guides the platform design:
 what are the types of queries that scientists want to run? What are the data
-and metadata filters that they need?  What is the kind of information that is
+and metadata filters that they need?  What is the sort of information that is
 the most often retrieved from the data model?
 
 After having collected these use cases, it is then be possible to elicit a
-domain specific language that can cover the kind of queries required
+domain specific language that can cover the types of queries required
 for the use cases we identified, to offer a more accessible interface than
 doing raw queries on the database. This language will have to be expressive
 enough to address the difficulties we outlined, notably by allowing flexible
@@ -552,7 +553,7 @@ possible to express constraints on the data used for the computations, and to
 limit the span of the queries.
 
 Real-world use cases also exhibit patterns of access to data derived from
-the dataset, like diffs between revisions, branching and merging histories,
+the dataset: diffs between revisions, branching and merging histories,
 etc. Isolating this ``derived data'' to index it in the dataset would also be
 useful to the platform, as it would significantly improve the performance of
 computations on these common use cases.

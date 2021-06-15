@@ -15,7 +15,7 @@
     flat data in parallel, it has inherent limitations for the highly-recursive
     graph structure of the archive. We propose the use of graph compression as
     way to considerably reduce the memory usage of the graph, allowing us to
-    map it entirely in physical memory. We develop a library to run arbitrary
+    load it entirely in physical memory. We develop a library to run arbitrary
     algorithms on the compressed graph of public development, using various
     mapping techniques to access properties at the node and edge levels.
     We then leverage this infrastructure to study the topology of the entire
@@ -53,7 +53,7 @@ données. Cette approche est adaptée au traitement de grandes quantités de
 données horizontales, mais elle présente des limites inhérentes à la structure
 fortement récursive du graphe. Nous proposons d'utiliser la compression de
 graphe comme moyen de réduire considérablement la taille du graphe, ce qui nous
-permet de le stocker en mémoire vive. Nous développons une bibliothèque pour
+permet de le charger en mémoire vive. Nous développons une bibliothèque pour
 exécuter des algorithmes arbitraires sur le graphe compressé, en utilisant
 des techniques de mise en correspondance de ses propriétés au
 niveau des nœuds et des arêtes. Nous utilisons ensuite cette infrastructure
@@ -79,7 +79,7 @@ amassing unprecedented quantities of software source code from a variety of
 origins, keeping track of all their evolution histories as captured by version
 control systems (VCS). The Software Heritage archive has grown to be the
 largest and most comprehensive corpus of public software artifacts,
-encompassing all the major source code hosts (e.g. GitHub, Gitlab, Bitbucket,
+encompassing major source code hosts (e.g. GitHub, Gitlab, Bitbucket,
 Google Code), supporting a variety of VCS (e.g. Git, Mercurial, SVN) and
 package managers (Debian, NixOS, PyPI, NPM…).
 
@@ -99,16 +99,16 @@ could help us gain a deeper understanding of the evolution of software at a
 macro level, and the underlying social structures of software projects. It
 would also reduce the barriers of entry to empirical studies by lowering the
 costs of data collection and eliminating the need for manual data scraping and
-retrieval, as well as facilitate replicating studies at larger scales using
+retrieval, as well as facilitate replicating studies at a large scale using
 comprehensive data samples.
 
 The exploitation of such an unprecedented source code collection poses
 significant challenges in terms of availability, data representation, system
 architecture and scalability. The graph in the Software Heritage archive
-contains more than 20 billion nodes and 200 billion edges and grows faster
-every day. At this scale, few off-the-shelf tools can be used for general
-purpose data analysis, and new techniques must be built on the state of the art
-of large graph processing.
+contains more than 20 billion nodes and 200 billion edges and grows
+exponentially over time. At this scale, it is generally difficult to use
+off-the-shelf tools for general purpose data analysis, and new techniques must
+be built on top of the state of the art of large graph processing.
 
 \subsection*{Data availability}
 
@@ -142,28 +142,28 @@ performance, data denormalization and data privacy.
 Putting these datasets on cloud platforms allows us to understand the use cases
 for which this relational format is suitable, as well as its limitations,
 notably the difficulty of running experiments that require graph traversal
-algorithms (e.g walking down a commit chain).
+algorithms (e.g., walking down a commit chain).
 
 \subsection*{Graph representation}
 
 As the graph dataset is an inherently recursive structure, big data analysis
 tools that exploit the ``flatness'' of data to scale-out their processing cannot
 be used in a similar fashion on problems that are not embarrassingly parallel.
-A naive scale-out approach to randomly assign the artifacts to different shards
-is not very efficient, as a traversal algorithm will require jumping
-between different shards all the time. We investigate existing scale-out
-solutions (GraphFrames, Neo4J, AIGraph) and discuss their limitations for
-scale-out graph analysis.
+A naive scale-out approach of using object hashes to randomly assign the
+artifacts to different shards is not very efficient, as a traversal algorithm
+will require jumping between different shards all the time. We investigate
+existing scale-out solutions (GraphFrames, Neo4J, AIGraph) and discuss their
+limitations for scale-out graph analysis.
 
 Another approach is that of graph compression: using existing techniques for
-compressing very large graphs, we can fit the topology of the Software Heritage
-graph in memory on a single machine. This allows us to run standard graph
-algorithms without having to find a way to parallelize them. The compressed
-graph can be used for prototyping purposes, but also as a production service
-that can answer simple traversal queries. The thesis discusses the different
+compressing very large graphs, we can fit the Software Heritage graph without
+its properties in memory on a single machine. This allows us to run standard
+graph algorithms without having to find a way to parallelize them. The
+compressed graph can be used for prototyping purposes, but also as a production
+service that can answer simple traversal queries. We discuss the different
 compression techniques used to fit the entire graph topology in only $\sim150$
-GB, as well as some storage trade-offs for the node and edge metadata on the
-property graph.
+GB of RAM, as well as some storage trade-offs for the node and edge metadata on
+the property graph.
 
 To let researchers run experiments on a smaller scale, we introduce a way to
 extract representative graph subdatasets of any given size from the archive. We
@@ -187,14 +187,15 @@ large-scale graphs generated by human activities (social networks, graph of the
 Web, …).
 
 On a macro-level, we seek to understand how the software artifacts are
-organized and shared across different repositories by studying the notion of
-``forks'' in the archive. By exploiting the fact that projects that are built on
-top of others will share some of their development history, we propose an
-algorithm to arrange the list of all the repositories in the archive in
-``fork cliques'' (clusters of projects that are all forks of each others) and
-``fork networks'' (clusters of projects that are transitively linked together by
-forking relationships). We compute these structures for the entire Software
-Heritage graph and measure their size distributions.
+organized and shared across different repositories by studying the ``forks'' in
+the archive, comparing different definitions of what a fork is. By exploiting
+the fact that projects that are built on top of others will share some of their
+development history, we propose an algorithm to arrange the list of all the
+repositories in the archive in ``fork cliques'' (clusters of projects that are
+all forks of each others) and ``fork networks'' (clusters of projects that are
+transitively linked together by forking relationships). We compute these
+structures for the entire Software Heritage graph and measure their size
+distributions.
 
 \subsection*{Applications}
 
@@ -202,7 +203,7 @@ Having both a deeper understanding of the underlying structure of the graph as
 well as a platform to run experiments makes it possible to try out different
 scale-out approaches experimentally. We evaluate how ``sharding'' the data with
 respect to different graph orderings (breadth-first order, layered label
-propagation order, fork cliques and connected components) can allow for faster
+propagation order, fork cliques and connected components) can allow for fast
 parallel processing for common use cases.
 
 The analysis platform can also be used to generate derived data from the graph.
@@ -213,6 +214,5 @@ of subsequent commits.
 
 Finally, we discuss future research directions and open subjects: supporting
 general-purpose graph queries through an expressive query language, providing
-more tooling to streamline scale-out analyses, as well as reducing the lag
-between the public datasets and the live data through incremental graph
-exports.
+tooling to streamline scale-out analyses, as well as reducing the lag between
+the public datasets and the live data through incremental graph exports.

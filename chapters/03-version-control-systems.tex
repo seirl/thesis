@@ -48,7 +48,7 @@ are also often logically grouped in the same directory, sometimes called a
     \end{subfigure}\hfill
     \begin{subfigure}[b]{.58\textwidth}
         \centering
-        \input{../tikz/figures/dir-tree.tikz}
+        \input{tikz/figures/dir-tree.tikz}
         \caption{Represented as a tree structure.}%
         \label{fig:vcs-dir-tree}
     \end{subfigure}
@@ -96,7 +96,7 @@ abstract concept.
 
 \begin{figure}
     \centering
-    \input{../tikz/figures/rev-chain-example.tikz}
+    \input{tikz/figures/rev-chain-example.tikz}
     \caption{Three revisions in the example repository, forming a chain of
     past states of the source tree.}%
     \label{fig:vcs-rev-chain-example}
@@ -142,7 +142,7 @@ state, called a \emph{merge revision}.
 
 \begin{figure}
     \centering
-    \input{../tikz/figures/rev-branching-merging.tikz}
+    \input{tikz/figures/rev-branching-merging.tikz}
     \caption{Branching and merging.}%
     \label{fig:vcs-rev-branching-merging}
 \end{figure}
@@ -168,7 +168,7 @@ since branches are just pointers, there is no obvious notion of a revision
 
 \begin{figure}[b]
     \centering
-    \input{../tikz/figures/rev-branches.tikz}
+    \input{tikz/figures/rev-branches.tikz}
     \caption{Feature branches keeping track of parallel revision chains.}%
     \label{fig:vcs-rev-branches}
 \end{figure}
@@ -194,7 +194,7 @@ objects in the development history that point to two specific revisions.
 
 \begin{figure}
     \centering
-    \input{../tikz/figures/rel-example.tikz}
+    \input{tikz/figures/rel-example.tikz}
     \caption{Example of a development history with two revisions tagged as
     \emph{releases}, each corresponding to a new version of the software
     distributed to end-users.}%
@@ -320,7 +320,7 @@ the file again.
 
 \begin{figure}
     \centering
-    \input{../tikz/figures/deduplicate-contents.tikz}
+    \input{tikz/figures/deduplicate-contents.tikz}
     \caption{Deduplication of files with identical hashes. The transparent
     files are detected as duplicate objects, removed and replaced by a pointer
     to the already existing objects (red arrows).}%
@@ -375,12 +375,12 @@ capture the essential nature of a directory and all its contents.
     \centering
     \begin{subfigure}{.53\textwidth}
         \centering
-        \input{../tikz/figures/deduplicate-subtrees.tikz}
+        \input{tikz/figures/deduplicate-subtrees.tikz}
         % \caption{TODO}%
     \end{subfigure}\hfill{\Huge $\rightarrow$}\hfill%
     \begin{subfigure}{.35\textwidth}
         \centering
-        \input{../tikz/figures/deduplicated-repo.tikz}
+        \input{tikz/figures/deduplicated-repo.tikz}
         % \caption{TODO}%
     \end{subfigure}
     \caption{Deduplication of an entire subtree in the example repository. An
@@ -477,7 +477,7 @@ memory efficiency through \emph{purely functional data sharing}.
 
 \begin{figure}
     \centering
-    \input{../tikz/figures/okasaki-complexity.tikz}
+    \input{tikz/figures/okasaki-complexity.tikz}
     \caption{Modifying a single file between two revisions in a source tree of
     height $h$ only requires $O(h)$ new nodes, thanks to data sharing in purely
     functional trees.}%

@@ -9,7 +9,7 @@
 
 % Draft
 \ifdraftdoc
-    \usepackage[colorspec=0.9]{draftwatermark}
+    \usepackage{draftwatermark}
     \SetWatermarkScale{0.3}
     \SetWatermarkText{\bf Draft: \today}
     \setkeys{Gin}{draft=false}  % Display images in draft mode
@@ -63,38 +63,38 @@
 
 \part{Software development and software mining}
 
-\import{chapters/}{01-introduction.tex}
-\import{chapters/}{02-software-heritage.tex}
-\import{chapters/}{03-version-control-systems.tex}
-\import{chapters/}{04-software-heritage-model.tex}
-\import{chapters/}{05-large-scale-mining.tex}
+\input{chapters/01-introduction.tex}
+\input{chapters/02-software-heritage.tex}
+\input{chapters/03-version-control-systems.tex}
+\input{chapters/04-software-heritage-model.tex}
+\input{chapters/05-large-scale-mining.tex}
 
 \part{Making the data available}
 
-\import{chapters/}{06-vault.tex}
-\import{chapters/}{07-fuse.tex}
+\input{chapters/06-vault.tex}
+\input{chapters/07-fuse.tex}
 % TODO: blob chapter?
-\import{chapters/}{08-graph-dataset.tex}
+\input{chapters/08-graph-dataset.tex}
 
 \part{Exploiting software development data as a recursive graph}
 
-\import{chapters/}{09-graph-compression.tex}
+\input{chapters/09-graph-compression.tex}
+\input{chapters/10-graph-metadata.tex}
 \iffalse
-\import{chapters/}{10-graph-metadata.tex}
-\import{chapters/}{11-subdatasets.tex}
-\import{chapters/}{12-graph-querying.tex}
+\input{chapters/11-subdatasets.tex}
+\input{chapters/12-graph-querying.tex}
 
 \part{The graph structure of software development}
 
-\import{chapters/}{13-topology.tex}
-\import{chapters/}{14-forks.tex}
+\input{chapters/13-topology.tex}
+\input{chapters/14-forks.tex}
 
 \part{Applications}
 
-\import{chapters/}{15-derived-data.tex}
-\import{chapters/}{16-sharding.tex}
+\input{chapters/15-derived-data.tex}
+\input{chapters/16-sharding.tex}
 
-\import{chapters/}{17-conclusion.tex}
+\input{chapters/17-conclusion.tex}
 \fi
 
 %\part*{Conclusions}

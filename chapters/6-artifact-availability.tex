@@ -1,0 +1,51 @@
+\chapter{Artifact Availability}
+
+In the previous chapters, we have outlined the different challenges in making
+Software Heritage a universal software mining platform. By studying the needs
+of researchers in the fields of empirical software engineering performing
+studies on software repositories, it is possible to get a good sense of the
+best ways the archive could become useful as a research platform.
+
+However, building the universal platform constitutes a huge endeavour that has
+to be done incrementally. As we cannot aim to cover most use-cases overnight,
+we should instead prioritize features that are immediately useful to
+researchers so that they can start using the building blocks we provide in
+their work. Aside from driving up engagement with the research community, this
+also helps identifying the main pain points they encounter, which in turn can
+guide the roadmap in the steps we take to alleviate them.
+
+The very first step that has to be taken to make the archive usable as a
+bare-bones platform is to provide a simple way to retrieve single artifacts or
+logical groups of artifacts from our own storage. While this cannot necessarily
+make large-scale analysis possible, this could at least be used for some
+smaller-scale experiments and prototypes.
+
+For single artifacts, the Software Heritage
+API\footnote{\url{https://archive.softwareheritage.org/api/}} already covers
+this use-case in some way: using the \gls{SWHID} of an object, it is possible
+to retrieve its associated data as stored in the archive. As an example, the
+following HTTP GET request can be used to get the revision
+\texttt{swh:1:rev:aafb16d69fd30ff58afdd69036a26047f3aebdc6}:
+
+\begin{lstlisting}[language=python,frame=single]
+# GET https://archive.softwareheritage.org/api/1/revision/aafb16d69fd30ff58afdd69036a26047f3aebdc6/
+
+{
+    "id": "aafb16d69fd30ff58afdd69036a26047f3aebdc6",
+    "message": "Merge branch 'master' into pr/584\n",
+    "author": {
+        "email": "nicolas.dandrimont@crans.org",
+        "fullname": "Nicolas Dandrimont <nicolas.dandrimont@crans.org>",
+        "name": "Nicolas Dandrimont"
+    },
+    "date": "2014-08-18T18:18:25+02:00",
+    "directory": "9f2e5898e00a66e6ac11033959d7e05b1593353b",
+    "metadata": {},
+    "parents": [ ... ]
+    [ ... ]
+}
+\end{lstlisting}
+
+\section{The Vault}
+
+\section{Contents}

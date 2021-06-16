@@ -3,33 +3,37 @@
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{../img/SWH-logo}
-    \caption{Logo of the Software Heritage project}
+    \caption{Logo of the Software Heritage initiative}
 \end{figure}
 
 \section{Project goals}
 
-Launched in 2016, the Software Heritage project~\cite{swhcacm2018} has the
-stated mission of collecting, preserving and sharing all the software that is
-available in source code form, together with its entire development history and
-associated metadata.
+Launched in 2016, the Software Heritage
+initiative\footnote{\url{https://www.softwareheritage.org/}}~\cite{swhcacm2018}
+has the stated mission of collecting, preserving and sharing all the software
+that is available in source code form, together with its entire development
+history and associated metadata.
 
 As software has become a key technology lying at the heart of our modern
 civilization, it has become clear that it embodies a growing part of our shared
 cultural, scientific and technical heritage, and as a result it has attracted
 growing attention from the digital preservation community.
-More specifically, the main focus of archival efforts have been on the software
-\emph{source code}, which is where this technical knowledge is embedded, rather
-than executable binaries which are mostly unreadable for humans and stripped of
-all development insights.
+Recently, the focus of archival efforts have started to shift to preserve the
+software \emph{source code}, which is where this technical knowledge is
+embedded, rather than executable binaries which are mostly unreadable for
+humans and stripped of all development insights. Developers sometimes tend to
+call this source code the ``preferred form of modification'', emphasizing its
+importance as the format that human programmers directly interact with when
+writing software.
 
 As a way to pursue this three-fold mission of collecting, preserving and
-sharing the software commons, the Software Heritage project aims at becoming
+sharing the software commons, the Software Heritage initiative aims at becoming
 three major things:
 
 \begin{enumerate}
     \item A \textbf{reference catalog} of all the software source code. By
         painstakingly finding and referencing the extant source code and
-        all the different places it appears, the project aims to become a
+        all the different places it appears in, the archive aims to become a
         general entry point where historical and contemporary software can be
         found and retrieved.
     \item A \textbf{universal archive} where the software is safely preserved
@@ -41,45 +45,46 @@ three major things:
     \item A \textbf{research platform} to enable analysis of all the source
         code in the archive. This implies making the data not only
         \emph{available}, but also \emph{accessible} to researchers and
-        industrials, by providing an framework to perform experiments in ways
+        industrials, by providing a framework to perform experiments in ways
         that are convenient and suitable for large-scale data mining.
 \end{enumerate}
 
 The work presented in this thesis is focused on the latter point and explores
-various directions to enable large-scale analysis of the software present in
-the archive. However, to understand \emph{how} we intend to make this data
-accessible, we first have to look at the way the archive works: its scale, what
-it covers, how its data is crawled and ingested, how the archive grows over
-time, etc.
+various directions to enable large-scale analysis of the software source code
+present in the archive. However, to understand \emph{how} we intend to make
+this data accessible, we first have to look at the way the archive works: its
+scale, what it covers, how its data is crawled and ingested, how the archive
+grows over time, etc.
 
 \section{Software collection}
 
-\subsection{Finding all the software}
+\subsection{Finding all the source code}
 
 While the Software Heritage archive aims to assemble and preserve \emph{all}
-the software, all software projects are not equal in terms of ease of
+the software source code, all software projects are not equal in terms of ease of
 collection. \figref{fig:swh-collect-axes} shows how this complexity can be
-mapped on two axes. The Open ↔ Closed axis references whether the public has
-the rights to access and use a given piece of software, or whether it is
-well-guarded behind copyright, proprietary licenses or even trade secrets.
-The Online ↔ Offline axis indicates whether the software is already online in a
-digital format on a (potentially private) network, or whether it would require
-efforts to retrieve it from a physical medium, such as offline hard drives or
-even old source listings.
+mapped on two axes. The Open $\leftrightarrow$ Closed axis references the right
+to archive the source code, as obtaining the right to archive private
+repositories is more challenging than for ones already open to the public.  The
+Online $\leftrightarrow$ Offline axis indicates whether the software is already
+online in a digital format on a (potentially private) network, or whether it
+would require efforts to retrieve it from a physical medium, such as offline
+hard drives or even old source listings.
 
 Each quadrant will entail different resources and techniques to be ingested in
-the archive. Naturally, the Software Heritage project has thus far focused its
-resources predominantly on the top-right quadrant, i.e., software that is
+the archive. Naturally, the Software Heritage initiative has thus far focused
+its resources predominantly on the top-right quadrant, i.e., source code that is
 already publicly available online on code hosting platforms, due to how
 comparatively easy it is to automate the retrieval of large quantities of
-software.  Throughout this thesis, we focus on what we call \emph{public
-development}, which mainly refers to this quadrant of open and online software.
+software source code.  Throughout this thesis, we focus on what we call
+\emph{public development}, which mainly refers to this quadrant of open and
+online software.
 
 Note that this has implications for empirical research: knowledge gained from
 studies on the data amassed by Software Heritage will necessarily have a
 selection bias, as it will capture the patterns that are specifically
 found in public development. A general rule is that the more accessible a
-piece of software already is (by being present on well-known hosting
+piece of source code already is (by being present on well-known hosting
 platforms), the more likely it is to be archived in Software Heritage.
 
 \begin{figure}
@@ -106,8 +111,9 @@ platforms), the more likely it is to be archived in Software Heritage.
 \subsection{Software origins}
 
 \emph{Software origins} are abstract objects representing the places where we
-can find a given piece of software. In practice, they are often represented in
-the form of a URL, pointing to the web page where a given software was found.
+can find a given piece of software source code. In practice, they are often
+represented in the form of a URL, pointing to the web page where a given
+software was found.
 
 Origins are conceptually different from \emph{projects}. A specific software
 project can be found in multiple origins, especially in the case of \glspl{DVCS}
@@ -127,19 +133,19 @@ the repository they are working on, thereby creating more origins of the same
 software. Greg Kroah-Hartman has his own working copy of the Linux repository
 hosted at \url{https://github.com/gregkh/linux}. All in all, there can be
 thousands of origins hosted in different places, all pointing to the same
-software.
+software source code.
 
 Origins are often found in code hosting platforms called \emph{software
-forges}. These forges are hubs for software development, aggregating and
-organizing code repositories as well as their associated project metadata like
-issues, bug reports, continuous integration services, etc.  These forges can be
-centralized services where any developer is free to upload their own
-repository. GitHub is by far the largest example of such a centralized
-platform, totaling 40 million users and more than 190 million repositories as
-of January 2020. Other forges like Gitlab or Phabricator function on a more
-decentralized model, where the code of the forge itself is open source, and
-organizations can self-host their own instances of the forge to store and
-organize their projects.
+forges}~\cite{squire2012describing}. These forges are hubs for software
+development, aggregating and organizing code repositories as well as their
+associated project metadata like issues, bug reports, continuous integration
+services, etc.  These forges can be centralized services where any developer is
+free to upload their own repository. GitHub is by far the largest example of
+such a centralized platform, totaling 40 million users and more than 190
+million repositories as of January 2020. Other forges like GitLab or
+Phabricator function on a more decentralized model, where the code of the forge
+itself is open source, and organizations can self-host their own instances of
+the forge to store and organize their projects.
 
 Another source of origins is curated software ecosystems, like app stores or
 package manager repositories. For instance, Linux distributions like Debian
@@ -160,8 +166,10 @@ Heritage has been continuously establishing a list of software forges and
 package repositories where publicly available software can be retrieved and
 archived. Generally, these code hosting platforms provide APIs that can be used
 to get a list of all the projects hosted on the platform. The Software Heritage
-listers use these APIs to continuously watch repositories that are getting
-added or modified, and schedule them to be loaded in the archive.
+listers use these APIs to periodically get a list of all the repositories in
+the forge and schedule them to be loaded in the archive. Some forges also
+support subscribing to event feeds when repositories get added or modified,
+which is used to schedule repositories at a finer granularity.
 
 Of course, the software found when visiting an origin can be stored under a
 variety of formats: a source code repository can be versioned under one of the
@@ -173,12 +181,13 @@ installation rules (e.g., deb and RPM files).
 The role of understanding and processing the various formats of code
 repositories to archive is delegated to another component in the Software
 Heritage infrastructure, the \emph{loaders}. Each loader is written for a
-specific type of repository, and thus all the formats supported by the Software
-Heritage archive have their own loader. To ingest a code repository in the
-archive, the loaders first retrieve it from the remote either by communicating
-in the protocol of the VCS, or using a simple downloading protocol like HTTP,
-FTP or rsync. Then, they extract all the different software artifacts contained
-in the repository and ingest them in the archive.
+specific type of \gls{VCS} repository or source package, and thus all the
+formats supported by the Software Heritage archive have their own loader. To
+ingest a code repository in the archive, the loaders first retrieve it from the
+remote either by communicating in the protocol of the VCS, or using a simple
+downloading protocol like HTTP, FTP or rsync. Then, they extract all the
+different software artifacts contained in the repository and ingest them in the
+archive.
 
 \begin{figure}
 \begin{center}
@@ -197,7 +206,7 @@ thanks to a comprehensive data model described in Chapter~\ref{chp:swh-model}.
 
 \subsection{Software notability}
 
-One of the stated goals of the Software Heritage project is exhaustiveness,
+One of the stated goals of the Software Heritage initative is exhaustiveness,
 which implies not making value judgments as to what constitutes ``important''
 or ``notable'' software. At no point in this process does any filtering occur
 that would remove software artifacts considered unimportant or irrelevant:
@@ -215,6 +224,14 @@ already been lost. This exhaustiveness principle allows us to follow in real
 time the evolution and growth of projects and the social processes that govern
 their communities.
 
+One side effect of this design is that the archive contains a lot of data that
+is not typically considered to be software source code: homepages, datasets,
+configuration files, periodical database dumps, images and other assets, etc.
+While software forges are mostly used as a source code development platform,
+they can also be used as general hosting providers in some cases. Researchers
+should be aware of this fact when exploiting the data in the archive, and
+filter out these non-source code objects if desired.
+
 % Scope?
 \section{The world's largest repository of source code}
 
@@ -229,12 +246,15 @@ from the repositories PyPI, CRAN, NPM and Packagist (respectively for the
 Python, R, Javascript and PHP programming languages).
 
 The listers are configured to run on the major code hosting platforms, and the
-archive contains a full copy of Github, Bitbucket, GitLab, SourceForge and the
+archive contains a full copy of GitHub, Bitbucket, GitLab, SourceForge and the
 GNU project. They also periodically crawl the repositories of hundreds of
-decentralized instances of Phabricator, Gitlab, cgit, Launchpad and Gitea.
+decentralized instances of Phabricator, GitLab, cgit, Launchpad and Gitea.
 Some of the projects preserved in the archive were also recovered from defunct
 hosting platforms such as Gitorious and Google Code, then loaded as a one-shot
 task, as those sources do not require recurrent listing.
+
+\TODO{More fine-grained breakdown of the archive content by forge, like a table
+or a piechart. Take the one from the topology article?}
 
 This extensive and far-reaching coverage has implications for research, as it
 allows us to identify heterogenous properties that appear when doing analysis
@@ -260,12 +280,14 @@ number of source files, commits and projects stored.
 
 Together, these source code files would weigh around 750\,TiB in total.
 However, they are compressed in the main in-house storage, which reduces their
-on-disk size to around half of that.\TODO{more precise number?} The main
-PostgreSQL database that stores the other kinds of data (directory trees,
-development history and origins) weighs around 7\,TiB, including database
-indexes on some fields to allow for more efficient retrieval operations.
+on-disk size to around half of that.\TODO{more precise number?} While the
+source code files themselves take a huge amount of space, the other software
+artifacts (directory trees, development history checkpoints, origins, etc.)
+weigh significantly less overall. They are stored in a PostgreSQL database
+which weighs around 7\,TiB in total, including database indexes on some fields
+to allow for more efficient retrieval operations.
 
-The archive is of course expected to grow over time as more and more listers,
+The archive is expected to grow over time as more and more listers,
 loaders and data sources are added to the crawling process, but maybe more
 importantly because of the natural growth rate of the quantity of code produced
 worldwide over the years. In~\cite{swh-provenance-emse}, Rousseau, Di Cosmo and
@@ -274,7 +296,10 @@ more than 40 years, and find that the amount of commits in public source code
 doubles every $\approx 30$ months, while the number of unique source code files
 doubles every $\approx 22$ months. Zacchiroli further
 confirmed~\cite{ieee-sw-gender-swh} this exponential trend while studying
-historical gender differences in public software development.
+historical gender differences in public software development. As of current
+projections, this exponential growth is still assumed to be sustainable at the
+scale of the archival project due to the also exponentially decreasing cost of
+storage~\cite{swh-provenance-emse}.
 
 The massive scale of the archive as well as its projected growth in the
 foreseeable future highlights the architectural need for large scale

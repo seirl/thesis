@@ -17,10 +17,11 @@ being abstract enough to be independent of any specific implementation.
 
 \subsection{Files and directories}
 
-The fundamental elements in a source code repository are, naturally, source
-code files. Developers tend to organize their code in different logical units
-that are then hierarchized in several levels of directories. At the lowest
-granularity, programmers write \emph{functions} that perform a specific task or
+At a fundamental level, the most basic elements in a source code repository are
+source code files. Developers tend to organize their code in different logical
+units that are then hierarchized in several levels of directories. At a low
+granularity, programmers separate their program in small logical blocks (like
+\emph{functions} or \emph{classes}) that perform a specific task or
 computation. A \emph{source code file} is generally a collection of
 conceptually related functions, put together as a single logical unit. Source
 files that define the behavior of a logically distinct component of a program
@@ -84,12 +85,12 @@ discouraging small incremental changes. In addition, it hinders collaboration
 between developers, who have to exchange work in progress source files and can
 easily lose track of which version they are developing on.
 
-However, this basic concept of keeping track of "snapshots" of the state of the
+However, this basic concept of keeping track of ``snapshots" of the state of the
 source tree at different points in time was a key design insight in the
 development of most modern \glspl{VCS}. They introduce the notion of
 \emph{revisions}, which can be conceptualized as a chain of frozen past states
 of a source tree that were recorded at various points in time during
-development. In some systems, these successive states are known are
+development. In some systems, these successive states are known as
 \emph{commits}, or sometimes \emph{changesets}, but they all refer to the same
 abstract concept.
 
@@ -104,14 +105,14 @@ abstract concept.
 \figref{fig:vcs-rev-chain-example} shows three successive states of the source
 tree from our example repository, recorded as three different revisions. The
 revisions all point to a full copy of the source tree, exactly as it was when its
-state was ``frozen''. Each revision also contains a reference to the revision
+state was recorded. Each revision also contains a reference to the revision
 immediately preceding itself, as a way to keep track of the order in which the
 changes were made.\footnote{Note that, somewhat confusingly, this implies that
-the arrows are in the opposite direction of time: each revision holds a
-reference to its \emph{previous} revision, and thus points towards the
-\emph{past}.} By iteratively walking the chain of parents from a given revision,
-it is thus possible to visit all the previous states of the repository on which
-this revision was based.
+the arrows between commit nodes are in the opposite direction of time: each
+revision holds a reference to its \emph{previous} revision, and thus points
+towards the \emph{past}.} By iteratively walking the chain of parents from a
+given revision, it is thus possible to visit all the previous states of the
+repository on which this revision was based.
 
 Along with its source tree and a reference to its parent, a revision also
 typically contains additional metadata: the \emph{date and time} at which it
@@ -128,7 +129,7 @@ file was modified for the last time.
 \subsection{Branching and merging}
 
 A crucial challenge in collaborative software development is that the changes
-generally do not happen in a linear fashion. To efficiently share tasks amongst
+do not necessarily happen in a linear fashion. To efficiently share tasks amongst
 multiple people, development teams need the ability to work on the codebase
 simultaneously, which requires having several versions of the repository in
 parallel. In a \gls{VCS}, this is typically achieved through \emph{branching}:
@@ -163,7 +164,7 @@ currently being worked on in parallel. \figref{fig:vcs-rev-branches} shows an
 example of three branches pointing to different revision chains. Note that
 since branches are just pointers, there is no obvious notion of a revision
 \emph{belonging} to a specific branch, but rather revisions are
-\emph{accessible} from one or even several branches.
+\emph{reachable} from one or even several branches.
 
 \begin{figure}[b]
     \centering
@@ -209,7 +210,8 @@ While releases and branches are typically meant to point to revisions, the data
 model of some \glspl{VCS} also support the possibility of making them reference
 other objects, such as files and directories. While this is a generally rare
 occurrence, there are some examples of this happening in real-world
-repositories, and our data model should accommodate for that possibility.
+repositories, and our generic \gls{VCS} data model should accommodate for that
+possibility.
 
 \section{Artifact deduplication}
 
@@ -228,19 +230,19 @@ granularity of development history to isolate every logical change in a
 separate revision.
 
 However, it is possible to integrate \emph{deduplication} in the model as a way
-to reduce its footprint. This section details how we can leverage cryptographic
-hash functions to achieve deduplication at the level of single objects and
-entire subtrees.
+to reduce its storage footprint. This section details how we can leverage
+cryptographic hash functions to achieve deduplication at the level of single
+objects and entire subtrees.
 
 \subsection{Cryptographic hash functions}
 
 The basic primitive used for deduplication in many \glspl{VCS} are
 \emph{cryptographic hash functions}: mathematical algorithms that can map
-arbitrary data into a single fixed-length virtually unique identifier. By
-computing the identifier, or \emph{hash}, of each object, it is possible to
-check when two objects are identical very quickly by simply comparing their
-hashes. Because they have a fixed length, comparing two hashes is an operation
-with a time complexity of $O(1)$.
+arbitrary data into a single fixed-length unique identifier. By computing the
+identifier, or \emph{hash}, of each object, it is possible to check when two
+objects are identical very quickly by simply comparing their hashes. Because
+they have a fixed length, comparing two hashes is an operation with a time
+complexity of $O(1)$.
 
 \begin{figure}
     \begin{center}
@@ -295,14 +297,17 @@ function would take more than \num{2600}~times the lifespan of the universe,
 rendering it impossible for all intents and purposes.
 
 In some cases, the hash functions can have weaknesses that are exploited by
-cryptanalytic attacks. This is the case of SHA-1, the hash function used by
-default as a deduplication method for Git, where a collision was found in
-2017~\cite{stevens2017first}.
-Various methods can be deployed to reduce susceptibility to these collision
-attacks, including detecting and rejecting payloads designed to produce
-collisions, or migrating to more secure hash functions like SHA-256 or BLAKE2.
-In this thesis, we always assume that cryptographic hash functions map to a
-single unique identifier and discard the possibility of collisions.
+cryptanalytic attacks. This is the case of SHA-1~\cite{standard1995fips}, the
+hash function used by default as a deduplication method for Git, where a
+collision was found in 2017~\cite{stevens2017first}.  Various methods can be
+deployed to reduce susceptibility to these collision attacks, including
+detecting and rejecting payloads designed to produce collisions, or migrating
+to more secure hash functions like SHA-256~\cite{fips2012180} or
+BLAKE2~\cite{aumasson2013blake2}.  In this thesis, we always assume that
+cryptographic hash functions map to a single unique identifier and discard the
+possibility of collisions. These attacks do not have a big impact for our use
+case, as objects with colliding hashes are artificially generated for this
+purpose, reducing the interest of archiving and analyzing them.
 
 \subsection{Deduplicating single files}
 
@@ -337,7 +342,7 @@ reference the same unique objects.
 \subsection{Deduplicating subtrees}
 
 While deduplicating the files that remain identical between successive
-revisions significantly reduces the memory impact of the model, each version
+revisions significantly reduces the storage impact of the model, each version
 still requires recreating and storing an entire file hierarchy. In a repository
 with $n$ directories, modifying a single file creates $O(n)$ new directories.
 This is quite inefficient, considering that the majority of directories are
@@ -396,7 +401,7 @@ deduplicated and replaced by a reference to the already existing directory.
 
 The hashing scheme we described is generalized and applied to all the objects
 in the graph of development history, like revisions and tags. All the software
-artifacts will be attributed an intrinsic hash recursively computed from the
+artifacts are attributed an intrinsic hash recursively computed from the
 objects it refers to (e.g in the case of revisions, its parents and thus,
 recursively, its descendants). These intrinsic hashes will be the primary
 identifiers of the software artifacts, and guarantee their unicity in the graph
@@ -406,16 +411,19 @@ This technique of building trees identified by a cryptographic hash that is
 recursively dependent on its entire chain of descendants has first been
 described by Merkle~\cite{Merkle}. We call \emph{Merkle tree} or \emph{hash
 tree} a tree in which every node is labelled with the cryptographic hash of a
-data manifest containing its key and the hashes of its child nodes.
+data manifest containing its key and the hashes of its child nodes.\TODO{Figure
+of a data manifest to explain this better.}
 
 In our case, the structure that contains the development history is technically
 not a tree, but a \emph{\gls{DAG}}: a tree can only have one parent node, which
-is not the case if a software artifact is referenced by two other artifacts. We
-thus call this structure a \textbf{Merkle DAG}. Note that it, by definition,
-cannot contain any cycles: because adding a node requires the hash of all its
-children be already known to compute its own hash, a cycle would require
-computing two mutually dependent cryptographic hashes, which is at least as
-hard as finding a collision.
+is not the case if a software artifact is referenced by two other artifacts.
+This can happen when merging (it creates a revision with two parents) or when
+sharing objects (a deduplicated directory or a content is referenced by
+multiple objects). We thus call this structure a \textbf{Merkle DAG}. Note that
+it, by definition, cannot contain any cycles: because adding a node requires
+the hash of all its children be already known to compute its own hash, a cycle
+would require computing two mutually dependent cryptographic hashes, which is
+at least as hard as finding a collision.
 
 In addition to how they allow us to identify and deduplicate software
 artifacts, intrinsic hashes also have the side benefit of enabling data
@@ -452,6 +460,15 @@ of parents from the changed node to the root of the tree. A revision changing a
 node in a source tree of size $n$ and height $h$ will therefore have a memory
 complexity of $O(h)$. If the tree is balanced, as well-hierarchized source code
 trees generally tend to be, this memory complexity will approach $O(\log(n))$.
+
+The immutability of purely functional \glspl{DAG} is also an interesting
+property for archival and empirical research purposes, as it allows us to
+preserve rewritten \gls{VCS} history. When developers use history rewriting
+commands like \texttt{git rebase} or \texttt{git commit --amend}, instead of
+modifying the nodes themselves, the \gls{VCS} will create a new node and make
+the branch point to that modified node. This model makes it easy to store
+past states of rewritten history, simply by preserving all the immutable nodes
+that were added to the graph.
 
 All in all, Merkle \glspl{DAG} are an overarching keystone of the development
 of modern \glspl{VCS} thanks to their ability to \emph{deduplicate} common

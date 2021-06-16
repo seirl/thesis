@@ -74,9 +74,10 @@ Larger-scale studies can sometimes analyze hundreds or thousands of
 repositories at the same time, but their approach has generally remained
 limited in scope: researchers will tend to focus on some specific sampling
 rule, e.g., retrieving the top ten thousands repositories in a specific
-programming language from a particular hosting platform. This can introduce
-various sources of selection bias, as the most popular repositories in the most
-popular platforms could be unrepresentative of development practices at large.
+programming language from a particular hosting platform. This can be a
+methodological issue for empirical research, as the most popular repositories
+in the most popular platforms could be unrepresentative of development
+practices at large.
 
 At an even larger scale, some studies have been performed on up to the entirety
 of a specific software ecosystem like app stores or package
@@ -85,7 +86,7 @@ to the granularity of software releases and did not study finer-grained history
 data like commits.
 
 Arguably, one of the next frontiers in the field would be to attain
-\emph{universal software mining}, the methodological analysis of software at
+\textbf{universal software mining}: the methodological analysis of software at
 the largest scale possible down to a fine granularity of software artifacts.
 At present, the largest scale possible is that of the \emph{software commons},
 i.e., the body of all software which is available at little or no cost and
@@ -100,16 +101,17 @@ analyses: having access to the entire body of the software commons in a single
 centralized location would allow them to simply request a subset of the data
 they are interested in to perform their analysis, and obtain it in a format
 that is convenient for data processing. It would also \textbf{enhance study
-replicability} by providing an entry point to a static collection of already
-available data that can be used to rerun studies at will.
-In addition, it would significantly \textbf{reduce potential sources of
-selection bias} by offering a representative view of the software found in
-all different kinds of formats, on diverse more or less popular hosting
-platforms, tracked by a variety of \glspl{VCS}.  Finally, the exhaustiveness of
-the data would allow us to get a \textbf{detailed high-level view of the social
-processes and interactions} that govern software development, by looking at the
-global network of the programming community in its entirety rather than
-focusing on a particular subset.
+replicability}~\cite{Collberg2016,the-real-software-crisis,ferro2018sigir} by
+providing an entry point to a static collection of already available data that
+can be used to rerun studies at will.  In addition, it would significantly
+\textbf{reduce potential sources of selection bias} by offering a
+representative view of the software found in all different kinds of formats, on
+diverse more or less popular hosting platforms, tracked by a variety of
+\glspl{VCS}.  Finally, the exhaustiveness of the data would allow us to get a
+\textbf{detailed high-level view of the social processes and interactions} that
+govern software development, by looking at the global network of the
+programming community in its entirety rather than focusing on a particular
+subset.
 
 Systematic initiatives~\cite{flossmole2006,gao2007archive,mockus2009}
 have been established to gather as much public \gls{VCS} data as possible in a
@@ -119,23 +121,36 @@ swhcacm2018} go one step further and aim to build a sustainable and accessible
 archive of \emph{all} the source code artifacts of the software commons, down
 to the level of the source code files. Even though full coverage w.r.t.\ the
 software commons is by nature a moving target for any archive, the far-reaching
-comprehensiveness and diversity of Software Heritage makes it the current best
-approximation for an exhaustive corpus of public software development.
+comprehensiveness and diversity of Software Heritage makes it a good
+approximation for an exhaustive corpus of public software development; notably,
+it covers more types of \glspl{VCS} and a wider array of data sources than
+comparable corpuses~\cite{ma2021world}.
 
 In this thesis, I explore the ways the body of software commons stored in the
 Software Heritage archive can be organized and made accessible to researchers
-for the purpose of \strong{universal software mining}.
+for the purpose of universal software mining.
 
-\section{Availability vs.\ accessibility}
+\section{Availability and accessibility}
 
 To understand the motivations and design decisions behind the work presented in
 this thesis, it is important to establish the difference between making data
-\emph{available} and \emph{accessible}.  The data collected in the Software
-Heritage archive is already \emph{available} inasmuch as it is at everyone's
-disposal by sole virtue of being public. Publishing periodical hard drive dumps
-of the storage would theoretically be another way of making the data available,
-as anyone would be able to retrieve and exploit it.
+\emph{available} and \emph{accessible}.  The Software Heritage initiative aims
+to contribute to both of these aspects in different fashions.
 
+Some of the data collected in the Software Heritage archive is already
+\emph{available} inasmuch as it is at everyone's disposal by sole virtue of
+being public. However, this availability is often temporary, as software data
+sometimes get rewritten or deleted from their hosting places. Relevant
+knowledge is routinely lost in code hosting platforms because their main
+purpose is not to archive code, but rather host it. Because of this, other
+history rewriting patterns like \texttt{git rebase} or ``force-pushes'' are not
+observable on these platforms, but \emph{could} be made observable by an
+archive which retains the past states of the repositories.
+
+While making the data stored in the Software Heritage archive \emph{available}
+is relevant to software mining research, it could be achieved simply by
+publishing periodical hard drive dumps of the storage, as anyone would be able
+to retrieve and exploit it.
 What we aim to achieve by building a research platform for universal software
 mining is to make the data not only available but also \emph{accessible}, which
 means that the data should be presented in a way that is already suitable for

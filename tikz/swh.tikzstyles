@@ -11,21 +11,7 @@
 \tikzstyle{release}=[fill={rgb,255: red,255; green,252; blue,204}, draw=black, shape=star, inner sep=0pt, minimum size=15pt]
 \tikzstyle{snapshot}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9]
 \tikzstyle{branch}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9, dashed]
-
-% \tikzstyle{releaseemph}=[release,fill={rgb,255: red,255; green,247; blue,135}]
-% \tikzstyle{revisionemph}=[revision,fill={rgb,255: red,183; green,217; blue,217}]
-% \tikzstyle{directoryemph}=[directory,fill={rgb,255: red,177; green,179; blue,204}]
-% \tikzstyle{contentemph}=[content,fill={rgb,255: red,170; green,161; blue,162}]
-
-% \tikzstyle{releaseemph}=[release,pattern=north west lines, pattern color=lime]
-% \tikzstyle{revisionemph}=[revision,pattern=north west lines, pattern color=green]
-% \tikzstyle{directoryemph}=[directory,pattern=north west lines, pattern color=teal]
-% \tikzstyle{contentemph}=[content,pattern=north west lines, pattern color=lightgray]
-
-% \tikzstyle{releaseemph}=[release,very thick,draw=brown]
-% \tikzstyle{revisionemph}=[revision,very thick,draw=brown]
-% \tikzstyle{directoryemph}=[directory,very thick,draw=brown]
-% \tikzstyle{contentemph}=[content,very thick,draw=brown]
+\tikzstyle{server}=[fill=white, draw=black, shape=rounded rectangle, align=center, minimum height=3em]
 
 % Edge styles
 \tikzstyle{arrow}=[->, >=Stealth, thick]

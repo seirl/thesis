@@ -1,4 +1,4 @@
-\chapter{Artifact Availability}
+\chapter{The Vault: Assembling Related Artifacts}
 
 In the previous chapters, we have outlined the different challenges in making
 Software Heritage a universal software mining platform. By studying the needs
@@ -27,9 +27,12 @@ to retrieve its associated data as stored in the archive. As an example, the
 following HTTP GET request can be used to get the revision
 \texttt{swh:1:rev:aafb16d69fd30ff58afdd69036a26047f3aebdc6}:
 
-\begin{lstlisting}[language=python,frame=single]
-# GET https://archive.softwareheritage.org/api/1/revision/aafb16d69fd30ff58afdd69036a26047f3aebdc6/
-
+\begin{minipage}{0.96\textwidth}
+\begin{minted}[fontsize=\footnotesize]{bash}
+% curl 'https://archive.softwareheritage.org/api/1/revision/
+        aafb16d69fd30ff58afdd69036a26047f3aebdc6/'
+\end{minted}
+\begin{minted}[fontsize=\footnotesize]{python}
 {
     "id": "aafb16d69fd30ff58afdd69036a26047f3aebdc6",
     "message": "Merge branch 'master' into pr/584\n",
@@ -44,8 +47,229 @@ following HTTP GET request can be used to get the revision
     "parents": [ ... ]
     [ ... ]
 }
-\end{lstlisting}
+\end{minted}
+\end{minipage}
 
-\section{The Vault}
+~
 
-\section{Contents}
+While this works well to check the status of a single artifact, it is tedious
+to use for more complex use-cases. Even for relatively small-scale experiments
+on a single repository, researchers will generally want to fetch at least an
+entire source code tree.  In this chapter, we introduce a new component in the
+Software Heritage infrastructure to fetch entire groups of software artifacts
+at once: the Vault.
+
+\section{Design}
+
+The general goal of the Vault is to provide a way to assemble logical groups of
+related software artifacts in a single \emph{bundle}. This assembling process
+is called ``cooking''. It takes as an input a single \gls{SWHID}, and traverses
+the Merkle DAG to assemble all the artifacts that are \emph{reachable} in the
+subtree rooted at that artifact.
+
+Concretely, it means that ``cooking'' a directory will assemble all its
+subdirectories and contents, whereas for a revision it will walk down the
+entire chain of parent revisions and assemble all their associated root
+directories (and, recursively, their own subdirectories and contents).
+Once the objects are cooked, they are assembled in a format that is
+specifically suitable for the type of object that was cooked, respectively:
+
+\begin{itemize}
+    \item for \textbf{directories}, the entire file hierarchy contained in the
+        directory is cooked as a \emph{tarball}, a file format which combines
+        and compresses multiple files and directories.
+    \item for \textbf{revisions}, the entire commit chain of the ancestors of
+        the revision is put in an empty \emph{git repository}, along with all
+        the files and directories they contain.
+    \item for \textbf{snapshots}, each branch and each tag in the snapshot is
+        followed to get the entire commit graph of the snapshotted repository,
+        and all the objects are similarly written in an empty git repository.
+\end{itemize}
+
+In essence, cooking a snapshot allows one to ``clone'' an entire repository
+stored in the archive as a git repository. Because this cooking process can
+take some time, the Vault is designed as a two-step cache. First, the cooking
+step asynchronously prepares the bundle of artifacts and writes it as a single
+file in its internal storage, then notifies the requester that the object is
+ready for retrieval. After doing so, the Vault can efficiently serve the
+artifact from its internal storage as a static file via HTTP, in effect acting
+as a cache for the bundle cooking process.
+
+The cooking process is deterministic: its input is a \gls{SWHID}, which,
+because of the properties of the Merkle DAG, always refer to the same sub-DAG
+of software artifacts\footnote{In theory this is not always true because the
+data model can contain holes of artifacts that were not retrieved at first,
+but then found in a later crawl. This edge case is largely ignored for now in
+the archive because of the added complexity handling it would incur.}. This
+means that the cooking process can be deduplicated: if some artifact
+experiences a sudden surge in popularity (because it disappeared from its
+hosting place or was publicized through other means), many users will try
+to request it at once. There is no need to restart the cooking process for
+each user; instead, by keying each bundle with the \gls{SWHID} it
+assembles, the process can be shared so that the cooking of each bundle
+happens only once.
+
+\begin{figure}[b]
+    \centering
+    \input{../tikz/figures/vault-design.tikz}
+    \caption{Architecture of the Vault Service}%
+    \label{fig:vault-design}
+\end{figure}
+
+\figref{fig:vault-design} shows the architecture of the service. It is centered
+around the Vault backend, which directly communicates with a database where the
+status of the bundles is maintained up-to-date, and an internal storage where
+the bundles can be written and from which they can be later efficiently
+retrieved. It can also distribute tasks to a worker pool of ``cookers'' which
+retrieve and assemble artifacts from the main Software Heritage database.  This
+design ensures a low coupling between the backend and the cookers, which allows
+the cooking capacity to be horizontally scaled straightforwardly by having new
+resources simply register themselves in the task queue.
+
+In a typical workflow, a user requests the cooking of a bundle to the web
+server, which forwards the cooking request to the Vault backend. The backend
+then tries to add this cooking request to the database; if no cooking request
+for this artifact is already present as pending or completed, it asynchronously
+dispatches the task to one of the ``cooker'' servers through a task queue. It
+then immediately returns a task identifier to the user. While the cooking
+process is pending, the cookers periodically send requests to the backend with
+the current progress of the cooking; this progress is written in the database
+and can be requested at any time by the user. Once the cooking process is
+complete, the cookers stream the resulting bundle to the backend which writes
+it in its storage. The backend then updates the database to mark the bundle as
+ready for retrieval, then notifies the users who can retrieve it efficiently by
+sending a download request.
+
+\section{Cooking process and bundle formats}
+
+The cooking process itself has many design considerations that impact ease of
+retrieval and ease of use. Being able to cook bundles efficiently is key for
+this process to be practical for large scale analysis, as researchers can
+sometimes request thousands of repositories to use for a single study. In this
+section we look at the ways to efficiently assemble the two main kinds of
+bundles: directories and commit graphs (for revisions and snapshots).
+
+\subsection{Cooking directories}
+
+Cooking directories from the main archive storage is a relatively simple
+endeavour: the children of each directory can be recursively retrieved by
+making several directory listing queries to the storage. As the directory
+traversal happens in a depth-first fashion, the directory names are pushed onto
+a stack; during the traversal, the full path of the current object is obtained
+by reading the contents of the stack.
+
+As fetching contents individually is generally expensive, the content retrieval
+requests to the storage are \emph{batched}: instead of fetching the contents
+during the recursive directory traversal, they are added to an asynchronous
+fetching queue, which retrieves the files by batches of a thousand items. These
+files are then written to the tarball output, as archives in the tar format can
+be built incrementally.
+
+\TODO{Remove algorithm? Looks a bit useless}
+
+\begin{algorithm}[t]
+    \begin{algorithmic}
+        \Function{FetchDirRec}{$Q,~\mathit{swhid},~\mathit{path}$}
+        \ForAll{$c \in \Call{Storage.GetChildren}{\mathit{swhid}}$}
+            \State $n \gets \Call{name}{c}$
+            \State $p \gets \mathit{path} + "/" + n$
+            \If {\Call{type}{c} $=$ \texttt{DIRECTORY}}
+                \State $\Call{FetchDirRec}{Q,~c,~p}$
+            \Else
+                \State add $(c, p)$ to $Q$
+            \EndIf
+        \EndFor
+        \EndFunction
+
+        \Function{CookDir}{$\mathit{swhid}$}
+        \State $Q \gets$ empty queue  \Comment{Queue of contents to fetch}
+        \State $T \gets$ empty tarball  \Comment{Output tarball}
+        \State $\Call{FetchDirRec}{Q,~\mathit{swhid}, ""}$
+        \State $C \gets \Call{FetchContentsBatched}{Q, 1000}$
+        \ForAll{$(c, p) \in C$}
+            \State write $c$ in $T$ at path $p$
+        \EndFor
+        \State \Return $T$
+        \EndFunction
+    \end{algorithmic}
+
+    \caption{Recursively ``cook'' a directory in a tarball}%
+    \label{algo:cooking-directory}
+\end{algorithm}
+
+
+Algorithm~\ref{algo:cooking-directory} shows the recursive directory cooking
+algorithm.
+In this algorithm, fetching contents is \emph{embarrassingly
+parallel} and can be scaled up at will. However, building the queue of contents
+to fetch is done in a sequential fashion with several directory listing
+requests sent to the archive storage, each request being directly dependent on
+the SWHID retrieved by the previous requests.
+
+This bottleneck hugely increases the number of round-trips between the cooker
+and the storage. This behavior could be improved in two ways. The first one
+would be to replace the depth-first traversal by a parallel breadth-first
+search, reducing the number of sequential round-trips from $O(n)$ to $O(h)$
+(the height of the directory tree). While this improves throughput by reducing
+total latency, it still requires a large number of round-trips.
+
+Another option would be to compute the entire subtree of the directory
+recursively directly in the storage side, then return the file hierarchy in a
+single response. However, our current storage system backed by PostgreSQL
+cannot efficiently compute these requests and still has to do round-trips with
+the database itself. Later in the thesis, we will explore ways to efficiently
+reply to those recursive ``vault queries'', i.e., being able to quickly compute
+the entire subgraph reachable from a node.
+
+\subsection{Cooking revisions and snapshots}
+
+The standard format used to cook directories is relatively straightforward: a
+source code tree can easily be exploited for software mining when distributed
+as a compressed tarball. When the subgraph reachable from an artifact includes
+revision chains however, as is the case when cooking revisions and snapshots,
+there is no natural format in which the commit graph can be distributed; the
+best format to use requires further evaluation.
+
+One simple format would be to ``flatten'' the entire chain: a directory at the
+root would contain one subdirectory per revision, then each of these would
+contain the state of the source tree for the given revision. While cooking
+bundles in this format is easy to implement using the algorithm described in
+the previous section, the output bundle will be of considerable size:
+flattening the revisions removes all the Merkle DAG deduplication, as each new
+commit copies the entire source tree.
+
+A preferable option is to export these bundles directly as Git repositories.
+Software mining researchers are already used to work with these repository
+formats and thus generally have tools already available to extract relevant
+data from them. Because Git is the most popular \gls{VCS}, it makes sense to
+provide a way to export revisions and snapshot bundles as Git bundles.
+
+To export archived artifacts as a Git repository, we first investigated the
+\texttt{git fast-import} format, designed to be an interchange format between
+\glspl{VCS} and which can efficiently import data into a git repository. This
+format contains a stream of ``commands'' which describe all the Git objects to
+import (tags, commits, trees and blobs), and is used by many \gls{VCS}
+converters. Implementing this cooker exposed a few limitations of the format
+itself, like poor documentation and unfriendly interface due to its relatively
+uncommon usage, its lossiness (no tagged trees and incomplete handling of
+signed tags) and its large output (the format was not meant for long term
+storage and has no built in delta-compression of blobs).
+Most importantly, it is very expensive to export from the archive, because the
+commits are represented as a list of changes between one state to the other.
+Generating revisions under this format requires computing diffs between
+consecutive commits, which is expensive and harder to parallelize.
+
+A better approach is to create a cooker for Git \emph{bare} repositories, i.e.,
+a tarball of the internal data store of a Git repository which can be easily
+cloned with the Git command line. Implementing this cooker is relatively
+straightforward: it involves listing all the objects reachable from the
+revision or snapshot artifact, then directly writing each object in the Git
+object storage.
+
+\section{Discussion}
+
+- swh-graph vault queries
+- experimental validation
+- losing deduplication
+- can be used with any standard analysis tool
+- all releases

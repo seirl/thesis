@@ -268,8 +268,34 @@ object storage.
 
 \section{Discussion}
 
-- swh-graph vault queries
-- experimental validation
-- losing deduplication
-- can be used with any standard analysis tool
-- all releases
+The Vault is generally an efficient way to retrieve substantial lists of
+repositories or source code trees from the archive. A moderately sized
+repository with around ~300 commits takes around \TODO{cooking time for
+swh-graph}, while its source code tree of ~60 files takes \TODO{cooking
+time for swh-graph directory}. By extrapolating these benchmarks and from our
+own experiments, the Vault is suitable to retrieve up to tens of thousands of
+repositories from the archive in a reasonable time (between a few hours and a
+few days). This service offers a first rudimentary way of performing software
+mining studies on data extracted from the archive.
+
+The main advantage of retrieving repositories using the Vault is that their
+format is common (simple directories and Git repositories), allowing
+researchers to use their own day-to-day tools for analysis, without having to
+write custom programs specifically for running experiments on the archive. This
+advantage comes at the loss of the deduplication that was present in the
+original data model: while the Vault can be used to analyze repositories one by
+one, all the sharing information between the repositories is lost. Aside from
+having implications on space usage, it also makes it hard for researchers to
+study the duplication relationships between the different artifacts. More
+generally, this approach is not suitable for exhaustive or macro studies on the
+entire software commons.
+
+A final caveat is that using the Vault to retrieve repositories is frictional
+and requires some upfront work to retrieve repositories that can be harder than
+to simply clone the original repositories themselves. The next chapter tries to
+bridge the gap between simplicity and low friction for small-scale mining
+studies by exploring another way of making repositories available for use with
+day to day CLI utilities without requiring as much setup.
+
+\TODO{more numbers. what storage impact? how long would it take to fetch
+everything? Pre-cook all releases?}

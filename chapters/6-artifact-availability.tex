@@ -2,17 +2,17 @@
 
 In the previous chapters, we have outlined the different challenges in making
 Software Heritage a universal software mining platform. By studying the needs
-of researchers in the fields of empirical software engineering performing
+of researchers in the fields of empirical software engineering who perform
 studies on software repositories, it is possible to get a good sense of the
 best ways the archive could become useful as a research platform.
 
-However, building the universal platform constitutes a huge endeavour that has
+However, building the universal platform constitutes a huge endeavor that has
 to be done incrementally. As we cannot aim to cover most use-cases overnight,
 we should instead prioritize features that are immediately useful to
 researchers so that they can start using the building blocks we provide in
 their work. Aside from driving up engagement with the research community, this
-also helps identifying the main pain points they encounter, which in turn can
-guide the roadmap in the steps we take to alleviate them.
+also helps identify the main pain points they encounter, which in turn can
+plot the roadmap in the steps we take to alleviate them.
 
 The very first step that has to be taken to make the archive usable as a
 bare-bones platform is to provide a simple way to retrieve single artifacts or
@@ -21,9 +21,9 @@ make large-scale analysis possible, this could at least be used for some
 smaller-scale experiments and prototypes.
 
 For single artifacts, the Software Heritage
-API\footnote{\url{https://archive.softwareheritage.org/api/}} already covers
-this use-case in some way: using the \gls{SWHID} of an object, it is possible
-to retrieve its associated data as stored in the archive. As an example, the
+API\footnote{\url{https://archive.softwareheritage.org/api/}} already somewhat
+covers this use-case: using the \gls{SWHID} of an object, it is possible to
+retrieve its associated data as stored in the archive. As an example, the
 following HTTP GET request can be used to get the revision
 \texttt{swh:1:rev:aafb16d69fd30ff58afdd69036a26047f3aebdc6}:
 
@@ -62,28 +62,28 @@ at once: the Vault.
 \section{Design}
 
 The general goal of the Vault is to provide a way to assemble logical groups of
-related software artifacts in a single \emph{bundle}. This assembling process
-is called ``cooking''. It takes as an input a single \gls{SWHID}, and traverses
+related software artifacts into a single \emph{bundle}. This assembling process
+is called ``cooking''. It takes a single \gls{SWHID} as an input and traverses
 the Merkle DAG to assemble all the artifacts that are \emph{reachable} in the
 subtree rooted at that artifact.
 
-Concretely, it means that ``cooking'' a directory will assemble all its
+Concretely, this means that cooking a directory will assemble all its
 subdirectories and contents, whereas for a revision it will walk down the
 entire chain of parent revisions and assemble all their associated root
 directories (and, recursively, their own subdirectories and contents).
-Once the objects are cooked, they are assembled in a format that is
-specifically suitable for the type of object that was cooked, respectively:
+Once the objects are cooked, they are assembled in a suitable format that is
+specific to the type of object that was cooked, respectively:
 
 \begin{itemize}
     \item for \textbf{directories}, the entire file hierarchy contained in the
         directory is cooked as a \emph{tarball}, a file format which combines
         and compresses multiple files and directories.
-    \item for \textbf{revisions}, the entire commit chain of the ancestors of
-        the revision is put in an empty \emph{git repository}, along with all
-        the files and directories they contain.
-    \item for \textbf{snapshots}, each branch and each tag in the snapshot is
+    \item for \textbf{revisions}, the entire commit chain of the revision's
+        ancestors is put in an empty \emph{git repository}, along with all the
+        files and directories they contain.
+    \item for \textbf{snapshots}, each branch and tag in the snapshot is
         followed to get the entire commit graph of the snapshotted repository,
-        and all the objects are similarly written in an empty git repository.
+        and all objects are similarly written in an empty git repository.
 \end{itemize}
 
 In essence, cooking a snapshot allows one to ``clone'' an entire repository
@@ -96,7 +96,7 @@ artifact from its internal storage as a static file via HTTP, in effect acting
 as a cache for the bundle cooking process.
 
 The cooking process is deterministic: its input is a \gls{SWHID}, which,
-because of the properties of the Merkle DAG, always refer to the same sub-DAG
+because of the properties of the Merkle DAG, always refers to the same sub-DAG
 of software artifacts\footnote{In theory this is not always true because the
 data model can contain holes of artifacts that were not retrieved at first,
 but then found in a later crawl. This edge case is largely ignored for now in
@@ -118,13 +118,13 @@ happens only once.
 
 \figref{fig:vault-design} shows the architecture of the service. It is centered
 around the Vault backend, which directly communicates with a database where the
-status of the bundles is maintained up-to-date, and an internal storage where
+status of the bundles is kept up to date, as well as an internal storage where
 the bundles can be written and from which they can be later efficiently
 retrieved. It can also distribute tasks to a worker pool of ``cookers'' which
 retrieve and assemble artifacts from the main Software Heritage database.  This
 design ensures a low coupling between the backend and the cookers, which allows
-the cooking capacity to be horizontally scaled straightforwardly by having new
-resources simply register themselves in the task queue.
+the cooking capacity to be horizontally scaled in a straightforward manner by
+having new resources simply register themselves in the task queue.
 
 In a typical workflow, a user requests the cooking of a bundle to the web
 server, which forwards the cooking request to the Vault backend. The backend
@@ -137,8 +137,8 @@ the current progress of the cooking; this progress is written in the database
 and can be requested at any time by the user. Once the cooking process is
 complete, the cookers stream the resulting bundle to the backend which writes
 it in its storage. The backend then updates the database to mark the bundle as
-ready for retrieval, then notifies the users who can retrieve it efficiently by
-sending a download request.
+ready for retrieval, notifying the users who can then send a download request
+to efficiently retrieve it.
 
 \section{Cooking process and bundle formats}
 
@@ -152,7 +152,7 @@ bundles: directories and commit graphs (for revisions and snapshots).
 \subsection{Cooking directories}
 
 Cooking directories from the main archive storage is a relatively simple
-endeavour: the children of each directory can be recursively retrieved by
+endeavor: the children of each directory can be recursively retrieved by
 making several directory listing queries to the storage. As the directory
 traversal happens in a depth-first fashion, the directory names are pushed onto
 a stack; during the traversal, the full path of the current object is obtained
@@ -206,13 +206,12 @@ to fetch is done in a sequential fashion with several directory listing
 requests sent to the archive storage, each request being directly dependent on
 the SWHID retrieved by the previous requests.
 
-This bottleneck hugely increases the number of round-trips between the cooker
-and the storage. This behavior could be improved in two ways. The first one
+This bottleneck massively increases the number of round-trips between the cooker
+and the storage. This behavior could be improved in two ways. The first
 would be to replace the depth-first traversal by a parallel breadth-first
 search, reducing the number of sequential round-trips from $O(n)$ to $O(h)$
 (the height of the directory tree). While this improves throughput by reducing
 total latency, it still requires a large number of round-trips.
-
 Another option would be to compute the entire subtree of the directory
 recursively directly in the storage side, then return the file hierarchy in a
 single response. However, our current storage system backed by PostgreSQL
@@ -239,10 +238,10 @@ flattening the revisions removes all the Merkle DAG deduplication, as each new
 commit copies the entire source tree.
 
 A preferable option is to export these bundles directly as Git repositories.
-Software mining researchers are already used to work with these repository
-formats and thus generally have tools already available to extract relevant
-data from them. Because Git is the most popular \gls{VCS}, it makes sense to
-provide a way to export revisions and snapshot bundles as Git bundles.
+Software mining researchers are already accustomed to working with these
+repository formats and thus generally have tools already available to extract
+relevant data from them. Because Git is the most popular \gls{VCS}, it makes
+sense to provide a way to export revisions and snapshot bundles as Git bundles.
 
 To export archived artifacts as a Git repository, we first investigated the
 \texttt{git fast-import} format, designed to be an interchange format between
@@ -250,9 +249,9 @@ To export archived artifacts as a Git repository, we first investigated the
 format contains a stream of ``commands'' which describe all the Git objects to
 import (tags, commits, trees and blobs), and is used by many \gls{VCS}
 converters. Implementing this cooker exposed a few limitations of the format
-itself, like poor documentation and unfriendly interface due to its relatively
-uncommon usage, its lossiness (no tagged trees and incomplete handling of
-signed tags) and its large output (the format was not meant for long term
+itself: poor documentation, unfriendly interface due to its relatively
+uncommon usage, lossiness (no tagged trees and incomplete handling of
+signed tags) and large output (the format was not meant for long term
 storage and has no built in delta-compression of blobs).
 Most importantly, it is very expensive to export from the archive, because the
 commits are represented as a list of changes between one state to the other.
@@ -284,18 +283,18 @@ researchers to use their own day-to-day tools for analysis, without having to
 write custom programs specifically for running experiments on the archive. This
 advantage comes at the loss of the deduplication that was present in the
 original data model: while the Vault can be used to analyze repositories one by
-one, all the sharing information between the repositories is lost. Aside from
-having implications on space usage, it also makes it hard for researchers to
-study the duplication relationships between the different artifacts. More
-generally, this approach is not suitable for exhaustive or macro studies on the
-entire software commons.
+one, all the data sharing links between the repositories is lost. Aside from
+having implications on space usage, it also makes it challenging for
+researchers to study the duplication relationships between the different
+artifacts. More generally, this approach is not suitable for exhaustive or
+macro studies on the entire software commons.
 
 A final caveat is that using the Vault to retrieve repositories is frictional
 and requires some upfront work to retrieve repositories that can be harder than
 to simply clone the original repositories themselves. The next chapter tries to
 bridge the gap between simplicity and low friction for small-scale mining
 studies by exploring another way of making repositories available for use with
-day to day CLI utilities without requiring as much setup.
+day to day CLI utilities while requiring less setup.
 
 \TODO{more numbers. what storage impact? how long would it take to fetch
 everything? Pre-cook all releases?}

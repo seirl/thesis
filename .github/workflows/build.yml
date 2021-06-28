@@ -17,6 +17,7 @@ jobs:
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
           compile_diff: true
+          extra_system_packages: py-pygments
 
       - uses: actions/upload-artifact@v2
         with:

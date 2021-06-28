@@ -418,5 +418,54 @@ https%3A%2F%2Fgithub.com%2Ftorvalds%2Flinux
 \section{Discussion}
 
 \SWHFS{} provides numerous improvements in archive data accessibility.
-It considerably reduces the friction of accessing various software artifacts
-by lazily fetching them from 
+It considerably reduces the friction of accessing various software artifacts as
+it does not require any up-front setup to navigate any software artifact once
+the virtual filesystem has been mounted. This is very useful for prototyping
+experiments, as it allows researchers to use software mining tools as if the
+repositories were on their local computers. When using a filesystem interface,
+existing POSIX tools and coreutils can be used to easily select files on which
+to run analyses (\mintinline{console}{find}, \mintinline{console}{ls **/*.c},
+etc.).
+
+Because each file is fetched lazily when its contents are accessed, this
+reduces the total size of the objects retrieved from the archive, in contrast
+to the Vault which always bundles all the objects even when they are not
+necessary for the analysis. This makes \SWHFS{} an efficient way to run
+experiments that only access a small number of specific files in a repository,
+e.g., license or README files.
+Moreover, the use of symbolic links to implement sharing relationships between
+the software artifacts materializes the DAG in a way that can be studied in a
+practical way: it is easy to check whether two artifacts are the same by
+checking whether their symbolic link resolves to the same filesystem node. This
+makes it possible to implement graph traversal algorithms directly at the
+filesystem level.
+
+However, \SWHFS{} has a few important limitations that makes it generally
+unsuitable for large-scale software mining. First, it is not optimized for
+heavy workloads, as its primarily goal was to target is small experiments and
+localized analyses. The software components of \SWHFS{} (the SQLite cache, the
+HTTP library, etc.) were not designed to handle large-scale analyses, high
+parallelism and data intensive tasks. In general, while user-space filesystems
+based on FUSE can sometimes reach performance reasonably close to kernel-level
+filesystems, they require a particular attention on optimization and some
+workloads are unfriendly even when optimized\cite{vangoor2017fuseperf}.
+
+While there is always room for performance improvements, another important
+issue makes \SWHFS{} often unsuitable for large-scale mining is the lack of
+entry-points to find the relevant artifacts. While the virtual filesystem makes
+it easy to find, for instance, all the Python files in a single repository,
+there is no easy way to find all the files or revisions matching a certain
+pattern in the entire archive. As described in
+Section~\ref{sec:mining-selection-criteria}, software mining studies are often
+designed to be run on arbitrary artifacts matching certain criteria. \SWHFS{}
+does not provide a way to iterate on these artifacts, as its primary function
+is to list the descendants of a given node in the software graph.
+
+The Vault and \SWHFS{} provide two different ways to perform studies on
+individual artifacts and their descendants, and thus make the data corpus
+available for small to medium-scale studies ($\approx$ tens of thousands of
+repositories) assuming researchers have pre-established a list of repositories
+of interest for their study.
+The next logical step is to explore ways to efficiently select massive amounts
+of software artifacts according to more fine-grained criteria, and run analyses
+for larger workloads, up to the size of the entire archive.

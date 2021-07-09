@@ -1,334 +1,881 @@
-\chapter{The Software Heritage Graph Dataset}
+\chapter{The Software Heritage Property Graph Dataset}
+
+This chapter is based on an article~\cite{swh-msr2019-dataset} accepted at the
+16th International Conference on Mining Software Repositories (MSR 2019), and
+its subsequent presentation~\cite{msr-2020-challenge} as the ``Mining
+Challenge'' of the 17th International Conference on Mining Software
+Repositories (MSR 2020).
 
 \section{Introduction}
-\label{sec:intro}
 
-Public software development, i.e., the practice of collaboratively developing
-software using collaborative development platforms (also known as
-``forges''~\cite{DBLP:conf/wikis/Squire17}) such as GitHub or GitLab is now
-well established. Further source code distribution mechanisms, by the means of
-\textsc{gnu}/Linux distributions and language-specific package
-managers~\cite{DBLP:conf/msr/KikasGDP17, DBLP:conf/msr/AbateCGFTZ15} are also
-becoming more and more popular, realizing in practice the half-century-old
-vision of off-the-shelf software components~\cite{mcilroy1968mass,Spi07a}.
+Up to this point, we have proposed ways to make the Software Heritage corpus
+available to software mining studies of medium scale, up to tens of thousands
+of repositories, either by retrieving bundles of related software artifacts
+(Chapter~\ref{chp:vault}) or by accessing the content remotely through a
+virtual filesystem (Chapter~\ref{chp:fuse}). Ultimately, our goal is to enable
+\emph{universal software mining}, i.e., making it feasible for researchers to
+study the \emph{entire corpus of software commons} for all the reasons
+described in Section~\ref{sec:universal-software-mining}. Notably, exhaustive
+approaches are virtually the only way to get a realistic high-level picture of
+the complex social networks and processes governing software development.
 
-The extensive public availability of software source code artifacts (source code
-files, commits, release information, etc.) is a significant asset for mining
-software repositories and, more generally, empirical software engineering
-research.
-The topics of corresponding studies range from the study of code
-clones~\cite{SvajlenkoR17, SemuraYCI17, ThummalapentaCAP10} to automated
-vulnerability detection and repair~\cite{Li2017, Grieco2016, MartinezM15};
-and from
-code recommenders~\cite{Zeller2007, ZimmermannWDZ04} to software licence
-analysis and license compliance~\cite{GermanLicense17, VendomeLicence2015}.
-However, many research studies are still being conducted on
-significantly smaller \emph{subsets} of the \emph{entire corpus of publicly
-  available source code artifacts}.
+The main object of interest to study these strongly entangled and dynamic
+relationships is the \emph{property graph} of public software development,
+i.e., the graph containing all the software artifacts in our corpus, from the
+development history down to the source code trees and individual blobs, along
+with all their associated properties.
 
-The \SWH project~\cite{cacm-2018-software-heritage,
-  ipres-2017-software-heritage} aims at fixing this gap, by collecting,
-preserving, and sharing the entire body of publicly available software source
-code, together with the associated development history, as it is captured by
-modern version control systems (\textsc{vcs})~\cite{spinellis2005version}.
+Exhaustive studies of the source code files themselves are very expensive, both
+in terms of required storage space and bandwidth to fetch the entirety of more
+than 10 billion blobs totalling around 850\,TiB of storage space, and in terms
+of computing power to process this vast amount of data. However, the property
+graph of software development \emph{excluding the blobs themselves} is in
+itself a valuable trove of data, while only being a fraction of that size.
+It notably contains all the directory and file hierarchies of the source code,
+its entire development history and all associated metadata, including
+authorship graphs.
 
-In this paper we introduce the \emph{\SWHGD}, a graph representation of all the
-source code artifacts archived by \SWH{}. The graph is a fully deduplicated
-Merkle \textsc{dag}~\cite{Merkle} that links together: source code file contents, source
-trees (directories) containing them, \textsc{vcs} commits and releases, up to crawling
-information indicating when and where (\textsc{url}s) a given VCS repository state
-(which in turn binds all other artifacts together) has been observed.
+By making the property graph easy to analyze in an exhaustive manner, we can
+significantly advance towards our goal of universal software mining on several
+fronts. The immediate benefit is to enable studies that aim to analyze the
+underlying development processes and social communities in the software
+commons, as they generally do not need access to the blobs themselves since the
+network relationships are directly present in the graph. More largely, it also
+helps mining studies that do analyze source code by allowing researchers to
+precisely narrow down the set of source code files they need prior to actually
+fetching them, in order to minimize bandwidth and storage requirements.
 
-% TODO: update figures if we make a new version of the dataset
-The dataset captures the state of the \SWH{} archive on September 25th 2018,
-spanning a full mirror of Github and GitLab.com, the Debian distribution,
-Gitorious, Google Code, and the PyPI repository. Quantitatively it corresponds
-to 5 billion unique file contents and 1.1 billion unique commits, harvested
-from more than 85 million software origins (see Section~\ref{sec:data-model} for more
-detailed figures).
-
-
-\paragraph*{Dataset availability}
-
-The \SWH{} graph is encoded in the dataset as a set of relational
-tables---roughly, one for each node type; see Section~\ref{sec:data-model} for
-details---that can be queried using \textsc{SQL}. The dataset is available in three
-alternative formats, catering for different use cases:
-\begin{itemize}
-
-\item a Postgres~\cite{stonebraker1991postgres} \textbf{database dump} in \textsc{csv}
-  format (for the data) and \textsc{ddl} queries (for recreating the DB schema): this
-  format is best for local processing on a single server or high-end
-  workstation;
-
-\item a set of \textbf{Apache Parquet files}~\cite{website-apache-parquet}
-  suitable for loading into columnar storage and scale-out processing
-  solutions, e.g., Apache Spark~\cite{zaharia2016apache};
-
-\item a public dataset on \textbf{Amazon Athena}~\cite{website-amazon-athena},
-  where the sample queries of Section~\ref{sec:usage} can be tried live.
-
-\end{itemize}
-
-The first two formats are available for download ($\approx$1~TiB each) from
-Zenodo at
-\url{https://zenodo.org/record/2583978}, (\doi{10.5281/zenodo.2583978}).
-The Athena dataset\footnote{\url{https://registry.opendata.aws/software-heritage/}} can also be
-queried from the \textsc{AWS} console by following the instructions in the
-\texttt{README.md} file.
-
-\begin{comment}
-
-\paragraph*{Paper structure}
-
-In the following we describe the data gathering process used to assemble the
-dataset (Section~\ref{sec:gathering}), present the data model
-(Section~\ref{sec:data-model}), provide a brief usage tutorial and ideas
-for research questions that can be answered using the dataset
-(Section~\ref{sec:usage}), discuss dataset limitations and future extensions
-(Section~\ref{sec:threats}).
-
-\end{comment}
-
-
-\section{Data Gathering}
-\label{sec:gathering}
-
-The \SWHGD has been assembled as part of the regular crawling activities of
-\SWH, dating back to 2015. Due to the long-term archival
-nature of \SWH, the dataset is not entirely reproducible, because the archived
-source code artifacts might have disappeared from the original hosting place: a
-\textsc{vcs} might have been deleted, a commit or branch rewritten (e.g., using
-\texttt{git rebase}), a package removed from a distribution.
-
-What we list below are hence the steps needed to recreate the dataset from
-scratch, archiving what is available \emph{today} from the included software
-distribution places.
-
-As a preliminary step one should setup local storage. As the official getting
-started guide for \SWH developers
-covers this in detail, we refer readers to it.\footnote{\url{https://docs.softwareheritage.org/devel/getting-started.html}}
-
-\SWH tracks a curated list of software distribution places. For each different
-type of distribution place there exists a ``lister'' component, capable of
-enumerating all software origins (\textsc{vcs} repository, source package, etc.) hosted
-there. The next step to recreate the dataset is hence to run the lister for
-each tracked software distribution place, that is: GitHub, GitLab.com, Debian,
-and PyPI.
-(Gitorious and Google Code having disappeared, they cannot be re-archived
-today). All listers are available from the \SWH forge.%
-\footnote{\url{https://forge.softwareheritage.org/source/swh-lister/}}%
-\footnote{Specific versions of these software components are available as part
-of the dataset, in \texttt{swh-environment.tar.gz}.}
-
-Then, all software origins enumerated by running the listers should be crawled,
-retrieving all the source code artifacts found there (file contents, commits,
-directories, releases, etc.). For each origin having a different type (Git
-repository, Debian package, PyPI package, etc.), this step boils down to
-running the matching ``loader'' component on the origin
-\textsc{url}.
-Be warned that as of this writing \SWH tracks more than 80 million origins,
-and therefore
-crawling all of them might require months, if not years, and significant
-computing and bandwidth resources. By default loaders also store file
-\emph{contents}, which are not included in the graph dataset and would require
-\TODO{size} of storage space as of this writing; the storage layer can be
-configured to not store contents, reducing the storage fingerprint (the
-database storing the graph will still need $\approx$5~TiB of fast storage, e.g.,
-\textsc{ssd}s).
-
-At the end of the process, database dumps can be obtained by running
-\texttt{pg\_dump}; Parquet files by using PyArrow. A public dataset on
-Athena can be obtained by importing the Parquet files on Amazon S3.
-
-
-\section{Data Model}
-\label{sec:data-model}
-
-A particular property of software development is that source code artifacts are
-massively duplicated across hosts and
-projects~\cite{ipres-2017-software-heritage}. In order to enable tracking of
-software artifacts across projects, and reduce the storage size of the graph,
-the \SWHGD is stored as a Merkle directed acyclic graph (DAG)~\cite{Merkle}. By
-using persistent, cryptographically-strong hashes as node
-identifiers~\cite{ipres-2018-doi}, the graph can be deduplicated by sharing all
-identical nodes.
-
-% \begin{figure}[t]
-%   \centering
-%   \includegraphics[width=0.8\linewidth]{images/merkle-vertical}
-%   \caption{Data model: a uniform Merkle DAG containing source code artifacts
-%     and their development history}
-%   \label{fig:data-model}
-% \end{figure}
-
-\begin{figure*}[t]
-  \centering
-    \begin{subfigure}{0.65\textwidth}
-      \includegraphics[height=0.3\textheight]{../img/graph-dataset/db-schema}
-    \end{subfigure}%
-    \begin{subfigure}{0.17\textwidth}
-      {\scriptsize
-        \begin{tabular}{l r}
-            \hline\textbf{Table} & \textbf{\# of objects} \\ \hline
-            % TODO: update figures if we make a new version of the dataset
-            origin    & \num{85143957}   \\
-            snapshot  & \num{57144153}   \\
-            revision  & \num{1125083793} \\
-            directory & \num{4422303776} \\
-            content   & \num{5082263206} \\ \hline
-        \end{tabular}}
-        \vspace{4.1cm}
-    \end{subfigure}
-    \caption{Simplified schema of the \SWHGD and the number of artifacts in it}\label{fig:db-schema}%
-\end{figure*}
-
-As shown in \figref{fig:data-model}, the \SWH DAG is organized in five logical
-layers, which we describe from bottom to top.
-
-\textbf{Contents} (or ``blobs'') form the graph's leaves,
-and contain the raw content
-of source code files, not including their filenames (which are
-context-dependent and stored only as part of directory entries).
-The dataset contains cryptographic checksums for all contents though,
-that can be used to retrieve the actual files from any \SWH mirror using a Web
+In this chapter we introduce the \emph{Software Heritage Property Graph
+Dataset}, a graph representation of all the source code artifacts archived by
+\SWH{} made freely available for research in a relational format suitable for
+scale-out analysis.
+While this dataset excludes source code blobs, it does include their
+cryptographic checksums, which can be used to retrieve the actual files from
+any \SWH{} mirror using a Web
 \textsc{api}\footnote{\url{https://archive.softwareheritage.org/api/}} and
-cross-reference files encountered in the wild, including other datasets.
+cross-reference files encountered in the wild, including in other datasets.
 
-\textbf{Directories} are lists of named directory entries.
-Each entry can
-point to content objects (``file entries''), revisions (``revision entries''),
-or other directories (``directory entries'').
+\paragraph*{Related Work}
 
-\textbf{Revisions} (or ``commits'') are point-in-time captures of the entire
-source tree of a development project. Each revision points to the root
-directory of the project source tree, and a list of its parent revisions.
+To the best of our knowledge, no existing public dataset contains a comparable
+amount of data about source code artifacts extracted from public software
+development.
 
-\textbf{Releases} (or ``tags'') are revisions that have been marked as noteworthy
-with a specific, usually mnemonic, name (e.g., a version number). Each release
-points to a revision and might include additional descriptive metadata.
+GHTorrent~\cite{GHTorrent} covers GitHub and includes
+non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks other
+software distribution places (e.g., GitLab, Debian, PyPI). Also, no
+deduplication applies to GHTorrent, making cloning tracking more challenging.
+CodeFeedr~\cite{DBLP:conf/icse/VargasHKBG18} is a natural evolution of
+GHTorrent, but it is oriented toward expanding coverage for additional sources
+of non-source-code artifacts.
 
-\textbf{Snapshots} are point-in-time captures of the full state of a project
-development repository. As revisions capture the state of a single development
-line (or ``branch''), snapshots capture the state of \emph{all} branches in a
-repository and allow to deduplicate unmodified forks across the archive.
+The Debsources dataset~\cite{debsources-ese-2016} contains a wealth of
+information about Debian releases over several decades, but stops at the
+release granularity (rather than commits) and is at least three orders of
+magnitude smaller than the present dataset.
 
-% \textbf{Origins:} information on the original source where the software was
-% retrieved from, most notably its URL and additional metadata.
+\section{Relational Model}
 
-Deduplication happens implicitly, automatically tracking byte-identical clones.
-If a file or a directory is copied to another project, both projects will point
-to the same node in the graph. Similarly for revisions, if a project is forked
-on a different hosting platform, the past development history will be
-deduplicated as the same nodes in the graph.  Likewise for snapshots, each
-``fork'' that creates an identical copy of a repository on a code host, will
-point to the same snapshot node.  By walking the graph bottom-up, it is hence
-possible to find all \emph{occurrences} of a source code artifact in the
-archive (e.g., all projects that have ever shipped a specific file content).
+The most common pattern in distributed big data analysis is to query datasets
+provided in a \emph{relational format}, i.e., as a set of data tables linked
+together by pre-defined relationships. The relational \emph{schema} describes
+these tables, notably the types of their individual columns and the way they
+relate to each other. These data tables can then be loaded in distributed Big
+Data engines and queried using relational query languages like SQL.
 
-The Merkle \textsc{dag} is encoded in the dataset as a set of relational tables. In
-addition to the nodes and edges of the graph, the dataset also contains
-crawling information, as a set of triples capturing where (an origin \textsc{url}) and
-when (a timestamp) a given snapshot has been encountered. A simplified view of
-the corresponding database schema is shown in \figref{fig:db-schema}; the full schema
-is available as part of the dataset distribution.
-The sizes of the dataset's most notable tables are shown in the legend
-appearing in the Figure's top right.
+The data in the Software Heritage archive is already internally stored in a
+relational format inside a PostgreSQL database. However, this format is
+optimized for different constraints, notably shrinking disk space usage at the
+expense of speed by \emph{normalizing} tables (i.e., reducing data redundancy
+as much as possible). While this trade-off is acceptable for long-term storage,
+it requires more expensive ``join'' operations to combine tables together,
+which is generally undesirable for scale-out processing as it adds more
+synchronization points between the different shards. Instead, when using
+distributed Big Data engine it is more efficient to \emph{denormalize} the
+data: using larger tables which increases redundancy while reducing the need
+for join operations.
 
-\begin{comment}
+\begin{figure}
+    \includegraphics[width=\linewidth]{../img/graph-dataset/db-schema}
+    \caption{Relational schema of the \SWHGD{}}%
+    \label{fig:swh-dataset-schema}
+\end{figure}
+
+\figref{fig:swh-dataset-schema} presents the relational schema of the \SWHGD{}.
+It significantly differs from the original schema of the PostgreSQL
+storage\footnote{\url{https://docs.softwareheritage.org/devel/swh-storage/sql-storage.html}}
+in a few ways. Previously, the directory table was normalized to avoid storing
+redundant copies of hashes by using an array of directory entries. After some
+experimentation on various cloud services, we determined that arrays of
+arbitrary length in distributed Big Data engines are a performance killer, as
+they hinder the ability of the query planner to properly shard computations
+among a right-sized pool of nodes by making the size of each row hard to
+predict. Some cloud services like GCE BigQuery have size limits on arrays,
+which makes it impossible to store directories of arbitrary length. We
+denormalized that table, as well as two of the snapshot tables. Another minor
+change is the use of hexadecimal string representation of intrinsic hashes
+instead of binary strings, as developers tend to be more comfortable with using
+this hexadecimal representation directly. Finally, some columns which we
+considered to be mostly implementation details that would not be useful for
+data analysis were removed from the schema.
+
+\paragraph*{Anonymization and ethical considerations.}
+Because the dataset is intended to be distributed to a wide audience,
+particular attention needs to be paid to the \gls{PII} contained in the graph,
+namely the names and e-mail addresses of revision authors. Because this
+personal data has been shared by subjects publicly, storing and sharing this
+data on an opt-out basis complies with data protection laws. However, this
+poses some ethical concerns, as making this data easy to access and process
+also makes these commit authors more susceptible to potential abuse, like
+e-mail spam. This is not a new problem, and has notably been encountered by
+Gousios in the GHTorrent project~\cite{gousios2016issue32}.
+
+Our approach to deal with these ethical considerations is two-fold. First, we
+anonymize all the data provided in the dataset by running a cryptographic hash
+on the names and e-mail addresses; if needed, they can be individually
+requested from the archive API using the commit identifiers, although this
+access is subject to the usual API quotas. Further, we make access to the
+dataset conditional on the acceptance of an Ethical
+Charter\footnote{\url{https://www.softwareheritage.org/legal/users-ethical-charter/}}
+and specific terms of use for bulk
+access\footnote{\url{https://www.softwareheritage.org/legal/bulk-access-terms-of-use/}}.
+
+\paragraph*{Schema.}
+The tables in the relational schema of the Software Heritage Graph Dataset are
+defined as follows:
+
 
 \begin{itemize}
-    \item The \texttt{content} table contains information on the contents
-        stored in the archive. Along with some metadata on the contents (like
-        the \texttt{length} column) it contains its \texttt{sha1} cryptographic
-        hash. The \texttt{content\_missing} table is virtually identical, but
-        for contents that were not archived for various reasons.
+\item
+  \textbf{content}: contains information on the contents stored in the
+  archive.
 
-    \item The \texttt{directory} table contains the directories in the archive.
-        Its \texttt{id} column is its intrinsic identifier, computed with the
-        \texttt{sha1\_git} hashing algorithm. It contains three columns for its
-        children in the graph, \texttt{dir\_entries}, \texttt{file\_entries}
-        and \texttt{rev\_entries}. Each of these columns is an array of
-        integers, referencing an entry in their respective tables
-        \texttt{directory\_entry\_dir}, \texttt{directory\_entry\_file} and
-        \texttt{directory\_entry\_rev}. These three tables have the same
-        schema: the \texttt{id} integer column referenced in the arrays of the
-        \texttt{directory} table, the \texttt{name} of the object (the basename
-        of its path), its permissions \texttt{perms}, and the \texttt{target}
-        field which references the intrinsic identifier of the node they are
-        pointing towards (respectively, the \texttt{id} field of directories,
-        the \texttt{sha1\_git} field of contents and the \texttt{id} field of
-        revisions).
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{sha1} (string): the SHA-1 of the content (hexadecimal)
+  \item
+    \texttt{sha1\_git} (string): the Git SHA-1 of the content
+    (hexadecimal)
+  \item
+    \texttt{sha256} (string): the SHA-256 of the content (hexadecimal)
+  \item
+    \texttt{blake2s256} (bytes): the BLAKE2s-256 of the content
+    (hexadecimal)
+  \item
+    \texttt{length} (integer): the length of the content
+  \item
+    \texttt{status} (string): the visibility status of the content
+  \end{itemize}
+\item
+  \textbf{skipped\_content}: contains information on the contents that
+  were not archived for various reasons.
 
-    \item The \texttt{revision} table contains all the revisions, identified by
-        their intrinsic hash in the \texttt{id} field. Each revision points to
-        the root directory of the project source tree, identified by the
-        \texttt{directory} field which references the \texttt{sha1\_git}
-        cryptographic hash of the directory.
-        The table also contains metadata on the revisions, notably the
-        \texttt{author} and \texttt{committer} fields, the
-        \texttt{date} and \texttt{committer\_date} fields and the
-        \texttt{message} field.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{sha1} (string): the SHA-1 of the skipped content
+    (hexadecimal)
+  \item
+    \texttt{sha1\_git} (string): the Git SHA-1 of the skipped content
+    (hexadecimal)
+  \item
+    \texttt{sha256} (string): the SHA-256 of the skipped content
+    (hexadecimal)
+  \item
+    \texttt{blake2s256} (bytes): the BLAKE2s-256 of the skipped content
+    (hexadecimal)
+  \item
+    \texttt{length} (integer): the length of the skipped content
+  \item
+    \texttt{status} (string): the visibility status of the skipped
+    content
+  \item
+    \texttt{reason} (string): the reason why the content was skipped
+  \end{itemize}
+\item
+  \textbf{directory}: contains the directories stored in the archive.
 
-        Each revision has an ordered set of parents (0 for the initial commit
-        of a repository, 1 for a normal commit and 2 or more for a merge
-        commit). These parents are stored in the \texttt{revision\_history}
-        table, one row per parent. Each parent is identified by the \texttt{id}
-        identifier, pointing to the hash of the revision, the
-        \texttt{parent\_id} identifier, pointing to the hash of the parent
-        revision, and the \texttt{parent\_rank} integer which defines the order
-        of the parents of each revision.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{id} (string): the intrinsic hash of the directory
+    (hexadecimal), recursively computed with the Git SHA-1 algorithm
+  \end{itemize}
+\item
+  \textbf{directory\_entry}: contains the entries in directories.
 
-    \item The \texttt{person} table deduplicates commit authors by their name
-        and e-mail addresses. For pseudonymization purposes and in order to
-        prevent abuse, these columns were removed from the dataset, and this
-        table only contains the \texttt{id} column referenced by the
-        \texttt{author} and \texttt{committer} fields of the \texttt{revision}
-        table. Individual authors may be retrieved using this ID from the
-        Software Heritage \textsc{api}.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{directory\_id} (string): the Git SHA-1 of the directory
+    containing the entry (hexadecimal).
+  \item
+    \texttt{name} (bytes): the name of the file (basename of its path)
+  \item
+    \texttt{type} (string): the type of object the branch points to
+    (either \texttt{revision}, \texttt{directory} or \texttt{content}).
+  \item
+    \texttt{target} (string): the Git SHA-1 of the object this entry
+    points to (hexadecimal).
+  \item
+    \texttt{perms} (integer): the permissions of the object
+  \end{itemize}
+\item
+  \textbf{revision}: contains the revisions stored in the archive.
 
-    \item The \texttt{release} table contains the releases in the archive. They
-        are also identified by their intrinsic hash \texttt{id} and point to a
-        revision referenced by its hash in the \texttt{target} field. The
-        metadata fields are semantically similar to the \texttt{revision} table
-        (i.e \texttt{author}, \texttt{date}, \texttt{message}).
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{id} (string): the intrinsic hash of the revision
+    (hexadecimal), recursively computed with the Git SHA-1 algorithm.
+    For Git repositories, this corresponds to the commit hash.
+  \item
+    \texttt{message} (bytes): the revision message
+  \item
+    \texttt{author} (string): an anonymized hash of the author of the
+    revision.
+  \item
+    \texttt{date} (timestamp): the date the revision was authored
+  \item
+    \texttt{date\_offset} (integer): the offset of the timezone of
+    \texttt{date}
+  \item
+    \texttt{committer} (string): an anonymized hash of the committer of
+    the revision.
+  \item
+    \texttt{committer\_date} (timestamp): the date the revision was
+    committed
+  \item
+    \texttt{committer\_date\_offset} (integer): the offset of the
+    timezone of \texttt{committer\_date}
+  \item
+    \texttt{directory} (string): the Git SHA-1 of the directory the
+    revision points to (hexadecimal). Every revision points to the root
+    directory of the project source tree to which it corresponds.
+  \end{itemize}
+\item
+  \textbf{revision\_history}: contains the ordered set of parents of
+  each revision. Each revision has an ordered set of parents (0 for the
+  initial commit of a repository, 1 for a regular commit, 2 for a
+  regular merge commit and 3 or more for octopus-style merge commits).
 
-    \item The \texttt{snapshot} table contains the list of snapshots identified
-        by their intrinsic hash \texttt{id}, and their integer primary key in
-        the archive \texttt{object\_id}.
-        Each snapshot maps to a list of branches listed in the table
-        \texttt{snapshot\_branch} through the many-to-many relationship
-        intermediate table \texttt{snapshot\_branches}, which references the
-        \texttt{object\_id} fields of the \texttt{snapshot} and
-        \texttt{snapshot\_branch} tables. The \texttt{snapshot\_branch} table
-        also contains the \texttt{name} of the branch and the \texttt{target}
-        it points to (identified by its intrinsic hash), either a
-        \texttt{release}, \texttt{revision}, \texttt{directory} or
-        \texttt{content} object depending on the value of the
-        \texttt{target\_type} field.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{id} (string): the Git SHA-1 identifier of the revision
+    (hexadecimal)
+  \item
+    \texttt{parent\_id} (string): the Git SHA-1 identifier of the parent
+    (hexadecimal)
+  \item
+    \texttt{parent\_rank} (integer): the rank of the parent, which
+    defines the ordering between the parents of the revision
+  \end{itemize}
+\item
+  \textbf{release}: contains the releases stored in the archive.
 
-    \item The \texttt{origin} table contains the origins from which the
-        software projects in the dataset were archived, identified by their
-        \texttt{id} identifier, and \texttt{type} and \texttt{url} metadata.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{id} (string): the intrinsic hash of the release
+    (hexadecimal), recursively computed with the Git SHA-1 algorithm
+  \item
+    \texttt{target} (string): the Git SHA-1 of the object the release
+    points to (hexadecimal)
+  \item
+    \texttt{date} (timestamp): the date the release was created
+  \item
+    \texttt{author} (integer): the author of the revision
+  \item
+    \texttt{name} (bytes): the release name
+  \item
+    \texttt{message} (bytes): the release message
+  \end{itemize}
+\item
+  \textbf{snapshot}: contains the list of snapshots stored in the
+  archive.
 
-        Since Software Heritage archives software continuously, software
-        origins are crawled more than once. Every ``visit'' of an origin is
-        stored in the \texttt{origin\_visit} table, which contains the
-        identifier \texttt{origin} of the origin visited, the \texttt{date} of
-        the visit and a \texttt{snapshot\_id} integer which points to the
-        \texttt{object\_id} identifier of the \texttt{snapshot} table.
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{id} (string): the intrinsic hash of the snapshot
+    (hexadecimal), recursively computed with the Git SHA-1 algorithm.
+  \end{itemize}
+\item
+  \textbf{snapshot\_branch}: contains the list of branches associated
+  with each snapshot.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{snapshot\_id} (string): the intrinsic hash of the snapshot
+    (hexadecimal)
+  \item
+    \texttt{name} (bytes): the name of the branch
+  \item
+    \texttt{target} (string): the intrinsic hash of the object the
+    branch points to (hexadecimal)
+  \item
+    \texttt{target\_type} (string): the type of object the branch points
+    to (either \texttt{release}, \texttt{revision}, \texttt{directory}
+    or \texttt{content}).
+  \end{itemize}
+\item
+  \textbf{origin}: the software origins from which the projects in the
+  dataset were archived.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{url} (bytes): the URL of the origin
+  \end{itemize}
+\item
+  \textbf{origin\_visit}: the different visits of each origin. Since
+  Software Heritage archives software continuously, software origins are
+  crawled more than once. Each of these ``visits'' is an entry in this
+  table.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{origin}: (string) the URL of the origin visited
+  \item
+    \texttt{visit}: (integer) an integer identifier of the visit
+  \item
+    \texttt{date}: (timestamp) the date at which the origin was visited
+  \item
+    \texttt{type} (string): the type of origin visited (e.g
+    \texttt{git}, \texttt{pypi}, \texttt{hg}, \texttt{svn},
+    \texttt{git}, \texttt{ftp}, \texttt{deb}, \ldots)
+  \end{itemize}
+\item
+  \textbf{origin\_visit\_status}: the status of each visit.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{origin}: (string) the URL of the origin visited
+  \item
+    \texttt{visit}: (integer) an integer identifier of the visit
+  \item
+    \texttt{date}: (timestamp) the date at which the origin was visited
+  \item
+    \texttt{type} (string): the type of origin visited (e.g
+    \texttt{git}, \texttt{pypi}, \texttt{hg}, \texttt{svn},
+    \texttt{git}, \texttt{ftp}, \texttt{deb}, \ldots)
+  \item
+    \texttt{snapshot\_id} (string): the intrinsic hash of the snapshot
+    archived in this visit (hexadecimal).
+  \item
+    \texttt{status} (string): the integer identifier of the snapshot
+    archived in this visit, either \texttt{partial} for partial visits
+    or \texttt{full} for full visits.
+  \end{itemize}
 \end{itemize}
 
-\end{comment}
+
+\section{Dataset export pipeline}
+
+\subsection{Point-in-time exports}
+
+The dataset is exported from the \texttt{swh-journal} component of the archive,
+which provides a log of all the objects inserted in the archive, and is backed
+by Apache Kafka as described in Section~\ref{sec:swh-infrastructure}. While the
+journal exposes a continuous stream of data, the property graph dataset is
+intended to be a periodical dump in which the entire state of the graph is
+exported at a given point in time.
+
+Making periodical exports is generally easier for researchers, as they can
+simply download the latest export without having to continuously synchronize
+their own data with the archive using a mirroring protocol. This kind of
+analysis on ``offline'' data is often the preferred way to run experiments on
+one's own infrastructure. This is also useful for study repeatability, as the
+date of the export can uniquely identify its content, whereas it would be
+harder to reproduce the exact state of a continuously updating dataset at a
+given date.
+
+The journal is divided in ``topics'', one for each object type described
+in Section~\ref{sec:swh-artifacts}. The process exports each object type one by
+one, in a sequential fashion. These topics are ordered so that objects at the
+top of the graph are always exported first and those at the bottom last (in
+order: origins, snapshots, releases, revisions, directories, contents). This
+order uses the directionality of the graph to reduce the number of ``dangling''
+objects (i.e., objects that refer to objects not present in the graph) at the
+cost of having more ``loose'' objects (i.e., objects that are not referred to
+by any other objects). If the upper layers were exported last, they would refer
+to newer objects in the journal that would have not been exported before;
+exporting them first ensures that they refer to objects that will be exported
+in the next steps.
+
+\subsection{Parallelism}
+
+Kafka achieves streaming scalability by dividing each topic into a certain
+number of partitions that can be processed independently on the client side.
+When new data is sent to the journal, each object is assigned to a partition
+deterministically using its intrinsic hash.
+
+Before exporting a topic, the current \emph{offsets} of each partition of that
+topic are retrieved; they constitute the ``boundaries'' from and to which the
+journal will be read. This ensures that the stream reader can terminate at a
+fixed point, instead of trying to catch up with the live state of the journal.
+
+A parallelism factor can be given on the command line of the exporter as
+follows:
+
+\begin{minted}{console}
+$ swh dataset graph export --processes 64 output_dir/
+\end{minted}
+
+The partitions are split equally among each subprocess, which then start to
+process them until they reach the high offset. Periodically, these subprocesses
+report their current progress in the stream to a single process which aggregate
+them and displays in real time the total progress in the queue.
+
+\subsection{Resumability}
+
+A dataset export can be attributed a unique export identifier that is passed
+to the command line:
+
+\begin{minted}{console}
+$ swh dataset graph export --export-id dataset-2021-03-15 output_dir/
+\end{minted}
+
+This identifier is stored on the server side to match the journal clients
+associated with a given export.
+When a batch of objects has been read from the journal, the client
+automatically acknowledges to the server that they have correctly been
+processed. The server maintains for each partition the last offset that has
+been acknowledged, or ``committed''.
+If an export is interrupted because of an error or a server failure, resuming
+it can be achieved automatically by reusing the same export identifier. The
+journal client will then start reading the log after the last committed offset.
+
+\subsection{Object unicity}
+\label{sec:dataset-export-unicity}
+
+To guarantee that each object is only present once in the final export, there
+needs to be a way to check whether a given object has already been exported in
+case it appears multiple times in the log. The message delivery
+semantics\footnote{\url{https://kafka.apache.org/documentation/\#semantics}} in
+\texttt{swh-journal} are ``at least once'', which means that objects are
+guaranteed to be present in the stream but might be delivered multiple times.
+Moreover, in case the export is suddenly interrupted (e.g., in case of a power
+failure), export clients have to be able to resume the export even as they
+might not have acknowledged their current progress in the stream to the journal
+server.
+
+To guarantee unicity on the client side, the exporter uses a local on-disk
+database which contains the set of all object IDs which have already been
+inserted. Because objects are deterministically assigned to their partitions,
+this database can be sharded directly using the object intrinsic identifier.
+Two different local on-disk databases can be used,
+SQLite~\cite{owens2006sqlitebook} and LevelDB~\cite{ghemawat2011leveldb}. The
+latter is preferred in production exports, as the performance of inserts
+degrades less quickly than SQLite after a few hundred millions of insertions.
+
+While the exports themselves are massive (around 10 TiB, depending on the
+export format) and are generally expected to be outputted on a large \gls{HDD},
+the on-disk sets are significantly smaller (in the order of magnitude of
+hundreds of gigabytes); their location is configurable, and it is recommended
+to store them on a \gls{SSD}, as reading and writing performance of this set
+will usually be the bottleneck of the export.
+
+\subsection{Removing pull requests from snapshots}
+
+During the archival process, when Git repositories are cloned by the loaders to
+be ingested in the archive, the \texttt{--mirror} option of \texttt{git clone}
+is used to retrieve all the remote refs, including some that are generally kept
+on the server only. These refer to branches that are generally kept on the
+server side only, and used to implement; one such insta
+
+\section{Export formats}
+
+The dataset export pipeline is written in a generic way, such that it can
+output the dataset in multiple different formats. The list of formats to export
+can be specified on the command line, as such:
+
+\begin{minted}{console}
+$ swh dataset graph export --formats orc,edges output_dir/
+\end{minted}
+
+In general, there are three different categories of formats that we want to
+export:
+
+\begin{itemize}
+    \item \textbf{Database dumps} (e.g., CSV) which can be imported in a local
+        \gls{RDBMS} like PostgreSQL.
+    \item \textbf{Columnar data storage} (e.g., ORC, Avro, Parquet) which can
+        be used in data lakes and big data processing ecosystems like the
+        Hadoop environment.
+    \item \textbf{Edge files} (e.g., Gremlin CSV files) which can
+        be loaded in graph database services like Apache Tinkerpop, Amazon
+        Neptune or Neo4J.
+\end{itemize}
+
+\subsection{Relational formats}
+The first two formats are \emph{relational}, which means they are exported as a
+set of tables with columns and rows. We use a common routine to transform
+document-style objects into relational table rows. For instance, the directory
+object described by the following JSON document:
+
+{\footnotesize
+\begin{minted}{json}
+{
+    "id": "87b339104f7dc2a8163dec988445e3987995545f",
+    "entries": [
+        {
+            "name": "main.c",
+            "type": "file",
+            "perms": 420,
+            "target": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+        },
+        {
+            "name": "tests",
+            "type": "dir",
+            "perms": 493,
+            "target": "ee4d20e80af850cc0f417d25dc5073792c5010d2",
+        }
+    ]
+}
+\end{minted}
+}
+
+will be transformed into data rows in two different relational tables:
+
+\vspace{1em}
+
+\begin{center}
+\begin{tabular}{|c|}
+    \multicolumn{1}{c}{\textbf{directory}} \\ \hline
+    % \hline\textbf{directory} \\ \hline
+    \emph{\texttt{directory\_id}} \\ \hline
+    \texttt{87b339104f\ldots} \\ \hline
+\end{tabular}
+\qquad
+\begin{tabular}{|c|c|c|c|c|}
+    \multicolumn{5}{c}{\textbf{directory\_entry}} \\ \hline
+    \emph{\texttt{directory\_id}} & \emph{\texttt{name}} & \emph{\texttt{type}}
+                                  & \emph{\texttt{perms}} &
+                                  \emph{\texttt{target}} \\ \hline
+    \texttt{87b339104f\ldots} & \texttt{main.c} & \texttt{file} & \texttt{420}
+                              & \texttt{4b825dc642\ldots} \\ \hline
+    \texttt{87b339104f\ldots} & \texttt{tests} & \texttt{dir} & \texttt{493}
+                              & \texttt{ee4d20e80a\ldots} \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Columnar formats}
+For the columnar exports we provide, we settled on the Apache ORC
+column-oriented format~\cite{huai2014orc}, which is highly efficient and
+supported by most Big Data engines (Hadoop, Spark~\cite{zaharia2016apache}) and
+cloud platforms (Google
+BigQuery\footnote{\url{https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-orc}},
+AWS
+Athena\footnote{\url{https://docs.aws.amazon.com/athena/latest/ug/columnar-storage.html}}).
+Earlier versions of the dataset used the Apache
+Parquet~\cite{twitter2013parquet,website-apache-parquet} format, but the lack
+of stream writing support in Python libraries made it a less advantageous
+option.
+
+Columnar datasets store their data by column rather than by row. This method of
+data storage is particularly efficient for large-scale processing and
+especially in the case of full-table scans, because it reduces the amount of
+data that has to be scanned to the precise subset of columns queried. This
+comes at the cost of conserving data locality of single rows, which is
+generally useful for \gls{OLTP} operations but less so for \gls{OLAP}
+workflows. Columnar storage also has useful properties for parallelism, notably
+ease of partitioning on single columns, which can be used to efficiently
+scale-out computations.
+
+\subsection{Edges dataset}
+The edge format is stripped of all the metadata except the intrinsic
+identifiers and types of the nodes (i.e., whether an artifact is a revision, a
+directory, etc.), and is instead constituted of a list of graph edges in CSV
+format, one source/destination pair of labels per line:
+
+\texttt{<source node> <destination node><CR>}
+
+Because nodes are identified by their \glspl{SWHID} (as seen in
+Section~\ref{sec:swhid}), these identifiers already embed the typing
+information of the nodes (\texttt{swh:1:\emph{\textbf{cnt}}:4b825…}).
+
+Some edge types also have data attached to them: snapshot $\rightarrow\ast$
+edges contain the name of the corresponding branch or tag, and
+directory $\rightarrow\ast$ edges contain the name of the entry and its
+permissions.
+In a typical relational format, additional data on many-to-many relationships
+are generally represented using intermediate tables. For the edges dataset,
+this data is included as part of the edges CSV directly after the edges
+themselves. Binary strings (branch, tag and directory entry names) are encoded
+in base64, while integers are written in decimal representation. For example,
+this represents a snapshot branch named \texttt{refs/heads/master} and a file
+entry named \texttt{test.c} with permissions \texttt{0o644}:
+
+\begin{minted}{text}
+src:1:snp:4548a5… src:1:rev:0d6834… cmVmcy9oZWFkcy9tYXN0ZXI=
+src:1:dir:05faa1… src:1:cnt:a35136… dGVzdC5j 420
+\end{minted}
+
+Generally, the edges CSV is not sufficient for graph processing services, as
+they also require a list of all the unique nodes in the graph. While it could
+seem that these node IDs would be easy to export from the database used to
+guarantee node unicity (described in Section~\ref{sec:dataset-export-unicity}),
+this is in fact not the case due to the presence of loose objects. For
+instance, if a directory contains a revision entry pointing to a revision that
+has never been archived before, the destination of the edge will not be a
+proper object in the graph. However, trying to import this edge in a graph
+processing system will error out if the object has never been declared in the
+graph before.
+
+Instead, we get the list of all the nodes that are \emph{referred to} as
+destinations in the edges file, and add them to the existing node files. For
+that purpose, we use a Unix pipeline to cut the edge files in half, then use
+\texttt{sort(1)} with a large memory and disk buffer (hundreds of gigabytes of
+RAM and around 10 TiB of disk space) to get an unique sorted list of all the
+nodes in the graph.
+
+We also use this pipeline to aggregate statistics on the number of each edge
+type using a hash-table in Awk. Finally, we compress all the output using the
+Zstandard algorithm~\cite{collet2015zstd}, as it offers drastic improvements in
+terms of on-disk size and decompression time, which used to be an important
+bottleneck when using other compression algorithms in previous iterations. This
+is done in a single pass, which minimizes disk I/O. The full pipeline is shown
+here:
+
+\begin{minted}{bash}
+counter_command="awk '{ t[$0]++ } END { for (i in t) print i,t[i] }'"
+
+# concatenate the edge subfiles and reports read progress
+pv */*.edges.csv.zst |
+# write the output edges file
+tee graph.edges.csv.zst |
+# decompress the edges CSV with zst
+zstdcat |
+# count the number of edges
+tee >( wc -l > graph.edges.count.txt ) |
+# count the number of each type of edge
+tee >( cut -d: -f3,6 | eval "$counter_command" | sort \
+           > graph.edges.stats.txt ) |
+# cut the CSV to get the destination nodes only
+cut -d' ' -f2 |
+# concatenate them to the existing list of nodes
+cat - <( zstdcat */*.nodes.csv.zst ) |
+# sort and filter duplicates to get a unique list of nodes
+sort -u -S"$ram_buffer_size" -T"$disk_buffer_path" |
+# count the number of nodes
+tee >( wc -l > graph.nodes.count.txt ) |
+# count the number of each type of node
+tee >( cut -d: -f3 | eval "$counter_command" | sort \
+           > graph.nodes.stats.txt ) |
+# compress and write the output in the nodes file
+zstdmt > graph.nodes.csv.zst
+\end{minted}
+
+This pipeline only requires $O(|E| \log(|E|))$ operations where $|E|$ is the
+number of edges in the graph, with a small constant factor as the source data
+is read only once from disk. The log term is due to the sorting algorithm
+required to get a unique list of nodes. In practice, this entire sorting
+process on the entire graph takes around 10 days with a sufficiently large
+memory buffer as of 2021.
+
+\section{Dataset coverage}
+
+The first version of the dataset we published captured the state of the \SWH{}
+archive as of September 25th 2018, spanning a full mirror of Github and
+GitLab.com, the Debian distribution, Gitorious, Google Code, and the PyPI
+repository. Quantitatively, it corresponded to 5 billion unique file contents
+and 1.1 billion unique commits, harvested from more than 85 million software
+origins. It was subject of a publication~\cite{swh-msr2019-dataset} accepted at the
+16th International Conference on Mining Software Repositories (MSR 2019).
+This first iteration is available in two formats (Parquet and CSV,
+$\approx$1~TiB each) and downloadable from Zenodo at
+\url{https://zenodo.org/record/2583978}, (\doi{10.5281/zenodo.2583978}). It
+used a different schema derived from a less efficient exporting pipeline.
+
+Since then, multiple new versions of this dataset have been exported and made
+available to researchers, each version improving the export pipeline. These
+versions are shown in Table~\ref{tab:swh-dataset-exports}. They can be
+downloaded from the Software Heritage annex at
+\url{https://annex.softwareheritage.org/public/dataset/graph/}.
+\TODO{explanation of the coverage tables from the topology paper.}
+
+\begin{table}
+  \centering
+    \caption{List of dataset exports as of July 2021}%
+    \label{tab:swh-dataset-exports}
+    \begin{tabular}{l r r l}
+        \hline\textbf{Export date} & \textbf{\# of nodes} & \textbf{\# of edges} & \textbf{Formats} \\ \hline
+
+        2019-01-28 & 11.1 billion & 160.0 billion & Edges, Parquet, CSV \\ \hline
+        2020-05-20 & 17.1 billion & 203.4 billion & Edges \\ \hline
+        2020-12-15 & 19.3 billion & 221.5 billion & Edges \\ \hline
+        2021-03-23 & 20.7 billion & 232.9 billion & Edges, ORC \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}
+  \centering
+  \caption{Node and edge statistics of the 2020-12-15 dataset}
+  \label{tab:corpus-stats}
+  \begin{tabular}[t]{l|r}
+    \multicolumn{2}{c}{\textbf{Nodes}} \\
+    \hline\hline
+    origins     & \num{147453557} \\
+    snapshots   & \num{139832772} \\
+    releases    & \num{16539537} \\
+    revisions   & \num{1976476233} \\
+    directories & \num{7897590134} \\
+    blobs       & \num{9152847293} \\
+    \hline
+    Total nodes & \num{19330739526} \\
+  \end{tabular}
+  \hspace{5mm}
+  \begin{tabular}[t]{l|r}
+    \multicolumn{2}{c}{\textbf{Arcs}} \\
+    \hline\hline
+    origin    $\to$ snapshot  & \num{776112709} \\
+    snapshot  $\to$ revision  & \num{1358538567} \\
+    snapshot  $\to$ release   & \num{700823546} \\
+    release   $\to$ revision  & \num{16492908} \\
+    revision  $\to$ revision  & \num{2021009703} \\
+    revision  $\to$ directory & \num{1971187167} \\
+    directory $\to$ directory & \num{64584351336} \\
+    directory $\to$ commit    & \num{792196260} \\
+    directory $\to$ blob      & \num{149267317723} \\
+    \hline
+    Total arcs                & \num{221488073659} \\
+  \end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{Crawling statistics: number of visits by origin type}
+  \label{tab:visits-by-type}
+  \centering
+  \begin{tabular}{l|r}
+    \textbf{Origin type} & \textbf{Number of visits}
+    \\\hline
+    git     & \num{490428446} \\
+    npm     & \num{202932685} \\
+    pypi    & \num{106141148} \\
+    deb     &  \num{10980332} \\
+    hg      &   \num{6135813} \\
+    svn     &   \num{1247645} \\
+    cran    &     \num{27160} \\
+    ftp     &      \num{1237} \\
+    deposit &       \num{956} \\
+    tar     &       \num{955} \\
+    nixguix &       \num{219} \\
+  \end{tabular}
+\end{table}
+
+\begin{table}
+    \caption{Crawling statistics: number of visits by forge domain (top 25)}
+  \label{tab:visits-by-domain}
+  \centering
+  \begin{tabular}{l|r}
+    \textbf{Forge domain} & \textbf{Number of visits}
+    \\\hline
+    github.com                 & \num{139311275} \\
+    bitbucket.org              &   \num{2013421} \\
+    npmjs.com                  &   \num{1418773} \\
+    gitlab.com                 &    \num{973916} \\
+    pypi.org                   &    \num{239620} \\
+    gitorious.org              &    \num{120380} \\
+    debian.org                 &     \num{37892} \\
+    salsa.debian.org           &     \num{33609} \\
+    snapshot.debian.org        &     \num{33044} \\
+    git.launchpad.net          &     \num{19568} \\
+    cran.r-project.org         &     \num{17635} \\
+    framagit.org               &     \num{16899} \\
+    hdiff.luite.com            &     \num{13861} \\
+    gitlab.gnome.org           &      \num{8014} \\
+    gitlab.freedesktop.org     &      \num{4209} \\
+    codeberg.org               &      \num{3614} \\
+    gitlab.inria.fr            &      \num{2989} \\
+    git.savannah.gnu.org       &      \num{2948} \\
+    git.baserock.org           &      \num{2912} \\
+    anongit.kde.org            &      \num{2478} \\
+    code.google.com            &      \num{2240} \\
+    phabricator.wikimedia.org  &      \num{2224} \\
+    git.kernel.org             &      \num{2067} \\
+    fedorapeople.org           &      \num{1690} \\
+    ftp.gnu.org                &      \num{1590} \\
+    gitlab.ow2.org             &      \num{1038} \\
+  \end{tabular}
+\end{table}
 
 
-\section{Sample Queries and Research Questions}
-\label{sec:usage}
-To further illustrate the dataset's affordances and as
-motivating examples regarding the research possibilities
-it opens,
-below are some sample SQL queries that can be executed
-with the dataset on \textsc{AWS} Athena.
+\section{Data analysis platforms}
+
+While the dataset can be freely downloaded and imported on many large-scale
+analysis platforms, often researchers do not have easy access to in-house
+infrastructure and resources where they could analyse such a large amount of
+data.
+As a way to make this dataset more accessible for general use, we developed
+partnerships with \textbf{\gls{OLAP} cloud platforms} to make it available as
+an public dataset. Sometimes, these cloud platforms have \emph{open dataset
+programs}, in which they offer storage space for the dataset itself, then
+let researchers run analyses on it while paying for the cost of processing
+only. This is a sustainable solution as it does not incur any running costs on
+the Software Heritage project itself, and benefits to both software mining
+researchers and cloud platforms.
+
+The \SWHGD{} became an open dataset in two cloud services, each covering
+different use-cases that are detailed in the sections below: AWS
+Athena~\cite{website-amazon-athena} and Azure
+Databricks~\cite{website-azure-databricks}.
+
+\subsection{Presto on AWS Athena}
+
+AWS Athena is an interactive OLAP service which can analyze data stored in
+the Amazon S3 storage service using standard SQL queries. Athena uses a hosted
+version of the Presto engine~\cite{sethi2019presto} to distribute queries on
+large clusters.  One particularly interesting property of Presto is that it
+does not act as a database, but rather a tool to efficiently query vast amounts
+of data by doing automatic scale-out on pre-existing clusters. This has the
+advantage of not requiring any up-front setup cost, as the cluster of machines
+is not managed by the users but by Amazon itself. Instead, users are billed on
+a pay-as-you-go basis, depending on the total amount of data queried, at a base
+rate of around 5 USD per
+terabyte\footnote{\url{https://aws.amazon.com/athena/pricing/}}.
+
+After a successful graph export, the resulting ORC files are uploaded in a public
+S3 bucket that can be queried by anyone using Amazon Athena. The dataset is
+indexed in the Registry of Open Data on
+AWS\footnote{https://registry.opendata.aws/software-heritage/}, and contains
+information on the S3 bucket and how to query it using Athena. While Athena is
+offered as the default solution for analysis because of its low setup cost,
+researchers can also import this S3 bucket in other potentially more costly AWS
+services like AWS Redshit\footnote{https://aws.amazon.com/redshift/}.
+
+To read the ORC files with the appropriate schema, Athena uses an approach
+known as \emph{schema-on-read}, which means a predefined schema is projected on
+the data stored in S3 at the time of query. This technique avoids having to
+load, pre-process or convert the S3 data before querying it. However, as a
+preliminary step, it does require defining the schema on one's own Athena
+instance, as well as the location of the data it refers to. We provide a
+toolchain, \texttt{swh.dataset.athena}, which can automatically define this
+schema on an user provided Athena database. This command defines the schema of
+the latest graph export (2021-03-23) on the user's ``\texttt{swh}'' Athena
+database and sets its external location to the public dataset S3 bucket:
+
+\begin{minted}{bash}
+swh dataset athena create -d swh -l s3://softwareheritage/graph/2021-03-23
+\end{minted}
+
+The database can then be queried directly using this same toolchain, outputting
+the resulting rows of the SQL query in CSV format:
+
+\begin{minted}{console}
+$ swh dataset athena query -d swh <<<"select count(*) from content;"
+"_col0"
+"9935510171"
+\end{minted}
+
+To further illustrate the research possibilities it opens on the dataset, below
+are some sample SQL queries that can be executed with the dataset on
+\textsc{AWS} Athena.
 
 \begin{listing}[H]
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/popular-file.sql}
@@ -342,9 +889,11 @@ The result, obtained by scanning
 151~GiB\ in $3'40''$, is \texttt{index.html}, which occurs in the dataset 182
 million times.
 
-\lstinputlisting[firstline=3,float,
-caption={Most common commit operations},
-label=lst:popular-commit-words]{codesamples/graph-dataset/popular-commit-words.sql}
+\begin{listing}[H]
+    \inputminted[firstline=3]{sql}{codesamples/graph-dataset/popular-commit-words.sql}
+    \caption{Most common commit operations}%
+    \label{lst:popular-commit-words}
+\end{listing}
 
 As an example of a query useful in software evolution research,
 consider the Listing~\ref{lst:popular-commit-words}.
@@ -360,9 +909,11 @@ because the most recent version of the Presto query engine,
 which provides a built-in stemming function,
 is not yet available on Athena.)
 
-\lstinputlisting[firstline=3,float,
-caption={Ratio of commits performed during each year's weekends},
-label=lst:weekend-work]{codesamples/graph-dataset/weekend-work.sql}
+\begin{listing}[H]
+    \inputminted[firstline=3]{sql}{codesamples/graph-dataset/weekend-work.sql}
+    \caption{Ratio of commits performed during each year's weekends}%
+    \label{lst:weekend-work}
+\end{listing}
 
 SQL queries can also be used to express more complex tasks.
 Consider the research hypothesis that weekend work on open source projects
@@ -375,9 +926,11 @@ The results, obtained by scanning 14~GiB\ in $7''$ are inconclusive,
 and point to the need for further analysis,
 which is left as an exercise to the reader.
 
-\lstinputlisting[firstline=4,float,
-caption={Average number of a revision's parents},
-label=lst:fork-size]{codesamples/graph-dataset/fork-size.sql}
+\begin{listing}[H]
+    \inputminted[firstline=4]{sql}{codesamples/graph-dataset/fork-size.sql}
+    \caption{Average number of parents in a revision}%
+    \label{lst:fork-size}
+\end{listing}
 
 The provided dataset forms a graph, which can be difficult query with SQL.
 Therefore, questions associated with the graph's characteristics,
@@ -391,15 +944,17 @@ by grouping revisions by their parent identifier.
 Such queries can be used to examine in depth the characteristics
 of merge operations.
 
-\lstinputlisting[firstline=4,float,
-caption={Average size of the most popular file types},
-label=lst:file-type-size]{codesamples/graph-dataset/file-type-size.sql}
+\begin{listing}[H]
+    \inputminted[firstline=4]{sql}{codesamples/graph-dataset/file-type-size.sql}
+    \caption{Average size of the most popular file types}%
+    \label{lst:file-type-size}
+\end{listing}
 
-Although the performance of Athena can be impressive,
-there are cases where the available memory resources will be exhausted
-causing an expensive query to fail.
-This typically happens when joining two equally large tables consisting
-of hundreds of millions of records.
+Although the performance of Athena can be impressive, there are cases where the
+available memory resources will be exhausted causing an expensive query to
+fail.
+This typically happens when joining two equally large tables consisting of
+hundreds of millions of records.
 This restriction can be overcome by sampling the corresponding tables.
 Listing~\ref{lst:file-type-size} demonstrates such a case.
 The objective here is to determine the modularity at the level of files among
@@ -409,57 +964,71 @@ the file names and the content metadata.
 To reduce the number of joined rows a 1\% sample of the rows is processed,
 thus scanning 317~GiB\ in $1'20''$.
 The order of the resulting language files
-(JavaScript$>$C$>$C++$>$Python$>$\textsc{php}$>$C\#$>$ Ruby)
-indicates that,
-with the exception of JavaScript,
-languages offering more abstraction facilities are associated with
-smaller source code files.
+(JavaScript $>$ C $>$ C++ $>$ Python $>$ \textsc{php} $>$ C\# $>$ Ruby)
+indicates that, with the exception of JavaScript, languages offering more
+abstraction facilities are associated with smaller source code files.
 
+\subsection{Spark on Azure Databricks}
 
-\section{Limitations and Extensions}
-\label{sec:threats}
+For a more fine-grained control of the computing resources, it is also possible
+to use the dataset on Spark, through a local install or using the public
+dataset on Azure Databricks. Spark lifts the constraints imposed by limits in
+Athena by letting users have a direct control on the number of machines in a
+cluster dedicated to their analysis. This offers more flexibility by letting
+users choose their own scale factor and the computing power of the nodes in the
+cluster.  This is important for computationally intensive experiments or very
+large \emph{join} operations, which can only be achieved through sampling in
+Athena. One downside of this approach is that it can quickly become rather
+expensive, as the cost is no longer solely dependent on the amount of data
+analyzed but the real computing resources used while the cluster is running. It
+also requires some upfront cost to start the cluster before running any queries
+on it.
 
-As discussed in Section~\ref{sec:gathering}, the dataset is not fully
-reproducible. This is a limitation, but one that is very hard to avoid for
-datasets originating from long-term archival.
+The dataset is available in a public Azure Data Lake Storage Gen2 container,
+and can be loaded directly as temporary views from a Python notebook on Azure
+Databricks, as shown in Listing~\ref{lst:databricks-load-tables}.
+Once the tables are loaded in Spark, the query in
+Listing~\ref{lst:spark-directory-outdegree} can be used to generate an
+outdegree distribution of the directories.
 
-The dataset cannot claim full coverage of the entire software commons, and
-several forges and package repositories are still missing from it. Still, it is
-the largest dataset of its kind (by several order of magnitude). Also, to
-mitigate this limitation we plan to periodically publish new versions of it, as
-the \SWH archive extends its coverage.
+\begin{listing}
+\begin{minted}{python}
+dataset_path = ('wasbs://swhgraph@swhopendataset.blob.core.windows.net'
+                '/2021-03-15/orc')
+tables = ['content', 'directory', 'directory_entry', 'origin', 'origin_visit',
+          'origin_visit_status', 'release', 'revision', 'revision_history',
+          'skipped_content', 'snapshot', 'snapshot_branch']
+for table in tables:
+    df = spark.read.parquet(dataset_path + '/' + table)
+    df.createOrReplaceTempView(table)
+\end{minted}
+\caption{Load ORC tables in Azure Databricks}%
+\label{lst:databricks-load-tables}
+\end{listing}
 
-As a first future extension we plan to include actual file contents as part of
-the dataset. This is currently impractical due to the storage size (\TODO{size}),
-but we are exploring cloud storage with bring-your-own-compute service model
-solutions.
+\begin{listing}
+    \inputminted{sql}{codesamples/graph-dataset/spark-degree.sql}
+    \caption{Outdegree distribution of directories}%
+    \label{lst:spark-directory-outdegree}
+\end{listing}
 
-As further extensions, it would be useful to combine the \SWHGD with neighboring
-datasets that contain non-source-code development artifacts, such as issues,
-code review discussions, wiki pages, etc. We are exploring an integrated
-dataset with GHTorrent~\cite{DBLP:conf/msr/GousiosS12}, even thought that would
-narrow the scope to GitHub ``only''.
+Spark is flexible in terms of the computations it can perform, thanks to
+\glspl{UDF}~\cite{armbrust2015spark} that can be used to specify
+arbitrary operations to be performed on the rows.
 
+To analyze the graph structure of the dataset, the GraphFrames
+library~\cite{dave2016graphframes} can also be used to perform common
+operations on the graph. Listing~\ref{lst:cc} demonstrates how one can load the
+edges and nodes of the revision tables as a GraphFrame object, then compute the
+distribution of the connected component sizes in this graph. However, running
+this experiment on the entire graph can be extremely expensive, as most
+distributed graph algorithms require a lot of data synchronization points
+between the nodes, and are thus significantly slower than equivalent algorithms
+that can run on a single machine. From our own experiments, one should expect a
+cost of around \num{5000} USD to compute the connected components of the graph.
 
-\section{Related Work}
-\label{sec:related}
-
-% \SWH~\cite{cacm-2018-software-heritage, ipres-2017-software-heritage} is the
-% archival project used as a basis for producing this dataset.
-
-To the best of the authors' knowledge no existing dataset contains a comparable
-amount of data about source code artifacts extracted from public
-software development.
-
-GHTorrent~\cite{DBLP:conf/msr/GousiosS12} covers GitHub and includes
-non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks other
-software distribution places (e.g., GitLab, Debian, PyPI). Also, no
-deduplication applies to GHTorrent, making cloning tracking more challenging.
-CodeFeedr~\cite{DBLP:conf/icse/VargasHKBG18} is a natural evolution of
-GHTorrent, but it is oriented toward expanding coverage for additional sources
-of non-source-code artifacts.
-
-The Debsources dataset~\cite{debsources-ese-2016} contains a wealth of
-information about Debian releases over several decades, but stops at the
-release granularity (rather than commits) and is at least three orders of magnitude
-smaller than the present dataset.
+\begin{listing}
+    \inputminted{python}{codesamples/graph-dataset/spark-cc.py}
+    \caption{Connected components of the revision graph}%
+    \label{lst:cc}
+\end{listing}

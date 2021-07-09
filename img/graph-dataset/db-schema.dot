@@ -2,61 +2,45 @@ digraph g {
 graph [
 rankdir = "LR",
 concentrate = true,
-ratio = auto,
-splines=spline,
+ratio = auto
 ];
 node [
 fontsize = "10",
-constraint = false, shape = record
+shape = record
 ];
 edge [
 ];
 
-"content" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > sha1 </TD><TD align="left" > sha1 </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > sha1_git </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR>   <TR><TD PORT="ltcol5" ></TD><TD align="left" > length </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR>    </TABLE>> ];
+"content" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > sha1 </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > sha1_git </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > sha256 </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > blake2s256 </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> <TR><TD PORT="ltcol5" ></TD><TD align="left" > length </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR>  <TR><TD PORT="ltcol7" ></TD><TD align="left" > status </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol7"> </TD></TR>  </TABLE>> ];
 
-"directory" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > dir_entries </TD><TD align="left" > bigint[] </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > file_entries </TD><TD align="left" > bigint[] </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > rev_entries </TD><TD align="left" > bigint[] </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR>  </TABLE>> ];
+"skipped_content" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > sha1 </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > sha1_git </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > sha256 </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > blake2s256 </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> <TR><TD PORT="ltcol5" ></TD><TD align="left" > length </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR>  <TR><TD PORT="ltcol7" ></TD><TD align="left" > status </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol7"> </TD></TR> <TR><TD PORT="ltcol8" ></TD><TD align="left" > reason </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol8"> </TD></TR>  </TABLE>> ];
 
-"directory_entry_dir" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > target </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > name </TD><TD align="left" > unix_path </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > perms </TD><TD align="left" > file_perms </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> </TABLE>> ];
+"directory" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> </TABLE>> ];
 
-"directory_entry_file" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > target </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > name </TD><TD align="left" > unix_path </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > perms </TD><TD align="left" > file_perms </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> </TABLE>> ];
+"directory_entry" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > directory_id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR><TR><TD PORT="ltcol2" ></TD><TD align="left" > name </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR><TR><TD PORT="ltcol3" ></TD><TD align="left" > type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > target </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR>  <TR><TD PORT="ltcol5" ></TD><TD align="left" > perms </TD><TD align="left" > smallint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR> </TABLE>> ];
 
-"directory_entry_rev" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > target </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > name </TD><TD align="left" > unix_path </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > perms </TD><TD align="left" > file_perms </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> </TABLE>> ];
+"origin" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>    <TR><TD PORT="ltcol1" ></TD><TD align="left" > url </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> </TABLE>> ];
 
-"origin" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > type </TD><TD align="left" > text </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > url </TD><TD align="left" > text </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> </TABLE>> ];
+"origin_visit" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > origin </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" > </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > visit </TD><TD align="left" > bigint </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date </TD><TD align="left" > timestamp with time zone </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR>    </TABLE>> ];
 
-"origin_visit" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > origin </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > visit </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date </TD><TD align="left" > timestamp </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR>   <TR><TD PORT="ltcol6" ></TD><TD align="left" > snapshot_id </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol6"> </TD></TR> </TABLE>> ];
+"origin_visit_status" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > origin </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" > </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > visit </TD><TD align="left" > bigint </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date </TD><TD align="left" > timestamp with time zone </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR><TR><TD PORT="ltcol5" ></TD><TD align="left" > snapshot </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR> <TR><TD PORT="ltcol6" ></TD><TD align="left" > status </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol6"> </TD></TR>   </TABLE>> ];
 
-"person" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR>    </TABLE>> ];
+"release" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > target </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date </TD><TD align="left" > timestamp with time zone </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > date_offset </TD><TD align="left" > smallint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> <TR><TD PORT="ltcol5" ></TD><TD align="left" > name </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR>  <TR><TD PORT="ltcol7" ></TD><TD align="left" > author </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" > </TD><TD align="left" PORT="rtcol7"> </TD></TR>   <TR><TD PORT="ltcol10" ></TD><TD align="left" > target_type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol10"> </TD></TR>  </TABLE>> ];
 
-"release" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > target </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date </TD><TD align="left" > timestamp </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR>  <TR><TD PORT="ltcol5" ></TD><TD align="left" > name </TD><TD align="left" > bytea </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR> <TR><TD PORT="ltcol6" ></TD><TD align="left" > comment </TD><TD align="left" > bytea </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol6"> </TD></TR> <TR><TD PORT="ltcol7" ></TD><TD align="left" > author </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol7"> </TD></TR>     </TABLE>> ];
+"revision" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > date </TD><TD align="left" > timestamp with time zone </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > date_offset </TD><TD align="left" > smallint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > committer_date </TD><TD align="left" > timestamp with time zone </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> <TR><TD PORT="ltcol5" ></TD><TD align="left" > committer_date_offset </TD><TD align="left" > smallint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR> <TR><TD PORT="ltcol6" ></TD><TD align="left" > type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol6"> </TD></TR> <TR><TD PORT="ltcol7" ></TD><TD align="left" > directory </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol7"> </TD></TR> <TR><TD PORT="ltcol8" ></TD><TD align="left" > message </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol8"> </TD></TR> <TR><TD PORT="ltcol9" ></TD><TD align="left" > author </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" > </TD><TD align="left" PORT="rtcol9"> </TD></TR> <TR><TD PORT="ltcol10" ></TD><TD align="left" > committer </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" > </TD><TD align="left" PORT="rtcol10"> </TD></TR> </TABLE>> ];
 
-"revision" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > date </TD><TD align="left" > timestamp </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR>  <TR><TD PORT="ltcol4" ></TD><TD align="left" > committer_date </TD><TD align="left" > timestamp </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> <TR><TD PORT="ltcol7" ></TD><TD align="left" > directory </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol7"> </TD></TR> <TR><TD PORT="ltcol8" ></TD><TD align="left" > message </TD><TD align="left" > bytea </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol8"> </TD></TR> <TR><TD PORT="ltcol9" ></TD><TD align="left" > author </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol9"> </TD></TR> <TR><TD PORT="ltcol10" ></TD><TD align="left" > committer </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol10"> </TD></TR>      </TABLE>> ];
+"revision_history" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" > </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > parent_id </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > parent_rank </TD><TD align="left" > integer </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> </TABLE>> ];
 
-"revision_history" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > parent_id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > parent_rank </TD><TD align="left" > integer </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> </TABLE>> ];
 
-"skipped_content" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > sha1 </TD><TD align="left" > sha1 </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > sha1_git </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR>   <TR><TD PORT="ltcol5" ></TD><TD align="left" > length </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol5"> </TD></TR> </TABLE>> ];
+"snapshot" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>   <TR><TD PORT="ltcol1" ></TD><TD align="left" > id </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> </TABLE>> ];
 
-"snapshot" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > object_id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > id </TD><TD align="left" > sha1_git </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> </TABLE>> ];
-
-"snapshot_branch" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > object_id </TD><TD align="left" > bigserial </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > name </TD><TD align="left" > bytea </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > target </TD><TD align="left" > bytea </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > target_type </TD><TD align="left" > snapshot_target </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> </TABLE>> ];
-
-"snapshot_branches" [constraint = false, shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > snapshot_id </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > branch_id </TD><TD align="left" > bigint </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> </TABLE>> ];
-
-"origin_visit":rtcol1 -> "origin":ltcol1 [];
-"origin_visit":rtcol6 -> "snapshot":ltcol1 [];
-"release":rtcol7 -> "person":ltcol1 [constraint = false];
-"revision":rtcol9 -> "person":ltcol1 [];
-"revision":rtcol10 -> "person":ltcol1 [];
-"revision_history":rtcol1 -> "revision":ltcol1 [];
-"snapshot_branches":rtcol1 -> "snapshot":ltcol1 [];
-"snapshot_branches":rtcol2 -> "snapshot_branch":ltcol1 [];
-"snapshot_branch":rtcol3 -> "revision":ltcol1 [];
+"snapshot_branch" [shape = plaintext, label = < <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0"> <TR ><TD PORT="ltcol0"> </TD> <TD bgcolor="grey90" border="1" COLSPAN="4"> \N </TD> <TD PORT="rtcol0"></TD></TR>  <TR><TD PORT="ltcol1" ></TD><TD align="left" > snapshot_id </TD><TD align="left" > string </TD><TD align="left" > </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol1"> </TD></TR> <TR><TD PORT="ltcol2" ></TD><TD align="left" > name </TD><TD align="left" > binary </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol2"> </TD></TR> <TR><TD PORT="ltcol3" ></TD><TD align="left" > target </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol3"> </TD></TR> <TR><TD PORT="ltcol4" ></TD><TD align="left" > target_type </TD><TD align="left" > string </TD><TD align="left" >  </TD><TD align="left" >  </TD><TD align="left" PORT="rtcol4"> </TD></TR> </TABLE>> ];
 
 subgraph "logical_grouping" {
-	// style = rounded;
+	style = rounded;
 	bgcolor = gray95;
 	color = gray;
-	
+
 	subgraph cluster_content {
 		label = <<b>content</b>>;
 		content;
@@ -66,30 +50,13 @@ subgraph "logical_grouping" {
 	subgraph cluster_directory {
 		label = <<b>directories</b>>;
 		directory;
-		directory_entry_dir;
-		directory_entry_file;
-		directory_entry_rev;
+		directory_entry;
 	}
 
 	subgraph cluster_revision {
 		label = <<b>revisions</b>>;
 		revision;
 		revision_history;
-		person;
-	}
-
-
-	subgraph cluster_snapshots {
-		label = <<b>snapshots</b>>;
-		snapshot;
-		snapshot_branch;
-		snapshot_branches;
-	}
-
-	subgraph cluster_origins {
-		label = <<b>origins</b>>;
-		origin;
-		origin_visit;
 	}
 
 	subgraph cluster_release {
@@ -97,21 +64,46 @@ subgraph "logical_grouping" {
 		release;
 	}
 
+	subgraph cluster_snapshots {
+		label = <<b>snapshots</b>>;
+		snapshot;
+		snapshot_branch;
+	}
+
+	subgraph cluster_origins {
+		label = <<b>origins</b>>;
+		origin;
+		origin_visit;
+		origin_visit_status;
+	}
+
 	{
 		edge [style = dashed];
 
-		# "rtcolN" identifies the N-th row in a table, as a source
-		# "ltcolN" identifies the N-th row in a table, as a destination
-		"directory_entry_dir":rtcol2 -> "directory":ltcol1;
-		"directory_entry_file":rtcol2 -> "content":ltcol2;
-		"directory_entry_file":rtcol2 -> "skipped_content":ltcol2;
-		"directory_entry_rev":rtcol2 -> "revision":ltcol1;
-		"directory":rtcol2 -> "directory_entry_dir":ltcol1;
-		"directory":rtcol3 -> "directory_entry_file":ltcol1;
-		"directory":rtcol4 -> "directory_entry_rev":ltcol1;
-		"release":rtcol2 -> "revision":ltcol1 [constraint = false];
+		# "rtcolN" identifies the N-th row (1-based) in a table, as a source
+		# "ltcolN" identifies the N-th row (1-based) in a table, as a destination
+		"snapshot_branch":rtcol3 -> "release":ltcol1;
+		"snapshot_branch":rtcol3 -> "revision":ltcol1;
+		# "snapshot_branch":rtcol3 -> "directory":ltcol1;
+		# "snapshot_branch":rtcol3 -> "content":ltcol2;
+
+		"directory_entry":rtcol1 -> "directory":ltcol1;
+
+		"directory_entry":rtcol4 -> "directory":ltcol1;
+		"directory_entry":rtcol4 -> "content":ltcol2;
+		"directory_entry":rtcol4 -> "skipped_content":ltcol2;
+		"directory_entry":rtcol4 -> "revision":ltcol1;
+
+		"release":rtcol2 -> "revision":ltcol1;
 		"revision":rtcol7 -> "directory":ltcol1;
 		"revision_history":rtcol2 -> "revision":ltcol1;
+
+        "origin_visit":rtcol1 -> "origin":ltcol1;
+        "origin_visit_status":rtcol1 -> "origin":ltcol1;
+        "revision_history":rtcol1 -> "revision":ltcol1;
+        "origin_visit_status":rtcol5 -> "snapshot":ltcol1;
+        "snapshot_branch":rtcol1 -> "snapshot":ltcol1;
+
 	}
 }
 }

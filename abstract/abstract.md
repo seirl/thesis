@@ -70,7 +70,7 @@ performance, data denormalization and data privacy.
 Putting these datasets on cloud platforms allows us to understand the use cases
 for which this relational format is suitable, as well as its limitations,
 notably the difficulty of running experiments that require graph traversal
-algorithms (e.g walking down a commit chain).
+algorithms (e.g. walking down a commit chain).
 
 ## Graph representation
 

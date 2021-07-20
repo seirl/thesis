@@ -1,4 +1,5 @@
 \chapter{The Software Heritage Property Graph Dataset}
+\label{chp:graph-dataset}
 
 This chapter is based on an article~\cite{swh-msr2019-dataset} accepted at the
 16th International Conference on Mining Software Repositories (MSR 2019), and
@@ -441,7 +442,7 @@ to the command line:
 $ swh dataset graph export --export-id dataset-2021-03-15 output_dir/
 \end{minted}
 
-This identifier is stored on the server side to match the journal clients
+This identifier is stored on the server side to associate the journal clients
 associated with a given export.
 When a batch of objects has been read from the journal, the client
 automatically acknowledges to the server that they have correctly been
@@ -486,8 +487,21 @@ will usually be the bottleneck of the export.
 During the archival process, when Git repositories are cloned by the loaders to
 be ingested in the archive, the \texttt{--mirror} option of \texttt{git clone}
 is used to retrieve all the remote refs, including some that are generally kept
-on the server only. These refer to branches that are generally kept on the
-server side only, and used to implement; one such insta
+on the server only. These are used to implement application-specific behavior
+by keeping references to hidden branches that will not be cloned by the client
+by default. One such instance is the way ``pull requests'' (or ``merge
+requests'') are implemented in software forges like GitHub or GitLab: they are
+stored as repository branches on the server that do not show up as part of the
+repositories.
+
+Because those branches are present in the archive, but would lead to unexpected
+results when performing analyses if they were considered as part of
+repositories, they need to be filtered from the dataset export. We use the
+following heuristic to find branches that should be removed: all the branches
+that are prefixed by \texttt{refs/} but are neither prefixed by
+\texttt{refs/heads} nor by \texttt{refs/tags}. This matches the default
+behavior of Git clients, which only fetch branches matching those two prefixes
+when \texttt{--mirror} is not specified on the command line.
 
 \section{Export formats}
 
@@ -589,6 +603,7 @@ ease of partitioning on single columns, which can be used to efficiently
 scale-out computations.
 
 \subsection{Edges dataset}
+\label{sec:edges-format}
 The edge format is stripped of all the metadata except the intrinsic
 identifiers and types of the nodes (i.e., whether an artifact is a revision, a
 directory, etc.), and is instead constituted of a list of graph edges in CSV
@@ -693,8 +708,8 @@ $\approx$1~TiB each) and downloadable from Zenodo at
 \url{https://zenodo.org/record/2583978}, (\doi{10.5281/zenodo.2583978}). It
 used a different schema derived from a less efficient exporting pipeline.
 
-Since then, multiple new versions of this dataset have been exported and made
-available to researchers, each version improving the export pipeline. These
+Since then, multiple versions of this dataset have been exported and made
+available to researchers, each new version improving the export pipeline. These
 versions are shown in Table~\ref{tab:swh-dataset-exports}. They can be
 downloaded from the Software Heritage annex at
 \url{https://annex.softwareheritage.org/public/dataset/graph/}.
@@ -707,7 +722,7 @@ downloaded from the Software Heritage annex at
     \begin{tabular}{l r r l}
         \hline\textbf{Export date} & \textbf{\# of nodes} & \textbf{\# of edges} & \textbf{Formats} \\ \hline
 
-        2019-01-28 & 11.1 billion & 160.0 billion & Edges, Parquet, CSV \\ \hline
+        2018-09-25 & 11.1 billion & 160.0 billion & Edges, Parquet, CSV \\ \hline
         2020-05-20 & 17.1 billion & 203.4 billion & Edges \\ \hline
         2020-12-15 & 19.3 billion & 221.5 billion & Edges \\ \hline
         2021-03-23 & 20.7 billion & 232.9 billion & Edges, ORC \\ \hline

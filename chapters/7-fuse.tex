@@ -17,12 +17,12 @@ In this chapter, we introduce the \emph{Software Heritage Filesystem
   a user-space filesystem that gives access to the \SWH{} archive as a POSIX
   filesystem. \SWHFS{} integrates with research and development workflows by
 presenting the data in the archive as regular directory trees.
-Provided a reference to the desired code can be obtained, the corresponding
-file, directory, or commit can be used as if it were locally available.
-\SWHFS{} offers a convenient way to explore huge code bases~\cite{msscalar,
-msvfsforgit} that require significant time to be fully retrieved over the
-network, large amounts of disk space, and high I/O costs when switching
-branches.
+Provided that a reference to the desired code can be obtained, the
+corresponding file, directory, or commit can be used as if it were locally
+available.  \SWHFS{} offers a convenient way to explore huge code
+bases~\cite{msscalar, msvfsforgit} that require significant time to be fully
+retrieved over the network, large amounts of disk space, and high I/O costs
+when switching branches.
 
 \vspace{0.5cm}
 
@@ -36,7 +36,10 @@ expanding if I have enough time.}
 
 \section{Related Work}
 
-Other VCS filesystems have been proposed in the past.
+To the best of our knowledge \SWHFS{} is the first attempt to integrate
+large-scale source code archival into development workflows via the filesystem
+interface, although other VCS filesystems have been proposed in the past.
+
 RepoFS~\cite{spinellis2019repofs} exposes a Git repository as a
 FUSE~\cite{fuse, vangoor2017fuseperf} filesystem, making different trade-offs
 than \SWHFS{}. RepoFS needs a \emph{local} Git repository, while \SWHFS{} loads
@@ -45,10 +48,10 @@ exploration, and RepoFS more suitable for compute-intensive repository mining.
 
 GitOD~\cite{schroeder2012gitod} and VFS for Git~\cite{msvfsforgit} expose
 remote Git repositories as local filesystems, loading them lazily in order to
-reduce disk and bandwidth usage for huge code bases, retaining compatibility
+reduce disk and bandwidth usage for large code bases, retaining compatibility
 with standard Git tools.
-% Scalar~\cite{msscalar} is the successor of VFS for Git and no longer provides
-% a virtual filesystem UX.
+Scalar~\cite{msscalar} is the successor of VFS for Git and no longer provides
+a virtual filesystem UX.
 
 GitFS~\cite{presslabs-gitfs} and FigFS~\cite{grant2009figfs} also offer virtual
 filesystem interfaces on top of Git. FigFS is now abandoned. GitFS is not, but
@@ -56,18 +59,14 @@ focuses on the use case of authoring new commits.
 
 All related works reviewed thus far are Git-specific and have a
 single-repository scope. \SWHFS{} is VCS-agnostic and spans the entire \SWH{}
-archive, giving access to hundreds of million code repositories in a unified
-view.
+archive, giving access to hundreds of millions of code repositories in a
+unified view.
 
 Other non-filesystem based interfaces on top of VCS repositories exist.
 Gitana~\cite{cosentino2018gitana} and gitbase~\cite{sourced-gitbase} are two
 such examples, providing SQL-based views onto Git repositories. While more
 useful for querying and analysis, non-filesystem interfaces are less amenable
 to integration with development tools.
-
-To the best of our knowledge \SWHFS{} is the first attempt to integrate
-large-scale source code archival into development workflows via the filesystem
-interface.
 
 \section{Design}
 
@@ -82,12 +81,12 @@ interface.
 Figure~\ref{fig:swhfs-arch} shows the \SWHFS{} architecture as a C4
 diagram~\cite{brown2018c4}.
 
-\paragraph{Front-end: POSIX filesystem and FUSE}
+\subsection{Front-end: POSIX filesystem and FUSE}
 
 Users control \SWHFS{} by starting/stopping its user-space daemon via a
 convenient CLI interface. While running, \SWHFS{} provides a filesystem view of
 all the source code artifacts archived by \SWH{}. This view is exposed as a
-POSIX filesystem that can be browsed using file-navigation tools and accessed
+POSIX filesystem that can be browsed using file navigation tools and accessed
 by programming tools like text editors, IDEs, compilers, debuggers, custom
 shell scripts, etc.
 
@@ -100,7 +99,7 @@ user-space daemon, communicating with it via the FUSE API~\cite{fuse}. The
 % ~\cite{pyfuse3}
 bindings to the C FUSE API\@.
 
-\paragraph{Filesystem layout}
+\subsection{Filesystem layout}
 
 The filesystem layout implemented by \SWHFSpy{} consists of (1) a set of entry
 points and (2) filesystem representations of \SWH{} objects. \emph{Entry points}
@@ -117,15 +116,15 @@ for examples).
 \begin{itemize}
 
 \item \emph{Source code files} (SWHID type: \texttt{cnt}) are represented as
-  regular POSIX files; everything else is mapped to directories;
+  regular POSIX files; everything else is mapped to directories.
 
 \item \emph{Source code directories} (\texttt{dir} type) as directories whose
-  content matches what was archived;
+  content matches what was archived.
 
 \item \emph{Commits and releases} (\texttt{rev} and \texttt{rel}) as
   directories containing a \texttt{root} sub-directory pointing to the source
   code tree plus auxiliary files containing metadata such as commit message and
-  ancestry, timestamps, author information, etc.;
+  ancestry, timestamps, author information, etc.
 
 \item \emph{Repository snapshots} (\texttt{snp}) as directories containing one
   entry for each repository branch (\texttt{master}, \texttt{v1.0},
@@ -138,8 +137,8 @@ Relationships between accessed archived objects are represented using symbolic
 links. For instance, the source tree of a commit object
 \texttt{archive/swh:1:rev:…/root} is a symbolic link to a directory object
 located under \texttt{archive/}, e.g., \texttt{"->~../../swh:1:dir:…"}. This
-approach avoids duplications in the virtual filesystem, reifying on disk the
-sharing of Merkle structures.
+approach avoids duplications in the virtual filesystem, reifying the sharing of
+Merkle structures on disk.
 
 The walkthrough of Section~\ref{sec:fuse-walkthrough} presents additional details
 about the \SWHFS{} filesystem layout. A full layout specification is included
@@ -148,31 +147,33 @@ with \SWHFS{} documentation.
 % \footnote{\url{https://docs.softwareheritage.org/devel/swh-fuse/}}
 
 
-\paragraph{Backend: a \SWH{} $\leftrightarrow$ FUSE adapter}
+\subsection{Backend: a \SWH{} $\leftrightarrow$ FUSE adapter}
 
 \SWHFSpy{} is an adapter between the \SWH{} REST
 API\footnote{\url{https://archive.softwareheritage.org/api/}} (SWH API) and the
 FUSE API\@. When filesystem entities that represent archived objects are
 accessed, \SWHFSpy{} uses the SWH API to retrieve data and metadata about them.
 Obtained results are then used to assemble the expected filesystem layout and
-return it to the kernel via the FUSE API\@. For example, when a source tree
-object is listed using \mintinline{c}{readdir()}, \SWHFS{} invokes the
-\texttt{/directory} endpoint of the \SWH{} API and return to the kernel its
-directory entries using a lazy iterator; when a source code file is
-\mintinline{c}{open()}-ed, \texttt{/content/raw} is called and byte
-chunks of the retrieved blob are returned to the kernel piecemeal.
+return it to the kernel via the FUSE API\@.
+
+For example, when a source tree object is listed using
+\mintinline{c}{readdir()}, \SWHFS{} invokes the \texttt{/directory} endpoint of
+the \SWH{} API and return to the kernel its directory entries using a lazy
+iterator; when a source code file is \mintinline{c}{open()}-ed,
+\texttt{/content/raw} is called and byte chunks of the retrieved blob are
+returned to the kernel piecemeal.
 
 As part of adaptation, \SWHFSpy{} takes care and abstracts over details such as
 pagination, encoding issues, inode and file description allocation, etc.
 
 
-\paragraph{Performance optimizations}
+\subsection{Performance optimizations}
 
-Remote filesystems can be notoriously painful to use, due to network overhead.
-To make things worse for \SWHFS, the backend technology stack (REST APIs and
-long-term archival storage) was not designed with filesystem-level performances
-in mind. In order to make it fast enough for practical use, \SWHFS{} implements
-several optimizations.
+Remote filesystems can be notoriously painful to use, on account of network
+overhead.  To make things worse for \SWHFS, the backend technology stack (REST
+APIs and long-term archival storage) was not designed with filesystem-level
+performances in mind. In order to make it fast enough for practical use,
+\SWHFS{} implements several optimizations.
 
 
 \paragraph*{Caching}
@@ -181,17 +182,19 @@ Several \emph{on-disk caches} are stored in SQLite databases to avoid repeating
 remote API calls.
 % ~\cite{owens2006sqlitebook}
 The \emph{blob cache} stores raw source code file contents. The \emph{metadata
-  cache} stores the metadata of any kind of looked up object. Using these two
-  caches it is possible to navigate any part of the \SWH{} archive that has been
-accessed in the past, even while disconnected from the network.
+  cache} stores the metadata of any kind of object which has already been
+  looked up. Using these two caches it is possible to navigate any part of the
+  \SWH{} archive that has been accessed in the past, even while disconnected
+  from the network.
 
-Merkle properties and the fact that \SWHFS{} is read-only make cache invalidation
-unneeded, because no cached object can ever change. It is also always possible
-to purge objects from these caches without introducing inconsistencies.
+Merkle properties and the read-only nature of \SWHFS{} make cache invalidation
+unnecessary, as no cached object can ever change. The option of purging objects
+from these caches also remains available.
 
-\emph{In-memory caching} is used for directories, as most filesystems do. The
-\emph{direntry cache} maps directories to their entries, so that frequently
-accessed directories can be listed without even incurring SQLite query costs.
+\emph{In-memory caching} is used for directories, as is typical in most
+filesystems. The \emph{direntry cache} maps directories to their entries, so
+that frequently accessed directories can be listed without even incurring
+SQLite query costs.
 
 
 % THIS WILL BE INTRODUCED LATER IN THE THESIS. Can't talk about this here.
@@ -430,10 +433,10 @@ etc.).
 
 Because each file is fetched lazily when its contents are accessed, this
 reduces the total size of the objects retrieved from the archive, in contrast
-to the Vault which always bundles all the objects even when they are not
-necessary for the analysis. This makes \SWHFS{} an efficient way to run
-experiments that only access a small number of specific files in a repository,
-e.g., license or README files.
+to the Vault which always bundles an entire subgraph and all the objects it
+contains, even when they are not necessary for the analysis. This makes
+\SWHFS{} an efficient way to run experiments that only access a small number of
+specific files in a repository, e.g., license or README files.
 Moreover, the use of symbolic links to implement sharing relationships between
 the software artifacts materializes the DAG in a way that can be studied in a
 practical way: it is easy to check whether two artifacts are the same by
@@ -452,10 +455,10 @@ filesystems, they require a particular attention on optimization and some
 workloads are unfriendly even when optimized\cite{vangoor2017fuseperf}.
 
 While there is always room for performance improvements, another important
-issue makes \SWHFS{} often unsuitable for large-scale mining is the lack of
-entry-points to find the relevant artifacts. While the virtual filesystem makes
-it easy to find, for instance, all the Python files in a single repository,
-there is no easy way to find all the files or revisions matching a certain
+issue that makes \SWHFS{} often unsuitable for large-scale mining is the lack of
+entry-points to find the relevant artifacts. The virtual filesystem makes
+it easy to find all the Python files in a single repository, for instance,
+but there is no easy way to find all the files or revisions matching a certain
 pattern in the entire archive. As described in
 Section~\ref{sec:mining-selection-criteria}, software mining studies are often
 designed to be run on arbitrary artifacts matching certain criteria. \SWHFS{}
@@ -467,6 +470,6 @@ individual artifacts and their descendants, and thus make the data corpus
 available for small to medium-scale studies ($\approx$ tens of thousands of
 repositories) assuming researchers have pre-established a list of repositories
 of interest for their study.
-The next logical step is to explore ways to efficiently select massive amounts
-of software artifacts according to more fine-grained criteria, and run analyses
-for larger workloads, up to the size of the entire archive.
+The next logical step is to explore ways to efficiently select massive
+quantities of software artifacts on more fine-grained criteria, and
+run analyses for larger workloads, up to the size of the entire archive.

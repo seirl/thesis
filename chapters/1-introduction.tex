@@ -15,11 +15,11 @@ bugs~\cite{williams2005automatic,BugRepair2017}, or even obtain a high-level
 architectural view of how software components interact
 together~\cite{hassan2008road}.
 Other major topics of research can range from the study of code
-clones~\cite{SvajlenkoR17, SemuraYCI17, ThummalapentaCAP10} to automated
-vulnerability detection and repair~\cite{Li2017, Grieco2016, MartinezM15};
-and from
-code recommenders~\cite{Zeller2007, ZimmermannWDZ04} to software licence
-analysis and license compliance~\cite{GermanLicense17, VendomeLicence2015}.
+clones~\cite{SvajlenkoR17, SemuraYCI17, ThummalapentaCAP10,
+rattan2013clonedetectionreview} to automated vulnerability detection and
+repair~\cite{Li2017, Grieco2016, MartinezM15}; and from code
+recommenders~\cite{Zeller2007, ZimmermannWDZ04} to software licence analysis
+and license compliance~\cite{GermanLicense17, VendomeLicence2015}.
 
 Software mining particularly shines in the context of \emph{software
 evolution}~\cite{mens2008swevolintro,kagdi2007msrsurvey}, which studies the
@@ -50,20 +50,20 @@ and development history.
 These constraints drastically shifted in the past decades with the rise in
 popularity of Free/Open Source Software
 (FOSS)~\cite{syeed-2013-oss-evol-review} and collaborative development
-platforms~\cite{kalliamvakou2014promises}. Developers have started making
-publicly available a large wealth of \emph{software artifacts}: the source code
-files and directories of the software projects, as well as their complete
-development history over time and all its associated metadata, which have in
-turn benefited empirical software engineering research fields such as software
-mining and software evolution. This was made possible especially thanks to the
-emergence of \glspl{VCS}~\cite{spinellis2005vcs}, collaborative software
-development systems which track the history of development by retaining the
-successive states of the source code over time. They have been frequently
-analyzed~\cite{kagdi2007msrsurvey} due to the rich view they provide on
-software evolution, and their ease of exploitation since the advent of
-\glspl{DVCS}. The peer-to-peer approach to version control used by \glspl{DVCS}
-makes it so that each user can retrieve the full development history locally,
-which allows complex development
+platforms~\cite{dabbish2012socialcoding, kalliamvakou2014promises}. Developers
+have started making publicly available a large wealth of \emph{software
+artifacts}: the source code files and directories of the software projects, as
+well as their complete development history over time and all its associated
+metadata, which have in turn benefited empirical software engineering research
+fields such as software mining and software evolution. This was made possible
+especially thanks to the emergence of \glspl{VCS}~\cite{spinellis2005vcs},
+collaborative software development systems which track the history of
+development by retaining the successive states of the source code over time.
+They have been frequently analyzed~\cite{kagdi2007msrsurvey} due to the rich
+view they provide on software evolution, and their ease of exploitation since
+the advent of \glspl{DVCS}. The peer-to-peer approach to version control used
+by \glspl{DVCS} makes it so that each user can retrieve the full development
+history locally, which allows complex development
 patterns~\cite{gousios2014pullrequests,gousios2015work} like ``branches'' and
 ``forks'' to be directly embedded inside the change history.
 

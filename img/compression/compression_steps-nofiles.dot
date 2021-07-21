@@ -1,0 +1,28 @@
+digraph "Compression steps" {
+    // Horizontal graph
+    rankdir=LR;
+
+    mph [label="MPH", shape=box];
+
+    bv_compress [label="BV compress", shape=box];
+
+    bfs [label="BFS", shape=box];
+
+    permute [label="Permute", shape=box];
+    comp_fwd [label="Compressed\ngraph\n(forward)", shape=none];
+    comp_bwd [label="Compressed\ngraph\n(backward)", shape=none];
+
+    transpose [label="Transpose", shape=box];
+
+    merkle_dag [label="Merkle\nDAG", shape=none];
+
+    merkle_dag -> mph;
+    merkle_dag -> bv_compress;
+    mph -> bv_compress;
+    bv_compress -> bfs;
+    bv_compress -> permute;
+    bfs -> permute;
+    permute -> comp_fwd;
+    comp_fwd -> transpose;
+    transpose -> comp_bwd;
+}

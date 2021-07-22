@@ -41,13 +41,13 @@ significantly advance towards our goal of universal software mining on several
 fronts. The immediate benefit is to enable studies that aim to analyze the
 underlying development processes and social communities in the software
 commons, as they generally do not need access to the blobs themselves since the
-network relationships are directly present in the graph. More largely, it also
+network relationships are directly present in the graph. More broadly, it also
 helps mining studies that do analyze source code by allowing researchers to
-precisely narrow down the set of source code files they need prior to actually
+precisely narrow the set of source code files they need prior to actually
 fetching them, in order to minimize bandwidth and storage requirements.
 
 In this chapter we introduce the \emph{Software Heritage Property Graph
-Dataset}, a graph representation of all the source code artifacts archived by
+Dataset}, a graph representation of all source code artifacts archived by
 \SWH{} made freely available for research in a relational format suitable for
 scale-out analysis.
 While this dataset excludes source code blobs, it does include their
@@ -63,8 +63,8 @@ amount of data about source code artifacts extracted from public software
 development.
 
 GHTorrent~\cite{GHTorrent} covers GitHub and includes
-non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks other
-software distribution places (e.g., GitLab, Debian, PyPI). Also, no
+non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks
+software hosted in other locations (e.g., GitLab, Debian, PyPI). Also, no
 deduplication applies to GHTorrent, making cloning tracking more challenging.
 CodeFeedr~\cite{DBLP:conf/icse/VargasHKBG18} is a natural evolution of
 GHTorrent, but it is oriented toward expanding coverage for additional sources
@@ -92,7 +92,7 @@ as much as possible). While this trade-off is acceptable for long-term storage,
 it requires more expensive ``join'' operations to combine tables together,
 which is generally undesirable for scale-out processing as it adds more
 synchronization points between the different shards. Instead, when using
-distributed Big Data engine it is more efficient to \emph{denormalize} the
+distributed Big Data engines it is more efficient to \emph{denormalize} the
 data: using larger tables which increases redundancy while reducing the need
 for join operations.
 
@@ -381,13 +381,13 @@ defined as follows:
 \subsection{Point-in-time exports}
 
 The dataset is exported from the \texttt{swh-journal} component of the archive,
-which provides a log of all the objects inserted in the archive, and is backed
+which provides a log of all objects inserted in the archive, and is backed
 by Apache Kafka as described in \cref{sec:swh-infrastructure}. While the
 journal exposes a continuous stream of data, the property graph dataset is
-intended to be a periodical dump in which the entire state of the graph is
+intended to be a periodic dump in which the entire state of the graph is
 exported at a given point in time.
 
-Making periodical exports is generally easier for researchers, as they can
+Making periodic exports is generally easier for researchers, as they can
 simply download the latest export without having to continuously synchronize
 their own data with the archive using a mirroring protocol. This kind of
 analysis on ``offline'' data is often the preferred way to run experiments on
@@ -399,15 +399,15 @@ given date.
 The journal is divided in ``topics'', one for each object type described
 in \cref{sec:swh-artifacts}. The process exports each object type one by
 one, in a sequential fashion. These topics are ordered so that objects at the
-top of the graph are always exported first and those at the bottom last (in
-order: origins, snapshots, releases, revisions, directories, contents). This
-order uses the directionality of the graph to reduce the number of ``dangling''
-objects (i.e., objects that refer to objects not present in the graph) at the
-cost of having more ``loose'' objects (i.e., objects that are not referred to
-by any other objects). If the upper layers were exported last, they would refer
-to newer objects in the journal that would have not been exported before;
-exporting them first ensures that they refer to objects that will be exported
-in the next steps.
+top of the graph are always exported first and those at the bottom exported
+last (in order: origins, snapshots, releases, revisions, directories,
+contents). This order uses the directionality of the graph to reduce the number
+of ``dangling'' objects (i.e., objects that refer to objects not present in the
+graph) at the cost of having more ``loose'' objects (i.e., objects that are not
+referred to by any other objects). If the upper layers were exported last, they
+would refer to newer objects in the journal that would have not been exported
+before; exporting them first ensures that they refer to objects that will be
+exported in the next steps.
 
 \subsection{Parallelism}
 
@@ -430,8 +430,8 @@ $ swh dataset graph export --processes 64 output_dir/
 
 The partitions are split equally among each subprocess, which then start to
 process them until they reach the high offset. Periodically, these subprocesses
-report their current progress in the stream to a single process which aggregate
-them and displays in real time the total progress in the queue.
+report their current progress in the stream to a single process which
+aggregates them and displays in real time the total progress in the queue.
 
 \subsection{Resumability}
 
@@ -446,8 +446,8 @@ This identifier is stored on the server side to associate the journal clients
 associated with a given export.
 When a batch of objects has been read from the journal, the client
 automatically acknowledges to the server that they have correctly been
-processed. The server maintains for each partition the last offset that has
-been acknowledged, or ``committed''.
+processed. The server maintains the last offset that has been acknowledged, or
+``committed'', for each partition.
 If an export is interrupted because of an error or a server failure, resuming
 it can be achieved automatically by reusing the same export identifier. The
 journal client will then start reading the log after the last committed offset.
@@ -461,10 +461,10 @@ case it appears multiple times in the log. The message delivery
 semantics\footnote{\url{https://kafka.apache.org/documentation/\#semantics}} in
 \texttt{swh-journal} are ``at least once'', which means that objects are
 guaranteed to be present in the stream but might be delivered multiple times.
-Moreover, in case the export is suddenly interrupted (e.g., in case of a power
-failure), export clients have to be able to resume the export even as they
-might not have acknowledged their current progress in the stream to the journal
-server.
+Moreover, in the event that the export is suddenly interrupted (e.g., in case
+of a power failure), export clients must be able to resume the export even as
+they might not have acknowledged their current progress in the stream to the
+journal server.
 
 To guarantee unicity on the client side, the exporter uses a local on-disk
 database which contains the set of all object IDs which have already been
@@ -473,7 +473,7 @@ this database can be sharded directly using the object intrinsic identifier.
 Two different local on-disk databases can be used,
 SQLite~\cite{owens2006sqlitebook} and LevelDB~\cite{ghemawat2011leveldb}. The
 latter is preferred in production exports, as the performance of inserts
-degrades less quickly than SQLite after a few hundred millions of insertions.
+degrades less quickly than SQLite after a few hundred million insertions.
 
 While the exports themselves are massive (around 10 TiB, depending on the
 export format) and are generally expected to be outputted on a large \gls{HDD},
@@ -643,20 +643,20 @@ proper object in the graph. However, trying to import this edge in a graph
 processing system will error out if the object has never been declared in the
 graph before.
 
-Instead, we get the list of all the nodes that are \emph{referred to} as
+Instead, we get the list of all nodes that are \emph{referred to} as
 destinations in the edges file, and add them to the existing node files. For
 that purpose, we use a Unix pipeline to cut the edge files in half, then use
 \texttt{sort(1)} with a large memory and disk buffer (hundreds of gigabytes of
-RAM and around 10 TiB of disk space) to get an unique sorted list of all the
+RAM and around 10 TiB of disk space) to get a unique sorted list of all the
 nodes in the graph.
 
 We also use this pipeline to aggregate statistics on the number of each edge
 type using a hash-table in Awk. Finally, we compress all the output using the
 Zstandard algorithm~\cite{collet2015zstd}, as it offers drastic improvements in
-terms of on-disk size and decompression time, which used to be an important
-bottleneck when using other compression algorithms in previous iterations. This
-is done in a single pass, which minimizes disk I/O. The full pipeline is shown
-here:
+terms of on-disk size and decompression time, which was observed to be a
+consequent bottleneck when using other compression algorithms in previous
+iterations. This is done in a single pass, which minimizes disk I/O. The full
+pipeline is shown here:
 
 \begin{minted}{bash}
 counter_command="awk '{ t[$0]++ } END { for (i in t) print i,t[i] }'"
@@ -829,7 +829,7 @@ infrastructure and resources where they could analyse such a large amount of
 data.
 As a way to make this dataset more accessible for general use, we developed
 partnerships with \textbf{\gls{OLAP} cloud platforms} to make it available as
-an public dataset. Sometimes, these cloud platforms have \emph{open dataset
+a public dataset. Sometimes, these cloud platforms have \emph{open dataset
 programs}, in which they offer storage space for the dataset itself, then
 let researchers run analyses on it while paying for the cost of processing
 only. This is a sustainable solution as it does not incur any running costs on
@@ -862,7 +862,7 @@ AWS\footnote{https://registry.opendata.aws/software-heritage/}, and contains
 information on the S3 bucket and how to query it using Athena. While Athena is
 offered as the default solution for analysis because of its low setup cost,
 researchers can also import this S3 bucket in other potentially more costly AWS
-services like AWS Redshit\footnote{https://aws.amazon.com/redshift/}.
+services like AWS Redshift\footnote{https://aws.amazon.com/redshift/}.
 
 To read the ORC files with the appropriate schema, Athena uses an approach
 known as \emph{schema-on-read}, which means a predefined schema is projected on
@@ -916,8 +916,9 @@ It is based on the convention dictating that commit messages should
 start with a summary expressed in the imperative mood~\cite[3.3.2.1]{Fre19}.
 Based on that idea, the query uses a regular expression to extract the first
 word of each commit message and then tallies words by frequency.
-By scanning 37~GiB\ in $30''$ it gives us that commits
-concern the following common actions ordered by descending order of frequency:
+After scanning 37~GiB\ in $30''$ the engine results show that commit messages
+reference the following common actions, ordered by descending order of
+frequency:
 \emph{add, fix, update, remove, merge, initial, create}.
 (We had to manually stem some verbs,
 because the most recent version of the Presto query engine,
@@ -947,11 +948,11 @@ which is left as an exercise to the reader.
     \label{lst:fork-size}
 \end{listing}
 
-The provided dataset forms a graph, which can be difficult query with SQL.
+The provided dataset forms a graph, which can be difficult to query with SQL\@.
 Therefore, questions associated with the graph's characteristics,
 such as closeness, distance, and centrality, will require the use of
 other query mechanisms.
-Yet, interesting metrics can be readily obtained by limiting scans
+Yet interesting metrics can be readily obtained by limiting scans
 to specific cases, such as merge commits.
 As an example, \cref{lst:fork-size} calculates the average
 number of parents of each revision ($1.088$, after scanning 23~GiB\ in $22''$)
@@ -966,7 +967,7 @@ of merge operations.
 \end{listing}
 
 Although the performance of Athena can be impressive, there are cases where the
-available memory resources will be exhausted causing an expensive query to
+available memory resources will be exhausted, causing an expensive query to
 fail.
 This typically happens when joining two equally large tables consisting of
 hundreds of millions of records.

@@ -12,11 +12,11 @@ Repositories (MSR 2020).
 Up to this point, we have proposed ways to make the Software Heritage corpus
 available to software mining studies of medium scale, up to tens of thousands
 of repositories, either by retrieving bundles of related software artifacts
-(Chapter~\ref{chp:vault}) or by accessing the content remotely through a
-virtual filesystem (Chapter~\ref{chp:fuse}). Ultimately, our goal is to enable
+(\cref{chp:vault}) or by accessing the content remotely through a
+virtual filesystem (\cref{chp:fuse}). Ultimately, our goal is to enable
 \emph{universal software mining}, i.e., making it feasible for researchers to
 study the \emph{entire corpus of software commons} for all the reasons
-described in Section~\ref{sec:universal-software-mining}. Notably, exhaustive
+described in \cref{sec:universal-software-mining}. Notably, exhaustive
 approaches are virtually the only way to get a realistic high-level picture of
 the complex social networks and processes governing software development.
 
@@ -102,7 +102,7 @@ for join operations.
     \label{fig:swh-dataset-schema}
 \end{figure}
 
-\figref{fig:swh-dataset-schema} presents the relational schema of the \SWHGD{}.
+\Cref{fig:swh-dataset-schema} presents the relational schema of the \SWHGD{}.
 It significantly differs from the original schema of the PostgreSQL
 storage\footnote{\url{https://docs.softwareheritage.org/devel/swh-storage/sql-storage.html}}
 in a few ways. Previously, the directory table was normalized to avoid storing
@@ -382,7 +382,7 @@ defined as follows:
 
 The dataset is exported from the \texttt{swh-journal} component of the archive,
 which provides a log of all the objects inserted in the archive, and is backed
-by Apache Kafka as described in Section~\ref{sec:swh-infrastructure}. While the
+by Apache Kafka as described in \cref{sec:swh-infrastructure}. While the
 journal exposes a continuous stream of data, the property graph dataset is
 intended to be a periodical dump in which the entire state of the graph is
 exported at a given point in time.
@@ -397,7 +397,7 @@ harder to reproduce the exact state of a continuously updating dataset at a
 given date.
 
 The journal is divided in ``topics'', one for each object type described
-in Section~\ref{sec:swh-artifacts}. The process exports each object type one by
+in \cref{sec:swh-artifacts}. The process exports each object type one by
 one, in a sequential fashion. These topics are ordered so that objects at the
 top of the graph are always exported first and those at the bottom last (in
 order: origins, snapshots, releases, revisions, directories, contents). This
@@ -612,7 +612,7 @@ format, one source/destination pair of labels per line:
 \texttt{<source node> <destination node><CR>}
 
 Because nodes are identified by their \glspl{SWHID} (as seen in
-Section~\ref{sec:swhid}), these identifiers already embed the typing
+\cref{sec:swhid}), these identifiers already embed the typing
 information of the nodes (\texttt{swh:1:\emph{\textbf{cnt}}:4b825…}).
 
 Some edge types also have data attached to them: snapshot $\rightarrow\ast$
@@ -635,7 +635,7 @@ src:1:dir:05faa1… src:1:cnt:a35136… dGVzdC5j 420
 Generally, the edges CSV is not sufficient for graph processing services, as
 they also require a list of all the unique nodes in the graph. While it could
 seem that these node IDs would be easy to export from the database used to
-guarantee node unicity (described in Section~\ref{sec:dataset-export-unicity}),
+guarantee node unicity (described in \cref{sec:dataset-export-unicity}),
 this is in fact not the case due to the presence of loose objects. For
 instance, if a directory contains a revision entry pointing to a revision that
 has never been archived before, the destination of the edge will not be a
@@ -710,7 +710,7 @@ used a different schema derived from a less efficient exporting pipeline.
 
 Since then, multiple versions of this dataset have been exported and made
 available to researchers, each new version improving the export pipeline. These
-versions are shown in Table~\ref{tab:swh-dataset-exports}. They can be
+versions are shown in \cref{tab:swh-dataset-exports}. They can be
 downloaded from the Software Heritage annex at
 \url{https://annex.softwareheritage.org/public/dataset/graph/}.
 \TODO{explanation of the coverage tables from the topology paper.}
@@ -898,7 +898,7 @@ are some sample SQL queries that can be executed with the dataset on
     \label{lst:popular-file}
 \end{listing}
 
-Listing~\ref{lst:popular-file} shows a simple query
+\Cref{lst:popular-file} shows a simple query
 that finds the most frequent file name across all the revisions.
 The result, obtained by scanning
 151~GiB\ in $3'40''$, is \texttt{index.html}, which occurs in the dataset 182
@@ -911,7 +911,7 @@ million times.
 \end{listing}
 
 As an example of a query useful in software evolution research,
-consider the Listing~\ref{lst:popular-commit-words}.
+consider the \cref{lst:popular-commit-words}.
 It is based on the convention dictating that commit messages should
 start with a summary expressed in the imperative mood~\cite[3.3.2.1]{Fre19}.
 Based on that idea, the query uses a regular expression to extract the first
@@ -936,7 +936,7 @@ is decreasing over the years as evermore
 development work is done by companies rather than volunteers.
 The corresponding data can be obtained by finding the ratio
 between revisions committed on the weekends of each year and
-the total number of that year's revisions (see Listing~\ref{lst:weekend-work}).
+the total number of that year's revisions (see \cref{lst:weekend-work}).
 The results, obtained by scanning 14~GiB\ in $7''$ are inconclusive,
 and point to the need for further analysis,
 which is left as an exercise to the reader.
@@ -953,7 +953,7 @@ such as closeness, distance, and centrality, will require the use of
 other query mechanisms.
 Yet, interesting metrics can be readily obtained by limiting scans
 to specific cases, such as merge commits.
-As an example, Listing~\ref{lst:fork-size} calculates the average
+As an example, \cref{lst:fork-size} calculates the average
 number of parents of each revision ($1.088$, after scanning 23~GiB\ in $22''$)
 by grouping revisions by their parent identifier.
 Such queries can be used to examine in depth the characteristics
@@ -971,7 +971,7 @@ fail.
 This typically happens when joining two equally large tables consisting of
 hundreds of millions of records.
 This restriction can be overcome by sampling the corresponding tables.
-Listing~\ref{lst:file-type-size} demonstrates such a case.
+\Cref{lst:file-type-size} demonstrates such a case.
 The objective here is to determine the modularity at the level of files among
 diverse programming languages, by examining the size of popular file types.
 The query joins two 5~billion row tables:
@@ -1001,9 +1001,9 @@ on it.
 
 The dataset is available in a public Azure Data Lake Storage Gen2 container,
 and can be loaded directly as temporary views from a Python notebook on Azure
-Databricks, as shown in Listing~\ref{lst:databricks-load-tables}.
+Databricks, as shown in \cref{lst:databricks-load-tables}.
 Once the tables are loaded in Spark, the query in
-Listing~\ref{lst:spark-directory-outdegree} can be used to generate an
+\cref{lst:spark-directory-outdegree} can be used to generate an
 outdegree distribution of the directories.
 
 \begin{listing}
@@ -1033,7 +1033,7 @@ arbitrary operations to be performed on the rows.
 
 To analyze the graph structure of the dataset, the GraphFrames
 library~\cite{dave2016graphframes} can also be used to perform common
-operations on the graph. Listing~\ref{lst:cc} demonstrates how one can load the
+operations on the graph. \Cref{lst:cc} demonstrates how one can load the
 edges and nodes of the revision tables as a GraphFrame object, then compute the
 distribution of the connected component sizes in this graph. However, running
 this experiment on the entire graph can be extremely expensive, as most

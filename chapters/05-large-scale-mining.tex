@@ -170,7 +170,7 @@ we excluded:
 \end{itemize}
 
 In total, we removed 26 papers as shown in the Sankey diagram
-in~\figref{fig:msr-review-sankey}, and included the 28 remaining papers in our
+in \cref{fig:msr-review-sankey}, and included the 28 remaining papers in our
 review.
 
 \subsection{Selection criteria}%
@@ -178,7 +178,7 @@ review.
 
 This review allowed confirmation of the two steps identified in most study
 patterns: criteria-based selection of a subset of artifacts, followed by
-analysis of selected artifacts. Table~\ref{tab:selection-criteria} shows a
+analysis of selected artifacts. \Cref{tab:selection-criteria} shows a
 detailed tally of the different criteria we observed in the study designs.
 
 \begin{table}
@@ -247,7 +247,7 @@ implementation:
 \item \emph{Code Search} (crit.\ c): where the selection happens on the contents
     of the files themselves. Finding all files containing a specific string or
     pattern is significantly harder than filtering on other artifact
-    properties. As we noted in Section~\ref{sec:swh-infrastructure}, the total
+    properties. As we noted in \cref{sec:swh-infrastructure}, the total
     size of the file contents is around two orders of magnitude larger than the
     rest of the database, dramatically increasing the infrastructure
     requirements of indexing. In addition, the problem of full-text search
@@ -286,7 +286,7 @@ made accessible.
 \end{table}
 
 In the MSR review, we identified 6 categories of data that were
-frequently analyzed in mining studies, shown in Table~\ref{tab:analyzed-data}.
+frequently analyzed in mining studies, shown in \cref{tab:analyzed-data}.
 By far the most common type of analyzed artifacts are contents, highlighting the
 clear need to make the source code files easily accessible. While there are
 some studies which only rely on the upper layers of the artifact graph like
@@ -494,7 +494,7 @@ intrinsic identifier of the nodes, relying solely on those hashes is not
 sufficient to reliably obtain a hash of the archive as a whole.
 
 A better way to achieve this would be to use the journal described in
-Section~\ref{sec:swh-infrastructure} by adding timestamps to each inserted
+\cref{sec:swh-infrastructure} by adding timestamps to each inserted
 object, then read all the objects from the journal up to the archive timestamp.
 
 \subsection{Expressiveness}

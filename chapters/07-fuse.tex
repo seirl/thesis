@@ -78,7 +78,7 @@ to integration with development tools.
   \label{fig:swhfs-arch}
 \end{figure}
 
-Figure~\ref{fig:swhfs-arch} shows the \SWHFS{} architecture as a C4
+\Cref{fig:swhfs-arch} shows the \SWHFS{} architecture as a C4
 diagram~\cite{brown2018c4}.
 
 \subsection{Front-end: POSIX filesystem and FUSE}
@@ -105,7 +105,7 @@ The filesystem layout implemented by \SWHFSpy{} consists of (1) a set of entry
 points and (2) filesystem representations of \SWH{} objects. \emph{Entry points}
 are located just below the \SWHFS{} mount point; most notably \texttt{archive/}
 allows browsing the \SWH{} archive by known SWHIDs while \texttt{origin/} allows
-doing so by the URLs of archived projects (see Section~\ref{sec:fuse-walkthrough}
+doing so by the URLs of archived projects (see \cref{sec:fuse-walkthrough}
 for examples).
 % For instance, \lstinline{cd archive/swh:1:dir:c6f0[..]900f/} will enter the
 % archived source tree corresponding to the given SWHID.
@@ -140,7 +140,7 @@ located under \texttt{archive/}, e.g., \texttt{"->~../../swh:1:dir:…"}. This
 approach avoids duplications in the virtual filesystem, reifying the sharing of
 Merkle structures on disk.
 
-The walkthrough of Section~\ref{sec:fuse-walkthrough} presents additional details
+The walkthrough of \cref{sec:fuse-walkthrough} presents additional details
 about the \SWHFS{} filesystem layout. A full layout specification is included
 with \SWHFS{} documentation.
 % it's in the intro already:
@@ -220,7 +220,7 @@ SQLite query costs.
 % API\@. For commit objects, \SWHFS{} invokes it to perform a graph visit of all
 % reachable commits and then populate several \emph{history summary views} which
 % are available under the \texttt{history/by-date/}, \texttt{history/by-hash/},
-% and \texttt{history/by-page/} directories (see Section~\ref{sec:fuse-walkthrough}
+% and \texttt{history/by-page/} directories (see \cref{sec:fuse-walkthrough}
 % for details). Even for huge repositories like the Linux kernel, retrieving the
 % full commit history (as a list of SWHIDs) requires just a few tens of seconds,
 % including network transfer.
@@ -460,7 +460,7 @@ entry-points to find the relevant artifacts. The virtual filesystem makes
 it easy to find all the Python files in a single repository, for instance,
 but there is no easy way to find all the files or revisions matching a certain
 pattern in the entire archive. As described in
-Section~\ref{sec:mining-selection-criteria}, software mining studies are often
+\cref{sec:mining-selection-criteria}, software mining studies are often
 designed to be run on arbitrary artifacts matching certain criteria. \SWHFS{}
 does not provide a way to iterate on these artifacts, as its primary function
 is to list the descendants of a given node in the software graph.

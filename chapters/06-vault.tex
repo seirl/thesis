@@ -117,7 +117,7 @@ happens only once.
     \label{fig:vault-design}
 \end{figure}
 
-\figref{fig:vault-design} shows the architecture of the service. It is centered
+\Cref{fig:vault-design} shows the architecture of the service. It is centered
 around the Vault backend, which directly communicates with a database where the
 status of the bundles is kept up to date, as well as an internal storage where
 the bundles can be written and from which they can be later efficiently
@@ -199,7 +199,7 @@ be built incrementally.
 \end{algorithm}
 
 
-Algorithm~\ref{algo:cooking-directory} shows the recursive directory cooking
+\Cref{algo:cooking-directory} shows the recursive directory cooking
 algorithm.
 In this algorithm, fetching contents is \emph{embarrassingly
 parallel} and can be scaled up at will. However, building the queue of contents

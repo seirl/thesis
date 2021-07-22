@@ -13,7 +13,7 @@ artifacts mostly rely on classic ``big data'' approaches, partitioning the
 corpus over several machines and applying distributed algorithms.
 Alternatively, but less satisfactorily, sampling can be used, incurring the
 risks of selection bias and over-generalized findings.
-In Chapter~\ref{chp:graph-dataset}, these scale-out approaches are explored on
+In \cref{chp:graph-dataset}, these scale-out approaches are explored on
 the full graph of public software development retrieved from the Software
 Heritage archive, by exporting the graph dataset in format suitable for
 distributed processing.
@@ -77,7 +77,7 @@ further narrow it down as follows:
 
 \item with \emph{ultra large scale} we mean a scale similar to the known extent
   of all publicly developed software, using the Software Heritage Graph Dataset
-  described in Chapter~\ref{chp:graph-dataset} as our main benchmark;
+  described in \cref{chp:graph-dataset} as our main benchmark;
 
 \item with \emph{cheap machine} we mean commodity hardware, either desktop- or
   server-grade, that can be easily acquired by researchers with a moderate
@@ -90,7 +90,7 @@ In the following we will answer this research question \emph{in the
 underlying Merkle DAG structure of the graph of public software development. As
 a concrete use case, we compress the full development history of all publicly
 developed source code as captured by the 2018-09-25 version of the Software
-Heritage Graph Dataset (see Chapter~\ref{chp:graph-dataset}), consisting of 5
+Heritage Graph Dataset (see \cref{chp:graph-dataset}), consisting of 5
 billion unique source code files and 1 billion unique commits, harvested from
 more than 80 million software projects.
 
@@ -226,8 +226,8 @@ true:
   \end{tabular}
 \end{table}
 
-In Table~\ref{tab:compression-naive} we show a sample of lists of successors of
-a graph, and in Table~\ref{tab:compression-copy} we show the same lists in
+In \cref{tab:compression-naive} we show a sample of lists of successors of
+a graph, and in \cref{tab:compression-copy} we show the same lists in
 which reference compression (in the form of a bit mask) copies successors from
 a previous list (identified by the ``Ref.'' column) following the information
 contained in a \emph{copy list}, and then the remaining nodes (possibly all
@@ -274,7 +274,7 @@ In this section we describe the compression pipeline and compression results;
 in the next we will exploit the obtained compressed representation.
 
 As dataset we use the 2018-09-25 version of the Software Heritage graph dataset
-described in Chapter~\ref{chp:graph-dataset}, which is to the best of our
+described in \cref{chp:graph-dataset}, which is to the best of our
 knowledge the largest publicly available corpus of software development
 history. This version of the dataset contains the development history of more
 than 90 million software projects, encompassing full mirrors of GitHub and
@@ -341,10 +341,10 @@ accessible, and the different speed and memory trade-offs this entails.
 \end{figure*}
 
 To compress the dataset we use the WebGraph framework to realize the
-compression pipeline shown in \figref{fig:compression-pipeline}. The
+compression pipeline shown in \cref{fig:compression-pipeline}. The
 pipeline input is a simple graph representation (\emph{Merkle DAG} in the
 figure) as a pair of textual nodes and edges file. These files use the
-``edges'' format described in Section~\ref{sec:edges-format}: the nodes file
+``edges'' format described in \cref{sec:edges-format}: the nodes file
 consists of one node label per line; the arcs file consists of one
 source/destination pair of node labels per linel; each label is a \gls{SWHID}.
 Then, the following steps are executed in order:\footnote{we refer to the
@@ -360,12 +360,12 @@ incurring the risk of collisions.
 
 \paragraph{BV compress}
 Compress the adjacency matrix of the graph using gap compression and the other
-techniques described in Section~\ref{sec:compression-background}, but without
+techniques described in \cref{sec:compression-background}, but without
 relying on a sensible ordering of nodes yet. The output of this step is a
 \emph{BV graph}~\cite{BoVWFI}.
 
 \paragraph{BFS}
-As discussed in Section~\ref{sec:compression-background}, finding a node
+As discussed in \cref{sec:compression-background}, finding a node
 ordering that, by permuting rows, maximizes various locality properties on the
 graph adjacency matrix is key to achieve good compression. Differently from web
 graphs, version control system graphs do not sport ready-to-use ordering
@@ -425,7 +425,7 @@ take care of this.
 
 Compressing the full corpus is a resource-intensive endeavor. The wall time
 breakdown to perform the various steps on the initial dataset is given in
-Table~\ref{tab:compression-bfs-time}, totaling less than 6 days of compression
+\cref{tab:compression-bfs-time}, totaling less than 6 days of compression
 time.
 
 Timings have been taken on a server equipped with 24 CPUs and 750\,GB of
@@ -472,7 +472,7 @@ rented one-off, e.g., on public clouds.
   \hfill
 \end{table}
 
-Compression results are shown in Table~\ref{tab:compression-bfs-results}.
+Compression results are shown in \cref{tab:compression-bfs-results}.
 Besides the raw datum of less than 5 bits per arc, which shows that the
 compression is very useful in practice, the compression ratio ($\approx$15\%)
 with respect to the information-theoretical lower bound of $\log {n\choose m}$
@@ -481,8 +481,8 @@ for web graphs, which are highly redundant, but significantly better than the
 typical values for social networks, which are above 50\%. Moreover, as it often
 happens in networks generated by human activity, the transposed graph shows
 better compression performance because the indegree distribution (shown in
-\figref{fig:compression-indegree}) has a fatter tail than the outdegree
-distribution, (\figref{fig:compression-outdegree}) resulting in nodes with very
+\cref{fig:compression-indegree}) has a fatter tail than the outdegree
+distribution, (\cref{fig:compression-outdegree}) resulting in nodes with very
 dense predecessor lists.
 
 \begin{figure}
@@ -524,7 +524,7 @@ standards.
 \label{sec:llp-compression}
 
 Further compression improvements can be achieved by the \acrfull{LLP}
-algorithm~\cite{BRSLLP} presented in Section~\ref{sec:compression-background}
+algorithm~\cite{BRSLLP} presented in \cref{sec:compression-background}
 to reorder nodes. The \gls{LLP} algorithm finds locality-preserving orders by
 clustering nodes in close proximity together.  This algorithm is particularly
 interesting for our use case as it is unsupervised, and does not rely on prior
@@ -544,7 +544,7 @@ on the uncompressed version of the graph which already takes around 800\,GiB of
 RAM. Thus, instead of replacing \gls{BFS} reordering compression, the \gls{LLP}
 reordering is computed \emph{from} the previously compressed graph, and
 therefore comes after the full compression pipeline shown in
-Section~\ref{sec:compression-pipeline}.
+\cref{sec:compression-pipeline}.
 
 \begin{figure*}
   \centering
@@ -553,7 +553,7 @@ Section~\ref{sec:compression-pipeline}.
   \label{fig:llp-compression-pipeline}
 \end{figure*}
 
-\figref{fig:llp-compression-pipeline} shows the full compression pipeline
+\Cref{fig:llp-compression-pipeline} shows the full compression pipeline
 augmented with \gls{LLP} reordering. Because the algorithm tries to find
 clusters of nodes which share a common neighborhood, it operates on the
 \emph{undirected} version of the graph, i.e., a graph in which all the edges
@@ -583,7 +583,7 @@ smaller set of values that give good compression results.
 In order to find an
 optimal combination of $\gamma$ values for compressing the graph of software
 development, we performed an hyperparameter sweep with different lists of
-values. The results are shown in Table~\ref{tab:compression-llp-gammas}.
+values. The results are shown in \cref{tab:compression-llp-gammas}.
 
 \begin{table}
   \centering
@@ -715,7 +715,7 @@ time) and then perform a domain-specific experiment.
 
 In the worst case of any given mining experiment, one will have to traverse the
 full corpus to obtain some insights. Hence it is important to know the baseline
-of how long a single traversal takes. Table~\ref{tab:compression-bfs-benchmark}
+of how long a single traversal takes. \Cref{tab:compression-bfs-benchmark}
 shows the results of benchmarking complete graph visits in breadth-first order
 (BFS), with no parallelism (single thread) for both the original and transposed
 graphs. Timings have been measured on a server equipped with 3\,GHz Intel Xeon
@@ -730,7 +730,7 @@ indegree v.~outdegree distributions, but still very fast in absolute terms: the
 full transposed graph can be visited in little more than 3 hours with a
 throughput nearing 1 million nodes/second (1 $\mu$s/node).
 
-Table~\ref{tab:compression-arc-benchmark} shows the results of benchmarking
+\Cref{tab:compression-arc-benchmark} shows the results of benchmarking
 random access to nodes and edges in the graph. A random sample of 1 billion
 nodes (8.3\% of the entire graph) has been taken, enumerating for every node
 all of its successors.  Results show that having the graph in memory pays back
@@ -777,7 +777,7 @@ reached with the visit. Results can then be visualized as a distribution of the
 
 Note that, even if the compressed graph representation does not natively store
 type information for arcs, we can use the type map discussed in
-Section~\ref{sec:compression-comp-scope} to stop the visit when it is no longer
+\cref{sec:compression-comp-scope} to stop the visit when it is no longer
 possible to reach additional revision nodes.
 
 The approach for determining revision$\to$origin multiplication is similar.
@@ -802,7 +802,7 @@ the needs of the planned mining task, as they always do.
 
 \subsection{Results}
 
-\figref{fig:compression-distrib-cnt-rev} shows the multiplication factor
+\Cref{fig:compression-distrib-cnt-rev} shows the multiplication factor
 distribution for blob$\to$revision, measured on a random sample of 953\,M
 blobs. Looking at the cumulative distribution (top line) the average
 multiplication factor appears to be very high. There are more than 100 million
@@ -837,7 +837,7 @@ follow edges up to origin nodes to determine that.
   \label{fig:compression-distrib-rev-ori}
 \end{figure}
 
-\figref{fig:compression-distrib-rev-ori} shows analogous results for the
+\Cref{fig:compression-distrib-rev-ori} shows analogous results for the
 revision$\to$origin layer, on a random sample of 8.5\,M revisions. To interpret
 them it is important to realize how it happens that the same commit (i.e., with
 an identical SHA1 identifier) is found in different repositories. The main
@@ -849,7 +849,7 @@ model~\cite{gousios2014pullrequests} popularized by GitHub natively creates new
 repositories (hosted at different origin URLs) that initially contains all of
 the commits (unmodified) of the originally ``forked'' repository.
 
-The cumulative distribution of \figref{fig:compression-distrib-rev-ori} measure
+The cumulative distribution of \cref{fig:compression-distrib-rev-ori} measure
 the amount of re-distribution of the same commits via different repositories in
 our corpus. 5 million commits (60\% of the sample) can be found in a single
 repository only, but multiplication grows quickly from there: 100 thousand
@@ -863,7 +863,7 @@ point of source code distribution.
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents_node_size.png}
   \caption{Visit size, as the number of visited nodes, for measuring
     blobs$\to$revision multiplication on the same sample of
-    \figref{fig:compression-distrib-cnt-rev}.}%
+    \cref{fig:compression-distrib-cnt-rev}.}%
   \label{fig:compression-size-cnt-rev}
 \end{figure}
 
@@ -872,7 +872,7 @@ point of source code distribution.
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions_node_size.png}
   \caption{Visit size, as the number of visited nodes, for measuring
     revision$\to$origin multiplication on the same sample of
-    \figref{fig:compression-distrib-rev-ori}.}%
+    \cref{fig:compression-distrib-rev-ori}.}%
   \label{fig:compression-size-rev-ori}
 \end{figure}
 
@@ -880,7 +880,7 @@ point of source code distribution.
 
 To better appreciate the graph-intensive nature of realizing the above two
 experiments in practice, we have also measured visit sizes.
-\figref{fig:compression-size-cnt-rev} and~\ref{fig:compression-size-rev-ori}
+\cref{fig:compression-size-cnt-rev} and \cref{fig:compression-size-rev-ori}
 show the results in terms of visited nodes; results in terms of visited edges
 have been omitted for brevity, but they exhibit nearly identical patterns.
 
@@ -925,7 +925,7 @@ that apply to the proposed approach.
 
 \subsection{Graph design}
 
-As mentioned in Section~\ref{sec:compression-comp-scope} there exists a clear
+As mentioned in \cref{sec:compression-comp-scope} there exists a clear
 \emph{space/time trade-off} between what fits in main memory and what should be
 left on secondary storage. Our choice---graph structure + node types in memory,
 everything else in secondary storage---will enable speeding up many use cases,
@@ -1033,7 +1033,7 @@ Large-scale VCS analyses have been conducted in the past, usually at much
 smaller scale than ours. An exception is~\cite{swh-provenance-tr}, which
 developed a compressed representation for software provenance tracking and used
 it to conduct the multiplication experiments that we have replicated in
-Section~\ref{sec:compression-expmultiplication}. Both approaches can be applied
+\cref{sec:compression-expmultiplication}. Both approaches can be applied
 to conduct analyses on commodity hardware, but the compression trade-offs are
 different: specialized, lossy, and incremental in~\cite{swh-provenance-tr};
 general purpose, lossless, but not incremental here.

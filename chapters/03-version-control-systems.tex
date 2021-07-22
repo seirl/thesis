@@ -56,7 +56,7 @@ are also often logically grouped in the same directory, sometimes called a
     \label{fig:vcs-dir-project}
 \end{figure}
 
-The example in \figref{fig:vcs-dir-flat} illustrates a file hierarchy for a
+The example in \cref{fig:vcs-dir-flat} illustrates a file hierarchy for a
 project meant to evaluate simple mathematical expressions. There is always one
 root directory containing the entire project, that we represent with a slash.
 At the root level, there is a directory containing C source code files, with
@@ -66,7 +66,7 @@ tests also written in C.
 The file hierarchy in this example project can naturally be visualized as a
 tree data structure, by representing the directories and the file contents as
 the vertices, with their respective names on the edges. The resulting tree is
-shown in \figref{fig:vcs-dir-tree}.
+shown in \cref{fig:vcs-dir-tree}.
 
 \subsection{Revisions}
 
@@ -102,7 +102,7 @@ abstract concept.
     \label{fig:vcs-rev-chain-example}
 \end{figure}
 
-\figref{fig:vcs-rev-chain-example} shows three successive states of the source
+\Cref{fig:vcs-rev-chain-example} shows three successive states of the source
 tree from our example repository, recorded as three different revisions. The
 revisions all point to a full copy of the source tree, exactly as it was when its
 state was recorded. Each revision also contains a reference to the revision
@@ -147,7 +147,7 @@ state, called a \emph{merge revision}.
     \label{fig:vcs-rev-branching-merging}
 \end{figure}
 
-\figref{fig:vcs-rev-branching-merging} shows an example of branching and
+\Cref{fig:vcs-rev-branching-merging} shows an example of branching and
 merging in a revision history.  As can be seen on the merge revision, this
 concept extends the simple model introduced above by allowing revisions to
 refer to multiple parent revisions as a way to support merging.
@@ -160,7 +160,7 @@ chain and which get automatically updated when new revisions are added to it.
 In most simple development workflows, developers tend to always keep a main
 branch that is long-lived and reflects the current state of the project, and
 various kinds of additional ``topic'' branches which contain features that are
-currently being worked on in parallel. \figref{fig:vcs-rev-branches} shows an
+currently being worked on in parallel. \Cref{fig:vcs-rev-branches} shows an
 example of three branches pointing to different revision chains. Note that
 since branches are just pointers, there is no obvious notion of a revision
 \emph{belonging} to a specific branch, but rather revisions are
@@ -189,7 +189,7 @@ mnemonic name, they are by nature dynamic and ever-changing, as adding more
 revisions to a branch will change the tip of the branch and thus the revision
 to which the branch points. In contrast, \emph{releases} are static and always
 refer to one specific revision.
-\figref{fig:vcs-rel-example} shows an example of two releases as first-class
+\Cref{fig:vcs-rel-example} shows an example of two releases as first-class
 objects in the development history that point to two specific revisions.
 
 \begin{figure}
@@ -327,9 +327,9 @@ the file again.
     \label{fig:deduplicate-contents}
 \end{figure}
 
-\figref{fig:deduplicate-contents} shows an example of deduplication at the file
+\Cref{fig:deduplicate-contents} shows an example of deduplication at the file
 level, based on the example repository shown in
-\figref{fig:vcs-rev-chain-example}. The \gls{VCS} computes the hashes of all
+\cref{fig:vcs-rev-chain-example}. The \gls{VCS} computes the hashes of all
 the files, which are represented as single letters for the purpose of clarity.
 As more revisions are added to the repository, the multiple states of the
 source tree will tend to reference files that have already been stored in the
@@ -390,7 +390,7 @@ second and third revisions.}
     \label{fig:deduplicate-subtree}
 \end{figure}
 
-\figref{fig:deduplicate-subtree} shows this subtree deduplication in action. In
+\Cref{fig:deduplicate-subtree} shows this subtree deduplication in action. In
 the same vein as for file deduplication, we now recursively compute the
 intrinsic hash of each object in the source trees. Whenever a new directory has
 to be added, its hash is compared to the hashes of the directories already
@@ -454,7 +454,7 @@ seminal work by Okasaki~\cite{okasaki1999purely}, where he describes them as
 
 Purely functional \glspl{DAG} like the ones used in our model to store source
 code trees have interesting properties, notably in terms of memory complexity.
-As shown in \figref{fig:okasaki-complexity}, creating a new revision with a
+As shown in \cref{fig:okasaki-complexity}, creating a new revision with a
 single node changed only requires to recreate the nodes constituting the chain
 of parents from the changed node to the root of the tree. A revision changing a
 node in a source tree of size $n$ and height $h$ will therefore have a memory

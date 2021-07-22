@@ -152,7 +152,7 @@ Snapshots are also deduplicated and identified by an intrinsic hash, computed
 from a manifest of each branch name and the intrinsic identifier of their
 target. Therefore they also benefit from the advantageous space-complexity of
 purely functional persistent structures as described in
-Section~\ref{sec:purely-functional}: if two consecutive visits of the same
+\cref{sec:purely-functional}: if two consecutive visits of the same
 repository show that nothing changed in the interval, the visits can both share
 the same deduplicated snapshot in the data model, instead of having to copy and
 store the set of branches and tags twice.
@@ -204,7 +204,7 @@ software artifacts in a deduplicated and canonical fashion is inherently a way
 to materialize an immense highly interconnected graph, linking together all
 derivative works and shared codebases.
 
-This process is illustrated in~\figref{fig:consolidating-archive}. The
+This process is illustrated in \cref{fig:consolidating-archive}. The
 intrinsic cryptographic hashes of the software artifacts are used to enforce
 their full deduplication, consolidating them in a unified Merkle \gls{DAG} with
 all the artifacts in the archive.
@@ -255,7 +255,7 @@ Software Heritage archive, this section describes its data model in more
 detail.
 
 The archive is stored as a single large Merkle \gls{DAG}, as depicted
-in~\figref{fig:swh-model}. In this graph, all software artifacts we have
+in \cref{fig:swh-model}. In this graph, all software artifacts we have
 described correspond to the nodes, which can be of six different types:
 contents, directories, revisions, releases, snapshots and origins.
 All the nodes are deduplicated and identified by a single intrinsic
@@ -266,7 +266,7 @@ The edges between the nodes emerge naturally: directory entries point to other
 directories or file contents; revisions point to directories and previous
 revisions; releases point to revisions; snapshots point to revisions and
 releases; origins point to the snapshots that they contained in past visits.
-The cardinality diagram shown in~\figref{fig:swh-cardinality} formalizes the
+The cardinality diagram shown in \cref{fig:swh-cardinality} formalizes the
 different sorts of edges in the graph and their numerical relationships: edges
 noted $\prescript{\ast}{}\rightarrow^1$ represent \emph{many-to-one}
 relationships (e.g., a revision only points to a single directory, but a

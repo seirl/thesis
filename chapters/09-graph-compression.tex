@@ -9,22 +9,22 @@ Reengineering.
 \label{sec:compression-intro}
 
 Most state-of-the-art approaches for analyzing large amounts of development
-artifacts mostly rely on classic ``big data'' approaches, partitioning the
+artifacts predominantly rely on classic ``big data'' approaches, partitioning the
 corpus over several machines and applying distributed algorithms.
 Alternatively, but less satisfactorily, sampling can be used, incurring the
 risks of selection bias and over-generalized findings.
 In \cref{chp:graph-dataset}, these scale-out approaches are explored on
 the full graph of public software development retrieved from the Software
-Heritage archive, by exporting the graph dataset in format suitable for
+Heritage archive, by exporting the graph dataset in a format suitable for
 distributed processing.
 
 Experimenting with these approaches highlights a major limitation of
 traditional distributed analysis systems when dealing with \textbf{recursive
 graphs}. The Merkle \gls{DAG} of public software development is organized in an
-inherently hierarchical structure, which makes ordinary queries often
+inherently hierarchical structure, which often renders ordinary queries
 recursive.
 Typically, a common primitive for most queries on directed graphs is to
-compute the \emph{transitive closure} of a given node, i.e., the set of all the
+compute the \emph{transitive closure} of a given node, i.e., the set of all
 nodes that are reachable by recursively following edges starting from said
 node. In relational database models, including distributed Big Data engines,
 this operation can be performed with \emph{recursive joins}, which involves
@@ -36,9 +36,9 @@ While this approach generally works efficiently for graphs with a limited depth
 hierarchies like the graph of software development.
 This notion can be understood quite intuitively when thinking about depth as
 the approximate number of synchronization points required for computing a
-transitive closure. Getting all the neighbors of a set of nodes is
+transitive closure. Getting all neighbors of a set of nodes is
 embarassingly parallel, but the resulting sets must be aggregated together at
-each step; this makes the number of recursive iteration the most expensive
+each step; this makes the quantity of recursive iterations the most expensive
 factor when performing recursive queries.
 Commit chains are a pathological case of arbitrary nestedness, as they tend to
 be very long, with some well-known repositories like the Linux kernel exceeding
@@ -81,7 +81,7 @@ further narrow it down as follows:
 
 \item with \emph{cheap machine} we mean commodity hardware, either desktop- or
   server-grade, that can be easily acquired by researchers with a moderate
-  investment of a few thousand U.S.~dollars.
+  investment of a few thousand USD.
 
 \end{itemize}
 
@@ -94,13 +94,13 @@ Heritage Graph Dataset (see \cref{chp:graph-dataset}), consisting of 5
 billion unique source code files and 1 billion unique commits, harvested from
 more than 80 million software projects.
 
-As size benchmark, we show that the resulting compressed VCS graph, containing
+As a size benchmark, we show that the resulting compressed VCS graph, containing
 the development history of the entire corpus, can be loaded in $\approx$94\,GiB
 of RAM, for an impressive compression ratio of 4.9 bits/arc---as opposed to 8
 bytes per arc that a naive in-memory representation of the graph using
-adjacency lists would require. At current market rates the graph can hence be
-fit in RAM on commodity hardware with an investment of less than 300
-U.S.~dollar for main memory.
+adjacency lists would require. At current market rates the graph can thus be
+fit in RAM on commodity hardware with an investment of less than 300 USD for
+main memory.
 
 As a speed benchmark, we measure the time required to visit the entire graph,
 obtaining a visit time of less than 2 hours and a processing throughput of
@@ -133,7 +133,7 @@ information about the data itself, and many data mining tasks can be
 accomplished from this information alone (e.g., detecting outlier elements,
 identifying interest groups, estimating measures of importance and so
 on). Often, such tasks can be solved through suitable graph algorithms which
-typically assume that the graph is stored into main memory.  However, this
+typically assume that the graph is stored in main memory.  However, this
 assumption is far from trivial to realize in many real-world cases, including
 the case of interest for the present thesis, where many billions of nodes and
 arcs might exist. Finding effective techniques to store and access large graphs
@@ -236,8 +236,8 @@ successors, if no reference compression is used) are gap-compressed.
 \subsection{The WebGraph framework}
 
 Some years later, building on the same approach, the WebGraph
-framework~\cite{BoVWFI} attained using the \emph{BV scheme} a web graph
-compression of less than 3 bits/arc (and even less than 2 for the transposed
+framework~\cite{BoVWFI} attained a web graph compression of less than 3
+bits/arc by using the \emph{BV scheme} (and even less than 2 for the transposed
 graph) with a random-access successor enumeration time of a few hundreds of
 nanoseconds per arc (and much faster than that for sequential access).
 % Present timings are in the range of a few dozens nanoseconds per arc.
@@ -260,7 +260,7 @@ the information from a number of clusterings to reorder the nodes.
 In the rest of this chapter we will use the WebGraph open source implementation
 as technology to perform graph compression on a large corpus of VCS histories.
 We will also show that \gls{BFS} visits and \gls{LLP} are indeed an effective
-reordering strategy to achieve high compression on such corpus.
+reordering strategy to achieve high compression on this corpus.
 
 \section{Compressing the Graph of Public Software Development}%
 \label{sec:compression-comp}
@@ -273,7 +273,7 @@ techniques, and (3) using the compressed result to conduct repository analysis.
 In this section we describe the compression pipeline and compression results;
 in the next we will exploit the obtained compressed representation.
 
-As dataset we use the 2018-09-25 version of the Software Heritage graph dataset
+As a dataset we use the 2018-09-25 version of the Software Heritage graph dataset
 described in \cref{chp:graph-dataset}, which is to the best of our
 knowledge the largest publicly available corpus of software development
 history. This version of the dataset contains the development history of more
@@ -287,7 +287,7 @@ In total, the graph contains more than 12 billion nodes and 165 billion edges.
 
 Different analyses will need to access different information stored in
 \gls{VCS}\@. A study of commit messages will not care about file contents,
-whereas one on code merges will need the revision graph. When you consider
+whereas one on code merges will need the revision graph. When considering
 keeping the entire dataset in main memory for performance reasons, there is an
 inherent trade-off between access time and RAM requirements. A line has to be
 drawn to separate the data that benefits the most from fast RAM access, from
@@ -307,12 +307,12 @@ it to proceed, access latency of node metadata does not matter as much as it
 does for the graph topology. Node metadata can thus be retrieved in an
 asynchronous fashion without significantly impacting analysis time.
 
-The scope of our compression experiment will hence primarily focus on
-compressing and storing in memory the \emph{graph structure}, with the
+The scope of our compression experiment will therefore primarily focus on
+compressing and storing the \emph{graph structure} into main memory, with the
 expectation that usage patterns will match the above scenarios---in-memory
 visits, then asynchronous retrieval and analysis of node metadata.
 
-As sole exception we will also keep in memory \emph{node types}, i.e., whether
+As a sole exception we will also keep \emph{node types} in memory, i.e., whether
 a node is a blob, directory, revision, etc. That can be done very
 efficiently using a \emph{type map} implemented as a bit array indexed by
 integer node identifiers and requiring only 3 bits per node (as there are 6
@@ -367,18 +367,18 @@ relying on a sensible ordering of nodes yet. The output of this step is a
 \paragraph{BFS}
 As discussed in \cref{sec:compression-background}, finding a node
 ordering that, by permuting rows, maximizes various locality properties on the
-graph adjacency matrix is key to achieve good compression. Differently from web
+graph adjacency matrix is key to achieving good compression. Unlike web
 graphs, version control system graphs do not sport ready-to-use ordering
 heuristics (such as the URL of each page) that are compression friendly. In
-fact, given native VCS node identifiers are generally based on cryptographic
-checksums (e.g., SHA1), the links from one node to the next will tend to jump
-\emph{randomly} from one identifier to another in the space of all possible
-identifiers.
+fact, given that native VCS node identifiers are generally based on
+cryptographic checksums (e.g., SHA1), the links from one node to the next will
+tend to jump \emph{randomly} from one identifier to another in the space of all
+possible identifiers.
 
-Experimentally we have verified that a breadth-first visit of the corpus graph,
-starting from graph roots (origin nodes) and traversing down toward leaves
-(file contents) achieve good compression results compared to other orderings.
-The \emph{BFS} step of the compression pipeline hence performs such a visit on
+Experimentally, we have verified that a breadth-first visit of the corpus graph,
+starting from graph roots (origin nodes) and traversing down towards leaves
+(file contents) achieves good compression results compared to other orderings.
+The \emph{BFS} step of the compression pipeline thus performs such a visit on
 the entire BV graph.
 
 \paragraph{Permute}
@@ -394,7 +394,7 @@ the opposite direction though. For instance, looking up where a given file (or
 directory, or commit, etc.) has been found requires such \emph{backward}
 visits.
 
-As backward visits corresponds to forward visits on the \emph{transposed} input
+As backward visits correspond to forward visits on the \emph{transposed} input
 graph, one can optionally generate a compressed representation of the
 transposed input graph and use it in addition (or alternatively) to the
 compressed graph obtained thus far. WebGraph supports generating the compressed
@@ -429,7 +429,7 @@ breakdown to perform the various steps on the initial dataset is given in
 time.
 
 Timings have been taken on a server equipped with 24 CPUs and 750\,GB of
-RAM\@. Note however, that such huge amount of RAM is not actually \emph{needed}
+RAM\@. Note however, that such huge amounts of RAM are not actually \emph{needed}
 for compression; minimum RAM requirements correspond to the resources needed to
 load the final compressed graph in memory. The only step that used more than
 100\,GB of RAM was the BFS visit, which used a memory mapping to access the BV
@@ -441,7 +441,7 @@ We also stress that even \emph{if} significantly more resources were needed for
 compression than for exploitation of the compressed result, that would be an
 acceptable trade-off as: (1) compression can be done once and reused many times
 (possibly by other research groups), and (2) compression resources can be
-rented one-off, e.g., on public clouds.
+rented for one-time use, e.g., on public clouds.
 
 \smallskip
 
@@ -517,7 +517,7 @@ rates,\footnote{\url{https://jcmit.net/memoryprice.htm}, accessed 2019-10-18}
 100\,GB of main memory costs less than 300 U.S.~dollars. Fitting \emph{both}
 graph directions on workstation deployments might be more challenging, but it
 is not always needed (e.g., one can load one graph direction depending on
-experimental needs) and still fit cheap server-grade deployments by today
+experimental needs) and still fit cheap server-grade deployments by current
 standards.
 
 \subsection{Compression with Layered Label Propagation}%
@@ -582,7 +582,7 @@ values could take several months in our case. We thus need to narrow down a
 smaller set of values that give good compression results.
 In order to find an
 optimal combination of $\gamma$ values for compressing the graph of software
-development, we performed an hyperparameter sweep with different lists of
+development, we performed a hyperparameter sweep with different lists of
 values. The results are shown in \cref{tab:compression-llp-gammas}.
 
 \begin{table}

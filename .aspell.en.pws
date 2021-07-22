@@ -1,3 +1,4 @@
+acyclic
 AIGraph
 anonymization
 AST
@@ -31,6 +32,7 @@ codebase
 codebases
 CodeFeedr
 combinatorial
+connectivities
 coreutils
 coroutines
 corpuses
@@ -44,6 +46,7 @@ daemonize
 daemonizes
 DAG
 Dandrimont
+Darcs
 Darktable
 Databricks
 dataset
@@ -56,7 +59,9 @@ Deduplicating
 deduplication
 deterministically
 dir
+directionality
 direntry
+dpkg
 DVCS
 Elias-Fano
 encodings
@@ -93,7 +98,9 @@ Javascript
 json
 Kemerer
 KiB
+Kolmogorov-Smirnov
 Kroah-Hartman
+kurtosis
 labelled
 lexicographically
 linux
@@ -108,6 +115,7 @@ ms
 natively
 nestedness
 NixOS
+NodeJS
 NPM
 ns
 OLAP
@@ -126,8 +134,10 @@ recommenders
 recompress
 recompressed
 Redshift
+reimplement
 rel
 RepoFS
+representativeness
 reproducibility
 rev
 roadmap
@@ -156,8 +166,12 @@ submodules
 subprocess
 subrepositories
 subrepository
+subsample
+subsamples
+subsampling
 subtree
 subtrees
+superlinear
 swh
 SWH
 swhfs
@@ -182,10 +196,12 @@ updatable
 vCPU
 vCPUs
 VCS
+VCSs
 VFS
 wc
 WebGraph
 WoC
 Zacchiroli
+Zack
 Zenodo
 Zstandard

@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=origin] (A) at (0, 0)      {A};
+		\node [style=origin] (B) at (1.5, 0)    {B};
+		\node [style=origin] (C) at (0, -1.5)   {C};
+		\node [style=origin] (D) at (1.5, -1.5) {D};
+		\node [style=origin] (E) at (3, 0)      {E};
+		\node [style=origin] (F) at (3, -1.5)   {F};
+		\node [style=origin] (G) at (4.5, 0)    {G};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (B) to (A);
+		\draw [style=arrow] (C) to (B);
+		\draw [style=arrow] (D) to (B);
+		\draw [style=arrow] (F) to (E);
+	\end{pgfonlayer}
+
+	\matrix [draw] at (6, -1.2) {
+  		\node [style=origin,label=right:repository] {}; \\
+  		\node [label=right:forked from,xshift=2pt] {};
+        \draw [style=arrow] ++(-0.5em, 0) -- ++(1em, 0) node[right] {}; \\
+	};
+\end{tikzpicture}

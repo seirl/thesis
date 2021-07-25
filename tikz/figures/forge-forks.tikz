@@ -1,4 +1,4 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=1.3]
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=origin] (A) at (0, 0)      {A};
 		\node [style=origin] (B) at (1.5, 0)    {B};

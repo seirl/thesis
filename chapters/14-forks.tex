@@ -1,6 +1,19 @@
 \chapter{Identifying Software Forks}
 
-\TODO{Rewrite and integrate}
+In the previous chapter, we have described the structure of the graph of
+software development by analyzing robust measures of network topology: degrees,
+connected components, average path lengths and clustering coefficients. These
+properties qualify the graph at a low-level in a generic way, enabling direct
+comparison with various other real-world networks. At a higher level of
+abstraction, we can also analyze how software development is semantically
+organized in \emph{projects} which, due to collaborative development and code
+reuse patterns, tends to be arranged in groups of ``forks'' of varying sizes.
+Describing this high-level structure is a key part of the overarching quest for
+a deeper understanding of the graph of software development, and has direct
+methodological applications for empirical software engineering.
+
+This chapter is based on an article~\cite{swh-msr2020-forking} accepted at the
+17th International Conference on Mining Software Repositories (MSR 2020).
 
 \section{Introduction}
 \label{sec:forks-intro}
@@ -44,15 +57,15 @@ relationship forms an ancestry graph that GitHub makes available through its
 API and that is what has traditionally been studied as a large, easily
 exploitable fork network.
 
-% Consequently, the literature on software health and evolution has been
-% recently focusing on studying this plurality of new forks to better
-% understand what they can signal on the state of a software project. The
-% forking process often exhibits some patterns that can be used to determine
-% common criteria of healthy software projects, e.g by measuring contributing
-% activity using forks as a proxy, or by comparing successful hard forks to
-% their inactive counterparts. Those metrics are particularly useful in that
-% they are conceptually independent from the VCS used by the development team,
-% which makes them robust across different workflows.
+Consequently, the literature on software health and evolution has been
+recently focusing on studying this plurality of new forks to better
+understand what they can signal on the state of a software project. The
+forking process often exhibits some patterns that can be used to determine
+common criteria of healthy software projects, e.g., by measuring contributing
+activity using forks as a proxy, or by comparing successful hard forks to
+their inactive counterparts. Those metrics are particularly useful in that
+they are conceptually independent from the VCS used by the development team,
+which makes them robust across different workflows.
 
 The first drawback of trusting platform metadata as source of truth for what
 repository is a fork is that it is platform-specific. One cannot identify as
@@ -87,19 +100,19 @@ studies that rely on metrics as simple as repository size (measured as the
 number of hosted commits). Filtering out forked repository is a common solution
 to this problem, which calls into question \emph{how} to properly identify
 forks.
-% It has been shown~\cite{swh-provenance-tr} that a partition of commits within
-% origins sharing at least 1 commit (``most fit fork'' partition), could
-% decrease by several orders of magnitude the tail of the distribution of
-% origin size, and impact origins of all sizes greater than 100 commits.
+It has been shown~\cite{swh-provenance-tr} that a partition of commits within
+origins sharing at least 1 commit (``most fit fork'' partition), could
+decrease by several orders of magnitude the tail of the distribution of
+origin size, and impact origins of all sizes greater than 100 commits.
 
 \smallskip
 
 The absence of extensive, homogeneous fork research has been pointed out in the
-past as a missing piece~\cite{robles2012forks} in the literature. In this paper
-we try to provide methodological tools to enable fork studies that do not
-restrict themselves to platform metadata to recognize forks, thereby removing
-the constraint of analyzing a single platform and mitigating the risk of
-selection biases.
+past as a missing piece~\cite{robles2012forks} in the literature. In this
+chapter we try to provide methodological tools to enable fork studies that do
+not restrict themselves to platform metadata to recognize forks, thereby
+removing the constraint of analyzing a single platform and mitigating the risk
+of selection biases.
 
 As an alternative to relying on platform metadata to recognize forks we propose
 to compare the content of VCS and consider as forks repositories that share
@@ -112,13 +125,19 @@ answer the following research questions:
 %   are forks of other repositories trustable w.r.t.~the presence of shared
 %   source code artifacts in version control systems (VCS)?}
 
+\vspace{1em}
+
 \noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ1: how do code hosting
 platform information about which VCS repositories are forks compare to the
 presence of shared source code artifacts in repositories?}}
 
+\vspace{1em}
+
 \noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ2: how are (a) the amount of
 forks and (b) the structure of fork networks affected by fork definitions based
 on VCS artifact sharing?}}
+
+\vspace{1em}
 
 RQ1 will intuitively assess the level of trustworthiness of platform fork
 metadata: if many repositories, e.g., share commits but are not identified as
@@ -128,15 +147,16 @@ VCS artifacts (commits, source tree directories, individual files, \ldots) as
 fork evidence, RQ2 will provide an empirical evaluation of the effects of
 basing fork definitions on one or the other.
 
-\paragraph{Paper structure}
-\Cref{sec:forks-defs} explores the spectrum of fork definitions considered in
-the paper. \Cref{sec:forks-methodology} presents the experimental methodology
-and used datasets. Results are discussed in \cref{sec:forks-results}, threats
-to their validity in \cref{sec:forks-threats}. Before concluding, related work
-is discussed in \cref{sec:forks-related}.
+% \paragraph{Paper structure}
+% \Cref{sec:forks-defs} explores the spectrum of fork definitions considered in
+% the chapter. \Cref{sec:forks-methodology} presents the experimental
+% methodology and used datasets. Results are discussed in
+% \cref{sec:forks-results}, threats to their validity in
+% \cref{sec:forks-threats}. Before concluding, related work is discussed in
+% \cref{sec:forks-related}.
 
 \paragraph{Replication package}
-A replication package for this paper is available from Zenodo at
+A replication package for this chapter is available from Zenodo at
 \url{https://zenodo.org/record/3610708}.
 
 
@@ -184,11 +204,14 @@ API:\footnote{\url{https://docs.gitlab.com/ee/api/projects.html}, retrieved
   \texttt{forked\_from\_project} field will appear in the response.
 \end{quote}
 which corresponds to exploitable JSON metadata such as:
-\begin{minted}{json}
+
+\begin{minipage}{0.96\linewidth}
+\begin{minted}{python}
 {
    "id":3,
    ...
-   "forked_from_project":{
+   "forked_from_project":
+    {
       "id":13083,
       "description":"GitLab Community Edition",
       "name":"GitLab Community Edition",
@@ -198,6 +221,9 @@ which corresponds to exploitable JSON metadata such as:
       "created_at":"2013-09-26T06:02:36.000Z",
    ...
 \end{minted}
+\end{minipage}
+
+\vspace{1em}
 
 Without getting too formal we observe that each repository is the forge fork of
 at most one repository (its parent) and that the relation of being a forge fork
@@ -292,7 +318,7 @@ capture those situations:
   \input{tikz/figures/fork-def-rootdir.tikz}
   \caption{Type 3 fork, or shared root fork. Repository $A$ is a fork of $B$
     and vice versa, since they share root directory $1$.  As per shared commit
-    forks, type shared root forks are symmetric.}%
+    forks, shared root forks are symmetric.}%
   \label{fig:rootdir-fork}
   \label{fig:type3-fork}
 \end{figure}
@@ -369,10 +395,10 @@ cliques make intuitive sense only for type 2 and type 3 forks; type 1 forks
 
 Our goal is to experimentally determine the amount and structure of forks for
 the various definitions we have introduced. To do so we will use two datasets:
-the \SWHGD~\cite{swh-msr2019-dataset}, which contains the development history
-needed to find intrinsic fork relationships, and a reference forge-specific
-dataset, GHTorrent~\cite{GHTorrent}, which contains the fork ancestry
-relationships as captured by GitHub.
+the \SWHGD{} described in \cref{chp:graph-dataset}, which contains the
+development history needed to find intrinsic fork relationships, and a
+reference forge-specific dataset, GHTorrent~\cite{GHTorrent}, which contains
+the fork ancestry relationships as captured by GitHub.
 
 \paragraph{GHTorrent}
 GitHub is the largest public software forge, and is therefore the candidate of
@@ -384,7 +410,7 @@ column contains the ID of the repository it has been forked from if the
 repository is considered to be a forge forks.  A single SQL query on this table
 allows to extract the full graph of GitHub-declared forks,
 e.g.:\footnote{Additional URL gymnastic is needed in the query to
-cross-reference GHTorrent project URLs with \SWH ones; we refer to the
+cross-reference GHTorrent project URLs with \SWH{} ones; we refer to the
 replication package for this kind of details.}
 \begin{minted}{sql}
 select parents.url as parent,
@@ -395,38 +421,19 @@ inner join projects as parents
 \end{minted}
 
 \paragraph{Software Heritage Graph Dataset}
-\SWH~\cite{swhipres2017, swhcacm2018} is the largest publicly accessible
-archive of software source code and accompanying development history, spanning
-more than 90 million software projects retrieved from major development forges
-including GitHub and GitLab.com.  The \SWHGD~\cite{swh-msr2019-dataset} is an
-offline dataset containing the development history of all the projects in \SWH
-in a tabular representation of a unified directed acyclic graph (DAG). As the
-archive encompasses a substantial portion of all the public GitHub
-repositories, it is possible to cross-reference the origins contained in this
-dataset with the ones in GitHub, our reference for forge forks.
-
-\begin{figure}[t]
-  \centering
-  \input{tikz/figures/swh-model.tikz}
-  \caption{The Software Heritage Graph Dataset data model}%
-  \label{fig:fork-swh-model}
-\end{figure}
-
-The \SWHGD data model maps the traditional concepts of VCS as nodes in a Merkle
-DAG~\cite{Merkle}, as shown in \cref{fig:fork-swh-model}. As a consequence, all
-the development artifacts, including commits and source trees, are natively
-deduplicated within and across projects. This property is particularly useful
-to find intrinsic forks, as it enables tracking the relevant artifacts
-(revisions and directories) across the entire dataset and link them back to
-their source repositories.
+The \SWHGD{} data model maps the traditional concepts of VCS as nodes in a Merkle
+DAG~\cite{Merkle}, as described in \cref{chp:swh-model} and
+\cref{chp:graph-dataset}. As a consequence, all the development artifacts,
+including commits and source trees, are natively deduplicated within and across
+projects. This property is particularly useful to find intrinsic forks, as it
+enables tracking the relevant artifacts (revisions and directories) across the
+entire dataset and link them back to their source repositories.
 
 The dataset contains two intermediate layers between repositories and the
-commit graph they point to: \emph{snapshots}, which are point in time captures
-of the state of a repository; and \emph{releases} (or ``tags''), which are
-\emph{revisions} (or commits) labeled with a specific name. As none of our fork
-definitions depend on these artifacts, the two layers can be flattened out so
-that the origins point directly to the revision graph.  Likewise, the blob
-layer and the directory layer are not needed to find shared commit forks
+commit graph they point to, snapshots and tags. As none of our fork definitions
+depend on these artifacts, the two layers can be flattened out so that the
+origins point directly to the revision graph.  Likewise, the blob layer and the
+directory layer are not needed to find shared commit forks
 (\cref{def:type2-fork}), while shared root forks
 (\cref{def:type3-fork}) only require the root directory of each
 revision.  Filtering out the unnecessary nodes reduces the graph to a more
@@ -436,12 +443,11 @@ closely matches the examples in \cref{fig:type2-fork} and
 \cref{fig:type3-fork}, making it easy to verify the intrinsic definitions.
 
 We run the experiments on the compressed version of the two graph datasets,
-using the WebGraph framework~\cite{boldi-vigna-webgraph-1,
-boldi-vigna-webgraph-2}. The \SWHGD is already distributed as a compressed
-BVGraph, along with the \texttt{swh-graph} helper
-library~\cite{saner-2020-swh-graph} to run traversal algorithms easily.
-The GHTorrent can be compressed from its relational database format using the
-\texttt{swh-graph compress} utility.
+using the WebGraph framework, as described in \cref{chp:graph-compression}.
+The \SWHGD{} is already distributed as a compressed BVGraph and does not need
+any additional processing to be exploited.
+The GHTorrent can be compressed from its relational
+database format using the \texttt{swh-graph compress} utility.
 
 \subsection{Fork networks}
 \label{sec:methodology-fork-networks}
@@ -486,8 +492,8 @@ forge fork graph in fork networks similarly by computing all its connected
 components.
 
 Our experimental design is therefore as follows: first, we list the common
-non-empty repositories between the \SWHGD and GHTorrent. We then extract the
-aforementioned subgraphs: the development history graph for \SWH (origins
+non-empty repositories between the \SWHGD{} and GHTorrent. We then extract the
+aforementioned subgraphs: the development history graph for \SWH{} (origins
 $\to$~\{revisions, releases\} $\to$~commits) and the fork graph for GHTorrent
 (origins $\to$~origins). We then compute the connected components of each graph
 using a simple depth-first traversal algorithm, then output the origins
@@ -527,7 +533,7 @@ repository, walk through its commit history and add all the commits to a queue,
 then take the transposed graph to walk through the commit history backwards and
 list all repository leaves. The time complexity of this algorithm is highly
 unpractical: in the worst case, if all the repositories are forks of each
-other, is has time complexity of $\mathcal{O}(R \times C)$ where $C$ is the
+other, is has time complexity of $O(R \times C)$ where $C$ is the
 number of commits and $R$ the number of repositories in the graph.
 
 However, clever use of some properties on the DAG structure of the commit graph
@@ -590,7 +596,7 @@ While \cref{algo:fork-clique} works well for shared commit forks, the
 speedup does not apply to shared root forks: the induction property no longer
 works for root directories, as they are not organised in nearly-degenerate
 chains. The time complexity for type 3 forks is closer to the worst case of
-$\mathcal{O}(C \times R)$, which makes the clique analysis impractical for this
+$O(C \times R)$, which makes the clique analysis impractical for this
 kind of forks.
 
 \paragraph{P-clique partition function}
@@ -655,7 +661,7 @@ the size distribution of networks for type 1 forks.
 \section{Results}
 \label{sec:forks-results}
 
-We identified 71.9\,M repositories in common between the \SWHGD and GHTorrent,
+We identified 71.9\,M repositories in common between the \SWHGD{} and GHTorrent,
 41.4\,M of which are non-empty. We focused our experiments on these
 repositories.
 % This section characterizes the results of running the two algorithms
@@ -670,7 +676,7 @@ not forge forks (type 1) of other repositories.  The other 2.4 M connected
 components contain the remaining 18.5 M repositories, which are all in fork
 networks.  These forge forks represent 44.74\% of all repositories.
 
-In the \SWHGD, we found 24.0 M connected components, among which 21.3 M
+In the \SWHGD{}, we found 24.0 M connected components, among which 21.3 M
 isolated repositories. The remaining 2.6 M components contain 20.1 M shared
 commit forks (type 2), i.e., 48.44\% of all repositories. We have hence almost
 9\% \emph{more} shared commit forks than forge forks, which is a significant
@@ -700,7 +706,7 @@ truth for what is a fork.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{img/forks/fork-network-freq-distribution.pdf}
+    \includegraphics[width=0.8\linewidth]{img/forks/fork-network-freq-distribution.pdf}
     \caption{Cumulative frequency distribution of fork network sizes}%
     \label{fig:fork-network-freq-distrib}
 \end{figure}
@@ -767,7 +773,7 @@ networks as a quantification mechanism.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{img/forks/fork-clique-partition-freq-distribution.pdf}
+    \includegraphics[width=0.8\linewidth]{img/forks/fork-clique-partition-freq-distribution.pdf}
     \caption{Cumulative frequency distribution of intrinsic fork p-cliques
     compared to forge fork networks}%
     \label{fig:fork-clique-freq-distrib}
@@ -822,17 +828,24 @@ By definition $\delta O$ is always equal to zero for sizes $s~=~1$ (as all the
 forks are in clusters of size $s \geq 1$) and $s~=~\max(\text{cluster
 sizes})$ (as there are no clusters larger than this size).
 
-\begin{figure}[t]
+\begin{figure}
     \centering
+    \begin{subfigure}{.45\textwidth}
     \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_gh-swhrev.pdf}
     % flux between gh and swh-rev
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
     \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_gh-swhrootdir.pdf}
     % flux between gh and swh-rootdir
+    \end{subfigure}
+    \newline
+    \begin{subfigure}{.45\textwidth}
     \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_gh-pcliques.pdf}
+    \end{subfigure}
     % flux between gh and swh-rev-p-cliques
     \caption{Complementary Cumulative Weighted Distribution Functions
     Differences between forge fork network and shared-commit fork network
-    (top), shared root source tree fork network (middle), and p-cliques
+    (top left), shared root source tree fork network (top right), and p-cliques
     based fork network (bottom).}
     \label{fig:fork-flux-gh-rev_rootdir_pcliques}
 \end{figure}
@@ -850,7 +863,8 @@ by the different definitions, it can mask some compensating phenomena by
 merging independent processes, as some repositories can migrate from larger to
 smaller clusters,
 % to make more explicite the discussion about delatO <0
-sometimes leading to $\delta O<0$ (\cref{fig:fork-flux-gh-rev_rootdir_pcliques}, bottom, $size\sim10^5$).
+sometimes leading to $\delta O<0$
+(\cref{fig:fork-flux-gh-rev_rootdir_pcliques}, bottom, size$\sim10^5$).
 
 To narrow down this phenomenon, we specifically focus on the
 largest shared-commit fork network to see how it contributes to the global
@@ -859,15 +873,15 @@ distribution of the forge fork networks, we show in \cref{fig:fork-Diff_WCCDF_al
 the repository flux, as defined above, and compare it to the corresponding
 global flux.
 
-\begin{figure}[t]
+\begin{figure}
     \centering
     % 7
-    \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_all.pdf}
+    \includegraphics[width=0.7\linewidth]{img/forks/gr/Diff_WCCDF_all.pdf}
 %    % 8
 %    \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_all_bis.png}
     \caption{Contribution (orange dots) of the giant (largest) network that
     appear using shared commit fork definition w.r.t.
-    $\mathbf{\delta O :} \textbf{forge~fork} - \textbf{shared~commit~fork}$ (Same as
+    $\mathbf{\boldsymbol{\delta} O:}~\textbf{forge~fork} - \textbf{shared~commit~fork}$ (Same as
     \cref{fig:fork-flux-gh-rev_rootdir_pcliques}, Top)}
     \label{fig:fork-Diff_WCCDF_all}
 \end{figure}
@@ -982,13 +996,13 @@ point.
 \paragraph{External validity}
 The datasets used in this study do not capture the full extent of publicly
 available development history, notably due to their snapshot nature and their
-assembly through periodic crawling processes. The \SWHGD only contains data
-from various forges to the extent of what is covered by the \SWH archive, which
-might lag behind the tracked forges, and GHTorrent is GitHub-specific. As we
-need comparable samples we were limited by the intersection of the two datasets
-in this study, which composes these limitations. Still, to the best of our
-knowledge this is one of the largest quantitative fork study to date, having
-considered more than 40 M public version control system repositories.
+assembly through periodic crawling processes. The \SWHGD{} only contains data
+from various forges to the extent of what is covered by the \SWH{} archive,
+which might lag behind the tracked forges, and GHTorrent is GitHub-specific. As
+we need comparable samples we were limited by the intersection of the two
+datasets in this study, which composes these limitations. Still, to the best of
+our knowledge this is one of the largest quantitative fork study to date,
+having considered more than 40 M public version control system repositories.
 
 In the future it would be interesting to extend this approach to forges that
 are raising in popularity, and most notably GitLab. For that we would need a
@@ -1020,7 +1034,7 @@ and Barahona~\cite{robles2012forks} give a detailed account of famous hard
 forks, covering history, reasons, and outcomes.
 
 These and other studies of hard forks are qualitative and focused in nature.
-  This paper is complementary to
+  This chapter is complementary to
 them as it proposes tools to identify and quantitatively measure and observe
 forks, addressing the need of more extensive and homogeneous fork research
 already observed in~\cite{robles2012forks}. As far as we could determine
@@ -1098,7 +1112,7 @@ Half a decade later it is arguably \emph{less} of a risk that development
 happens elsewhere and that a high number of committers are not registered
 GitHub users (due to the current marked dominance of GitHub). But it is still
 not zero and might be about to increase again due to push back against
-centralized services among FOSS developers.  In this paper we provide
+centralized services among FOSS developers.  In this chapter we provide
 methodological tools and improve upon the mitigation techniques proposed back
 then. Instead of avoiding projects, one can start from cross-platform
 datasets~\cite{swhcacm2018, swh-provenance-tr, swh-msr2019-dataset,
@@ -1127,7 +1141,7 @@ development history) and \emph{fork networks} (repositories linked together by
 pairwise fork relationships) as ways to understand and quantify larger sets of
 forks when using non-transitive definitions of forking.
 
-Via empirical analysis of 40+\,M repositories using the GHTorrent and \SWH
+Via empirical analysis of 40+\,M repositories using the GHTorrent and \SWH{}
 datasets we quantified the amount of type 2 and type 3 forks that are not
 recognizable as type 1 forks on GitHub, which appears to be substantial: +9\%
 forks for type 2 forks, +37\% more for type 3.

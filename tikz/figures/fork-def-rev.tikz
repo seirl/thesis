@@ -1,4 +1,4 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[scale=1.3]
 	\begin{pgfonlayer}{nodelayer}
 		\node [style=origin] (0) at (1, 0) {B};
 		\node [style=origin] (1) at (0, 0) {A};
@@ -20,8 +20,8 @@
 		\draw [style=arrow] (13) to (11);
 	\end{pgfonlayer}
 
-	\matrix [draw] at (4.5, -2.5) {
-  		\node [style=origin,label=right:repository] {}; \\
-  		\node [style=revision,label=right:commit,minimum width=14pt] {}; \\
-	};
+	% \matrix [draw] at (4.5, -2.5) {
+  	% 	\node [style=origin,label=right:repository] {}; \\
+  	% 	\node [style=revision,label=right:commit,minimum width=14pt] {}; \\
+	% };
 \end{tikzpicture}

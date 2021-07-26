@@ -1,0 +1,62 @@
+\chapter*{Thesis Structure}
+
+The first part of this thesis introduces the key concepts surrounding
+software development, software mining, and how the Software Heritage archive
+has the potential to enable research in these fields at a larger, almost
+universal scale.
+\textbf{\Cref{chp:introduction}} introduces the literature of software mining
+and how it evolved over time, from the study of small numbers of source code
+files to the systematic exploitation of millions of software projects.
+\textbf{\Cref{chp:software-heritage}} presents the Software Heritage archive,
+the largest and most diverse corpus of software development artifacts to date,
+and the ways in which it can be leveraged to achieve universal software mining.
+In \textbf{\cref{chp:version-control-systems}}, we construct an abstract model
+for software artifacts stored in deduplicated \glspl{VCS}. This model is then
+used in \textbf{\cref{chp:swh-model}} to describe the data model underpinning
+the Software Heritage archive, a consolidated, deduplicated and canonicalized
+repository of all the software artifacts of public software development.
+\textbf{\Cref{chp:large-scale-mining}} reviews recent software mining
+literature and categorizes their research needs to help narrow the contours of
+our roadmap towards enabling universal software mining.
+
+The second part focuses on ways to make the data stored in the
+archive immediately available for software mining purposes under different
+formats, as a first step towards building a more comprehensive research
+platform. \textbf{\Cref{chp:vault}} introduces the Vault, a server-side tool to
+assemble on request bundles of artifacts, from single source code directories
+to entire repositories. \textbf{\Cref{chp:fuse}} offers a client-side
+alternative to explore small quantities of source code: a virtual filesystem
+which presents source code directories stored on the remote archive as if they
+were on a local filesystem.  For larger-scale research,
+\textbf{\cref{chp:graph-dataset}} introduces a property graph dataset which can
+be exploited in big data engines and on cloud analysis platforms.
+
+The third part proposes graph compression as a way to exploit the graph of
+software development for resource-hungry recursive algorithms in a relatively
+inexpensive manner by fitting the graph on a single machine.
+\textbf{\Cref{chp:graph-compression}} introduces techniques for graph
+compression applied to the graph of software development, and benchmarks the
+compression ratio of the graph and its performance on a few graph traversal
+algorithms. \textbf{\Cref{chp:graph-metadata}} explains how different kinds of
+graph property data can be attached to the nodes and edges of the compressed
+graph for exploitation. \textbf{\Cref{chp:subdatasets}} describes ways to
+generate and work on smaller subsets of the compressed graph for prototyping
+and filtering purposes. \textbf{\Cref{chp:graph-querying}} explores the problem
+of graph querying, and discusses the expressivity of different querying methods
+to satisfy complex research needs.
+
+The fourth part attempts, using the datasets and frameworks introduced in the
+previous parts, to describe the intrinsic structure of the graph of software
+development as a way to understand and document its main properties and to
+derive research implications for scale-out analysis approaches. In
+\textbf{\cref{chp:topology}} we measure low-level topological properties of the
+graph: degree distributions, average path lengths, connected components and
+clustering coefficient. In \textbf{\cref{chp:forks}} we take a higher-level
+view and look at how software projects are organized in clusters of ``forks''
+of varying sizes, largely due to collaborative development and code reuse
+patterns.
+
+Finally, we conclude by summarizing our main academic contributions in this
+work, discussing the ways they contribute to enabling universal software mining
+and their implications for empirical software engineering research, and
+exploring potential future research directions.

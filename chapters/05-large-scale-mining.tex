@@ -1,4 +1,4 @@
-\chapter{Large Scale Mining in Software Heritage}%
+\chapter{Towards Universal Software Mining}%
 \label{chp:large-scale-mining}
 
 As the field of software mining is constantly growing, notably for the purposes
@@ -35,7 +35,8 @@ accepted at the 17th Belgium-Netherlands Software Evolution Workshop (BENEVOL
 
 \section{Cataloguing Research Needs}
 
-\subsection{Literature Review}
+\subsection{Literature Review}%
+\label{sec:msr-lit-review}
 
 After various preliminary conversations with researchers working in the field
 and having a familiarity with the software mining literature, we have
@@ -51,11 +52,11 @@ processing algorithms.
 
 To validate this understanding of the literature more rigorously, we
 systematically reviewed 54 papers published in the \emph{16th International
-Conference on Mining Software Repositories (MSR 2019)}. In each paper, we
-sought two important pieces of information: (1) what were the \emph{selection
-criteria} used to narrow the study to work on a specific set of software
-artifacts, and (2) which types of \emph{analyzed data} were required for their
-analyses.
+Conference on Mining Software Repositories (MSR
+2019)}~\cite{DBLP:conf/msr/2019}. In each paper, we sought two important pieces
+of information: (1) what were the \emph{selection criteria} used to narrow the
+study to work on a specific set of software artifacts, and (2) which types of
+\emph{analyzed data} were required for their analyses.
 
 \begin{figure}[b]
 \begin{tikzpicture}[x=1pt,y=1pt,font=\tiny]
@@ -183,6 +184,9 @@ analysis of selected artifacts. \Cref{tab:selection-criteria} shows a
 detailed tally of the different criteria we observed in the study designs.
 
 \begin{table}
+    \centering
+    \caption{Selection criteria found in MSR literature review.}%
+    \label{tab:selection-criteria}
     \begin{tabular}{l l c}
         & \textbf{Criteria} & \textbf{Number of studies} \\
          a. & Number of repository stars & 12 \\
@@ -201,15 +205,14 @@ detailed tally of the different criteria we observed in the study designs.
          n. & File sizes & 1 \\
          o. & Lines of code in contents & 1 \\
     \end{tabular}
-    \centering
-    \caption{Selection criteria found in MSR literature review.}%
-    \label{tab:selection-criteria}
 \end{table}
 
-While some of these criteria would be easy to implement in the archive as a way
-to select a subset of artifacts for a given study design, others would require
-more work. They can be categorized in several groups, ordered by difficulty of
-implementation:
+\TODO{visual grouping of the related categories?}
+
+While some of these criteria would be easy to implement in a research platform
+based on the \SWH{} archive as a way to select a subset of artifacts for a
+given study design, others would require more work. They can be categorized in
+several groups, ordered by difficulty of implementation:
 
 \begin{itemize}
     \setlength\itemsep{0em}
@@ -234,7 +237,7 @@ implementation:
     external and contextual metrics, and leave open the possibility of linking
     the objects in the archive with a metadata store.
 
-\item \emph{Derived Data} (crit.\ b, f, h, o, k): for filtering on properties
+\item \emph{Derived Metadata} (crit.\ b, f, h, o, k): for filtering on properties
     that are not directly part of the data, but which can be derived from them.
     By running a programming language recognition tool on the file contents, we
     can index contents by their detected programming language and allow users
@@ -252,9 +255,11 @@ implementation:
     size of the file contents is around two orders of magnitude larger than the
     rest of the database, dramatically increasing the infrastructure
     requirements of indexing. In addition, the problem of full-text search
-    in source code is a notably hard one, as it requires a high level of
-    expressiveness to be able to match on specific tokens or API uses.
-    \end{itemize}
+    in source code is a notably hard one in this context, as it requires a high
+    level of expressiveness to be able to match on specific tokens or API
+    uses, and the source code files are written in arbitrary programming
+    languages and cannot necessarily be properly parsed to an AST form.
+\end{itemize}
 
 Each selection criteria described here defines one specific filter on the
 objects, but researchers generally combine these filters together to narrow
@@ -272,6 +277,9 @@ Heritage, it is necessary to understand which categories of data need to be
 made accessible.
 
 \begin{table}
+    \centering
+    \caption{Types of analyzed data found in MSR literature review.}%
+    \label{tab:analyzed-data}
     \begin{tabular}{l l c}
         & \textbf{Data type} & \textbf{Number of studies} \\
          a. & File contents & 15 \\
@@ -281,18 +289,15 @@ made accessible.
          e. & Authors and community graph & 5 \\
          f. & Dependency data & 2 \\
     \end{tabular}
-    \centering
-    \caption{Types of analyzed data found in MSR literature review.}%
-    \label{tab:analyzed-data}
 \end{table}
 
-In the MSR review, we identified 6 categories of data that were
+In our review of MSR studies, we identified 6 categories of data that were
 frequently analyzed in mining studies, shown in \cref{tab:analyzed-data}.
-By far the most common type of analyzed artifacts are contents, highlighting the
-clear need to make the source code files easily accessible. While there are
-some studies which only rely on the upper layers of the artifact graph like
-community detection algorithms, research on the source files themselves is
-evidently of foremost interest for software mining.
+By far the most common type of analyzed artifacts are file contents,
+highlighting the clear need to make the source code files easily accessible.
+While there are some studies which only rely on the upper layers of the
+artifact graph like community detection algorithms, research on the source
+files themselves is evidently of foremost interest for software mining.
 
 Studies generally also require basic artifact properties like file names,
 commit messages, dates and authors, etc. Those fields should be relatively easy
@@ -319,10 +324,17 @@ themselves.
 A cursory review of the literature gives us a good understanding of how \emph{current}
 software mining studies are designed and the main categories of data they
 exploit, but it should not necessarily be our sole guide for the capabilities we
-want to provide in a research platform. While the current literature reflects
-the state of what is currently achievable for researchers, one of our goals is
-to open new possibilities by leveraging the unique properties of the
-archive: notably its canonical format, diversity, and universality.
+want to provide in a research platform.
+Current research directions are said to be \emph{endogenous}
+to capabilities offered by mining platforms: one cannot evaluate the needs of
+researchers solely by looking at what researchers \emph{do}, as some data
+mining questions might be left unexplored not because of a lack of interest but
+due to the lack of an exploitable dataset or platform to study them, which is
+precisely what we aim to provide.
+In consequence, while the current literature reflects the state of what is
+currently achievable for researchers, one of our goals is to open new
+possibilities by leveraging the unique properties of the archive: notably its
+canonical format, diversity, and universality.
 
 To that end, the efforts in building a mining platform in Software Heritage
 should primarily focus on capabilities that would be uniquely impactful on the
@@ -334,7 +346,7 @@ suited for Software Heritage, at least in its first iterations. As a general
 rule of thumb, a major strength of running experiments on the archive is that
 the universality of the corpus can allow researchers to analyze public source
 code exhaustively. This benefit is mostly present when the processing step can
-largely be automated; studies requiring a lot of manual curating can leverage
+largely be automated; studies requiring a lot of manual curation can leverage
 the archive only to a minor extent and will not be our main focus.
 
 As an initial target for the research platform, we identified five main
@@ -365,16 +377,20 @@ full-text search index.
 with its associated metadata (authors, commit messages, etc.) and being able to
 examine the relationships between the different objects in the revision graphs
 is imperative to analyze not only the software itself but its evolution through
-time. In the context of Software Heritage, these relationships also express
-themselves across different repositories: forks point to the same ancestor
-nodes, directories that were moved from one repository to another point to the
-same object, etc.
+time. In the context of Software Heritage, these relationships are also
+captured across different repositories: forks point to the same ancestor nodes,
+directories that were moved from one repository to another point to the same
+object, etc.
 
 \textbf{Provenance indexing}: While the software DAG works top-down (the nodes
 only point to their children i.e., their content, but never their parents), it
 is also sometimes necessary to be able to list the different parents that point
-to a specific object. There are multiple applications for this: find the
-possible extensions of a file, the different repositories that contain a code
+to a specific object. There is a growing body of literature in empirical
+software engineering regarding the ability to track the lineage of a software
+artifact at various
+granularities~\cite{alexandru2019redundancy,godfrey2011determining,german2009code,swh-provenance-emse}.
+There are multiple applications for this: find the
+possible file names of a file, the different repositories that contain a code
 fragment, a directory or a revision, etc. These traversals on the transposed
 version of the DAG are known as ``provenance'' queries, as they allow us to
 find out the sources of specific objects.
@@ -390,11 +406,11 @@ history graph of a repository while filtering on their associated metadata.
 \subsection{Data volume}
 
 Most of the challenges which stand in the way of providing some form of access
-to the data directly stem from the sheer size of the software archive. In most
-cases, allowing people to locally retrieve a large chunk of the archive to
-perform local computations is very impractical at the Software Heritage scale,
-both from a network transfer perspective and for the undue burden it would
-cause on local storage requirements.
+to the entire corpus directly stem from the sheer size of the software archive.
+In most cases, allowing people to locally retrieve a large chunk of the archive
+to perform local computations is very impractical at the Software Heritage
+scale, both from a network transfer perspective and for the undue burden it
+would cause on local storage requirements.
 
 Handling the file contents of the archive requires a lot of resources and
 expertise. The total size of the blobs (currently $\approx 850$ TB) require
@@ -427,6 +443,14 @@ network is impractical and expensive. Sending the whole dataset through a
 connection with a speed matching the common industry standard of 1~Gbps would
 take more than 60 days, assuming the absence of sequential overhead between
 fetches.
+
+Of course, some researchers do not want to analyze the entire corpus but rather
+a subset of specific repositories, as we observed in \cref{sec:msr-lit-review}.
+Even so, this poses another challenge: the price to pay for deduplication is
+that all artifacts, even from relatively small repositories, are scattered
+around in the archive. Collecting small and sparsely arranged files from
+a distributed storage is generally less efficient than mining a locally
+available repository that is stored in a very compact and efficient way.
 
 \subsection{Representation mismatch}
 
@@ -543,16 +567,10 @@ we will be able to collect more real-world use cases as a way to improve our
 understanding of researchers' needs, which in turn guides the platform design:
 what are the types of queries that scientists want to run? What are the data
 and metadata filters that they need?  What is the sort of information that is
-the most often retrieved from the data model?
-
-After having collected these use cases, it is then be possible to elicit a
-domain specific language that can cover the types of queries required
-for the use cases we identified, to offer a more accessible interface than
-doing raw queries on the database. This language will have to be expressive
-enough to address the difficulties we outlined, notably by allowing flexible
-manipulations of the data representations. It should also be as simple as
-possible to express constraints on the data used for the computations, and to
-limit the span of the queries.
+the most often retrieved from the data model? Answers to these questions can
+deepen our understanding of the use cases of researchers, and eventually work
+out the best ways for them to query the archive in a sufficiently expressive
+way, whether through low-level APIs or more abstract domain specific languages.
 
 Real-world use cases also exhibit patterns of access to data derived from
 the dataset: diffs between revisions, branching and merging histories,

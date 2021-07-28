@@ -11,10 +11,11 @@ The Software Heritage archive is continuously ingesting software artifacts from
 a wide array of sources, including different VCS and package managers that
 each have their own internal data model. The main purpose of the Software
 Heritage data model is to provide a generic structure in which the individual
-object types specific to each system can be mapped to abstract concepts.  Git
-``commits'', SVN ``revisions'' and Mercurial ``changesets'' all correspond to
-the same idea of a frozen state of the source tree, and thus they are all
-\emph{canonicalized} as a single type of artifact that we call ``revisions''.
+object types specific to each system can be mapped to abstract concepts. For
+example, Git ``commits'', SVN ``revisions'' and Mercurial ``changesets'' all
+correspond to the same idea of a frozen state of the source tree, and thus they
+are all \emph{canonicalized} as a single type of artifact that we call
+``revisions''.
 
 By stripping the implementation peculiarities of the individual data sources,
 the artifacts are boiled down to a purely abstract form. This unifies the
@@ -32,26 +33,40 @@ model:
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
 \begin{tikzpicture}\node[style=content,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
-\paragraph{\textbf{Contents}} (or ``blobs'') are the raw content of the source
-code files. They represent only the concrete binary data contained in the
-files; file \emph{names} are external and directory-dependent, and are not
-included in this type of artifact. Contents are identified by an intrinsic hash
-of the full binary data they contain.
+\paragraph{\textbf{Blobs}} (or ``file contents'') represent the raw content of
+source code files, as recorded in modern \glspl{VCS}. A blob contains only the
+data stored in a file as a raw sequence of bytes. File names and other
+properties normally associated to the more abstract notion of ``file'' are not
+associated to blob nodes. Other types of nodes, and most notably directories,
+attach such directory-dependent information to blobs.
+
+Blobs are identified by a cryptographic hash computed from the full binary data
+they contain.
+
+\TODO{Add examples of manifests}
+
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=directory,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
-\paragraph{\textbf{Directories}} are the source code trees. They contain a
-list of \emph{named} directory entries, each entry pointing to content objects
-(``file entries''), other directories (``directory entries''), or revisions
-(``revision entries''). Each entry is associated with a local binary name
-(i.e., a relative path without any path separator) and permission metadata.
-Revision entries are used to encode directories referencing a specific
-revision, for instance Git submodules and Mercurial subrepositories.  The
-permission integer can encode arbitrary permissions such as whether the file is
-an executable, a symbolic link, who can read or write in it, etc.  They are
-identified by an intrinsic hash of the textual manifest of all their entries
-and their own identifiers.
+\paragraph{\textbf{Directories}} represent source code trees. Each directory is
+a list of \emph{named} directory entries, each entry pointing to either blob
+objects (``file entries''), directory objects (``directory entries''), or
+revision objects (``revision entries''). Each entry from a directory is
+associated to a local name (i.e., a \emph{relative} path without any path
+separator) and permission metadata (i.e., a Unix permission mode like
+\texttt{0o755} for an executable file). While file and directory entries are
+the most common to form nested source code trees, \emph{revision entries} also
+exist and are used to represent sub-directories that reference specific
+revisions from external repositories, as it is permitted by VCS like Git (to
+reference so called ``git submodules'') and SVN (with ``subversion
+externals''). Permission metadata is also used to recognize symbolic links from
+regular files.
+
+A directory node is identified by a cryptographic hash of a canonical textual
+representation of all its entries, that include the identifier of target
+objects.
+
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -59,36 +74,41 @@ and their own identifiers.
 \end{wrapfigure}
 \paragraph{\textbf{Revisions}} (or ``commits'') are point-in-time captures of
 the state of the entire source code tree of a project. Each revision points to
-the ``root'' directory of the project source tree. In addition, revisions are
-associated with the following commit metadata:
+the ``root'' directory of the project source tree at the time the commit is
+recorded. The following properties are associated to commit objects:
 
 \begin{itemize}
     \setlength\itemsep{0em}
-    \item \emph{commit message}: a descriptive message generally detailing the
-        changes made since the previous revision.
+    \item \emph{commit message}: a descriptive, human-targeted message
+        explaining the reasons for the changes made since the previous
+        revision.
     \item \emph{author}: the name and e-mail of the person who authored the
         revision.
-    \item \emph{committer}: the name and e-mail of the person who applied the
-        revision to the project on behalf of the original author. Often this
-        field contains the same information as the author field.
     \item \emph{date}: the date at which the revision was authored, including
         timezone information.
-    \item \emph{committer date}: the date at which the revision was applied to
-        the project, including timezone information. Often the same as the date
-        field.
+    \item \emph{committer}/\emph{committer date}: two properties analogous to
+        author/date, but capturing the person who actually committed the change
+        (who is not always the person who \emph{authored} it, in particular in
+        development workflows that rely on code reviews) and when the commit
+        happened.
 \end{itemize}
 
 Finally, each revision points to an ordered list of all its parent revisions,
-referenced using their own intrinsic identifier. The order does not have a
-strict semantic meaning, it is mostly used as a guide by tools that show the
-difference between two revisions. The first parent is generally considered to
-be issued from the ``main'' branch that the revision is merged onto, and thus
-diffing tools will show the impact of this revision on the main branch by
-default.
+referenced using their own intrinsic identifier: zero parent revisions for the
+first revision in a given development history (e.g., first revision in a VCS
+repository), one parent for non-merge revisions, two or more parents for
+revisions that merge together several development branches.
 
-Revisions are identified by an intrinsic hash of a textual manifest containing
-all their metadata, the hash of their parents, and the hash of the root
-directory of the source tree they reference.
+The order of the parents does not have a strict semantic meaning, it is mostly
+used as a guide by tools that show the difference between two revisions. The
+first parent is generally considered to be issued from the ``main'' branch that
+the revision is merged onto, and thus diffing tools will show the impact of
+this revision on the main branch by default.
+
+Revisions are identified by an intrinsic hash of a canonical textual
+manifest containing all their metadata, their parent identifiers, and the
+identifier of the directory node denoting the root of the source tree at the
+time of the revision.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -97,15 +117,15 @@ directory of the source tree they reference.
 \paragraph{\textbf{Releases}} (or ``tags'') denote marker objects that label
 specific revisions as project milestones. These usually denote the revisions
 where the software is distributed to its user base, as well as the various
-steps of its release cycle. These releases are marked with a specific and
-usually mnemonic short name (e.g., a version number). Aside from this name and
-a reference to their target revision, releases additionally contain some
-metadata:
+steps of its release cycle (``alpha'', ``beta'', ``rc1'', etc.). These releases
+are marked with a specific and usually mnemonic short name (e.g., a version
+number such as \texttt{v2.0}). Aside from this name and a reference to their
+target revision, releases additionally contain some metadata:
 
 \begin{itemize}
     \setlength\itemsep{0em}
-    \item \emph{message}: an annotation generally describing the release, e.g.,
-        by including its full changelog.
+    \item \emph{message}: analogous to revision messages, an annotation
+        describing the release, generally by including its full changelog.
     \item \emph{author}: the name and e-mail of the person who authored the
         release.
     \item \emph{date}: the date at which the release was created, including
@@ -116,8 +136,9 @@ The data model also supports revisions pointing to other kinds of artifacts
 (contents and directories), which is supported by some \glspl{VCS} and can be
 found in real-world repositories.
 
-Releases are identified by an intrinsic hash of a manifest containing their
-name, their metadata, and the hash of the target artifact they reference.
+Releases are identified by a cryptographic hash taken on a canonical text
+manifest containing release name, release properties, and the identifier of the
+revision node they reference.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -129,11 +150,12 @@ state of a single development branch, snapshots capture the state of \emph{all}
 the branches and releases in a repository. These artifacts are not typically
 part of \glspl{VCS}, because they generally have no need to retain the
 information of the past states of the full repository, as the important
-historical information for developers is already tracked by revisions. In the
-case of a software archive however, we need to track the successive states of
-the repositories for each crawling \emph{visit}, which includes retaining old
-information about which branches and tags were formerly present in the
-repository, and what they pointed to.
+historical information for developers is already tracked by revisions. However,
+in the case of a software archive where development history can be rewritten or
+even erased, we need to track the successive states of the repositories for
+each crawling \emph{visit}, which includes retaining old information about
+which branches and tags were formerly present in the repository, and what they
+pointed to.
 
 More specifically, each snapshot contains a list of references to other
 artifacts, which have an associated binary name (e.g., ``refs/heads/main'' or
@@ -145,17 +167,18 @@ real-world repositories.
 
 The data model also supports \emph{branch aliasing}: some branches stored in
 snapshots do not point to a specific artifact, but rather reference another
-branch name in the same snapshot. These are to be treated as symbolic links to
-the target of the branch they reference.
+branch name in the same snapshot (e.g.,
+\texttt{HEAD}$\to$\texttt{refs/heads/main}). These are to be treated as
+symbolic links to the target of the branch they reference.
 
 Snapshots are also deduplicated and identified by an intrinsic hash, computed
-from a manifest of each branch name and the intrinsic identifier of their
-target. Therefore they also benefit from the advantageous space-complexity of
-purely functional persistent structures as described in
-\cref{sec:purely-functional}: if two consecutive visits of the same
-repository show that nothing changed in the interval, the visits can both share
-the same deduplicated snapshot in the data model, instead of having to copy and
-store the set of branches and tags twice.
+from a textual manifest which associate each branch name and the intrinsic
+identifier of its target. Therefore they also benefit from the advantageous
+space-complexity of purely functional persistent structures as described in
+\cref{sec:purely-functional}: if two consecutive visits of the same repository
+show that nothing changed in the interval, the visits can both share the same
+deduplicated snapshot in the data model, instead of having to copy and store
+the set of branches and tags twice.
 
 
 \begin{wrapfigure}{r}{0.07\textwidth}\centering
@@ -163,7 +186,7 @@ store the set of branches and tags twice.
 \end{wrapfigure}
 \paragraph{\textbf{Origins}} are objects referencing the specific places from
 which source code artifacts have been retrieved to be ingested into the
-archive.  They are represented by a canonical URL (e.g., the address at which
+archive.  They are represented by a URL (e.g., the address at which
 one can \texttt{git clone} a repository or \texttt{wget} a source code
 tarball.)
 
@@ -175,7 +198,9 @@ its development from one origin to another for various reasons, and even
 migrate to a different \gls{VCS}. Projects are ontologically complex notions
 that are not directly present in the archive; the data model is mostly
 concerned about directly addressable and concrete artifacts, and \emph{origins}
-are better suited for this purpose.
+are better suited for this purpose. In the rest of the thesis, we sometimes use
+the term ``project'' to refer to origins when the meaning is not ambiguous, as
+the latter are often are our best approximation for the former.
 
 \section{Consolidating software artifacts in a unified archive}
 
@@ -213,7 +238,7 @@ all the artifacts in the archive.
     \centering
     \input{tikz/figures/consolidating-archive.tikz}
     \caption{Consolidation of two different repositories in the archive by
-    deduplicating and sharing all their common artifacts}%
+    deduplicating and sharing all their common artifacts.}%
     \label{fig:consolidating-archive}
 \end{figure}
 
@@ -233,9 +258,9 @@ storage costs.
 In addition, storing canonical artifacts only once in the archive is also
 semantically useful for research. Essentially, it becomes easy to visualize
 and analyze code reuse: walking back the \gls{DAG} can generate a list of all
-projects that contain a specific piece of code. By looking at the commit
-chains in the graph, it is possible to discover when any given file was copied,
-and all changes that were subsequently made to it.
+projects that contain a specific piece of code.
+% By looking at the commit chains in the graph, it is possible to discover when
+% any given file was copied, and all changes that were subsequently made to it.
 We can easily draw research applications for software evolution from this
 capability: by having direct access to the history of changes of a specific
 fragment of code in the entire corpus of public software commons, it could be
@@ -257,15 +282,19 @@ detail.
 The archive is stored as a single large Merkle \gls{DAG}, as depicted
 in \cref{fig:swh-model}. In this graph, all software artifacts we have
 described correspond to the nodes, which can be of six different types:
-contents, directories, revisions, releases, snapshots and origins.
+contents, directories, revisions, releases, snapshots and
+origins\footnote{Origins are technically not part of the Merkle DAG but rather
+only \emph{point} to it, as their intrinsic identifiers are not computed from
+their list of descendants, which changes over time.}.
 All the nodes are deduplicated and identified by a single intrinsic
 identifier, recursively computed from the identifiers of its descendants, which
 serves as the primary key in the Merkle \gls{DAG}.
 
-The edges between the nodes emerge naturally: directory entries point to other
-directories or file contents; revisions point to directories and previous
-revisions; releases point to revisions; snapshots point to revisions and
-releases; origins point to the snapshots that they contained in past visits.
+The edges between the nodes of the graph are derived from the relationships
+between the artifacts: directory entries point to other directories or file
+contents; revisions point to directories and previous revisions; releases point
+to revisions; snapshots point to revisions and releases; origins point to the
+snapshots that they contained in past visits.
 The cardinality diagram shown in \cref{fig:swh-cardinality} formalizes the
 different sorts of edges in the graph and their numerical relationships: edges
 noted $\prescript{\ast}{}\rightarrow^1$ represent \emph{many-to-one}
@@ -274,6 +303,42 @@ directory can be pointed by multiple revisions) and edges noted
 $\prescript{\ast}{}\rightarrow^\ast$ are \emph{many-to-many} relationships
 (e.g., a directory can point to multiple contents, and a single content can be
 pointed by multiple directories).
+
+A few observations can be drawn from this diagram:
+
+\begin{itemize}
+    \item Most relationships are many-to-many. Only release$\to$commit
+        and\linebreak commit$\to$directory relationships are many-to-one, as
+        they can only point respectively to a single commit and a single
+        directory.
+
+    \item Commit and directory nodes are parts of recursive relationships.
+        Commits point to their parent commits, while directories point to their
+        children (sub)directories and files. These two node types are thus what
+        gives the DAG an arbitrary depth, as all the other layers have a fixed
+        maximum height. Note however that this cycle in the graph cardinality
+        diagram does \emph{not} induce cycles in the graph itself, because
+        graph nodes are created bottom-up and need to know in advance the
+        cryptographic identifiers of target nodes (which thus need to
+        exist \emph{before} their parents) in order to be identifiable.
+
+    \item Commits and directories are also mutually recursive, as commits point
+        to directories and directories can occasionally point to commits (for
+        submodules/externals). This is the only case in which a node can point
+        to a node from an upper layer in the cardinality diagram.
+\end{itemize}
+
+Note: in the wild one can encounter VCS repositories that contain relationships
+between source code artifacts that are not depicted in
+\cref{fig:swh-cardinality}.
+For instance, Git allows you to tag blobs and directories as releases, or to
+use blobs as branch destinations.
+These are anomalies that in most cases result in non usable VCS data.  We
+measured these occurrences in our corpus and verified that they are rare and
+unconventional (less than 0.0004\,\% of the total number of edges from releases
+and snapshots) and thus, even if they \emph{can} be represented in the \SWH{}
+data model, we generally exclude them from our discussion for the sake of
+simplicity.
 
 \begin{figure}
     \centering
@@ -306,6 +371,9 @@ The intrinsic hashes used to identify the nodes can be used to provide a
 standardized and portable way of referring to the artifacts in the archive. This
 is achieved by \glspl{SWHID}, short strings that identify a single object
 and which are guaranteed to remain stable over time.
+These identifiers were introduced in~\cite{cise-2020-doi} and are documented in
+the Software Heritage development
+documentation\footnote{\url{https://docs.softwareheritage.org/devel/swh-model/persistent-identifiers.html}}.
 \glspl{SWHID} are represented following the following basic syntax:
 
 \texttt{swh:<scheme version>:<object type>:<object id>}
@@ -339,26 +407,30 @@ and resilient to URL changes. \glspl{SWHID} can be computed independently and
 do not require a centralized authority for allocation, as they are solely
 computed from the intrinsic properties of the object they refer to.
 
-\section{Infrastructure}%
+\section{Implementation}%
 \label{sec:swh-infrastructure}
+
+Although a full description of the physical implementation of the Software
+Heritage archive is out of scope for this thesis, a cursory understanding of
+some of its core systems is needed for later chapters, as we present frameworks
+and tools built upon these foundations.
 
 At a physical level, the archive is stored using a few different technologies,
 due to the differences in technical requirements for storing the different
 layers of the graph~\cite{swhipres2017}.
-
 Most notably, the source contents require orders of magnitude more space
-($\approx 300$ TiB as of May 2020) than the rest of the archive and are thus
+($\approx 850$ TiB as of May 2021) than the rest of the archive and are thus
 stored on dedicated key-value object storages, keyed by their intrinsic hash.
-In the in-house infrastructure, the object hashes allow for efficient
-horizontal sharding, by assigning hash prefixes to specific servers. This
-technique is used to trivially implement a reasonably performant and redundant
-storage.
+In the infrastructure hosted in-house by the Software Heritage initiative, the
+object hashes allow for efficient horizontal sharding, by assigning hash
+prefixes to specific servers. This technique is used to trivially implement a
+reasonably performant and redundant storage.
 Key-value object storages are an almost universal primitive in cloud offerings,
-which allows us to store an entire copy of the content layers in two different
-clouds: the Azure Blob Storage and Amazon AWS S3.
+which allows Software Heritage to store an entire copy of the content layers in
+two different clouds: the Microsoft Azure Blob Storage and Amazon AWS S3.
 
 On the other hand, the upper layers of the archive require significantly less
-storage space ($\approx 6$ TiB) but have different functional requirements, as
+storage space ($\approx 10$ TiB) but have different functional requirements, as
 they have more associated metadata (author names, revision messages, children
 nodes, …) that need to be made searchable and joinable. This part of the graph
 is stored in a \gls{RDBMS}, where nodes and edges have a few associated

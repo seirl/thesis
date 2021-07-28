@@ -207,12 +207,12 @@ references, releases can also contain additional metadata: the \emph{date} at
 which they were created, the \emph{author} of the release, and a \emph{message}
 describing the release.
 
-While releases and branches are typically meant to point to revisions, the data
-model of some \glspl{VCS} also support the possibility of making them reference
-other objects, such as files and directories. While this is a generally rare
-occurrence, there are some examples of this happening in real-world
-repositories, and our generic \gls{VCS} data model should accommodate for that
-possibility.
+% While releases and branches are typically meant to point to revisions, the
+% data model of some \glspl{VCS} also support the possibility of making them
+% reference other objects, such as files and directories. While this is a
+% generally rare occurrence, there are some examples of this happening in
+% real-world repositories, and our generic \gls{VCS} data model should
+% accommodate for that possibility.
 
 \section{Artifact deduplication}
 
@@ -340,7 +340,8 @@ hash A is present in three different directories and the files with hashes B, C
 and D are present in two different directories, but these directories all
 reference the same unique objects.
 
-\subsection{Deduplicating subtrees}
+\subsection{Deduplicating subtrees}%
+\label{sec:deduplicating-subtrees}
 
 While deduplicating the files that remain identical between successive
 revisions significantly reduces the storage impact of the model, each version
@@ -425,6 +426,24 @@ it, by definition, cannot contain any cycles: because adding a node requires
 the hash of all its children be already known to compute its own hash, a cycle
 would require computing two mutually dependent cryptographic hashes, which is
 at least as hard as finding a collision.
+
+Like all Merkle structures, this data model exhibits interesting and useful
+algorithmic properties. In particular, it is worth noting that as long as two
+Merkle DAGs are \emph{complete} (i.e., no node is missing), one can efficiently
+determine if they are identical or not by simply comparing the identifiers of
+all their root nodes, which in our case are snapshot nodes. Also, in case they
+differ, one can efficiently identify the topmost differences by performing a
+parallel visit on the two graphs.
+
+Furthermore, Merkle structures natively deduplicate all artifacts stored in it,
+as detailed in \cref{sec:deduplicating-subtrees}.  As object identifiers are
+not assigned, but rather computed intrinsically on the content of the objects
+and their descendants, adding a node to a Merkle structure is an idempotent
+operation. Trying to add to our data model the same source code blob or tree
+multiple times (e.g., because it is found in multiple commits in the same
+repository) will result in adding it only once; the same applies to all types
+of objects, so a commit which occurs in multiple branches or repositories
+will be stored only once.
 
 In addition to how they allow us to identify and deduplicate software
 artifacts, intrinsic hashes also have the side benefit of enabling data

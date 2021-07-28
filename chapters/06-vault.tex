@@ -1,4 +1,4 @@
-\chapter{The Vault: Assembling Related Artifacts}%
+\chapter{The Vault: Assembling Related Source Code Artifacts}%
 \label{chp:vault}
 
 In the previous chapters, we have outlined the different challenges in making
@@ -24,8 +24,13 @@ smaller-scale experiments and prototypes.
 For single artifacts, the Software Heritage
 API\footnote{\url{https://archive.softwareheritage.org/api/}} already somewhat
 covers this use-case: using the \gls{SWHID} of an object, it is possible to
-retrieve its associated data as stored in the archive. As an example, the
-following HTTP GET request can be used to get the revision
+retrieve its associated data as stored in the archive. This use case is
+relevant for researchers because it provides a first form of availability: many
+studies can be conducted using only \gls{VCS} object identifiers; the archive
+is able to complement these studies by allowing readers to retrieve the actual
+objects behind these identifiers instead of putting on researchers the burden
+to provide the full artifacts themselves.
+As an example, the following HTTP GET request can be used to get the revision
 \texttt{swh:1:rev:aafb16d69fd30ff58afdd69036a26047f3aebdc6}:
 
 \begin{minipage}{0.96\textwidth}
@@ -51,7 +56,7 @@ following HTTP GET request can be used to get the revision
 \end{minted}
 \end{minipage}
 
-~
+\vspace{1em}
 
 While this works well to check the status of a single artifact, it is tedious
 to use for more complex use-cases. Even for relatively small-scale experiments
@@ -62,11 +67,21 @@ at once: the Vault.
 
 \section{Design}
 
+An core design choice in the \SWH{} archive is to deduplicate every single
+software artifact and consolidate them in a shared storage. While this has a
+lot of interesting properties for archival (outlined in
+\cref{sec:consolidation}), like traceability and reduced storage space, it
+comes with an important trade-off: artifacts contained in a single repository
+are spread out all over the archive during the ingestion process, and the
+retrieved \gls{VCS} bundles and packages are then thrown away. This means that
+retrieving a repository from the archive requires reassembling all its
+components and putting them back in a compact, downloadable format.
+
 The general goal of the Vault is to provide a way to assemble logical groups of
 related software artifacts into a single \emph{bundle}. This assembling process
 is called ``cooking''. It takes a single \gls{SWHID} as an input and traverses
 the Merkle DAG to assemble all the artifacts that are \emph{reachable} in the
-subtree rooted at that artifact.
+subgraph rooted at that artifact.
 
 Concretely, this means that cooking a directory will assemble all its
 subdirectories and contents, whereas for a revision it will walk down the
@@ -84,7 +99,7 @@ specific to the type of object that was cooked, respectively:
         files and directories they contain.
     \item for \textbf{snapshots}, each branch and tag in the snapshot is
         followed to get the entire commit graph of the snapshotted repository,
-        and all objects are similarly written in an empty git repository.
+        and all objects are similarly written to an empty git repository.
 \end{itemize}
 
 In essence, cooking a snapshot allows one to ``clone'' an entire repository
@@ -117,6 +132,8 @@ happens only once.
     \label{fig:vault-design}
 \end{figure}
 
+\TODO{Use C4 instead}
+
 \Cref{fig:vault-design} shows the architecture of the service. It is centered
 around the Vault backend, which directly communicates with a database where the
 status of the bundles is kept up to date, as well as an internal storage where
@@ -127,14 +144,15 @@ design ensures a low coupling between the backend and the cookers, which allows
 the cooking capacity to be horizontally scaled in a straightforward manner by
 having new resources simply register themselves in the task queue.
 
-In a typical workflow, a user requests the cooking of a bundle to the web
-server, which forwards the cooking request to the Vault backend. The backend
-then tries to add this cooking request to the database; if no cooking request
-for this artifact is already present as pending or completed, it asynchronously
+In a typical workflow, a user requests the cooking of a bundle from the web
+API\footnote{\url{https://docs.softwareheritage.org/devel/swh-vault/api.html}},
+which forwards the cooking request to the Vault backend. The backend then tries
+to add this cooking request to the database; if no cooking request for this
+artifact is already present as pending or completed, it asynchronously
 dispatches the task to one of the ``cooker'' servers through a task queue. It
 then immediately returns a task identifier to the user. While the cooking
 process is pending, the cookers periodically send requests to the backend with
-the current progress of the cooking; this progress is written in the database
+the current progress of the cooking; this progress is written to the database
 and can be requested at any time by the user. Once the cooking process is
 complete, the cookers stream the resulting bundle to the backend which writes
 it in its storage. The backend then updates the database to mark the bundle as
@@ -165,8 +183,6 @@ during the recursive directory traversal, they are added to an asynchronous
 fetching queue, which retrieves the files by batches of a thousand items. These
 files are then written to the tarball output, as archives in the tar format can
 be built incrementally.
-
-\TODO{Remove algorithm? Looks a bit useless}
 
 \begin{algorithm}[t]
     \begin{algorithmic}
@@ -217,9 +233,10 @@ Another option would be to compute the entire subtree of the directory
 recursively directly in the storage side, then return the file hierarchy in a
 single response. However, our current storage system backed by PostgreSQL
 cannot efficiently compute these requests and still has to do round-trips with
-the database itself. Later in the thesis, we will explore ways to efficiently
-reply to those recursive ``vault queries'', i.e., being able to quickly compute
-the entire subgraph reachable from a node.
+the database itself. Later in the thesis (\cref{chp:graph-compression}), we
+will explore ways based on graph compression to efficiently reply to those
+recursive ``vault queries'', i.e., being able to quickly compute the entire
+subgraph reachable from a node.
 
 \subsection{Cooking revisions and snapshots}
 
@@ -236,7 +253,10 @@ contain the state of the source tree for the given revision. While cooking
 bundles in this format is easy to implement using the algorithm described in
 the previous section, the output bundle will be of considerable size:
 flattening the revisions removes all the Merkle DAG deduplication, as each new
-commit copies the entire source tree.
+commit copies the entire source tree. While hard links and symbolic
+links could be valid ways to implement deduplication for these objects, the
+former are not portable, and the latter get in the way of studies which rely on
+trustworthy file modes and types.
 
 A preferable option is to export these bundles directly as Git repositories.
 Software mining researchers are already accustomed to working with these
@@ -245,26 +265,29 @@ relevant data from them. Because Git is the most popular \gls{VCS}, it makes
 sense to provide a way to export revisions and snapshot bundles as Git bundles.
 
 To export archived artifacts as a Git repository, we first investigated the
-\texttt{git fast-import} format, designed to be an interchange format between
-\glspl{VCS} and which can efficiently import data into a git repository. This
-format contains a stream of ``commands'' which describe all the Git objects to
-import (tags, commits, trees and blobs), and is used by many \gls{VCS}
-converters. Implementing this cooker exposed a few limitations of the format
-itself: poor documentation, unfriendly interface due to its relatively
-uncommon usage, lossiness (no tagged trees and incomplete handling of
-signed tags) and large output (the format was not meant for long term
-storage and has no built in delta-compression of blobs).
-Most importantly, it is very expensive to export from the archive, because the
+\texttt{git fast-import}
+format\footnote{\url{https://git-scm.com/docs/git-fast-import}}, designed to be
+an interchange format between \glspl{VCS} and which can efficiently import data
+into a git repository. This format contains a stream of ``commands'' which
+describe all the Git objects to import (tags, commits, trees and blobs), and is
+used by many \gls{VCS} converters. Implementing this cooker exposed a few
+limitations of the format itself: poor documentation, unfriendly interface due
+to its relatively uncommon usage, lossiness (no tagged trees and incomplete
+handling of signed tags) and large output (the format was not meant for long
+term storage and has no built in delta-compression of blobs).  Most
+importantly, it is very expensive to export from the archive, because the
 commits are represented as a list of changes between one state to the other.
 Generating revisions under this format requires computing diffs between
-consecutive commits, which is expensive and harder to parallelize.
+consecutive commits, which is expensive and hard to parallelize.
 
-A better approach is to create a cooker for Git \emph{bare} repositories, i.e.,
-a tarball of the internal data store of a Git repository which can be easily
-cloned with the Git command line. Implementing this cooker is relatively
+Yet a better approach is to create a cooker for Git \emph{bare}
+repositories\footnote{\url{https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server}},
+i.e., a tarball of the internal data store of a Git repository which can be
+easily cloned with the Git command line. Implementing this cooker is relatively
 straightforward: it involves listing all the objects reachable from the
 revision or snapshot artifact, then directly writing each object in the Git
-object storage.
+object storage. These objects can then be delta-compressed together using
+\texttt{git repack}.
 
 \section{Discussion}
 
@@ -277,6 +300,14 @@ own experiments, the Vault is suitable to retrieve up to tens of thousands of
 repositories from the archive in a reasonable time (between a few hours and a
 few days). This service offers a first rudimentary way of performing software
 mining studies on data extracted from the archive.
+
+One possible future direction for this work would be to ``pre-cook'' a large
+number of objects according to certain heuristics, as a way to decrease cooking
+latency. While we cannot anticipate which objects would be the most relevant to
+study for researchers, it is likely that some particular objects such as
+revisions pointed by releases or the latest available source tree of each
+repository would be of particular interest to them, and thus a reasonable
+heuristic for pre-cooking.
 
 The main advantage of retrieving repositories using the Vault is that their
 format is common (simple directories and Git repositories), allowing
@@ -292,10 +323,16 @@ macro studies on the entire software commons.
 
 A final caveat is that using the Vault to retrieve repositories is frictional
 and requires some upfront work to retrieve repositories that can be harder than
-to simply clone the original repositories themselves. The next chapter tries to
-bridge the gap between simplicity and low friction for small-scale mining
-studies by exploring another way of making repositories available for use with
-day to day CLI utilities while requiring less setup.
+to simply clone the original repositories themselves. The Vault is still
+valuable for these use-cases, as the original repositories are not guaranteed to
+still be available or even stable over time due to history rewrites, however it
+leaves significant room for improvement.  The next chapter tries to bridge the
+gap between simplicity and low friction for small-scale mining studies by
+exploring another way of making repositories available for use with day to day
+CLI utilities while requiring less setup.
 
 \TODO{more numbers. what storage impact? how long would it take to fetch
-everything? Pre-cook all releases?}
+everything?}
+% "I think that if you turn the few examples mentioned above in TODO about
+% cooking time (and maybe add some more, in order to have ~5 repo sizes
+% described) it would be good enough in terms of numbers"

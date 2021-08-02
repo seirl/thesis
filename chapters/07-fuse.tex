@@ -4,13 +4,13 @@
 While the Software Heritage Vault provides a simple way to retrieve
 repositories in a format suitable for existing analysis tools and workflows,
 the process to do so can be tedious. This is especially true for use cases
-which only need to look at specific files in the repository, in which case
-users have to pay the cost of bundling, downloading and extracting the entire
-repository when only a fraction of this data is necessary. Providing a way to
-work on these repositories by fetching their resources in a \emph{lazy} way
-would allow researchers to quickly explore repositories and prototype data
-mining tools. This kind of lazy-loading of resources over the network can be
-provided at the filesystem level by \emph{virtual filesystems}.
+which only need to look at specific files in the repository (or directory), in
+which case users have to pay the cost of bundling, downloading and extracting
+the entire repository when only a fraction of this data is necessary. Providing
+a way to work on these repositories by fetching their resources in a
+\emph{lazy} way would allow researchers to quickly explore repositories and
+prototype data mining tools. This kind of lazy-loading of resources over the
+network can be provided at the filesystem level by \emph{virtual filesystems}.
 
 In this chapter, we introduce the \emph{Software Heritage Filesystem
   (\SWHFS)},\footnote{\url{https://docs.softwareheritage.org/devel/swh-fuse/}}
@@ -19,10 +19,10 @@ In this chapter, we introduce the \emph{Software Heritage Filesystem
 presenting the data in the archive as regular directory trees.
 Provided that a reference to the desired code can be obtained, the
 corresponding file, directory, or commit can be used as if it were locally
-available.  \SWHFS{} offers a convenient way to explore huge code
-bases~\cite{msscalar, msvfsforgit} that require significant time to be fully
-retrieved over the network, large amounts of disk space, and high I/O costs
-when switching branches.
+available. More generally, \SWHFS{} offers a convenient way to explore huge
+code bases~\cite{msscalar, msvfsforgit} that require significant time to be
+fully retrieved over the network, large amounts of disk space, and high I/O
+costs when switching branches.
 
 \vspace{0.5cm}
 

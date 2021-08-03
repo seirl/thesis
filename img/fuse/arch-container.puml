@@ -3,7 +3,7 @@
 !include c4-plantuml/C4_Container.puml
 
 ' title Container diagram for the Software Heritage virtual filesystem (SwhFS)
-left to right direction
+top to bottom direction
 
 Person(user, "Developer")
 System(tool, "Programming Tool")

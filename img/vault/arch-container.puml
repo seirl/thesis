@@ -1,0 +1,32 @@
+@startuml arch-container
+' !includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+!include ../c4-plantuml/C4_Container.puml
+
+' title Container diagram for the Software Heritage virtual filesystem (SwhFS)
+top to bottom direction
+
+Person(user, "Vault user")
+System(web_api, "Web API")
+
+System_Boundary(vault, "Vault") {
+    Container(vault_backend, "Backend", "Python", "Manages cooking requests and bundle storage")
+    Container(vault_db, "Database", "PostgreSQL", "Stores cooking info\nfor bundles")
+    Container(vault_storage, "Bundle storage", "Blob storage", "Persistent storage\nfor cooked bundles")
+    Container(vault_queue, "Task queue", "Celery, swh.scheduler", "Dispatches cooking\nrequests to cookers")
+    Container(vault_cooker, "Cookers", "Python", "Workers assembling artifact bundles")
+
+    Rel(vault_backend, vault_db, "Query/update bundle status", "SQL")
+    Rel(vault_backend, vault_storage, "Store/retrieve bundles", "RPC")
+    Rel(vault_backend, vault_queue, "Schedule", "RPC")
+    Rel(vault_queue, vault_cooker, "Dispatch", "RabbitMQ")
+}
+
+System_Ext(archive, "Software Heritage archive")
+
+Rel(user, web_api, "Request bundles", "REST API")
+Rel(web_api, vault_backend, "Request bundles", "REST API")
+
+Rel(vault_backend, archive, "Check artifacts", "RPC")
+Rel(vault_cooker, archive, "Retrieve artifacts", "RPC")
+
+@enduml

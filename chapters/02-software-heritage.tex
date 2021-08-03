@@ -27,7 +27,20 @@ call this source code the ``preferred form of modification'', emphasizing its
 importance as the format that human programmers directly interact with when
 writing software.
 
-As a way to pursue this three-fold mission of collecting, preserving and
+The advent of \glspl{DVCS} as the state-of-the-art for source code management
+in software development has largely facilitated the exchange of source code,
+by ensuring that the full development history is replicated among each
+developer in a project. However, \glspl{DVCS} \emph{per se} do not guarantee
+\emph{code availability}. Public repositories can disappear: they can be made
+private or moved; they can be targeted by (potentially bogus) copyright
+takedown notices; their hosting platform might shutdown. Specific commits can
+also disappear from repositories, e.g., due to their history being rewritten.
+The commits will still be available from other copies of the repository, but
+there is no easy way to find them.
+
+Large-scale source code archival is a crucial part of a solution to this
+problem, especially for the vast corpus of free/open source software.
+As a way to pursue its three-fold mission of collecting, preserving and
 sharing the software commons, the Software Heritage initiative aims at becoming
 three major things:
 

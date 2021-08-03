@@ -1,13 +1,23 @@
 BUILD=../_build
 
-all: swh-cardinality.pdf swh-merkle-dag.pdf roadmap.pdf
+all: swh-cardinality.pdf swh-merkle-dag.pdf roadmap.pdf fuse/arch-container.pdf \
+	vault/arch-container.pdf graph-dataset/db-schema.pdf
 
 %.pdf: %.dot
 	dot -Tpdf -Gmargin=0 $^ > $@
 
-%.pdf: %.svg
-	inkscape $^ --export-filename=$@
-
 %.pdf: %.tex
 	latexmk -xelatex -outdir=$(BUILD) $^
 	mv $(BUILD)/$@ $@
+
+%.pdf: %.puml
+	plantuml -Tpdf $<
+
+%.png: %.puml
+	plantuml -Tpng $<
+
+%.svg: %.puml
+	plantuml -Tsvg $<
+
+%.pdf: %.svg
+	inkscape $^ --export-filename=$@

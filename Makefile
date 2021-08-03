@@ -1,7 +1,10 @@
 MAIN = main
 BUILD = _build
 
-all: $(MAIN).pdf
+all: img $(MAIN).pdf
+
+img:
+	make -C $@
 
 $(MAIN).pdf:
 	latexmk $(MAIN).tex
@@ -14,4 +17,4 @@ distclean: clean
 	$(RM) main.pdf
 
 
-.PHONY: main.pdf
+.PHONY: $(MAIN).pdf img

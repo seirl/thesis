@@ -125,16 +125,22 @@ each user; instead, by keying each bundle with the \gls{SWHID} it
 assembles, the process can be shared so that the cooking of each bundle
 happens only once.
 
-\begin{figure}[b]
-    \centering
-    \input{tikz/figures/vault-design.tikz}
-    \caption{Architecture of the Vault Service}%
-    \label{fig:vault-design}
+% \begin{figure}[b]
+%     \centering
+%     \input{tikz/figures/vault-design.tikz}
+%     \caption{Architecture of the Vault Service}%
+%     \label{fig:vault-design}
+% \end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{img/vault/arch-container}
+  \caption{C4 architecture diagram of the Software Heritage Vault}%
+  \label{fig:vault-arch}
 \end{figure}
 
-\TODO{Use C4 instead}
-
-\Cref{fig:vault-design} shows the architecture of the service. It is centered
+\Cref{fig:vault-arch} shows the architecture of the service as a C4
+diagram~\cite{brown2018c4}. It is centered
 around the Vault backend, which directly communicates with a database where the
 status of the bundles is kept up to date, as well as an internal storage where
 the bundles can be written and from which they can be later efficiently

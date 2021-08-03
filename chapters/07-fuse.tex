@@ -4,10 +4,10 @@
 While the Software Heritage Vault provides a simple way to retrieve
 repositories in a format suitable for existing analysis tools and workflows,
 the process to do so can be tedious. This is especially true for use cases
-which only need to look at specific files in the repository (or directory), in
-which case users have to pay the cost of bundling, downloading and extracting
-the entire repository when only a fraction of this data is necessary. Providing
-a way to work on these repositories by fetching their resources in a
+which only need to look at specific files in the repository, in which case
+users have to pay the cost of bundling, downloading and extracting the entire
+repository (or directory) when only a fraction of this data is necessary.
+Providing a way to work on these repositories by fetching their resources in a
 \emph{lazy} way would allow researchers to quickly explore repositories and
 prototype data mining tools. This kind of lazy-loading of resources over the
 network can be provided at the filesystem level by \emph{virtual filesystems}.
@@ -72,7 +72,7 @@ to integration with development tools.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.9\textwidth]{img/fuse/arch-container}
+  \includegraphics[width=\linewidth]{img/fuse/arch-container}
   \caption{Architecture of the Software Heritage virtual user-space filesystem
     (SwhFS)}%
   \label{fig:swhfs-arch}
@@ -426,7 +426,7 @@ It considerably reduces the friction of accessing various software artifacts as
 it does not require any up-front setup to navigate any software artifact once
 the virtual filesystem has been mounted. This is very useful for prototyping
 experiments, as it allows researchers to use software mining tools as if the
-repositories were on their local computers. When using a filesystem interface,
+source code files were on their local computers. When using a filesystem interface,
 existing POSIX tools and coreutils can be used to easily select files on which
 to run analyses (\mintinline{console}{find}, \mintinline{console}{ls **/*.c},
 etc.).
@@ -438,21 +438,21 @@ contains, even when they are not necessary for the analysis. This makes
 \SWHFS{} an efficient way to run experiments that only access a small number of
 specific files in a repository, e.g., license or README files.
 Moreover, the use of symbolic links to implement sharing relationships between
-the software artifacts materializes the DAG in a way that can be studied in a
-practical way: it is easy to check whether two artifacts are the same by
+the software artifacts materializes the DAG in a way that can be studied
+practically: it is easy to check whether two artifacts are the same by
 checking whether their symbolic link resolves to the same filesystem node. This
 makes it possible to implement graph traversal algorithms directly at the
 filesystem level.
 
 However, \SWHFS{} has a few important limitations that makes it generally
 unsuitable for large-scale software mining. First, it is not optimized for
-heavy workloads, as its primarily goal was to target is small experiments and
+heavy workloads, as its primarily goal was to target small experiments and
 localized analyses. The software components of \SWHFS{} (the SQLite cache, the
 HTTP library, etc.) were not designed to handle large-scale analyses, high
 parallelism and data intensive tasks. In general, while user-space filesystems
 based on FUSE can sometimes reach performance reasonably close to kernel-level
 filesystems, they require a particular attention on optimization and some
-workloads are unfriendly even when optimized\cite{vangoor2017fuseperf}.
+workloads are unfriendly even when optimized~\cite{vangoor2017fuseperf}.
 
 While there is always room for performance improvements, another important
 issue that makes \SWHFS{} often unsuitable for large-scale mining is the lack of
@@ -464,6 +464,8 @@ pattern in the entire archive. As described in
 designed to be run on arbitrary artifacts matching certain criteria. \SWHFS{}
 does not provide a way to iterate on these artifacts, as its primary function
 is to list the descendants of a given node in the software graph.
+
+\bigskip
 
 The Vault and \SWHFS{} provide two different ways to perform studies on
 individual artifacts and their descendants, and thus make the data corpus

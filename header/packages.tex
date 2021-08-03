@@ -1,22 +1,55 @@
+% Symbols, math improvements, fonts, etc
+\usepackage{amsfonts}            % Calls Amer. Math. Soc. (AMS) fonts
+\usepackage[centertags]{amsmath} % Writes maths centered down
+\usepackage{amssymb}             % Calls AMS symbols
+\usepackage{amsthm}              % Calls AMS theorem environment
 \usepackage{centernot}
 \usepackage{fixmath}
-\usepackage{hhline}
-\usepackage{lipsum}
+\usepackage{latexsym}            % Extra symbols
+\usepackage{mathtools}
+\usepackage{newlfont}            % Helpful package for fonts and symbols
 \usepackage[group-separator={,}]{siunitx}
-\usepackage[normalem]{ulem}
-\usepackage{dirtree}
+\usepackage{upgreek}             % Calls other kind of greek alphabet
+
+% Links and refs
+\usepackage[colorlinks=true, allcolors=black, backref]{hyperref}
+\usepackage{url}
+\usepackage{cleveref}  % Better \cref with automatic fig names
+\usepackage{doi}       % Reference DOIs
+\usepackage{memhfixc}  % Fix hyperref for memoir class
+
+% Language
+\usepackage[english]{babel}
+\usepackage[acronym]{glossaries}
+\usepackage{lipsum}
+
+% Graphics
+\usepackage{graphicx}       % Calls figure environment
+\usepackage{color}          % Creates coloured text and background
+\usepackage{microtype}      % Makes pdf look better.
+\usepackage[normalem]{ulem} % Underline command
+
+% Bibliography
+\usepackage[square, numbers, sort&compress]{natbib}
+
+% Figures, tables and captions
+\usepackage{float}
+\usepackage{hhline}
 \usepackage{wrapfig}
 \usepackage{stackengine}
+\usepackage[labelformat=simple]{subcaption}
+\captionsetup{justification=centering, compatibility=false}
+
+% Drawings
+\usepackage[version=0.96]{pgf}
+\usepackage{tikz}
+\usepackage{dirtree}
 
 % Pseudocode / code
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage[final]{listings}
 \usepackage[outputdir=_build,draft=false]{minted}
-
-% Captions & subcaptions
-\usepackage[labelformat=simple]{subcaption}
-\captionsetup{justification=centering, compatibility=false}
 
 % PDF Metadata
 \usepackage{ifpdf}

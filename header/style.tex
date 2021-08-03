@@ -63,7 +63,9 @@
 	\renewcommand\chapnamefont{\normalfont\Large\scshape\so}
 	\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape}
 	\renewcommand\chapternamenum{} \renewcommand\printchaptername{}
-	\renewcommand\printchapternum{\null\hspace{2.5cm}\feline@chm[2.5cm]}%\renewcommand\afterchapternum{\par\vskip\midchapskip}
+% 	\renewcommand\printchapternum{\null\hspace{2.5cm}\feline@chm[2.5cm]}%\renewcommand\afterchapternum{\par\vskip\midchapskip}
+    \renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
+    \renewcommand\afterchapternum{\par\vskip\midchapskip}
 	\renewcommand\printchaptertitle[1]{\color{black}\chaptitlefont ##1\par}
 }
 \makeatother

@@ -7,11 +7,12 @@ top to bottom direction
 
 Person(user, "Vault user")
 System(web_api, "Web API")
+System_Ext(archive, "Software Heritage archive")
 
 System_Boundary(vault, "Vault") {
     Container(vault_backend, "Backend", "Python", "Manages cooking requests and bundle storage")
-    Container(vault_db, "Database", "PostgreSQL", "Stores cooking info\nfor bundles")
-    Container(vault_storage, "Bundle storage", "Blob storage", "Persistent storage\nfor cooked bundles")
+    ContainerDb(vault_db, "Database", "PostgreSQL", "Stores cooking\ninfo for bundles")
+    ContainerDb(vault_storage, "Bundle storage", "Blob storage", "Persistent storage\nfor cooked bundles")
     Container(vault_queue, "Task queue", "Celery, swh.scheduler", "Dispatches cooking\nrequests to cookers")
     Container(vault_cooker, "Cookers", "Python", "Workers assembling artifact bundles")
 
@@ -19,9 +20,9 @@ System_Boundary(vault, "Vault") {
     Rel(vault_backend, vault_storage, "Store/retrieve bundles", "RPC")
     Rel(vault_backend, vault_queue, "Schedule", "RPC")
     Rel(vault_queue, vault_cooker, "Dispatch", "RabbitMQ")
+    Rel(vault_cooker, vault_backend, "Upload result", "RPC")
 }
 
-System_Ext(archive, "Software Heritage archive")
 
 Rel(user, web_api, "Request bundles", "REST API")
 Rel(web_api, vault_backend, "Request bundles", "REST API")

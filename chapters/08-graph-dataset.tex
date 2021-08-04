@@ -3,8 +3,8 @@
 
 This chapter is based on an article~\cite{swh-msr2019-dataset} accepted at the
 16th International Conference on Mining Software Repositories (MSR 2019), and
-its subsequent presentation~\cite{msr-2020-challenge} as the ``Mining
-Challenge'' of the 17th International Conference on Mining Software
+the presentation~\cite{msr-2020-challenge} for its subsequent use as the
+``Mining Challenge'' of the 17th International Conference on Mining Software
 Repositories (MSR 2020).
 
 \section{Introduction}
@@ -28,13 +28,13 @@ with all their associated properties.
 
 Exhaustive studies of the source code files themselves are very expensive, both
 in terms of required storage space and bandwidth to fetch the entirety of more
-than 10 billion blobs totalling around 850\,TiB of storage space, and in terms
-of computing power to process this vast amount of data. However, the property
-graph of software development \emph{excluding the blobs themselves} is in
-itself a valuable trove of data, while only being a fraction of that size.
-It notably contains all the directory and file hierarchies of the source code,
-its entire development history and all associated metadata, including
-authorship graphs.
+than 10 billion blobs totalling around 850\,TiB of storage space as of May
+2021, and in terms of computing power to process this vast amount of data.
+However, the property graph of software development \emph{excluding the blobs
+themselves} is in itself a valuable trove of data, while only being a fraction
+of that size.  It notably contains all the directory and file hierarchies of
+the source code, its entire development history and all associated metadata,
+including authorship graphs.
 
 By making the property graph easy to analyze in an exhaustive manner, we can
 significantly advance towards our goal of universal software mining on several
@@ -47,20 +47,25 @@ precisely narrow the set of source code files they need prior to actually
 fetching them, in order to minimize bandwidth and storage requirements.
 
 In this chapter we introduce the \emph{Software Heritage Property Graph
-Dataset}, a graph representation of all source code artifacts archived by
-\SWH{} made freely available for research in a relational format suitable for
-scale-out analysis.
+Dataset}, a corpus of all development artifacts archived by \SWH{} made freely
+available for research in both a graph representation and a relational format
+suitable for scale-out analysis.
 While this dataset excludes source code blobs, it does include their
 cryptographic checksums, which can be used to retrieve the actual files from
 any \SWH{} mirror using a Web
-\textsc{api}\footnote{\url{https://archive.softwareheritage.org/api/}} and
+API\footnote{\url{https://archive.softwareheritage.org/api/}} and
 cross-reference files encountered in the wild, including in other datasets.
 
-\paragraph*{Related Work}
+\subsection{Related Work}
 
 To the best of our knowledge, no existing public dataset contains a comparable
-amount of data about source code artifacts extracted from public software
-development.
+amount and diversity of data about source code artifacts extracted from public
+software development.
+
+The Debsources dataset~\cite{debsources-ese-2016} contains a wealth of
+information about Debian releases over several decades, but stops at the
+release granularity (rather than commits) and is at least three orders of
+magnitude smaller than the present dataset.
 
 GHTorrent~\cite{GHTorrent} covers GitHub and includes
 non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks
@@ -70,10 +75,11 @@ CodeFeedr~\cite{DBLP:conf/icse/VargasHKBG18} is a natural evolution of
 GHTorrent, but it is oriented toward expanding coverage for additional sources
 of non-source-code artifacts.
 
-The Debsources dataset~\cite{debsources-ese-2016} contains a wealth of
-information about Debian releases over several decades, but stops at the
-release granularity (rather than commits) and is at least three orders of
-magnitude smaller than the present dataset.
+World of Code (WoC)~\cite{mockus2019woc} is a recent attempt at providing a
+corpus for large-scale VCS analyses, with a target scale similar to ours (18
+billion objects as of October 2020). However the sourcing diversity of the
+dataset is more limited, only covering Git and GitHub and excluding other
+\glspl{VCS} and hosting locations.
 
 \section{Relational Model}
 
@@ -105,13 +111,13 @@ for join operations.
 \Cref{fig:swh-dataset-schema} presents the relational schema of the \SWHGD{}.
 It significantly differs from the original schema of the PostgreSQL
 storage\footnote{\url{https://docs.softwareheritage.org/devel/swh-storage/sql-storage.html}}
-in a few ways. Previously, the directory table was normalized to avoid storing
+in a few ways. In the latter, the directory table is normalized to avoid storing
 redundant copies of hashes by using an array of directory entries. After some
 experimentation on various cloud services, we determined that arrays of
 arbitrary length in distributed Big Data engines are a performance killer, as
 they hinder the ability of the query planner to properly shard computations
 among a right-sized pool of nodes by making the size of each row hard to
-predict. Some cloud services like GCE BigQuery have size limits on arrays,
+predict. Some cloud services like Google BigQuery have size limits on arrays,
 which makes it impossible to store directories of arbitrary length. We
 denormalized that table, as well as two of the snapshot tables. Another minor
 change is the use of hexadecimal string representation of intrinsic hashes
@@ -141,6 +147,12 @@ Charter\footnote{\url{https://www.softwareheritage.org/legal/users-ethical-chart
 and specific terms of use for bulk
 access\footnote{\url{https://www.softwareheritage.org/legal/bulk-access-terms-of-use/}}.
 
+This anonymization process does not hinder the possibility of relating together
+commits which have the same author, which is an important need in many research
+use cases. Because cryptographic hashing is both one-way and deterministic, it
+is possible to check whether two commits have the same author by comparing the
+resulting hashes, without being able to reverse the original author name.
+
 \paragraph*{Schema.}
 The tables in the relational schema of the Software Heritage Graph Dataset are
 defined as follows:
@@ -148,7 +160,7 @@ defined as follows:
 
 \begin{itemize}
 \item
-  \textbf{content}: contains information on the contents stored in the
+  \textbf{content}: contains information on the blobs (source file contents) stored in the
   archive.
 
   \begin{itemize}
@@ -170,7 +182,7 @@ defined as follows:
   \end{itemize}
 \item
   \textbf{skipped\_content}: contains information on the contents that
-  were not archived for various reasons.
+  were encountered in the wild but not archived for various reasons.
 
   \begin{itemize}
   \tightlist
@@ -294,7 +306,7 @@ defined as follows:
     \texttt{message} (bytes): the release message
   \end{itemize}
 \item
-  \textbf{snapshot}: contains the list of snapshots stored in the
+  \textbf{snapshot}: contains the list of \gls{VCS} snapshots stored in the
   archive.
 
   \begin{itemize}
@@ -346,7 +358,7 @@ defined as follows:
   \item
     \texttt{date}: (timestamp) the date at which the origin was visited
   \item
-    \texttt{type} (string): the type of origin visited (e.g
+    \texttt{type} (string): the type of origin visited (e.g.,
     \texttt{git}, \texttt{pypi}, \texttt{hg}, \texttt{svn},
     \texttt{git}, \texttt{ftp}, \texttt{deb}, \ldots)
   \end{itemize}
@@ -362,7 +374,7 @@ defined as follows:
   \item
     \texttt{date}: (timestamp) the date at which the origin was visited
   \item
-    \texttt{type} (string): the type of origin visited (e.g
+    \texttt{type} (string): the type of origin visited (e.g.,
     \texttt{git}, \texttt{pypi}, \texttt{hg}, \texttt{svn},
     \texttt{git}, \texttt{ftp}, \texttt{deb}, \ldots)
   \item
@@ -443,14 +455,14 @@ $ swh dataset graph export --export-id dataset-2021-03-15 output_dir/
 \end{minted}
 
 This identifier is stored on the server side to associate the journal clients
-associated with a given export.
+with a given export.
 When a batch of objects has been read from the journal, the client
 automatically acknowledges to the server that they have correctly been
 processed. The server maintains the last offset that has been acknowledged, or
 ``committed'', for each partition.
 If an export is interrupted because of an error or a server failure, resuming
-it can be achieved automatically by reusing the same export identifier. The
-journal client will then start reading the log after the last committed offset.
+it can be achieved by reusing the same export identifier. The journal client
+will then start reading the log after the last committed offset.
 
 \subsection{Object unicity}
 \label{sec:dataset-export-unicity}
@@ -461,10 +473,10 @@ case it appears multiple times in the log. The message delivery
 semantics\footnote{\url{https://kafka.apache.org/documentation/\#semantics}} in
 \texttt{swh-journal} are ``at least once'', which means that objects are
 guaranteed to be present in the stream but might be delivered multiple times.
-Moreover, in the event that the export is suddenly interrupted (e.g., in case
-of a power failure), export clients must be able to resume the export even as
-they might not have acknowledged their current progress in the stream to the
-journal server.
+Moreover, in the event that the export is suddenly interrupted (e.g., due to a
+power failure), export clients must be able to resume the export even as they
+might not have acknowledged their current progress in the stream to the journal
+server.
 
 To guarantee unicity on the client side, the exporter uses a local on-disk
 database which contains the set of all object IDs which have already been
@@ -596,7 +608,7 @@ Columnar datasets store their data by column rather than by row. This method of
 data storage is particularly efficient for large-scale processing and
 especially in the case of full-table scans, because it reduces the amount of
 data that has to be scanned to the precise subset of columns queried. This
-comes at the cost of conserving data locality of single rows, which is
+comes at the cost of no longer ensuring data locality of single rows, which is
 generally useful for \gls{OLTP} operations but less so for \gls{OLAP}
 workflows. Columnar storage also has useful properties for parallelism, notably
 ease of partitioning on single columns, which can be used to efficiently
@@ -694,7 +706,8 @@ required to get a unique list of nodes. In practice, this entire sorting
 process on the entire graph takes around 10 days with a sufficiently large
 memory buffer as of 2021.
 
-\section{Dataset coverage}
+\section{Dataset coverage}%
+\label{sec:swh-dataset-coverage}
 
 The first version of the dataset we published captured the state of the \SWH{}
 archive as of September 25th 2018, spanning a full mirror of Github and
@@ -702,7 +715,9 @@ GitLab.com, the Debian distribution, Gitorious, Google Code, and the PyPI
 repository. Quantitatively, it corresponded to 5 billion unique file contents
 and 1.1 billion unique commits, harvested from more than 85 million software
 origins. It was subject of a publication~\cite{swh-msr2019-dataset} accepted at the
-16th International Conference on Mining Software Repositories (MSR 2019).
+16th International Conference on Mining Software Repositories (MSR 2019), and
+later used~\cite{msr-2020-challenge} as the ``Mining Challenge'' of the 17th
+International Conference on Mining Software Repositories (MSR 2020).
 This first iteration is available in two formats (Parquet and CSV,
 $\approx$1~TiB each) and downloadable from Zenodo at
 \url{https://zenodo.org/record/2583978}, (\doi{10.5281/zenodo.2583978}). It
@@ -713,7 +728,6 @@ available to researchers, each new version improving the export pipeline. These
 versions are shown in \cref{tab:swh-dataset-exports}. They can be
 downloaded from the Software Heritage annex at
 \url{https://annex.softwareheritage.org/public/dataset/graph/}.
-\TODO{explanation of the coverage tables from the topology paper.}
 
 \begin{table}
   \centering
@@ -729,103 +743,151 @@ downloaded from the Software Heritage annex at
     \end{tabular}
 \end{table}
 
+A recent export of the \SWHGD{}, dated 2020-12-15, contains 19 billion nodes
+and 221 billion edges in total.
+\Cref{tab:corpus-stats} gives a detailed breakdown of each node and edge
+types. At first glance we can see that the filesystem layer of the graph
+contains most of the nodes (67\%) and edges (90\%) in the graph: new versions
+of source code files and directories in public code are produced in higher
+volumes than other source code artifacts such as commits and releases. The
+number of visits and origins on the other hand depend only on the crawling
+throughput of the \SWH{} archive and its coverage of real-world collaborative
+development platforms.
+
+\Cref{tab:visits-by-type} and \cref{tab:visits-by-domain} give an overview
+of the coverage of the corpus, broken down along various dimensions:
+the mechanism used to retrieve the source code artifacts (for the most part a
+VCS or a source package format), the domain of the forge or package repository
+used to host them, as well as the number of origins and visits of them present
+in the archive.  We can notice that git dominates the corpus as a source code
+distribution mechanism, and that GitHub is the dominant forge.  Nonetheless
+there is a long tail of both source code distribution mechanisms (other popular
+and historical VCSs; Debian, NPM, PyPI, CRAN, Nix, and Guix source packages)
+and hosting platforms (several popular and historical forges, various
+self-hosted instances of GitLab and other forges, as well as GNU/Linux
+distribution and package manager repositories) that are also present in the
+corpus. They account for a very diverse corpus, even if one that is
+\emph{quantitatively} dominated by the popular technological choices of the day
+among developers.
+
 \begin{table}
   \centering
-  \caption{Node and edge statistics of the 2020-12-15 dataset}
+  \caption{Node and edge statistics for the 2020-12-15 dataset.}
   \label{tab:corpus-stats}
-  \begin{tabular}[t]{l|r}
-    \multicolumn{2}{c}{\textbf{Nodes}} \\
+  \begin{tabular}[t]{l|rr}
+    % \multicolumn{1}{c|}{\textbf{Layer}} &
+     \multicolumn{1}{c|}{\textbf{Node type}}
+    & \multicolumn{1}{c}{\textbf{Nodes}}
+    & \multicolumn{1}{c}{\textbf{\%}}
+    \\\hline\hline
+     origins      &  \num{147453557} & 0.76\% \\
+     snapshots    &  \num{139832772} & 0.72\% \\
+     releases     & \num{16539537} & 0.09\% \\
+     commits      & \num{1976476233} & 10.22\% \\
+     directories  & \num{7897590134}  & 40.86\% \\
+     contents     & \num{9152847293}  & 47.35\% \\
     \hline\hline
-    origins     & \num{147453557} \\
-    snapshots   & \num{139832772} \\
-    releases    & \num{16539537} \\
-    revisions   & \num{1976476233} \\
-    directories & \num{7897590134} \\
-    blobs       & \num{9152847293} \\
-    \hline
-    Total nodes & \num{19330739526} \\
+    \multicolumn{1}{l|}{\textbf{Total nodes}} & \num{19330739526} & 100\% \\
   \end{tabular}
-  \hspace{5mm}
-  \begin{tabular}[t]{l|r}
-    \multicolumn{2}{c}{\textbf{Arcs}} \\
+
+  \vspace{3ex}
+
+  \begin{tabular}[t]{l|rr}
+    % \multicolumn{1}{c|}{\textbf{Layer}}
+    \multicolumn{1}{c|}{\textbf{Edge type}}
+    & \multicolumn{1}{c}{\textbf{Edges}}
+    & \multicolumn{1}{c}{\textbf{\%}}
+    \\\hline\hline
+     origin     $\to$ snapshot  & \num{776112709} & 0.35\% \\
+     snapshot   $\to$ release   & \num{700823546} & 0.32\% \\
+     snapshot   $\to$ commit    & \num{1358538567} & 0.61\% \\
+     release    $\to$ commit    & \num{16492908} & 0.01\% \\
+     commit     $\to$ commit    & \num{2021009703} & 0.91\% \\
+     commit     $\to$ directory & \num{1971187167} & 0.89\%\\
+     directory  $\to$ commit    & \num{792196260} & 0.36\% \\
+     directory  $\to$ directory & \num{64584351336} & 29.16\% \\
+     directory  $\to$ blob      & \num{149267317723} & 67.39\% \\
     \hline\hline
-    origin    $\to$ snapshot  & \num{776112709} \\
-    snapshot  $\to$ revision  & \num{1358538567} \\
-    snapshot  $\to$ release   & \num{700823546} \\
-    release   $\to$ revision  & \num{16492908} \\
-    revision  $\to$ revision  & \num{2021009703} \\
-    revision  $\to$ directory & \num{1971187167} \\
-    directory $\to$ directory & \num{64584351336} \\
-    directory $\to$ commit    & \num{792196260} \\
-    directory $\to$ blob      & \num{149267317723} \\
-    \hline
-    Total arcs                & \num{221488073659} \\
+    \multicolumn{1}{l|}{\textbf{Total edges}} & \num{221488073659} & 100\% \\
   \end{tabular}
 \end{table}
 
 \begin{table}
-  \caption{Crawling statistics: number of visits by origin type}
+  \caption{Crawling statistics: number of origins and visits by origin type for
+  the 2021-03-23 dataset.}
   \label{tab:visits-by-type}
   \centering
-  \begin{tabular}{l|r}
-    \textbf{Origin type} & \textbf{Number of visits}
-    \\\hline
-    git     & \num{490428446} \\
-    npm     & \num{202932685} \\
-    pypi    & \num{106141148} \\
-    deb     &  \num{10980332} \\
-    hg      &   \num{6135813} \\
-    svn     &   \num{1247645} \\
-    cran    &     \num{27160} \\
-    ftp     &      \num{1237} \\
-    deposit &       \num{956} \\
-    tar     &       \num{955} \\
-    nixguix &       \num{219} \\
+  \begin{tabular}{l|rr|rr}
+    \textbf{Origin type}
+    & \textbf{No.~of origins} & \textbf{\%}
+    & \textbf{No.~of visits} & \textbf{\%} \\
+    \hline
+    git      & \num{136684905} & 88.8\% & \num{545124995} & 53.9\% \\
+    unknown  & \num{14330675}  & 9.3\%  & \num{14330675 } & 1.41\% \\
+    npm      & \num{1533346}   & 0.9\%  & \num{300806714} & 29.7\% \\
+    svn      & \num{575952}    & 0.3\%  & \num{735135   } & 0.07\% \\
+    hg       & \num{381058}    & 0.2\%  & \num{6105706  } & 0.60\% \\
+    pypi     & \num{239522}    & 0.1\%  & \num{147102654} & 14.5\% \\
+    deb      & \num{72303}     & 0.0\%  & \num{10894679 } & 1.07\% \\
+    cran     & \num{18019}     & 0.0\%  & \num{29596    } & $<\varepsilon$ \\
+    ftp      & \num{1205}      & 7.8\%  & \num{1205     } & 1.19\% \\
+    deposit  & \num{900}       & 5.8\%  & \num{1277     } & 1.26\% \\
+    tar      & \num{385}       & 2.5\%  & \num{955      } & 9.44\% \\
+    nix/guix & \num{2}         & 1.3\%  & \num{445      } & 4.40\% \\
+    \hline
+    \textbf{Total}            & \num{153838272} & 100\%       & \num{1010810868} & 100\% \\
   \end{tabular}
 \end{table}
 
 \begin{table}
-    \caption{Crawling statistics: number of visits by forge domain (top 25)}
+  \caption{Crawling statistics: number of origins and visits by forge domain
+  for the 2021-03-23 dataset (domains with $>1000$ origins).}
   \label{tab:visits-by-domain}
   \centering
-  \begin{tabular}{l|r}
-    \textbf{Forge domain} & \textbf{Number of visits}
-    \\\hline
-    github.com                 & \num{139311275} \\
-    bitbucket.org              &   \num{2013421} \\
-    npmjs.com                  &   \num{1418773} \\
-    gitlab.com                 &    \num{973916} \\
-    pypi.org                   &    \num{239620} \\
-    gitorious.org              &    \num{120380} \\
-    debian.org                 &     \num{37892} \\
-    salsa.debian.org           &     \num{33609} \\
-    snapshot.debian.org        &     \num{33044} \\
-    git.launchpad.net          &     \num{19568} \\
-    cran.r-project.org         &     \num{17635} \\
-    framagit.org               &     \num{16899} \\
-    hdiff.luite.com            &     \num{13861} \\
-    gitlab.gnome.org           &      \num{8014} \\
-    gitlab.freedesktop.org     &      \num{4209} \\
-    codeberg.org               &      \num{3614} \\
-    gitlab.inria.fr            &      \num{2989} \\
-    git.savannah.gnu.org       &      \num{2948} \\
-    git.baserock.org           &      \num{2912} \\
-    anongit.kde.org            &      \num{2478} \\
-    code.google.com            &      \num{2240} \\
-    phabricator.wikimedia.org  &      \num{2224} \\
-    git.kernel.org             &      \num{2067} \\
-    fedorapeople.org           &      \num{1690} \\
-    ftp.gnu.org                &      \num{1590} \\
-    gitlab.ow2.org             &      \num{1038} \\
+  \begin{tabular}{l|rr|rr}
+    \textbf{Forge domain}
+    & \textbf{No.~of origins} & \textbf{\%}
+    & \textbf{No.~of visits} & \textbf{\%} \\
+    \hline
+        github.com                & \num{147881630} & 96.1\%      & \num{546877021}  & 54.1\% \\
+        bitbucket.org             & \num{2058279}   & 1.33\%      & \num{10871128}   & 1.07\% \\
+        www.npmjs.com             & \num{1534976}   & 0.99\%      & \num{300808344}  & 29.7\% \\
+        gitlab.com                & \num{990334}    & 0.64\%      & \num{5022358}    & 0.49\% \\
+        pypi.org                  & \num{239620}    & 0.15\%      & \num{147102752}  & 14.5\% \\
+        gitorious.org             & \num{120380}    & 0.07\%      & \num{120392}     & 0.01\% \\
+        Debian                    & \num{38414}     & 0.02\%      & \num{10661918}   & 1.05\% \\
+        salsa.debian.org          & \num{33617}     & 0.02\%      & \num{105690}     & 0.01\% \\
+        snapshot.debian.org       & \num{33044}     & 0.02\%      & \num{33044}      & $<\varepsilon$ \\
+        git.launchpad.net         & \num{19571}     & 0.01\%      & \num{21198}      & $<\varepsilon$ \\
+        framagit.org              & \num{18433}     & 0.01\%      & \num{132803}     & 0.01\% \\
+        cran.r-project.org        & \num{18019}     & 0.01\%      & \num{29596}      & $<\varepsilon$ \\
+        hdiff.luite.com           & \num{13861}     & $<\varepsilon$ & \num{191570}     & 0.01\% \\
+        gitlab.gnome.org          & \num{8016}      & $<\varepsilon$ & \num{21837}      & $<\varepsilon$ \\
+        gitlab.freedesktop.org    & \num{4752}      & $<\varepsilon$ & \num{1172842}    & 0.11\% \\
+        gitlab.inria.fr           & \num{3628}      & $<\varepsilon$ & \num{9921}       & $<\varepsilon$ \\
+        codeberg.org              & \num{3623}      & $<\varepsilon$ & \num{3733}       & $<\varepsilon$ \\
+        git.savannah.gnu.org      & \num{2959}      & $<\varepsilon$ & \num{7008}       & $<\varepsilon$ \\
+        git.baserock.org          & \num{2912}      & $<\varepsilon$ & \num{4687}       & $<\varepsilon$ \\
+        anongit.kde.org           & \num{2488}      & $<\varepsilon$ & \num{7389}       & $<\varepsilon$ \\
+        code.google.com           & \num{2240}      & $<\varepsilon$ & \num{2240}       & $<\varepsilon$ \\
+        phabricator.wikimedia.org & \num{2224}      & $<\varepsilon$ & \num{631835}     & 0.06\% \\
+        git.kernel.org            & \num{2083}      & $<\varepsilon$ & \num{4224}       & $<\varepsilon$ \\
+        fedorapeople.org          & \num{1691}      & $<\varepsilon$ & \num{4173}       & $<\varepsilon$ \\
+        ftp.gnu.org               & \num{1590}      & $<\varepsilon$ & \num{2160}       & $<\varepsilon$ \\
+        gitlab.ow2.org            & \num{1119}      & $<\varepsilon$ & \num{3111}       & $<\varepsilon$ \\
+        phabricator.kde.org       & \num{1030}      & $<\varepsilon$ & \num{6269}       & $<\varepsilon$ \\
+        Debian-Security           & \num{1028}      & $<\varepsilon$ & \num{199900}     & 0.02\% \\
+        git.torproject.org        & \num{1014}      & $<\varepsilon$ & \num{2503}       & $<\varepsilon$ \\
+        \hline
+        \textbf{Total}            & \num{153838272} & 100\%       & \num{1010810868} & 100\% \\
   \end{tabular}
 \end{table}
-
 
 \section{Data analysis platforms}
 
 While the dataset can be freely downloaded and imported on many large-scale
 analysis platforms, often researchers do not have easy access to in-house
-infrastructure and resources where they could analyse such a large amount of
+infrastructure and resources where they can analyze such a large amount of
 data.
 As a way to make this dataset more accessible for general use, we developed
 partnerships with \textbf{\gls{OLAP} cloud platforms} to make it available as
@@ -858,11 +920,11 @@ terabyte\footnote{\url{https://aws.amazon.com/athena/pricing/}}.
 After a successful graph export, the resulting ORC files are uploaded in a public
 S3 bucket that can be queried by anyone using Amazon Athena. The dataset is
 indexed in the Registry of Open Data on
-AWS\footnote{https://registry.opendata.aws/software-heritage/}, and contains
+AWS,\footnote{https://registry.opendata.aws/software-heritage/} and contains
 information on the S3 bucket and how to query it using Athena. While Athena is
 offered as the default solution for analysis because of its low setup cost,
 researchers can also import this S3 bucket in other potentially more costly AWS
-services like AWS Redshift\footnote{https://aws.amazon.com/redshift/}.
+services like AWS Redshift.\footnote{https://aws.amazon.com/redshift/}
 
 To read the ORC files with the appropriate schema, Athena uses an approach
 known as \emph{schema-on-read}, which means a predefined schema is projected on
@@ -875,8 +937,8 @@ schema on an user provided Athena database. This command defines the schema of
 the latest graph export (2021-03-23) on the user's ``\texttt{swh}'' Athena
 database and sets its external location to the public dataset S3 bucket:
 
-\begin{minted}{bash}
-swh dataset athena create -d swh -l s3://softwareheritage/graph/2021-03-23
+\begin{minted}{console}
+$ swh dataset athena create -d swh -l s3://softwareheritage/graph/2021-03-23
 \end{minted}
 
 The database can then be queried directly using this same toolchain, outputting
@@ -888,11 +950,15 @@ $ swh dataset athena query -d swh <<<"select count(*) from content;"
 "9935510171"
 \end{minted}
 
+Alternatively, the queries can be tried interactively using the Athena web
+console, which provides more advanced features such as query history, syntax
+checking, detailed error messages, schema previews, etc.
+
 To further illustrate the research possibilities it opens on the dataset, below
 are some sample SQL queries that can be executed with the dataset on
 \textsc{AWS} Athena.
 
-\begin{listing}[H]
+\begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/popular-file.sql}
     \caption{Most frequent file name}%
     \label{lst:popular-file}
@@ -904,7 +970,7 @@ The result, obtained by scanning
 151~GiB\ in $3'40''$, is \texttt{index.html}, which occurs in the dataset 182
 million times.
 
-\begin{listing}[H]
+\begin{listing}
     \inputminted[firstline=3]{sql}{codesamples/graph-dataset/popular-commit-words.sql}
     \caption{Most common commit operations}%
     \label{lst:popular-commit-words}
@@ -925,24 +991,35 @@ because the most recent version of the Presto query engine,
 which provides a built-in stemming function,
 is not yet available on Athena.)
 
-\begin{listing}[H]
+\begin{listing}
     \inputminted[firstline=3]{sql}{codesamples/graph-dataset/weekend-work.sql}
     \caption{Ratio of commits performed during each year's weekends}%
     \label{lst:weekend-work}
 \end{listing}
 
-SQL queries can also be used to express more complex tasks.
-Consider the research hypothesis that weekend work on open source projects
-is decreasing over the years as evermore
-development work is done by companies rather than volunteers.
-The corresponding data can be obtained by finding the ratio
-between revisions committed on the weekends of each year and
-the total number of that year's revisions (see \cref{lst:weekend-work}).
-The results, obtained by scanning 14~GiB\ in $7''$ are inconclusive,
-and point to the need for further analysis,
-which is left as an exercise to the reader.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/graph-dataset/weekend-work}
+    \caption{Ratio of commits performed during the week-end each year plotted
+    over time. A linear regression shows a flat trend over a period of fifty
+    years.}%
+    \label{fig:weekend-work}
+\end{figure}
 
-\begin{listing}[H]
+
+SQL queries can also be used to express more complex tasks.  Consider the
+research hypothesis that weekend work on open source projects is decreasing
+over the years as evermore development work is done by companies rather than
+volunteers.  The corresponding data can be obtained by finding the ratio
+between revisions committed on the weekends of each year and the total number
+of that year's revisions (see \cref{lst:weekend-work}).
+The results, obtained by scanning 14~GiB\ in $7''$, are shown in
+\cref{fig:weekend-work}. A linear regression shows that this ratio generally
+remained constantly around 22\% over time. The data is inconclusive, and points
+to the need for further analysis to validate the hypothesis, which is left as
+an exercise to the reader.
+
+\begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/fork-size.sql}
     \caption{Average number of parents in a revision}%
     \label{lst:fork-size}
@@ -960,7 +1037,7 @@ by grouping revisions by their parent identifier.
 Such queries can be used to examine in depth the characteristics
 of merge operations.
 
-\begin{listing}[H]
+\begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/file-type-size.sql}
     \caption{Average size of the most popular file types}%
     \label{lst:file-type-size}
@@ -981,8 +1058,10 @@ To reduce the number of joined rows a 1\% sample of the rows is processed,
 thus scanning 317~GiB\ in $1'20''$.
 The order of the resulting language files
 (JavaScript $>$ C $>$ C++ $>$ Python $>$ \textsc{php} $>$ C\# $>$ Ruby)
-indicates that, with the exception of JavaScript, languages offering more
-abstraction facilities are associated with smaller source code files.
+indicates that, with the exception of JavaScript\footnote{This is likely
+    because Javascript is often used as a target format for transcompilation,
+    minification and source code bundling}, languages offering more abstraction
+    facilities are associated with smaller source code files.
 
 \subsection{Spark on Azure Databricks}
 

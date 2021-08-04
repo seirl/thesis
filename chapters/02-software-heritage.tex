@@ -266,7 +266,9 @@ GNU project. They also periodically crawl the repositories of hundreds of
 decentralized instances of Phabricator, GitLab, cgit, Launchpad and Gitea.
 Some of the projects preserved in the archive were also recovered from defunct
 hosting platforms such as Gitorious and Google Code, then loaded as a one-shot
-task, as those sources do not require recurrent listing.
+task, as those sources do not require recurrent listing. A more detailed
+breakdown of archived projects per source host is available in
+\cref{sec:swh-dataset-coverage}.
 
 \TODO{More fine-grained breakdown of the archive content by forge, like a table
 or a piechart. Take the one from the topology article?}
@@ -295,7 +297,7 @@ number of source files, commits and projects stored.
 
 Together, these source code files would weigh around 850\,TiB in total.
 However, they are compressed in the main in-house storage, which reduces their
-on-disk size to around half of that.\TODO{more precise number?} While the
+on-disk size to around half of that. While the
 source code files themselves take a huge amount of space, the other software
 artifacts (directory trees, development history checkpoints, origins, etc.)
 weigh significantly less overall. They are stored in a PostgreSQL database

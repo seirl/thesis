@@ -33,6 +33,8 @@ to provide the full artifacts themselves.
 As an example, the following HTTP GET request can be used to get the revision
 \texttt{swh:1:rev:aafb16d69fd30ff58afdd69036a26047f3aebdc6}:
 
+\vspace{1em}
+
 \begin{minipage}{0.96\textwidth}
 \begin{minted}[fontsize=\footnotesize]{bash}
 % curl 'https://archive.softwareheritage.org/api/1/revision/
@@ -299,13 +301,13 @@ object storage. These objects can then be delta-compressed together using
 
 The Vault is generally an efficient way to retrieve substantial lists of
 repositories or source code trees from the archive. A moderately sized
-repository with around ~300 commits takes around \TODO{cooking time for
-swh-graph}, while its source code tree of ~60 files takes \TODO{cooking
-time for swh-graph directory}. By extrapolating these benchmarks and from our
-own experiments, the Vault is suitable to retrieve up to tens of thousands of
-repositories from the archive in a reasonable time (between a few hours and a
-few days). This service offers a first rudimentary way of performing software
-mining studies on data extracted from the archive.
+repository with around $\approx390$ commits takes around 7 minutes, while its
+source code tree of $\approx60$ files takes 19 seconds. By extrapolating these
+benchmarks and from our own experiments, the Vault is suitable to retrieve up
+to tens of thousands of directories and thousands of repositories from the
+archive in a reasonable time (between a few hours and a few days). This service
+offers a first rudimentary way of performing software mining studies on data
+extracted from the archive.
 
 One possible future direction for this work would be to ``pre-cook'' a large
 number of objects according to certain heuristics, as a way to decrease cooking
@@ -337,8 +339,8 @@ gap between simplicity and low friction for small-scale mining studies by
 exploring another way of making repositories available for use with day to day
 CLI utilities while requiring less setup.
 
-\TODO{more numbers. what storage impact? how long would it take to fetch
-everything?}
+% \TODO{more numbers. what storage impact? how long would it take to fetch
+% everything?}
 % "I think that if you turn the few examples mentioned above in TODO about
 % cooking time (and maybe add some more, in order to have ~5 repo sizes
 % described) it would be good enough in terms of numbers"

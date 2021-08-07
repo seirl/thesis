@@ -13,6 +13,7 @@
 
 % Links and refs
 \usepackage[colorlinks=true, allcolors=black, backref]{hyperref}
+% \usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{url}
 \usepackage{cleveref}  % Better \cref with automatic fig names
 \usepackage{doi}       % Reference DOIs
@@ -25,7 +26,7 @@
 
 % Graphics
 \usepackage{graphicx}       % Calls figure environment
-\usepackage{color}          % Creates coloured text and background
+\usepackage[dvipsnames]{xcolor}         % Creates coloured text and background
 \usepackage{microtype}      % Makes pdf look better.
 \usepackage[normalem]{ulem} % Underline command
 
@@ -54,9 +55,9 @@
 % PDF Metadata
 \usepackage{ifpdf}
 \ifpdf\pdfinfo{%
-   /Author (Antoine Pietri)
-   /Title (PhD Thesis)
-   /CreationDate (D:\pdfcreationdate)
-%   /Keywords (One; Two;Three)
+    /Author (\theauthor{})
+    /Title (\thetitle{})
+    /CreationDate (D:\pdfcreationdate)
+    %   /Keywords (One; Two;Three)
 }
 \fi

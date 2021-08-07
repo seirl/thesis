@@ -1,3 +1,40 @@
+% Hyperref
+
+\iffalse  % To enable for printing
+\hypersetup{%
+    colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3,%
+    pdfstartview=FitV, breaklinks=true, pdfpagemode=UseNone, pageanchor=true,%
+    pdfpagemode=UseOutlines, plainpages=false, bookmarksnumbered,%
+    bookmarksopen=true, bookmarksopenlevel=1, hypertexnames=true, %
+    pdfhighlight=/O,%nesting=true,
+    %------------------------------------------------
+    % PDF file meta-information
+    pdftitle={\thetitle{}},
+    pdfauthor={\theauthor{}},
+    pdfsubject={},
+    pdfkeywords={},
+    pdfproducer={LaTeX}
+    %------------------------------------------------
+}
+\else
+\hypersetup{%
+    colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
+    breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,%
+    plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+    hypertexnames=true, pdfhighlight=/O,%nesting=true,
+    frenchlinks,
+    urlcolor=teal, linkcolor=darkgray, citecolor=BurntOrange,
+    %------------------------------------------------
+    % PDF file meta-information
+    pdftitle={\thetitle{}},
+    pdfauthor={\theauthor{}},
+    pdfsubject={},
+    pdfkeywords={},
+    pdfproducer={LaTeX}
+    %------------------------------------------------
+}
+\fi
+
 % Layout
 \newsubfloat{figure}
 \newsubfloat{table}

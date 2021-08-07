@@ -1,5 +1,8 @@
 % add 'draft' to enable draft option on (see below)
-\documentclass[a4paper,11pt,openbib,draft]{memoir}
+\documentclass[a4paper,11pt,openbib]{memoir}
+
+\newcommand{\thetitle}{Organizing the graph of public software development for large-scale mining}
+\newcommand{\theauthor}{Antoine Pietri}
 
 \input{header/packages}
 \input{header/style}
@@ -9,11 +12,11 @@
 
 % Draft
 \ifdraftdoc
-    \usepackage{draftwatermark}
+\fi
+\usepackage[firstpage]{draftwatermark}
     \SetWatermarkScale{0.3}
     \SetWatermarkText{\bf Draft: \today}
     \setkeys{Gin}{draft=false}  % Display images in draft mode
-\fi
 
 \begin{document}
 % Relax constraint on constant page height
@@ -60,6 +63,7 @@
 % subdirectories.
 \mainmatter
 %
+\glsresetall
 
 %\part{Prelude}
 

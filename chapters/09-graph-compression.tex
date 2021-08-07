@@ -324,8 +324,8 @@ at.
 For some workloads, it is useful to store other types of metadata associated to
 the nodes and edges in a way that is directly accessible from the compressed
 graph.
-In the next chapter, we will see how these other types of metadata can be made
-accessible, and the different speed and memory trade-offs this entails.
+In \cref{chp:graph-metadata}, we will see how these other types of metadata can
+be made accessible, and the different speed and memory trade-offs this entails.
 
 \subsection{Compression pipeline}%
 \label{sec:compression-pipeline}
@@ -352,9 +352,9 @@ WebGraph documentation on how to practically run them:
 \url{http://webgraph.di.unimi.it/}}
 
 \paragraph{MPH}
-Generate a \emph{minimal perfect hash function}~\cite{GOVFSCF} that maps input
+Generate a \emph{\gls{MPH} function}~\cite{GOVFSCF} which maps input
 node labels to the set $\{0,\ldots,N-1\}$ consecutive integers, where $N$ is
-the number of input nodes. The resulting MPH function will be used in the
+the number of input nodes. The resulting \gls{MPH} function will be used in the
 following to quickly associate \emph{an} integer to node labels without
 incurring the risk of collisions.
 
@@ -969,7 +969,8 @@ huge, but as graph compression techniques are used in production on web graphs
 analysis needs.
 
 
-\subsection{Limitations}
+\subsection{Limitations}%
+\label{sec:compression-limitations}
 
 A limitation of using static graph compression over classic information systems
 to store the data to be analyzed is that \emph{compression is not incremental}
@@ -1090,7 +1091,7 @@ Since successor lists are increasing integers, one can use \emph{succinct data
 \emph{compress} data, it represents it using the minimum possible number of
 bits instead.
 More precisely, if an object requires $z$ bits to be represented, a succinct
-data structure uses $z+o(z)$ bit.
+data structure uses $z+o(z)$ bits.
 
 A simple, practical data structure of this kind is the \emph{Elias-Fano
 representation of monotone sequences}~\cite{EliESRCASF}. This representation
@@ -1109,12 +1110,12 @@ compressed efficiently, with a constant additional cost for the access
 operations.
 
 We remark that using a separate succinct encoding for each successor list can
-be more efficient than succintly encoding the entire graph (for example, using
+be more efficient than succinctly encoding the entire graph (for example, using
 an Elias-Fano list to represent the positions of the ones in the adjacency
 matrix, or using truly succinct representations~\cite{FaMSEAG}). This happens
 because by Jensen's inequality the average cost \emph{per successor} is
 necessarily lower.  However, if one takes also into account the constant costs
-associated to storing each successor list, there is a tradeoff that has to be
+associated to storing each successor list, there is a trade-off that has to be
 evaluated on a case-by-case basis.  The Elias-Fano representation has been
 recently made dynamic~\cite{PiVDEFR} when the universe is polynomial in the
 list size, which makes it possible to use it in the case of dynamic graph

@@ -129,7 +129,7 @@ A byproduct of the compression pipeline are ``order files'' which define
 the \emph{permutations} of each reordering step. Their on-disk format is a
 binary array of integers in which the integer at position $x$ is $p(x)$ where
 $p$ is the permutation of the reordering step. As such, the \gls{SWHID} $\to$
-node ID mapping can be obtained by composing the MPH with the subsequent
+node ID mapping can be obtained by composing the \gls{MPH} with the subsequent
 reorderings. As a preliminary step, if the graph was permuted multiple times
 (as is the case for \gls{LLP}), we compose the \texttt{.order} files to keep a
 single permutation $p_G$, which corresponds to the resulting permutation of
@@ -154,13 +154,13 @@ input permutations.
 Then, the mapping function for the \gls{SWHID} $\to$ node ID direction can be
 defined from the \gls{MPH} and the composed permutation:
 
-\[\mathrm{swhid2node}(s) = p_G(\mathrm{mph}(s))\]
+\[\mathit{swhid2node}(s) = p_G(\mathit{mph}(s))\]
 
-In other words, getting the node ID associated with a given input SWHID can be
-done through the following two-step process:
+In other words, getting the node ID associated with a given input \gls{SWHID}
+$s$ can be done through the following two-step process:
 
 \begin{enumerate}
-    \item Hash the SWHID $s$ using the \gls{MPH} function loaded from the
+    \item Hash the \gls{SWHID} $s$ using the \gls{MPH} function loaded from the
         \texttt{graph.mph} file to obtain $k_0$, the node ID from the initial
         graph order.
     \item Take the image of $k_0$ from the graph permutation stored in the
@@ -193,7 +193,7 @@ Now that we are able to easily convert \glspl{SWHID} to their corresponding
 node IDs in the compressed graph, we can build a \emph{reverse mapping} which
 allows us to retrieve the \gls{SWHID} preimage of any node ID found in the
 compressed graph. This reverse mapping is the inverse function
-$\mathrm{node2swhid}$ (= $\mathrm{swhid2node}^{-1}$) of the mapping
+$\mathit{node2swhid}$ (= $\mathit{swhid2node}^{-1}$) of the mapping
 described in the previous section.
 
 This function is relatively easy to represent on-disk for two reasons. First,
@@ -244,7 +244,7 @@ the wrong input node without any way for the user to notice.
 
 While it is possible to externally check whether a \gls{SWHID} is present in
 the Software Heritage archive by querying its API, this is not sufficient for
-this use-case. The compressed graph is not built incrementally but is instead a
+this use case. The compressed graph is not built incrementally but is instead a
 \emph{static} export of the state of the archive at a given point in time. This
 means that all the nodes added to the archive during the time period between
 the graph compression and the present are unknown to the compressed graph.
@@ -264,12 +264,12 @@ objects in the graph.
 
 Instead, we consider another option based on \textbf{round-trips} on the
 mapping from \cref{sec:swhid2node} and reverse mapping from
-\cref{sec:node2swhid}.  Because both mappings are bijections which are the
+\cref{sec:node2swhid}.  Because both mappings are bijections which are
 inverses of each other, it follows that for every \gls{SWHID} $s$ in the input
-key set of the \gls{MPH}, $\mathrm{node2swhid}(\mathrm{swhid2node}(s)) = s$.
-In contrast, if $s$ \emph{is not} in the input domain, $\mathrm{swhid2node}(s)$
+key set of the \gls{MPH}, $\mathit{node2swhid}(\mathit{swhid2node}(s)) = s$.
+In contrast, if $s$ \emph{is not} in the input domain, $\mathit{swhid2node}(s)$
 will return an arbitrary node, and
-$\mathrm{node2swhid}(\mathrm{swhid2node}(s))$ will then return a random
+$\mathit{node2swhid}(\mathit{swhid2node}(s))$ will then return a random
 \gls{SWHID} \emph{from the input domain}, which thus cannot be equal to $s$.
 
 Given this, it is possible to create a function which maps \gls{SWHID} $\to$
@@ -277,15 +277,16 @@ node IDs \emph{with domain checking} by performing this ``round-trip'' to
 verify that the node is in the input domain, and returning an error otherwise:
 
 \[
-    \mathrm{swhid2nodeCheck}(s) =
+    \mathit{swhid2nodeCheck}(s) =
     \begin{cases}
-        \mathrm{swhid2node}(s) &
-        \text{\textbf{if}}~\mathrm{node2swhid}(\mathrm{swhid2node}(s)) = s,\\
+        \mathit{swhid2node}(s) &
+        \text{\textbf{if}}~\mathit{node2swhid}(\mathit{swhid2node}(s)) = s,\\
         \text{-1}            & \text{\textbf{otherwise.}}
     \end{cases}
 \]
 
-\section{Node properties}
+\section{Node properties}%
+\label{sec:node-properties}
 
 For the reasons outlined in \cref{sec:node2swhid}, mapping nodes to properties
 in external storage is generally a relatively easy feat. Because the nodes IDs
@@ -414,3 +415,392 @@ to memory-map this data structure from disk is left open as a future
 implementation direction.
 
 \section{Edge properties}
+
+While most properties in the graph are associated to the objects themselves,
+some properties are associated on the relationships between them, which we call
+``edge properties''. While they are relatively few, we expect them to be of
+crucial importance for most analysis workflows, as they include file and
+directory names which are a key property used in software mining; file
+extensions in particular are one of the most relevant properties that
+researchers use to find artifacts of interest. The complete list of edge
+properties in the relational schema which we want to make available from the
+compressed graph is as follows (a more detailed description of these properties
+are available in \cref{sec:relational-model}):
+
+\begin{itemize}
+    \setlength\itemsep{0em}
+\item \texttt{snapshot\_branch.name} (binary): name of a snapshot branch
+    (on snapshot $\to\ast$ edges)
+\item \texttt{directory\_entry.name} (binary): name of a directory entry
+    (on directory $\to\ast$ edges)
+\item \texttt{directory\_entry.perms} (int): permissions of a directory
+    entry (on directory $\to\ast$ edges)
+\end{itemize}
+
+\subsection{Data structure}%
+\label{sec:label-data-structure}
+
+As we have seen, associating properties to graph nodes using an external
+on-disk mapping is relatively straightforward: because the nodes are mapped to
+a contiguous integer range, in all cases the data structure only needs to map
+this range to a set of properties, which can be done efficiently in most cases.
+However, for properties attached to the graph \emph{edges}, doing so gets
+technically harder: the input domain of the mapping is the sparse adjacency
+matrix of the entire graph, which cannot be easily represented in a naive data
+structure.
+
+To solve this issue, the WebGraph framework provides an experimental set of
+libraries\footnote{\url{https://webgraph.di.unimi.it/docs/it/unimi/dsi/webgraph/labelling/package-summary.html}}
+under \texttt{webgraph.labelling} which implements arc labelling, i.e.,
+associating arbitrary properties to the graph edges. The basic principle for
+the serialization of labels using this system is twofold.
+
+First, all the labels
+are written to a \texttt{graph.labels} file in the order obtained by iterating
+on all the edges of the graph.  As a reminder, WebGraph stores the outgoing
+arcs of each node as an ordered adjacency list, and all the nodes in the graph
+are ordered from $0$ to $N-1$.  Enumerating all the nodes and all the outgoing
+arcs of each enumerated node in the compressed graph yields a natural ordering
+for all the edges stored in the graph, which can be then be followed to store
+the labels on disk.
+
+Second, a \texttt{graph.labeloffsets} file is used to index the offsets of the
+arc labels. This file can be seen as an integer array which associates a node
+$k$ with the position in the \texttt{graph.labels} file from which the labels
+of its outgoing arcs can be read. This offset file allows random access to the
+labels on the outgoing arcs of a given source node.
+
+In other words, given a node $k$, it is possible to lookup in constant time
+a position $p_k$ from the offset file, then iterate on all the outgoing edges
+of $k$ while reading the arc labels file starting from $p_k$ to get
+successively all the labels of the outgoing arcs of $k$. It is however not
+possible to get the specific arc label of a $k_1 \to k_2$ edge in constant
+time, as WebGraph does not allow access to arbitrary edges in constant time;
+instead, all the outgoing edges of $k_1$ need to be iterated along with their
+labels until $k_2$ is encountered in the adjacency list, which has an average
+complexity of $O(d_{\mathrm{out}})$.
+
+% TODO: maybe an illustration would be welcome here.
+
+The labels themselves can be in any arbitrary self-contained format, as they
+are read sequentially from the label file and deserialized using a custom
+function. The simplest format for an arc label is to associate a record of a
+fixed number of bits to each arc. This poses an important challenge for
+our use case. Consider a directory with two files having different names but
+an identical content, for example two empty files, as shown in
+\cref{fig:multiple-labels}. In our data model, this would be represented as two
+nodes (the directory and the blob corresponding to the empty file) and two
+edges from the first to the second node (one for each file entry). In the
+compressed graph however, these nodes would only be linked together by a single
+arc, to which we cannot associate a single file name.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[font=\footnotesize]
+        \node [style=directory] (0) at (0, 0) {};
+        \node [style=content] (1) at (4, 0) {ø};
+        \draw [style=arrow, bend left] (0) to node [above, sloped]
+            {\texttt{.gitkeep}} (1);
+        \draw [style=arrow, bend right] (0) to node [above, sloped]
+            {\texttt{README}} (1);
+
+    \end{tikzpicture}
+    \caption{Two directory entries with different names pointing to the same
+        blob (the empty file). This is stored as a single edge in the
+        compressed graph, and thus has to be represented with multiple labels per
+    arc.}%
+    \label{fig:multiple-labels}
+\end{figure}
+
+To represent this possibility of having multiple file names for a single arc,
+in the case of multiple relationships between two identical nodes, we cannot
+rely on having one fixed-size label for each arc. Instead, each arc label is
+stored a \emph{list} of records, each record representing one relationship
+between two nodes, which allows us to circumvent the single arc constraint.
+A version of this design which can store lists of fixed-size integers as the
+arc labels is implemented as the \texttt{FixedWidthIntListLabel} class in the
+WebGraph framework; we extended this class to allow for lists of larger (up to
+64 bits) fixed width labels in a new class, \texttt{FixedWidthLongListLabel}.
+
+\subsection{Label format}
+\label{sec:label-format}
+
+Each record in the label list described above represents one relationship
+between two nodes. Because there are $O(|E|)$ labels to store, it is important
+to find a compact representation for these labels so as to avoid requiring
+inordinate amounts of storage space.
+
+For simplicity purposes, and to avoid keeping around
+multiple label files, we can find a uniform representation for both snapshot
+branches and directory entries. Directory entries are constituted of a binary
+name and an integer for permissions, whereas snapshot branch labels only
+contain a binary name; we thus can represent all labels as a pair of a binary
+sequence field and an integer field, which happens to always be an unused value
+for snapshot branches.
+
+Moreover, we do not actually need to store permissions as arbitrary integers:
+file permissions are normalized when extracted from the archive and can only
+take one of five values (plus a special ``none'' value for the special case of
+snapshot branches).  Normalized permissions can therefore be stored in a 3 bits
+enumeration:
+
+\begin{table}[H]
+    \centering
+\begin{tabular}{c c c l}
+    \textbf{Value} & \textbf{Bits} & \textbf{Unix permission} & \textbf{Entry type} \\
+    0 & 000 & --- & None (used for snapshot branches) \\
+    1 & 001 & \texttt{0o100644} & Regular file \\
+    2 & 010 & \texttt{0o100755} & Executable file (\texttt{+x}) \\
+    3 & 011 & \texttt{0o120000} & Symbolic link \\
+    4 & 100 & \texttt{0o040000} & Directory \\
+    5 & 101 & \texttt{0o160000} & Revision (e.g., git submodules)
+\end{tabular}
+\end{table}
+
+Regarding file names and branch names, the naive implementation would be to
+write the full byte sequence representing the entry name in each label. As an
+order of magnitude, the total size of all the binary entry names in the
+2021-03-23 graph export is 4.0\,TiB, which is impractical to store on disk.
+However, this can be drastically improved by compressing identical file names
+together, as (1) the nature of our \gls{VCS} data model duplicates a lot of
+relationships between objects which only changed their contents, but not their
+names, and (2) entry names are massively reused in general (e.g.,
+\texttt{README.md}, \texttt{refs/heads/master}, \texttt{main.c}).
+While there are 225 billion different directory \emph{entries} in the
+latest export, there are only 2.3 billion different \emph{entry names}.
+By only storing each unique entry name once, we can cut down the 4\,TiB
+estimation of the naive approach down to only 62\,GiB, which is a lot more
+manageable (especially for fast access as it can be stored in a single SSD).
+
+For that purpose, we can once again use a \gls{MPH} function to associate each
+label to a unique integer in the range $\{0, \ldots, N_L\}$ where $N_L$ is the
+total number of unique names used in arc labels. Then, we can use a reverse
+mapping to retrieve a given byte sequence from its associated integer using a
+\texttt{FrontCodedStringList} as detailed in \cref{sec:node-properties}.  Here,
+a new trade-off appears: front-coded string lists are particularly efficient at
+compressing similar strings when they are \emph{ordered}, i.e., when successive
+strings in the list share a common prefix, as the front-coding can be used to
+compress the prefix across different values. However, standard \gls{MPH}
+functions map their input to integers in an arbitrary order, which nullifies
+the advantages of the front-coding. Some \gls{MPH}, called \emph{monotone
+minimal perfect hashing functions}, can be used to map their input in an
+order-preserving fashion~\cite{belazzougui2008theory}, although the resulting
+functions are generally larger and have a slower hash rate. An implementation
+of such a function is implemented as the
+\texttt{LcpMonotoneMinimalPerfectHashFunction} in the Sux4J
+framework\footnote{\url{https://sux.di.unimi.it/}}.
+
+We empirically benchmarked the storage performance and hashing speed of three
+different possibilities on the 2020-12-15 graph:
+
+\begin{enumerate}
+    \item \label{itm:label-gov3-fcl}
+        \textbf{Standard \gls{MPH} with unsorted front-coded string list}: this
+        approach uses a standard \gls{MPH} which does not preserve the order,
+        negating the compression of front-coded string lists.
+    \item \label{itm:label-gov3-pfcl}
+        \textbf{Standard \gls{MPH} with permuted sorted front-coded string
+        list}: this approach uses a standard \gls{MPH} which does not preserve
+        the order. However, the front-coded string list is stored by
+        lexicographical order, which allows it to benefit from front-coding
+        compression. To map the results of the hash function to the order in
+        the list, a \emph{permutation array} is used, as described in
+        \cref{sec:swhid2node}.
+    \item \label{itm:label-lcp-fcl}
+        \textbf{Monotone \gls{MPH} with sorted front-coded string list}: this
+        approach uses a monotone \gls{MPH} which maps its input in an
+        order-preserving fashion (but has a larger size and lower hashing
+        rate), and a sorted front-coded string list.
+\end{enumerate}
+
+The results of this benchmark is shown in \cref{tab:label-mph-benchmark}. As
+can be seen in the results, the front-coded compression on sorted lists
+drastically reduces the size of the reverse mapping: 172\,GiB for the unsorted
+list, 108\,GiB for the sorted list, for a total compression ratio of 1.59.
+Among the two options with a sorted front-coded string list,
+option~\ref{itm:label-gov3-pfcl} adds to that amount a 16\,GiB permutation
+array, while option~\ref{itm:label-gov3-pfcl} increases the size of the hash
+function from 0.6\,GiB to 5.7\,GiB. Because the hashing rate is practically
+identical between the two different hashing functions, and using a monotone
+\gls{MPH} makes the label writing pipeline simpler, we pragmatically oriented
+ourselves towards that last option.
+
+\begin{table}
+    \centering
+    \caption{Benchmark results of three different techniques to hash and build
+        a reverse mapping of the set of snapshot branch names and directory entry
+    names}%
+    \label{tab:label-mph-benchmark}
+    \begin{tabular}{c l r r r}
+        \textbf{Option} & \textbf{Implementation} & \textbf{MPH size} & \textbf{Total size} & \textbf{Hashing rate} \\ \hline
+        \ref{itm:label-gov3-fcl} & Standard MPH + unsorted FCL & 0.6\,GiB & 172\,GiB & 521 k lines/s \\
+        \ref{itm:label-gov3-pfcl} & Standard MPH + permuted FCL & 0.6\,GiB & 124\,GiB & 521 k lines/s \\
+        \ref{itm:label-gov3-pfcl} & Monotone MPH + sorted FCL & 5.7\,GiB & 114\,GiB & 511 k lines/s
+    \end{tabular}
+\end{table}
+
+Armed with efficient encoding mechanisms for the two fields of arc labels
+(permission enumeration and monotonically hashed entry name identifiers), we
+can specify the format for each record: a $3 +
+\left\lceil{\log_2(N_L)}\right\rceil$ bits long integer ($= 35$ bits for
+the 2021-03-23 graph) encoding the permission value in its three lower bits and
+the index of the entry name in the front-coded string list in its upper bits.
+
+\subsection{Label compression pipeline}
+
+Having settled the format for arc labels, we can now describe a compression
+pipeline to generate the on-disk labels from the input dataset. As a reminder,
+in \cref{sec:edges-format} we described the input edges format for graph
+compression, a CSV of edges in the format:
+
+\texttt{<source node> <destination node> [<entry name> [<permissions>]]<CR>}
+
+\paragraph{Label set extraction}
+The first step of the pipeline is to extract the set of unique label names
+(directory entry and snapshot branch names) from the edges dataset. We iterate
+on the entire set of edges and extract the third field (entry name) when it is
+present, then use this feed as an input to the GNU \texttt{sort(1)} command
+with the \texttt{-u} option, to only keep unique entries. We then compress the
+output using the Zstandard algorithm~\cite{collet2015zstd}, and obtain a
+compressed and sorted set of all the unique label names in the graph.
+
+\paragraph{Label hashing}
+Using the set of label names, we can generate the hashing function to convert
+entry names to and from the set of integers $\{0, \ldots, N_L\}$ using a
+Monotone \gls{MPH} as described in \cref{sec:label-format}. The
+\texttt{LcpMonotoneMinimalPerfectHashFunction} class takes the sorted set of
+labels $L$ as an input, and generates an $h_L$ function which converts any
+given entry name from the set $L$ to its rank in the sorted list of label
+names.
+
+\paragraph{Reverse mapping}
+In order to access the value any given label name from its integer rank in
+$O(1)$ time, we then build an efficient on-disk map using the
+\texttt{FrontCodedStringBigList} class by giving it the sorted list of labels
+as an input, which stores them efficiently using front-coding compression while
+allowing fast random access. This map $m_L$ is the inverse function
+of $h_L$ over its input domain: $\forall l \in L,~m_L(h_L(l)) = l$.
+
+\paragraph{Label hashing}
+As explained in \cref{sec:label-data-structure}, the labels have to be stored
+in the natural order of edges in the compressed graph. This compressed order is
+different from the order observed in the edges dataset, which is
+arbitrary and depends of the export process. We thus need to hash the node
+\gls{SWHID} using the \texttt{swhid2node} function on both the source and the
+destination, and the $h_L$ function on the label byte strings in order to
+reorder them in the final compressed order.
+
+To illustrate this process, given the following edges dataset:
+
+\begin{minted}{text}
+<src> <dst> <label_name> <perms>
+swh:1:snp:4548a5… swh:1:rev:0d6834… cmVmcy9oZWFkcy9tYXN0ZXI=
+swh:1:dir:05faa1… swh:1:cnt:a35136… dGVzdC5j 420
+swh:1:dir:05faa1… swh:1:dir:d0ff82… dGVzdA== 16384
+\end{minted}
+
+We (1) hash and permute the source and destination nodes using
+$p_G(\mathit{mph}(s)$, and (2) monotonically hash the labels using $h_L(l)$, to
+obtain the identifiers which will be used in the compressed graph:
+
+\begin{minted}{text}
+pG(mph(<src>) pG(mph(<dst>)) hL(<label_name>) <perms>
+4421 14773 154
+1877 21441 134 420
+1877 14143 141 16384
+\end{minted}
+
+\paragraph{Label sorting}
+Then, we can reorder the list of edges to match the order of edges in the
+compressed graph.
+We use GNU \texttt{sort(1)} with a large in-memory buffer and temporary
+space on disk to obtain the sorted edges. Sort is called with the \texttt{-n
+-k1,1 -k2,2} options to numerically sort on each field:
+
+\begin{minted}{text}
+1877 14143 141 16384
+1877 21441 134 420
+4421 14773 154
+\end{minted}
+
+This sorting step is extremely intensive in time and memory: because there are
+more than 220 billion edges to sort in the latest dataset and that the sorting
+algorithm has a complexity of $O(|E| \times \log(|E|))$, the process can
+take entire weeks, terabytes of disk space and hundreds of gigabytes of RAM.
+
+Since the lines that need to be sorted are fixed-width numbers, other
+sorting methods can be used to reduce memory usage. The
+\texttt{bsort}\footnote{\url{https://github.com/pelotoncycle/bsort}} program
+implements an in-place radix sort, which avoids storing terabytes of temporary
+buffers on-disk. To use it, we store the result of the hashing step in binary
+format, one record per line. To avoid spending time sorting on the leading
+zeros, the source and destination node IDs are written in a fixed size byte
+array of size $w = \left\lceil{\frac{\log_2(N_L)}{8}}\right\rceil$ bytes. The
+total record is of size $2 \times w + 8 + 4$, to store respectively the source
+and destination nodes, the 64-bit label identifier and the 32-bit permission
+integer. The \texttt{bsort} program is then called with the options \texttt{-k
+<w*2> -r <w*2+8+4>} to specify respectively the record size and the number of
+leading bytes used for sorting.
+
+We benchmarked the label sorting pipeline using \texttt{sort} and
+\texttt{bsort} on a smaller graph of around 350 million edges, and obtained
+similar results ($12'30''$ for \texttt{sort}, $11'30''$ for \texttt{bsort}).
+We have not yet been able to conclusively determine whether one sorting method
+would be significantly faster than the other on larger input files. We thus
+make both sorting methods available, configurable by the user as a command line
+option.
+
+\paragraph{Arc labelling}
+Finally, with the ordered list of edges in numerical format, we can write the
+labels to the \texttt{graph.labels} file and its offset to the
+\texttt{graph.labeloffsets} file. For this, we need to traverse the graph edges
+in order, and synchronize the traversed edges with the stream of labelled
+edges, skipping unlabeled edges in the graph. This process is shown in
+\cref{algo:label-writing} and has a complexity of $O(|E|)$.
+
+\begin{algorithm}[t]
+    \begin{algorithmic}
+        \Function{WriteLabels}{$G,~S_E$}
+        \State $l \gets \{-1, -1, -1, -1\}$ \Comment{Placeholder edge line}
+        \ForAll{$n \in G$} \Comment{For all the nodes in the graph}
+            \State $w \gets 0$ \Comment{Number of bits taken by the labels of
+            the outgoing edges}
+            \ForAll{$e \in \Call{out}{n}$} \Comment{For all outgoing edges from
+            $n$}
+                \State $A \gets$ empty array \Comment{Array of labels for
+                this outgoing edge}
+                \While {($l_\mathit{src}, l_\mathit{dst}) < (e_\mathit{src},
+                    e_\mathit{dst})$} \Comment{Synchronize traversal and label
+                    stream}
+
+                    \If {($l_\mathit{src}, l_\mathit{dst}) = (e_\mathit{src},
+                        e_\mathit{dst})$} \Comment{Traversed edge is in sync with label
+                        stream}
+                        \State add $(l_\mathit{entry}, l_\mathit{perms})$ to $A$
+                    \EndIf
+
+                    \If {$S_E$ at \texttt{EOF}} \Comment{Exit case for end of stream}
+                        \State \textbf{break}
+                    \Else
+                        \State $l \gets \Call{NextLine}{S_E}$
+                    \EndIf
+                \EndWhile
+                \State $b \gets \Call{SerializeLabelArray}{A}$
+                \State $w \gets w + \Call{Length}{B}$
+                \State Append $b$ to \texttt{graph.labels}
+            \EndFor
+            \State Append $w$ to \texttt{graph.labeloffsets}
+        \EndFor
+        \EndFunction
+    \end{algorithmic}
+
+    \caption{Write the labels from the sorted edge streams to a compressed
+    representation. This algorithm works by synchronizing two traversals: the
+sorted edges of the graph $G$ and the sorted edges from the numerical stream of
+labelled edges $S_E$.}%
+    \label{algo:label-writing}
+\end{algorithm}
+
+\section{Walkthrough}
+
+

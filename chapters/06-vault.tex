@@ -8,7 +8,7 @@ studies on software repositories, it is possible to get a good sense of the
 best ways the archive could become useful as a research platform.
 
 However, building the universal platform constitutes a huge endeavor that has
-to be done incrementally. As we cannot aim to cover most use-cases overnight,
+to be done incrementally. As we cannot aim to cover most use cases overnight,
 we should instead prioritize features that are immediately useful to
 researchers so that they can start using the building blocks we provide in
 their work. Aside from driving up engagement with the research community, this
@@ -23,7 +23,7 @@ smaller-scale experiments and prototypes.
 
 For single artifacts, the Software Heritage
 API\footnote{\url{https://archive.softwareheritage.org/api/}} already somewhat
-covers this use-case: using the \gls{SWHID} of an object, it is possible to
+covers this use case: using the \gls{SWHID} of an object, it is possible to
 retrieve its associated data as stored in the archive. This use case is
 relevant for researchers because it provides a first form of availability: many
 studies can be conducted using only \gls{VCS} object identifiers; the archive
@@ -61,7 +61,7 @@ As an example, the following HTTP GET request can be used to get the revision
 \vspace{1em}
 
 While this works well to check the status of a single artifact, it is tedious
-to use for more complex use-cases. Even for relatively small-scale experiments
+to use for more complex use cases. Even for relatively small-scale experiments
 on a single repository, researchers will generally want to fetch at least an
 entire source code tree.  In this chapter, we introduce a new component in the
 Software Heritage infrastructure to fetch entire groups of software artifacts
@@ -332,7 +332,7 @@ macro studies on the entire software commons.
 A final caveat is that using the Vault to retrieve repositories is frictional
 and requires some upfront work to retrieve repositories that can be harder than
 to simply clone the original repositories themselves. The Vault is still
-valuable for these use-cases, as the original repositories are not guaranteed to
+valuable for these use cases, as the original repositories are not guaranteed to
 still be available or even stable over time due to history rewrites, however it
 leaves significant room for improvement.  The next chapter tries to bridge the
 gap between simplicity and low friction for small-scale mining studies by

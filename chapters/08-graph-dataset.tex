@@ -452,7 +452,7 @@ A dataset export can be attributed a unique export identifier that is passed
 to the command line:
 
 \begin{minted}{console}
-$ swh dataset graph export --export-id dataset-2021-03-15 output_dir/
+$ swh dataset graph export --export-id dataset-2021-03-23 output_dir/
 \end{minted}
 
 This identifier is stored on the server side to associate the journal clients
@@ -641,8 +641,8 @@ this represents a snapshot branch named \texttt{refs/heads/master} and a file
 entry named \texttt{test.c} with permissions \texttt{0o644}:
 
 \begin{minted}{text}
-src:1:snp:4548a5… src:1:rev:0d6834… cmVmcy9oZWFkcy9tYXN0ZXI=
-src:1:dir:05faa1… src:1:cnt:a35136… dGVzdC5j 420
+swh:1:snp:4548a5… swh:1:rev:0d6834… cmVmcy9oZWFkcy9tYXN0ZXI=
+swh:1:dir:05faa1… swh:1:cnt:a35136… dGVzdC5j 420
 \end{minted}
 
 Generally, the edges CSV is not sufficient for graph processing services, as
@@ -659,8 +659,8 @@ graph before.
 Instead, we get the list of all nodes that are \emph{referred to} as
 destinations in the edges file, and add them to the existing node files. For
 that purpose, we use a Unix pipeline to cut the edge files in half, then use
-\texttt{sort(1)} with a large memory and disk buffer (hundreds of gigabytes of
-RAM and around 10 TiB of disk space) to get a unique sorted list of all the
+GNU \texttt{sort(1)} with a large memory and disk buffer (hundreds of gigabytes
+of RAM and around 10 TiB of disk space) to get a unique sorted list of all the
 nodes in the graph.
 
 We also use this pipeline to aggregate statistics on the number of each edge
@@ -900,7 +900,7 @@ the Software Heritage project itself, and benefits to both software mining
 researchers and cloud platforms.
 
 The \SWHGD{} became an open dataset in two cloud services, each covering
-different use-cases that are detailed in the sections below: AWS
+different use cases that are detailed in the sections below: AWS
 Athena~\cite{website-amazon-athena} and Azure
 Databricks~\cite{website-azure-databricks}.
 
@@ -1090,7 +1090,7 @@ outdegree distribution of the directories.
 \begin{listing}
 \begin{minted}{python}
 dataset_path = ('wasbs://swhgraph@swhopendataset.blob.core.windows.net'
-                '/2021-03-15/orc')
+                '/2021-03-23/orc')
 tables = ['content', 'directory', 'directory_entry', 'origin', 'origin_visit',
           'origin_visit_status', 'release', 'revision', 'revision_history',
           'skipped_content', 'snapshot', 'snapshot_branch']

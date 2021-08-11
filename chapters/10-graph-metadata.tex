@@ -68,28 +68,6 @@ In this chapter, we look at ways to bridge this potency gap between the two
 formats by enabling access to node and edge properties from the compressed
 graph.
 
-\section{Design and memory considerations}
-
-% Move after ?
-
-We export graph properties as a set of files which live next to the compressed
-graph, one file per property. The specific formats used for these property
-files will be detailed in later sections. In this section we discuss time and
-memory considerations surrounding access to these properties from the
-compressed graph.
-
-As one might expect, in the graph of software development the vast majority of
-storage space is occupied by the properties themselves; the structure of nodes
-and arcs is just a small portion of the entire data usage. This highlights an
-important speed/memory trade-off: it is highly unlikely that the entire
-property graph can be realistically stored in memory in the same way as the
-graph structure itself. Therefore, it makes sense for the properties to be
-stored offline by default (presumably on-disk) and then loaded on demand
-when the analysis requires it.
-
-More specifically % TODO
-
-
 \section{SWHID mappings}
 
 The input of the graph compression is a list of nodes and edges referenced by
@@ -299,7 +277,8 @@ The best way to achieve this depends on the type and characteristics of each
 property, detailed in \cref{sec:relational-model}. We can use these to organize
 the properties in different categories:
 
-\paragraph{Node types}
+\subsection{Node types}%
+\label{sec:mapping-types}
 
 In \cref{sec:compression-comp-scope} we already mentioned keeping \emph{node
 types} in memory, i.e., whether a node is a blob, directory, revision, etc.
@@ -314,7 +293,8 @@ This mapping is implemented very efficiently as a bit array indexed by integer
 node identifiers, with records of only 3 bits per node (as there are 6 node
 types in total), which amounts to around 7\,GB of RAM for the 2020-12-15 graph.
 
-\paragraph{Integer properties}
+\subsection{Integer properties}%
+\label{sec:mapping-integers}
 
 The following properties are simple integers, either 16, 32 or 64 bits:
 
@@ -342,7 +322,8 @@ integer field (16, 32 or 64). For the 2020-12-15 export, these bit sizes
 correspond respectively to property files of size 35\,GiB, 71\,GiB and
 145\,GiB.
 
-\paragraph{Persons}
+\subsection{Persons}%
+\label{sec:mapping-persons}
 
 The following properties represent ``persons'', which are stored as records
 containing a full name and an email address.\footnote{Like projects, persons
@@ -385,7 +366,8 @@ integer. The integer array is then stored in binary format using the method
 described above for regular integer fields. There is no need to build and
 provide a reverse mapping for the anonymization reasons explained above.
 
-\paragraph{Text}
+\subsection{Text}%
+\label{sec:mapping-text}
 
 Finally, the most complex type of node fields in the property graph is the
 textual type, or rather, arbitrary sequences of bytes. The following properties
@@ -414,7 +396,8 @@ which can be a significant memory burden. Improving this by making it possible
 to memory-map this data structure from disk is left open as a future
 implementation direction.
 
-\section{Edge properties}
+\section{Edge properties}%
+\label{sec:mapping-edge-labels}
 
 While most properties in the graph are associated to the objects themselves,
 some properties are associated on the relationships between them, which we call
@@ -801,6 +784,204 @@ labelled edges $S_E$.}%
     \label{algo:label-writing}
 \end{algorithm}
 
+\section{Memory considerations}
+
+We export graph properties as a set of files which live next to the compressed
+graph, one file per property. The specific formats used for these property
+files have been detailed in the previous sections. In this section we discuss
+time and memory considerations surrounding access to these properties from the
+compressed graph.
+
+\subsection{Direct loading and memory-mapping}
+
+As one might expect, in the graph of software development the vast majority of
+storage space is occupied by the properties themselves; the structure of nodes
+and arcs is just a small portion of the entire data usage. This highlights an
+important speed/memory trade-off: it is highly unlikely that the entire
+property graph can be realistically stored in memory in the same way as the
+graph structure itself. Therefore, it makes sense for the properties to be
+stored offline by default (presumably on-disk) and then loaded on demand
+when the analysis requires it.
+
+There are different ``levels'' of loading external data on-demand, each with
+its own memory requirements:
+
+\begin{enumerate}
+    \item Loading the entire mapping from disk to main memory. This immediately
+        increases the main memory usage by the size of the mapping, which
+        guarantees that property access is bounded by the speed of the physical
+        RAM with no disk I/O involved.
+    \item Mapping the file in virtual memory with \texttt{mmap(1)}. This
+        delegates to the kernel the possibility to cache large sections of the
+        file in main memory when enough physical RAM is available; however,
+        when a segment of the file is accessed without having been cached,
+        accessing the mapping will trigger a page fault and require disk I/O,
+        slowing down access times.
+        Here, performance becomes dependant of (a) the amount of available RAM
+        and (b) how well the kernel is able to predict access patterns (to the
+        extent that they are actually predictable and not random seeks).
+        The main advantage of this method is to avoid reserving large amounts
+        of physical RAM for the mapping.
+    \item Seeking to a given position in an offline on-disk file. This makes
+        property access fully I/O bound, with each read requiring a system
+        call. The I/O operation need not translate to a physical disk read, as
+        the kernel can still cache some sections of the file in main memory.
+        This method has minimal advantages compared to memory-mapping for large
+        files, so we generally do not provide it as an option for property
+        access.
+\end{enumerate}
+
+From the level of the graph compression framework, it makes sense to put the
+direct loading and memory-mapping methods at the disposal of the end-user, so
+that they can tune on-demand property loading to their specific workloads and
+hardware. We thus try to provide, for the mappings that support it,
+respectively two loading methods: \texttt{load} and \texttt{loadMapped}.
+Each mapping can be loaded at any point during runtime. It is generally more
+efficient to directly load smaller mappings which are often used in RAM (e.g.,
+the node type mapping should generally always be loaded directly), whereas
+larger files like integer arrays should be memory-mapped if the amount of
+physical RAM is a binding constraint on the hardware.
+
+\subsection{Sharing mapped data across processes}%
+\label{sec:cachemount}
+
+Often, multiple processes can be working on the same data (mappings or the
+graph itself), for instance when running different experiments on the same
+graph. This is problematic in terms of RAM usage when using direct memory
+loading, as the same data of potentially hundreds of gigabytes is loaded in
+memory twice. Memory-mapping can be used to avoid storing redundant data in
+RAM, but comes at a cost of potentially slower I/O as the data is no longer
+guaranteed to be loaded in main memory and is reliant on kernel heuristics.
+
+We propose another approach to share data across two different compressed graph
+processes while loading it \emph{directly in RAM}, through the use of the
+\texttt{swh graph cachemount} command. By copying graph data to a
+\emph{tmpfs}~\cite{snyder1990tmpfs} not backed by a disk swap, we can force the
+kernel to load it entirely in RAM. Subsequent memory-mappings of the files
+stored in the tmpfs will simply map the data stored in RAM to virtual memory
+pages, and return a pointer to the in-memory structure.
+
+From an user perspective, using the \texttt{cachemount} command can be done in
+just a few steps: (1) choose the graph data and mappings which need to always
+be loaded in main memory to be shared by the compressed graph processes; (2)
+call the \texttt{cachemount} command with the list of relevant files, which
+copies them in the tmpfs located at \texttt{/dev/shm}; (3) memory-map the files
+from the graph processes using the \texttt{loadMapped} method, which returns a
+virtual mapping to the in-RAM structure.
+
 \section{Walkthrough}
 
+This section briefly demonstrates how to use graph properties from the
+\texttt{swh.graph} framework using the mapping techniques described in the
+sections above.
 
+The graph itself can be loaded either with memory-mapping or direct loading; it
+is however recommended to always load it using memory-mapping while using the
+\texttt{cachemount} command described in \cref{sec:cachemount} to share data
+between several \texttt{swh.graph} processes. A third option is to load the
+graph in ``offline mode'', without loading the edges themselves in memory; this
+disables random node access and only allows the graph to be iterated
+sequentially.
+
+\begin{minted}{java}
+SwhGraph g1 = SwhGraph.load(graphPath);  // direct loading
+SwhGraph g2 = SwhGraph.loadMapped(graphPath);  // memory mapping
+SwhGraph g3 = SwhGraph.loadOffline(graphPath);  // offline mode
+\end{minted}
+
+The \texttt{SwhGraph} object automatically loads the node type maps described
+in \cref{sec:mapping-types} with direct loading, as this mapping is
+comparatively small. The type of each node can then be looked-up using
+\texttt{getType}:
+
+\begin{minted}{java}
+// Printing all the node types
+NodeIterator it = graph.nodeIterator();
+while (it.hasNext()) {
+    long k = it.nextLong();
+    // returns the node type (among {ORI, SNP, REL, REV, DIR, CNT})
+    SwhNode.Type t = graph.getType(k);
+    System.out.println(t);
+}
+\end{minted}
+
+The node ID $\leftrightarrow$ \gls{SWHID} mappings described in
+\cref{sec:swhid2node} and \cref{sec:swhid2node} are provided through
+\texttt{NodeIdMap}, a wrapper of the \gls{MPH} function, the \texttt{.order}
+files for the permutation, and the binary file containing the reverse mapping.
+By default, the \gls{MPH} function is loaded with direct loading, while the
+other bigger files are memory-mapped.
+
+\begin{minted}{java}
+// Loading SWHID <-> node ID maps
+NodeIdMap m = new NodeIdMap(graphPath, graph.numNodes());
+
+// Printing all the node SWHIDs
+NodeIterator it = graph.nodeIterator();
+while (it.hasNext()) {
+    long k = it.nextLong();
+    // returns the SWHID of the given node
+    SwhNode.Type swhid = m.getSWHID(k);
+    System.out.println(swhid);
+}
+\end{minted}
+
+Other node properties like integer timestamp arrays can be either loaded
+directly or using memory-mapping.
+
+\begin{minted}{java}
+// Direct loading
+long[][] revTimestamps = (long[][]) BinIO.loadLongsBig(
+    graphPath + "-rev_timestamps.bin");
+
+// Memory-mapping (alternatively)
+LongBigList revTimestamps = ByteBufferLongBigList.map(
+    new FileInputStream(graphPath + "-rev_timestamps.bin").getChannel());
+
+// Printing all the commit timestamps
+NodeIterator it = graph.nodeIterator();
+while (it.hasNext()) {
+    long k = it.nextLong();
+    if (graph.getType(k) == Node.Type.REV) {
+        long timestamp = BigArrays.get(revTimestamps, k)
+        System.out.println(graph.getSWHID(k) + ": " + timestamp);
+    }
+}
+\end{minted}
+
+Finally, properties on the graph edges described in
+\cref{sec:mapping-edge-labels} require the use of a graph wrapper class,
+\texttt{ArcLabelledImmutableGraph}, which provides an API to seamlessly read
+arc labels from the \texttt{graph.labels} file while iterating on the graph
+edges. From there, the on-disk front-coded string array can be loaded and used
+to retrieve textual label names from their hashed identifier:
+
+\begin{minted}{java}
+// Load graph, node mapping and label name reverse mapping
+ArcLabelledImmutableGraph graph = BitStreamArcLabelledImmutableGraph.loadMapped(
+    graphPath + "-labelled");
+NodeIdMap nodeMap = new NodeIdMap(graphPath, graph.numNodes());
+FrontCodedStringBigList labelNameMap = (FrontCodedStringBigList) BinIO.loadObject(
+    graphPath + "-labels.fcl");
+
+// Print all the edges and their labels
+ArcLabelledNodeIterator it = graph.nodeIterator();
+while (it.hasNext()) {
+    long srcNode = it.nextLong();
+    ArcLabelledNodeIterator.LabelledArcIterator s = it.successors();
+    long dstNode;
+    while ((dstNode = s.nextLong()) >= 0) {
+        SwhLabel[] labels = (SwhLabel[]) s.label().get();
+        if (labels.length > 0) {
+            for (SwhLabel label : labels) {
+                System.out.format(
+                    "%s %s %s %d\n",
+                    nodeMap.getSWHID(srcNode),
+                    nodeMap.getSWHID(dstNode),
+                    labelNameMap.get(label.filenameId),
+                    label.permission);
+            }
+        }
+    }
+}
+\end{minted}

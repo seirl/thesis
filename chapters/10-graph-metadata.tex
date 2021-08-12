@@ -565,22 +565,23 @@ compressing similar strings when they are \emph{ordered}, i.e., when successive
 strings in the list share a common prefix, as the front-coding can be used to
 compress the prefix across different values. However, standard \gls{MPH}
 functions map their input to integers in an arbitrary order, which nullifies
-the advantages of the front-coding. Some \gls{MPH}, called \emph{monotone
-minimal perfect hashing functions}, can be used to map their input in an
-order-preserving fashion~\cite{belazzougui2008theory}, although the resulting
-functions are generally larger and have a slower hash rate. An implementation
-of such a function is implemented as the
+the advantages of the front-coding. Some \gls{MPH} functions, called
+\emph{monotone minimal perfect hashing functions}, can be used to map their
+input in an order-preserving fashion~\cite{belazzougui2008theory}, although the
+resulting functions are generally larger and have a slower hash rate. An
+implementation of such a function is implemented as the
 \texttt{LcpMonotoneMinimalPerfectHashFunction} in the Sux4J
 framework\footnote{\url{https://sux.di.unimi.it/}}.
 
 We empirically benchmarked the storage performance and hashing speed of three
-different possibilities on the 2020-12-15 graph:
+different techniques for label name mapping on the 2020-12-15 graph:
 
 \begin{enumerate}
     \item \label{itm:label-gov3-fcl}
         \textbf{Standard \gls{MPH} with unsorted front-coded string list}: this
-        approach uses a standard \gls{MPH} which does not preserve the order,
-        negating the compression of front-coded string lists.
+        approach uses a standard \gls{MPH} which does not preserve the order of
+        its input keys, negating the compression benefits of front-coded string
+        lists.
     \item \label{itm:label-gov3-pfcl}
         \textbf{Standard \gls{MPH} with permuted sorted front-coded string
         list}: this approach uses a standard \gls{MPH} which does not preserve
@@ -611,8 +612,8 @@ ourselves towards that last option.
 \begin{table}
     \centering
     \caption{Benchmark results of three different techniques to hash and build
-        a reverse mapping of the set of snapshot branch names and directory entry
-    names}%
+        a reverse mapping of the set of snapshot branch names and directory
+        entry names.}%
     \label{tab:label-mph-benchmark}
     \begin{tabular}{c l r r r}
         \textbf{Option} & \textbf{Implementation} & \textbf{MPH size} & \textbf{Total size} & \textbf{Hashing rate} \\ \hline
@@ -707,9 +708,10 @@ space on disk to obtain the sorted edges. Sort is called with the \texttt{-n
 \end{minted}
 
 This sorting step is extremely intensive in time and memory: because there are
-more than 220 billion edges to sort in the latest dataset and that the sorting
-algorithm has a complexity of $O(|E| \times \log(|E|))$, the process can
-take entire weeks, terabytes of disk space and hundreds of gigabytes of RAM.
+more than 220 billion edges to sort in the latest dataset and because the
+sorting algorithm has a complexity of $O(|E| \times \log(|E|))$, the process
+can take entire weeks, terabytes of disk space and hundreds of gigabytes of
+RAM.
 
 Since the lines that need to be sorted are fixed-width numbers, other
 sorting methods can be used to reduce memory usage. The

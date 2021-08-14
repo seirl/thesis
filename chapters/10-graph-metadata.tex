@@ -148,7 +148,7 @@ $s$ can be done through the following two-step process:
 The storage space taken by the entire mapping is the on-disk size of the
 permutation plus the on-disk size of the hash function, which is $\approx
 150$\,GiB in the 2020-12-15 dataset. This is comparable to the size of the
-graph itself (134\,GiB for the direct graph only). This size could be reduced
+graph itself (134\,GiB for the forward graph only). This size could be reduced
 by compressing the \texttt{.order} file, which could be achieved by reducing
 the number of bits used for each entry in the permutation to the bare minimum
 necessary to represent an integer in the set of node IDs. This would come at

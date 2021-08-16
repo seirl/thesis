@@ -43,7 +43,7 @@ factor when performing recursive queries.
 Commit chains are a pathological case of arbitrary nestedness, as they tend to
 be very long, with some well-known repositories like the Linux kernel exceeding
 hundreds of millions of commits, but with a very low average degree, thus they
-cannot effectively exploit the distributed setting.
+cannot effectively be exploited in a distributed setting.
 
 As a result, simple recursive algorithms on the graph of software development
 are very costly, as they require large Big Data clusters running for a
@@ -621,7 +621,7 @@ values. The results are shown in \cref{tab:compression-llp-gammas}.
 % numbers}.
 
 An interesting result is that smaller values of $\gamma$ seem to generate
-better compression results.
+better compression ratios.
 The effect of a given $\gamma$ is that the density of the sparsest cluster is
 at least $\frac{\gamma}{\gamma+1}$, so large $\gamma$ values imply small, more
 dense clusters.  It is reasonable to assume that since the graph is very sparse

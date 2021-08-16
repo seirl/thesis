@@ -1,0 +1,72 @@
+digraph G {
+    // rankdir=LR;
+    nodesep=0.8;
+    ranksep=0.8;
+    overlap=scalexy;
+    splines=true;
+    node [style=filled,fillcolor=white];
+    # edge [fontsize=10, labeldistance=1.5];
+
+    origin [label="origins"];
+    snapshot [label="snapshots"];
+    content [label="blobs"];
+    release [label="releases"];
+    revision [label="commits"];
+    directory [label="directories"];
+
+    origin -> snapshot;
+
+    release -> revision [];
+    # release -> directory [style=dotted, fontcolor=grey, color=grey];
+    # release -> content [style=dotted, fontcolor=grey, color=grey];
+
+    snapshot -> release [];
+    snapshot -> revision [];
+    # snapshot -> directory [style=dotted, fontcolor=grey, color=grey];
+    # snapshot -> content [style=dotted, fontcolor=grey, color=grey];
+
+    revision -> revision [];
+    revision -> directory [];
+    directory -> content [];
+    directory -> directory [];
+    directory -> revision [];
+
+    subgraph cluster_all {
+        label = "Full graph";
+
+        subgraph {
+            snapshot;
+            release;
+        }
+
+        subgraph cluster_0 {
+            label = "Filesystem layer";
+            fillcolor = lightblue;
+            style = filled;
+            directory;
+            content;
+        }
+
+        subgraph cluster_history {
+            label = "History layer";
+            release;
+
+            subgraph cluster_2 {
+                label = "Commit layer";
+                revision;
+                fillcolor = lightgreen;
+                style = filled;
+            }
+            fillcolor = lightyellow;
+            style = filled;
+        }
+
+        subgraph cluster_3 {
+            label = "Hosting layer";
+            origin;
+            snapshot;
+            fillcolor = lightgray;
+            style = filled;
+        }
+    }
+}

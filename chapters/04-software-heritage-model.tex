@@ -365,6 +365,43 @@ simplicity.
     metadata fields and intrinsic hashes.}%
 \end{figure}
 
+\subsection{Layers}
+\label{sec:layers}
+
+While each relationship can be analyzed independently, is useful to regroup
+the node and edges of the Merkle \gls{DAG} by type into logical layers that are
+conceptually meaningful.  To that end we define the following subgraphs of the
+Software Heritage graph:
+\begin{itemize}
+
+\item \emph{Full corpus}: the entire graph of public software development
+
+\item \emph{Filesystem layer}: subset of the full corpus consisting of blob and
+  directory nodes only, and edges between them
+
+\item \emph{History layer}: subset of the full corpus consisting of revision and
+  release nods only, and edges between them
+
+\item \emph{Commit layer}: subset of the history layer consisting of revision
+  nodes only, and edges between them
+
+\item \emph{Hosting layer}: subset of the full corpus consisting of origins and
+  snapshot nodes only, and edges between them
+
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth,trim=1cm 1cm 1cm 1cm]{img/swh-layers}
+    \caption{Logical layers used to refer to specific subsets of the graph.}%
+    \label{fig:layers}
+\end{figure}
+\Cref{fig:layers} shows the various layers, which types of nodes belong to
+each of them, as well as how edges connect them. In later chapters, we will
+study properties of both the full graph of public software development and of
+the specific subgraphs named above.
+
+
 \subsection{Persistent identifiers}%
 \label{sec:swhid}
 

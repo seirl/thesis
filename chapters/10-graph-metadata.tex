@@ -21,7 +21,7 @@ exploit. The compressed graph only contains the topological structure (nodes
 and arcs) of the graph, whereas the graph dataset in relational format can be
 used to study the entire \emph{property graph} of development history, i.e.,
 not only the graph structure of the dataset but also the properties associated
-to each nodes and edges (e.g., commit messages, timestamps, file names, etc.).
+with each node and edge (e.g., commit messages, timestamps, file names, etc.).
 Because of this, recursive graph queries cannot use graph properties during
 their traversals. This can be worked around by performing graph queries
 without using the properties themselves, then \emph{joining} the results with
@@ -33,9 +33,9 @@ As an example, let us consider the following query:
 which this blob can be found anywhere in its source code tree.}
 
 If the commit timestamp property can be accessed ``on the fly'' during graph
-traversal, this query can be answered rather straightforwardly: for each
-revision in the transitive closure of the blob in the transposed graph, find
-the one with the lowest timestamp. However, if these properties are only
+traversal, this query can be answered in a rather straightforward manner: for
+each revision in the transitive closure of the blob in the transposed graph,
+find the one with the lowest timestamp. However, if these properties are only
 available externally, the process is more involved: it requires returning the
 entire transitive closure from the blob, then joining it with the timestamps,
 which can require transferring very large amounts of nodes to join with the
@@ -45,8 +45,8 @@ empty file).
 The added complexity gets even worse when the traversed edges are conditional
 on the properties themselves. Consider the following query:
 
-\textbf{Query 2}: \emph{Given a snapshot, find all the unique blobs which
-were present at the path \texttt{src/test/README.txt} at any point in its
+\textbf{Query 2}: \emph{Given a snapshot, find all unique blobs which were
+present at the path \texttt{src/test/README.txt} at any point in its
 development history.}
 
 With direct access to the properties of the graph, the algorithm is again
@@ -83,7 +83,7 @@ computing a \emph{minimal perfect hash function}~\cite{GOVFSCF}.
 After this hashing step, the \gls{SWHID} information is lost, and all the nodes
 are subsequently referred to as their integer identifier from the contiguous
 set. To restore the ability to associate the graph nodes with the objects they
-refer to, we need to construct mapping functions that allow to translate
+refer to, we need to construct mapping functions that allow us to translate
 between integer node IDs and \glspl{SWHID} in both directions.
 
 \subsection{SWHID $\to$ Node ID}%
@@ -111,7 +111,7 @@ node ID mapping can be obtained by composing the \gls{MPH} with the subsequent
 reorderings. As a preliminary step, if the graph was permuted multiple times
 (as is the case for \gls{LLP}), we compose the \texttt{.order} files to keep a
 single permutation $p_G$, which corresponds to the resulting permutation of
-applying successively all the compression permutations of the graph:
+successively applying all the compression permutations of the graph:
 
 \begin{itemize}
     \item For BFS-based compression: $p_G(i) = p_{\mathrm{BFS}}(i)$
@@ -124,8 +124,8 @@ the translation to node IDs. For reference, an order file representing a
 permutation for 19.3 billion nodes (the size of the 2020-12-15 dataset) weighs
 around 145\,GiB ($\approx 19.3 \times 10^9 \times 8 \times \frac{1}{2^{30}}$
 for 64-bit node IDs).
-This composed permutation (or ``graph permutation'', because it represents how
-the graph is permuted from the original order of the nodes given by the hashing
+This composed permutation (or ``graph permutation'', as it represents how the
+graph is permuted from the original order of the nodes given by the hashing
 function) is stored as a \texttt{graph.order} file in the same format than the
 input permutations.
 
@@ -213,7 +213,7 @@ around 395\,GiB ($\approx 19.3 \times 10^9 \times 22 \times \frac{1}{2^{30}}$).
 
 One caveat of the approach described in \cref{sec:swhid2node} to map
 \gls{SWHID} $\to$ node ID is that it does not do any kind of checking on its
-input domain: an unknown/invalid \gls{SWHID} will be accepted by the hash
+input domain; an unknown/invalid \gls{SWHID} will be accepted by the hash
 function, which will return an arbitrary integer in its image ${0,\ldots,N-1}$
 instead of throwing an error. This is problematic for some use cases: if the
 compressed graph is exposed as an API, it needs to be able to reject queries
@@ -224,7 +224,7 @@ While it is possible to externally check whether a \gls{SWHID} is present in
 the Software Heritage archive by querying its API, this is not sufficient for
 this use case. The compressed graph is not built incrementally but is instead a
 \emph{static} export of the state of the archive at a given point in time. This
-means that all the nodes added to the archive during the time period between
+means that all nodes added to the archive during the time period between
 the graph compression and the present are unknown to the compressed graph.
 
 One option to add checks to the input domain would be to add \textbf{signing} to
@@ -233,7 +233,7 @@ key of the \gls{MPH} function, it is able to detect input strings which were
 not in the original key set. This approach is probabilistic, and false
 positives are possible with a probability of {\Large $\frac{1}{2^w}$}. While
 this is useful to catch bugs, a probabilistic approach does not allow us to
-systematically fallback when encountering an unknown \gls{SWHID} unless using
+systematically fall back when encountering an unknown \gls{SWHID} unless using
 very large signatures. Those can also dramatically increase the size of the
 hashing function: for the 2020-12-15 dataset, a 32-bit signatures increases its
 size from 5\,GiB to 72\,GiB while still allowing a false positive every 4
@@ -243,10 +243,10 @@ objects in the graph.
 Instead, we consider another option based on \textbf{round-trips} on the
 mapping from \cref{sec:swhid2node} and reverse mapping from
 \cref{sec:node2swhid}.  Because both mappings are bijections which are
-inverses of each other, it follows that for every \gls{SWHID} $s$ in the input
-key set of the \gls{MPH}, $\mathit{node2swhid}(\mathit{swhid2node}(s)) = s$.
-In contrast, if $s$ \emph{is not} in the input domain, $\mathit{swhid2node}(s)$
-will return an arbitrary node, and
+the inverse of one another, it follows that for every \gls{SWHID} $s$ in the
+input key set of the \gls{MPH}, $\mathit{node2swhid}(\mathit{swhid2node}(s)) =
+s$.  In contrast, if $s$ \emph{is not} in the input domain,
+$\mathit{swhid2node}(s)$ will return an arbitrary node, and
 $\mathit{node2swhid}(\mathit{swhid2node}(s))$ will then return a random
 \gls{SWHID} \emph{from the input domain}, which thus cannot be equal to $s$.
 
@@ -267,10 +267,10 @@ verify that the node is in the input domain, and returning an error otherwise:
 \label{sec:node-properties}
 
 For the reasons outlined in \cref{sec:node2swhid}, mapping nodes to properties
-in external storage is generally a relatively easy feat. Because the nodes IDs
+in external storage is generally a relatively simple feat. Because the node IDs
 in the compressed graph are consecutive integers in the range ${0,\ldots,N-1}$,
 mapping each node to a given property is equivalent to creating a random-access
-list of properties, in which the property at index $k$ is the property
+list of properties, in which the property found at index $k$ is the one
 associated with the node $k$.
 
 The best way to achieve this depends on the type and characteristics of each
@@ -282,7 +282,7 @@ the properties in different categories:
 
 In \cref{sec:compression-comp-scope} we already mentioned keeping \emph{node
 types} in memory, i.e., whether a node is a blob, directory, revision, etc.
-Node types have a special status because that they are necessary for almost all
+Node types have a special status because they are necessary for almost all
 kinds of analyses on the graph as they allow to determine at runtime which
 kinds of objects are being traversed. They are also
 already present as part of the textual identifiers of the nodes themselves,
@@ -314,13 +314,13 @@ The following properties are simple integers, either 16, 32 or 64 bits:
 Storing these integer properties in property files is done in a similar way
 to storing permutations in order files, which we described in
 \cref{sec:swhid2node}. Because integers have a fixed width, these properties
-can be stored relatively straightforwardly as binary array of integers in which
-the $k$-th integer corresponds to the value of the property for node $k$.  The
-resulting property files have a size of {\Large $n \times \frac{w}{8}$}, where
-$n$ is the number of nodes in the graph, and $w$ the number of bits of the
-integer field (16, 32 or 64). For the 2020-12-15 export, these bit sizes
-correspond respectively to property files of size 35\,GiB, 71\,GiB and
-145\,GiB.
+can be stored in a relatively straightforward manner as binary array of
+integers in which the $k$-th integer corresponds to the value of the property
+for node $k$.  The resulting property files have a size of {\Large $n \times
+\frac{w}{8}$}, where $n$ is the number of nodes in the graph, and $w$ the
+number of bits of the integer field (16, 32 or 64). For the 2020-12-15 export,
+these bit sizes correspond respectively to property files of size 35\,GiB,
+71\,GiB and 145\,GiB.
 
 \subsection{Persons}%
 \label{sec:mapping-persons}
@@ -343,11 +343,11 @@ leave identity deduplication in the hands of the users of the platform.}
 \end{itemize}
 
 Those fields are natively represented as byte sequences in the relational
-format.  However, two factors come in play to figure out the best way to store
-these properties for the compressed graph. First, there are considerably fewer
-unique persons than there are objects referring to persons: only 42 million
-persons in the 2021-03-23 graph export, whereas there are 2 billion objects
-containing person fields (revisions and releases), which highlights the
+format.  However, two factors come into play to figure out the best way to
+store these properties for the compressed graph. First, there are considerably
+fewer unique persons than there are objects referring to persons: only 42
+million persons in the 2021-03-23 graph export, whereas there are 2 billion
+objects containing person fields (revisions and releases), which highlights the
 usefulness of having some deduplication of unique authors. Second, as discussed
 in \cref{sec:relational-model}, the research use cases we want to support are
 not those exploiting the names and e-mails of the authors themselves (which we
@@ -359,7 +359,7 @@ a unique identifier of a given person, which will then be used in place of the
 full name and email and can be compared across different objects.
 Because the graph is static, persons can be mapped to integers in the range
 $\{0,\ldots,N-1\}$ where $N$ is the total number of persons referenced in the
-graph artifacts. This is once again achieved with the use of a \gls{MPH}: we
+graph artifacts. This is once again achieved with the use of an \gls{MPH}: we
 first extract the list of unique persons in the graph, then compute a minimal
 perfect hash on the full names and e-mails to associate each person to a unique
 integer. The integer array is then stored in binary format using the method
@@ -399,10 +399,10 @@ implementation direction.
 \section{Edge properties}%
 \label{sec:mapping-edge-labels}
 
-While most properties in the graph are associated to the objects themselves,
-some properties are associated on the relationships between them, which we call
-``edge properties''. While they are relatively few, we expect them to be of
-crucial importance for most analysis workflows, as they include file and
+While most properties in the graph are associated with the objects themselves,
+some properties are associated with the relationships between them, which we
+call ``edge properties''. While they are relatively few, we expect them to be
+of crucial importance for most analysis workflows, as they include file and
 directory names which are a key property used in software mining; file
 extensions in particular are one of the most relevant properties that
 researchers use to find artifacts of interest. The complete list of edge
@@ -423,7 +423,7 @@ are available in \cref{sec:relational-model}):
 \subsection{Data structure}%
 \label{sec:label-data-structure}
 
-As we have seen, associating properties to graph nodes using an external
+As we have seen, attaching properties to graph nodes using an external
 on-disk mapping is relatively straightforward: because the nodes are mapped to
 a contiguous integer range, in all cases the data structure only needs to map
 this range to a set of properties, which can be done efficiently in most cases.
@@ -438,14 +438,13 @@ under \texttt{webgraph.labelling} which implements arc labelling, i.e.,
 associating arbitrary properties to the graph edges. The basic principle for
 the serialization of labels using this system is twofold.
 
-First, all the labels
-are written to a \texttt{graph.labels} file in the order obtained by iterating
-on all the edges of the graph.  As a reminder, WebGraph stores the outgoing
-arcs of each node as an ordered adjacency list, and all the nodes in the graph
-are ordered from $0$ to $N-1$.  Enumerating all the nodes and all the outgoing
-arcs of each enumerated node in the compressed graph yields a natural ordering
-for all the edges stored in the graph, which can be then be followed to store
-the labels on disk.
+First, all labels are written to a \texttt{graph.labels} file in the order
+obtained by iterating on all edges of the graph.  As a reminder, WebGraph
+stores the outgoing arcs of each node as an ordered adjacency list, and all the
+nodes in the graph are ordered from $0$ to $N-1$.  Enumerating all nodes
+and all outgoing arcs of each enumerated node in the compressed graph
+yields a natural ordering for all edges stored in the graph, which can be
+then be followed to store the labels on disk.
 
 Second, a \texttt{graph.labeloffsets} file is used to index the offsets of the
 arc labels. This file can be seen as an integer array which associates a node
@@ -454,12 +453,12 @@ of its outgoing arcs can be read. This offset file allows random access to the
 labels on the outgoing arcs of a given source node.
 
 In other words, given a node $k$, it is possible to lookup in constant time
-a position $p_k$ from the offset file, then iterate on all the outgoing edges
-of $k$ while reading the arc labels file starting from $p_k$ to get
-successively all the labels of the outgoing arcs of $k$. It is however not
+a position $p_k$ from the offset file, then iterate on all outgoing edges
+of $k$ while reading the arc labels file starting from $p_k$ to
+successively retrieve all labels of the outgoing arcs of $k$. It is however not
 possible to get the specific arc label of a $k_1 \to k_2$ edge in constant
 time, as WebGraph does not allow access to arbitrary edges in constant time;
-instead, all the outgoing edges of $k_1$ need to be iterated along with their
+instead, all outgoing edges of $k_1$ need to be iterated along with their
 labels until $k_2$ is encountered in the adjacency list, which has an average
 complexity of $O(d_{\mathrm{out}})$.
 
@@ -513,13 +512,12 @@ between two nodes. Because there are $O(|E|)$ labels to store, it is important
 to find a compact representation for these labels so as to avoid requiring
 inordinate amounts of storage space.
 
-For simplicity purposes, and to avoid keeping around
-multiple label files, we can find a uniform representation for both snapshot
-branches and directory entries. Directory entries are constituted of a binary
-name and an integer for permissions, whereas snapshot branch labels only
-contain a binary name; we thus can represent all labels as a pair of a binary
-sequence field and an integer field, which happens to always be an unused value
-for snapshot branches.
+For the sake of simplicity, and to avoid keeping multiple label files around,
+we can find a uniform representation for both snapshot branches and directory
+entries. Directory entries are constituted of a binary name and an integer for
+permissions, whereas snapshot branch labels only contain a binary name; we can
+thus represent all labels as a pair of a binary sequence field and an integer
+field, which happens to always be an unused value for snapshot branches.
 
 Moreover, we do not actually need to store permissions as arbitrary integers:
 file permissions are normalized when extracted from the archive and can only
@@ -542,7 +540,7 @@ enumeration:
 
 Regarding file names and branch names, the naive implementation would be to
 write the full byte sequence representing the entry name in each label. As an
-order of magnitude, the total size of all the binary entry names in the
+order of magnitude, the total size of all binary entry names in the
 2021-03-23 graph export is 4.0\,TiB, which is impractical to store on disk.
 However, this can be drastically improved by compressing identical file names
 together, as (1) the nature of our \gls{VCS} data model duplicates a lot of
@@ -552,12 +550,12 @@ names, and (2) entry names are massively reused in general (e.g.,
 While there are 225 billion different directory \emph{entries} in the
 latest export, there are only 2.3 billion different \emph{entry names}.
 By only storing each unique entry name once, we can cut down the 4\,TiB
-estimation of the naive approach down to only 62\,GiB, which is a lot more
+estimation of the naive approach down to only 62\,GiB, which is far more
 manageable (especially for fast access as it can be stored in a single SSD).
 
 For that purpose, we can once again use a \gls{MPH} function to associate each
-label to a unique integer in the range $\{0, \ldots, N_L\}$ where $N_L$ is the
-total number of unique names used in arc labels. Then, we can use a reverse
+label with a unique integer in the range $\{0, \ldots, N_L\}$ where $N_L$ is
+the total number of unique names used in arc labels. Then, we can use a reverse
 mapping to retrieve a given byte sequence from its associated integer using a
 \texttt{FrontCodedStringList} as detailed in \cref{sec:node-properties}.  Here,
 a new trade-off appears: front-coded string lists are particularly efficient at
@@ -597,7 +595,7 @@ different techniques for label name mapping on the 2020-12-15 graph:
         rate), and a sorted front-coded string list.
 \end{enumerate}
 
-The results of this benchmark is shown in \cref{tab:label-mph-benchmark}. As
+The results of this benchmark are shown in \cref{tab:label-mph-benchmark}. As
 can be seen in the results, the front-coded compression on sorted lists
 drastically reduces the size of the reverse mapping: 172\,GiB for the unsorted
 list, 108\,GiB for the sorted list, for a total compression ratio of 1.59.
@@ -607,7 +605,7 @@ array, while option~\ref{itm:label-gov3-pfcl} increases the size of the hash
 function from 0.6\,GiB to 5.7\,GiB. Because the hashing rate is practically
 identical between the two different hashing functions, and using a monotone
 \gls{MPH} makes the label writing pipeline simpler, we pragmatically oriented
-ourselves towards that last option.
+ourselves towards that latter option.
 
 \begin{table}
     \centering
@@ -658,7 +656,7 @@ given entry name from the set $L$ to its rank in the sorted list of label
 names.
 
 \paragraph{Reverse mapping}
-In order to access the value any given label name from its integer rank in
+In order to access the value of any given label name from its integer rank in
 $O(1)$ time, we then build an efficient on-disk map using the
 \texttt{FrontCodedStringBigList} class by giving it the sorted list of labels
 as an input, which stores them efficiently using front-coding compression while
@@ -669,7 +667,7 @@ of $h_L$ over its input domain: $\forall l \in L,~m_L(h_L(l)) = l$.
 As explained in \cref{sec:label-data-structure}, the labels have to be stored
 in the natural order of edges in the compressed graph. This compressed order is
 different from the order observed in the edges dataset, which is
-arbitrary and depends of the export process. We thus need to hash the node
+arbitrary and depends on the export process. We thus need to hash the node
 \gls{SWHID} using the \texttt{swhid2node} function on both the source and the
 destination, and the $h_L$ function on the label byte strings in order to
 reorder them in the final compressed order.
@@ -814,12 +812,12 @@ its own memory requirements:
         guarantees that property access is bounded by the speed of the physical
         RAM with no disk I/O involved.
     \item Mapping the file in virtual memory with \texttt{mmap(1)}. This
-        delegates to the kernel the possibility to cache large sections of the
-        file in main memory when enough physical RAM is available; however,
+        delegates the possibility to cache large sections of the file in main
+        memory to the kernel when enough physical RAM is available; however,
         when a segment of the file is accessed without having been cached,
         accessing the mapping will trigger a page fault and require disk I/O,
         slowing down access times.
-        Here, performance becomes dependant of (a) the amount of available RAM
+        Here, performance becomes dependant on (a) the amount of available RAM
         and (b) how well the kernel is able to predict access patterns (to the
         extent that they are actually predictable and not random seeks).
         The main advantage of this method is to avoid reserving large amounts

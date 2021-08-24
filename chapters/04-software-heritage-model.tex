@@ -30,7 +30,7 @@ artifacts instead of having to deal with each specific system.
 The following kinds of canonical software artifacts are supported in the data
 model:
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node[style=content,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Blobs}} (or ``file contents'') represent the raw content of
@@ -46,7 +46,7 @@ they contain.
 % \TODO{Add examples of manifests}
 
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=directory,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Directories}} represent source code trees. Each directory is
@@ -69,7 +69,7 @@ objects.
 
 
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=revision,scale=1.3] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Revisions}} (or ``commits'') are point-in-time captures of
@@ -111,7 +111,7 @@ identifier of the directory node denoting the root of the source tree at the
 time of the revision.
 
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=release,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Releases}} (or ``tags'') denote marker objects that label
@@ -141,7 +141,7 @@ manifest containing release name, release properties, and the identifier of the
 revision node they reference.
 
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=snapshot,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Snapshots}} are point-in-time captures of the \emph{full
@@ -181,7 +181,7 @@ deduplicated snapshot in the data model, instead of having to copy and store
 the set of branches and tags twice.
 
 
-\begin{wrapfigure}{r}{0.07\textwidth}\centering
+\begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=origin,scale=1.9] (0) at (0, 0) {};\end{tikzpicture}
 \end{wrapfigure}
 \paragraph{\textbf{Origins}} are objects referencing the specific places from
@@ -380,7 +380,7 @@ Software Heritage graph:
   directory nodes only, and edges between them
 
 \item \emph{History layer}: subset of the full corpus consisting of revision and
-  release nods only, and edges between them
+  release nodes only, and edges between them
 
 \item \emph{Commit layer}: subset of the history layer consisting of revision
   nodes only, and edges between them

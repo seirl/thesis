@@ -71,8 +71,12 @@ magnitude smaller than the present dataset.
 
 GHTorrent~\cite{GHTorrent} covers GitHub and includes
 non-source-code artifacts (e.g., issues, pull requests, etc.), but lacks
-software hosted in other locations (e.g., GitLab, Debian, PyPI). Also, no
-deduplication applies to GHTorrent, making cloning tracking more challenging.
+software hosted in other locations (e.g., GitLab, Debian, PyPI).
+Also, no deduplication applies to GHTorrent, making cloning tracking more
+challenging.
+The GitHub Activity Data~\cite{web:github-activity-data} dataset is similar to
+GHTorrent, but contains less metadata; it can be directly queried in the
+Google BigQuery cloud platform using relational query languages.
 CodeFeedr~\cite{DBLP:conf/icse/VargasHKBG18} is a natural evolution of
 GHTorrent, but it is oriented toward expanding coverage for additional sources
 of non-source-code artifacts.

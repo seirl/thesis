@@ -1,3 +1,307 @@
 \chapter{Conclusion}
 
-\TODO{Write}
+This thesis retraces my journey of trying to make an immense corpus, the
+entire \emph{graph of public software development}, accessible for software
+mining research. This endeavor proved to be challenging. The sheer scale of the
+corpus, a graph of more than 20 billion nodes and 200 billion edges, precludes
+the use of most conventional approaches for data processing, and necessitates
+state-of-the art techniques in big data and graph analysis.
+While venturing to organize this development graph in a way that could be
+empirically studied, I encountered and tackled challenging issues in both the
+technical and research aspects of my work, which I described extensively in
+this thesis. In this final chapter, I summarize my main academic contributions
+to the fields of empirical software engineering and software mining, and
+discuss open questions and future research directions.
+
+\section{Summary of academic contributions}
+
+I have made several contributions to the scientific literature that I describe
+in this thesis, taking the form of novel research questions, techniques and
+empirical studies. These contributions were, to the best of my knowledge, never
+studied to this extent in the extant literature.
+
+\paragraph*{Contextualization}
+
+The first original contribution in my work stems from an inquiry into the
+extent to which making a large corpus of software developement data accessible
+to researchers can be the most useful to software mining research. For this
+purpose, I realized an extensive literature review
+(\cref{chp:introduction,sec:msr-lit-review}) which helped determine the most
+effective ways in which making the Software Heritage data accessible to
+researchers can be of use to future software mining studies
+(\cref{sec:functional-requirements}). From this, I derived a concrete roadmap
+to create a software mining platform for the Software Heritage archive
+(\cref{sec:roadmap}).
+
+\paragraph*{Small-scale artifact processing}
+
+I presented the designs and implementations for two techniques to access and
+process small to medium sets of software artifacts (up the order of tens of
+thousands) from a large remote repository of artifacts, one based on preparing
+bundles of artifacts on the server-side (\cref{chp:vault}) and another using a
+virtual filesystem to provide lazy access to objects (\cref{chp:fuse}). The
+latter is, as far as I know, the first attempt to create a virtual filesystem
+for a universal corpus of source code and software development.
+
+\paragraph*{Scale-out processing of the relational graph}
+
+As described in \cref{chp:graph-dataset}, I have made available several exports
+of the graph of development history as an exploitable dataset in a relational
+format, along with a reusable pipeline to produce future versions of this
+dataset. I have shown how this dataset can be leveraged with \gls{OLAP}
+platforms by answering concrete examples of research questions on the entire
+corpus. I have also made the dataset available on public clouds in a way that
+can be queried by researchers with minimal setup, further reducing the friction
+of analyzing the full graph of development history. The usability of these
+graph exports for software mining studies were further demonstrated by making
+it the object of study in the MSR 2020 mining
+challenge~\cite{msr-2020-challenge}.
+While other databases of software development history were already accessible
+in a similar manner (\cite{GHTorrent,web:github-activity-data,mockus2019woc}),
+this is the first time such a vast corpus of deduplicated software artifacts
+archived from such a variety of different sources was made available for study,
+in a way that is demonstrably exploitable for practical uses.
+
+\paragraph*{Graph compression and exploitation}
+
+In \cref{chp:graph-compression} I introduce graph compression as a way to
+fit the entire graph of software development in the RAM of a single machine,
+which makes it possible to run complex graph algorithms that are not
+necessarily easy to parallelize on large clusters. While the techniques of
+graph compression are not new, applying them to the deduplicated graph of
+software development is a novel approach in the field of software mining: all
+previous works in the literature relied on scale-out approaches for large
+datasets.  Graph compression opens new possibilities for systematic empirical
+analyses of large graphs of software development artifacts. These research
+opportunities are further broadened by the addition of node and edges
+properties to the compressed graph; in \cref{chp:graph-metadata} I describe
+methods to store these graph properties compactly and so that they can be
+queried efficiently from the compressed graph. In
+\cref{chp:graph-exploitation}, I present two ways of querying the compressed
+graph and its properties at a high level; one involves a simple traversal API,
+while the other relies on graph query languages. I also describe different
+techniques to subsample the graph into smaller coherent corpuses, as well as a
+way to estimate the size of the obtained subgraphs using empirical
+measurements.
+
+\paragraph*{Topological properties}
+
+\Cref{chp:topology} describes how I conducted the first empirical exploratory
+study on the intrinsic structure of the graph of software development and its
+most salient topological properties. I analyzed the following robust measures
+of network topology: degree distributions, connected components, shortest path
+lengths and clustering coefficients.
+Computing these metrics efficiently was made possible by the graph compression
+techniques presented in \cref{chp:graph-compression}, and thus I do not expect
+that this study could have been realized by the software mining community in
+the absence of these contributions. From these metrics, I derived concrete
+implications for software mining research by accurately describing the general
+form of the different layers in the graph, notably by looking at which
+distributions could be considered scale-free.
+
+\paragraph*{Identification of software forks}
+
+Finally, I conducted a second extensive empirical study on the semantic
+organization of software projects in groups of forks of varying sizes,
+described in \cref{chp:forks}. I introduce two different notions of ``forks''
+that can be robustly identified without relying on external forge-level
+metadata, instead using shared software artifacts: ``shared commit'' forks and
+``shared root'' forks. I quantitatively compare how these definitions of
+forking match with the definition based on external forking metadata. In
+addition, I empirically analyze how these forks organize in fork networks and
+fork cliques of different sizes. I then propose a computationally feasible way
+to partition the set of origins in the graph by grouping together repositories
+that are all shared commit forks of each other.
+
+\section{Empirical findings and impact on software mining research}
+
+While many of the contributions presented in this thesis are new techniques for
+large-scale software mining, I also conducted empirical studies on the graph of
+software development, which yielded potentially impactful insights for this
+research field. These findings are summarized below as stylized facts.
+
+\paragraph*{Per-layer topology}
+
+While assessing the topological properties of the graph by decomposing it into
+different layers, one important finding is that there is a large disparity in
+the low-level structure of these layers. As detailed in
+\cref{sec:topology-discussion}, the three main layers have dramatically
+different shapes, densities and connectivities, and each take up very uneven
+shares of the total size of the graph. The properties of the full graph are
+largely dominated by those of the filesystem layer, which represents the vast
+majority of nodes (90\%) and edges (97\%) in the graph.
+This highlights the importance of studying graph layers separately when
+assessing the graph properties, as it can have a considerable impact on the
+findings.
+
+\paragraph*{Graph connectivity and sharding}
+
+One important empirical finding from the topology analysis is that the graph is
+generally well connected due to the deduplication of the software artifacts it
+contains. This is particularly true at the level of the filesystem, where 97\%
+of all the files and directories in the graph are all reachable from each other
+and form a giant connected component. This giant component precludes the use of
+naive partition techniques, such as regrouping nodes in small tightly connected
+clusters, as a way to ``shard'' the graph on multiple machines in order to
+scale-out computations. This high connectivity is resilient, and does not
+depend on the existence of a few nodes with large in-degrees; removing these
+nodes does little to help partition the giant component.
+
+However, restricting our view to the history layer yields a very different
+picture: revision chains are less connected, with the giant component only
+encompassing 3\% of the total number of revisions. This indicates that the
+history layer can easily be partitioned in reasonably sized groups of connected
+clusters, which is impactful for empirical studies looking at distributing the
+nodes in the history layer on multiple machines.
+
+\paragraph*{Kurtosis, scale invariance and heavy tails}
+
+Some of the frequency distributions studied in this thesis have heavy tails,
+a relatively high kurtosis and could likely be scale-invariant. This has
+important implications for empirical software engineering studies using data
+filtering and sampling as a way to get a representative set of software
+artifacts to analyze. Notably, it means that there is often no obvious rule to
+filter out outliers that cross a certain threshold, as they are an integral
+part of the distributions' nature. This emphasizes that empirical software
+mining studies should be cautious to systematically justify their data
+selection methodology, and consider sampling biases potential threats to
+validity.
+
+\paragraph*{Fork identification}
+
+A key empirical result of the fork identification study is that relying on
+external forge-level metadata as the sole source of information to determine
+whether two repositories are forks of one another tends to miss a
+significant share of what people intuitively think of as software forks.
+By instead using the ``shared commits'' definition of a fork, we identified
+around 9\% more forks than when using the GitHub forking information,
+suggesting that a non-negligible number of repositories are forked without
+using forge forking tools. We expect that this number would be even higher when
+including data from other hosting places, as there is no external source of
+information to identify forks across different forges. Empirical software
+mining studies on software forks aiming to be exhaustive in their coverage and
+reduce potential sources of bias should thus consider using fork definitions
+based on \emph{shared \gls{VCS} history} rather than trusting forge-level
+metadata, using the identification technique based on the compressed graph
+described in \cref{chp:forks}.
+
+\section{Future work}
+
+The work presented in this thesis improves the state-of-the-art of large scale
+software mining platforms, and by doing so raises a significant number of open
+questions and enables new avenues for future research. Below is a summary of
+what we consider to be most promising next steps in pursuing this research.
+
+\paragraph*{Incremental graph compression}
+
+By far the most impactful problem that could be tackled is to produce a
+functional design for \emph{incremental graph compression}, i.e., having an
+updating pipeline constantly maintaining the compressed representation of the
+graph up-to-date with the latest software artifact data. Doing so would
+considerably reduce the delay between the current state of the archive and the
+data stored in the compressed graph, from entire months down to a few hours or
+less. This would allow the research platform to answer complex queries on the
+archive by using compressed graph algorithms only, and without having to
+fallback on slower algorithms for artifacts that were not present at the time
+of compression.
+
+Incremental graph compression would be a very challenging endeavour, as most of
+the components in the compression pipeline relies on a fixed number of nodes.
+For instance, one of the core steps of the process is the use of \gls{MPH}
+functions, which rely on a static number of elements and cannot be dynamically
+updated. One way to address this problem could be to use \emph{dynamic perfect
+hashing} algorithms~\cite{fredman1984storing,dietzfelbinger1994dynamic},
+although these have fairly different properties, including the non-contiguity
+of their output, which pose their own set of challenges.
+
+\paragraph*{Typed graph compression}
+
+While the \gls{LLP} algorithm (\cite{sec:llp-compression}) for graph reordering
+yields achieves impressive compression ratios, we strongly suspect that even
+better results could be achieved by leveraging \emph{typed} graph compression,
+i.e., compressing all the nodes and edges of each of the six node types in
+their own separate graph. This is because there is a higher chance that
+copy-lists used in the compressed BVGraph would be more similar between nodes
+of the same type, but this locality cannot be exploited with algorithms based
+solely on node proximity and clustering.
+
+\paragraph*{Graph querying}
+
+\Cref{sec:graph-querying} describes a simple traversal API for remote graph
+querying, and outlines its limitations by showing examples of queries that it
+cannot easily answer. It also presents graph query languages as a possible
+solution to limited expressiveness, but these were not actually implemented as
+an interface to the compressed graph. Doing so could significantly improve the
+accessibility of the research platform for more complex experiments. In a
+comprehensive platform, this could then further be extended to include
+computation primitives on the objects themselves, down to the file contents.
+One could imagine writing a single query to get the average number of lines of
+codes of all the files in the archive in a path matching
+\mintinline{bash}{fr_FR/*.po}.  This would require a comprehensive integration
+of all the components of the research platform: graph structure querying,
+content fetching and processing, online distributed computing, etc. While this
+is a long term goal, this thesis provides the basic building blocks to achieve
+such a feat.
+
+\paragraph*{Scheduling predictions}
+
+This thesis presents a work which leverages the Software Heritage archive to
+build an analysis platform open to all software mining researchers. Among them,
+one of the primary beneficiary of this platform could be the Software Heritage
+initiative itself, as analyzing the data in the archive could yield valuable
+insights that could be used to fine-tune crawling behavior. One example of this
+is for scheduling predictions: the compressed graph augmented with commit
+timestamps can efficiently compute the frequency at which a given repository is
+updated; feeding that information back to the scheduler could help prioritizing
+the crawling of repositories that get updated often, and reduce the crawling
+frequency of repositories that do not. This could alleviate the total load on
+the archive workers and increase its throughput.
+
+\paragraph*{Graph partitioning techniques}
+
+In \cref{sec:topology-discussion}, we discuss how the high connectivity of the
+graph precludes the use of naive graph partitioning techniques to shard the
+graph into smaller isolated units, as most of the nodes in the graph are
+aggregated in a giant connected component that cannot easily be broken down.
+While this remains generally true, if sharding is needed it is still possible
+to try and regroup nodes using their locality characteristics to decide how to
+partition the graph. In \cref{chp:graph-compression} we use two approaches,
+\gls{BFS} and \gls{LLP}, to generate a node ordering which preserves locality.
+It would be interesting to partition the graph nodes by splitting these
+locality-preserving orders in chunks of equal size. These partitions could then
+be benchmarked for sharding efficiency to find out whether parallel graph
+querying workloads would require many synchronization points between the
+different shards, or just a few. This could be extended to other clustering
+techniques that were not investigated in this thesis, such as using Louvain
+community detection~\cite{blondel2008fast} to delimitate groups of nodes.
+
+\paragraph*{Derived graphs}
+
+One last interesting research opportunity would be to make accessible data
+that can be derived from the graph for software mining research. One such
+example is the graph of collaboration in software development, where the nodes
+are unique persons and the edges represent whether two authors collaborated on
+a common project; this could be generated using a linear traversal on the
+compressed graph, and would represent a real-world social network whose
+structure has, to our knowledge, not yet been extensively studied in the
+social network literature. Another example would be to compute the ``diff
+graph'' of development history, where instead of each revision pointing to the
+root directory of its source tree, it would instead point to the changes that
+happened since the last revision (i.e., new, deleted, modified and renamed
+files). This could help answer more research questions efficiently, such as
+finding the list of revisions in which a given file was added for the first
+time. Constructing this derived graph has been experimented at a reasonably
+large scale (10\% of the edges in the graph) as part of an unpublished study
+with Wellenzohn et al, delivering promising results.
+
+\section{Publications}
+
+\begin{enumerate}
+    \item \bibentry{swh-benevol2018-universal-analysis}
+    \item \bibentry{swh-msr2019-dataset}
+    \item \bibentry{msr-2020-challenge}
+    \item \bibentry{saner-2020-swh-graph}
+    \item \bibentry{swh-msr2020-forking}
+    \item \bibentry{msr-2020-topology}
+    \item \bibentry{swh-2021-swhfs}
+\end{enumerate}

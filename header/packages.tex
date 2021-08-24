@@ -11,14 +11,6 @@
 \usepackage[group-separator={,}]{siunitx}
 \usepackage{upgreek}             % Calls other kind of greek alphabet
 
-% Links and refs
-\usepackage[colorlinks=true, allcolors=black, backref]{hyperref}
-% \usepackage[ocgcolorlinks]{ocgx2}
-\usepackage{url}
-\usepackage{cleveref}  % Better \cref with automatic fig names
-\usepackage{doi}       % Reference DOIs
-\usepackage{memhfixc}  % Fix hyperref for memoir class
-
 % Language
 \usepackage[english]{babel}
 \usepackage[acronym]{glossaries}
@@ -32,6 +24,22 @@
 
 % Bibliography
 \usepackage[square, numbers, sort&compress]{natbib}
+\usepackage{bibentry}
+\bibliographystyle{plain}
+\nobibliography*
+\makeatletter
+\renewcommand\bibentry[1]{\nocite{#1}{\frenchspacing
+     \@nameuse{BR@r@#1\@extra@b@citeb}}}
+\makeatother
+
+% Links and refs
+\usepackage[colorlinks=true, allcolors=black, backref]{hyperref}
+% \usepackage[ocgcolorlinks]{ocgx2}
+\usepackage{url}
+\usepackage{cleveref}  % Better \cref with automatic fig names
+\usepackage{doi}       % Reference DOIs
+\usepackage{memhfixc}  % Fix hyperref for memoir class
+
 
 % Figures, tables and captions
 \usepackage{float}

@@ -42,8 +42,8 @@ each step; this makes the quantity of recursive iterations the most expensive
 factor when performing recursive queries.
 Commit chains are a pathological case of arbitrary nestedness, as they tend to
 be very long, with some well-known repositories like the Linux kernel exceeding
-hundreds of millions of commits, but with a very low average degree, thus they
-cannot effectively be exploited in a distributed setting.
+a million commits, but with a very low average degree, thus they cannot
+effectively be exploited in a distributed setting.
 
 As a result, simple recursive algorithms on the graph of software development
 are very costly, as they require large Big Data clusters running for a
@@ -89,10 +89,12 @@ In the following we will answer this research question \emph{in the
   affirmative}, by applying lossless graph compression techniques to the
 underlying Merkle DAG structure of the graph of public software development. As
 a concrete use case, we compress the full development history of all publicly
-developed source code as captured by the 2018-09-25 version of the Software
-Heritage Graph Dataset (see \cref{chp:graph-dataset}), consisting of 5
-billion unique source code files and 1 billion unique commits, harvested from
-more than 80 million software projects.
+developed source code as captured by the 2018-09-25 version\footnote{The graph
+used for this chapter is older than in the rest of the thesis, as it was frozen
+at the time the original paper was written.} of the Software Heritage Graph
+Dataset (see \cref{chp:graph-dataset}), consisting of 5 billion unique source
+code files and 1 billion unique commits, harvested from more than 90 million
+software projects.
 
 As a size benchmark, we show that the resulting compressed VCS graph, containing
 the development history of the entire corpus, can be loaded in $\approx$94\,GiB
@@ -163,13 +165,12 @@ deterministic graph model, and evaluating the compression performances on that
 model).
 
 A common large, real-world graph that has been studied and compressed in the
-past is the graph of the Web (or \emph{web graph}), consisting of one node per
-page and one arc per hyperlink between pages.  A pioneering attempt at
+past is the directed graph of the Web (or \emph{web graph}), consisting of one
+node per page and one arc per hyperlink between pages.  A pioneering attempt at
 compressing the web graph is the LINK Database~\cite{RSWLD}. Suppose that nodes
 are ordered lexicographically by URL (i.e., node $i$ is the node representing
 the $i$-th URL in lexicographic order); then the following two properties are
-true:
-\begin{itemize}
+true: \begin{itemize}
 
 \item \emph{Locality}: Most arcs are between nodes that are close to each other
   in the order, because most links are intra-site, and URLs from the same site
@@ -254,13 +255,15 @@ nodes in such a way that might enable gap and reference compression to provide
 excellent results.
 
 A set of different approaches is based on \emph{clustering}: \emph{layered
-  labelled propagation}~\cite{BRSLLP} is a reordering technique which combines
+  label propagation}~\cite{BRSLLP} is a reordering technique which combines
 the information from a number of clusterings to reorder the nodes.
 
-In the rest of this chapter we will use the WebGraph open source implementation
-as technology to perform graph compression on a large corpus of VCS histories.
-We will also show that \gls{BFS} visits and \gls{LLP} are indeed an effective
-reordering strategy to achieve high compression on this corpus.
+In the rest of this chapter we will use the
+WebGraph\footnote{\url{https://webgraph.di.unimi.it/}} open source
+implementation as the technology to perform graph compression on a large corpus
+of VCS histories.  We will also show that \gls{BFS} visits and \gls{LLP} are
+indeed effective reordering strategies to achieve high compression on this
+corpus.
 
 \section{Compressing the Graph of Public Software Development}%
 \label{sec:compression-comp}
@@ -281,6 +284,7 @@ than 90 million software projects, encompassing full mirrors of GitHub and
 GitLab.com, historical archives of Google Code and Gitorious, as well as
 repositories of popular package managers such as NPM, PyPI, and Debian.
 In total, the graph contains more than 12 billion nodes and 165 billion edges.
+% TODO: detailed breakdown of each graph in annex?
 
 \subsection{Compression scope and metadata}%
 \label{sec:compression-comp-scope}
@@ -315,11 +319,10 @@ visits, then asynchronous retrieval and analysis of node metadata.
 As a sole exception we will also keep \emph{node types} in memory, i.e., whether
 a node is a blob, directory, revision, etc. That can be done very
 efficiently using a \emph{type map} implemented as a bit array indexed by
-integer node identifiers and requiring only 3 bits per node (as there are 6
-node types in total), or 4\,GB of RAM for the entire graph. The reason to make
-this exception is that node type filtering is useful in many use cases to
-determine at runtime what kind of objects graph traversals should be looking
-at.
+node identifiers and requiring only 3 bits per node (as there are 6 node
+types in total), or 4\,GB of RAM for the entire graph. The reason to make this
+exception is that node type filtering is useful in many use cases to determine
+at runtime what kind of objects graph traversals should be looking at.
 
 For some workloads, it is useful to store other types of metadata associated to
 the nodes and edges in a way that is directly accessible from the compressed
@@ -376,15 +379,16 @@ tend to jump \emph{randomly} from one identifier to another in the space of all
 possible identifiers.
 
 Experimentally, we have verified that a breadth-first visit of the corpus graph,
-starting from graph roots (origin nodes) and traversing down towards leaves
-(file contents) achieves good compression results compared to other orderings.
-The \emph{BFS} step of the compression pipeline thus performs such a visit on
-the entire BV graph.
+starting from graph roots (origin nodes pointing to snapshot nodes in the
+graph) and traversing down towards leaves (file contents) achieves good
+compression results compared to other orderings.  The \emph{BFS} step of the
+compression pipeline thus performs such a visit on the entire BV graph.
 
 \paragraph{Permute}
 Once the BFS ordering of nodes is known, this step will reorder nodes (as well
 as rows in the compressed adjacency matrix, performing all needed adaptations)
-according to BFS order. The result of this step is a compressed graph.
+according to BFS order. The result of this step is another compressed graph, in
+the same format than the original BV graph but with a better compression ratio.
 
 \paragraph{Transpose}
 Strictly speaking, the graph structure of the input dataset can be traversed
@@ -474,16 +478,16 @@ rented for one-time use, e.g., on public clouds.
 
 Compression results are shown in \cref{tab:compression-bfs-results}.
 Besides the raw datum of less than 5 bits per arc, which shows that the
-compression is very useful in practice, the compression ratio ($\approx$15\%)
-with respect to the information-theoretical lower bound of $\log {n\choose m}$
-for a graph with $n$ nodes and $m$ arcs is about three times the one typical
-for web graphs, which are highly redundant, but significantly better than the
-typical values for social networks, which are above 50\%. Moreover, as it often
-happens in networks generated by human activity, the transposed graph shows
-better compression performance because the in-degree distribution (shown in
-\cref{fig:compression-indegree}) has a fatter tail than the out-degree
-distribution, (\cref{fig:compression-outdegree}) resulting in nodes with very
-dense predecessor lists.
+compression is very effective in practice, the compression ratio
+($\approx$15\%) with respect to the information-theoretical lower bound of
+$\log {n\choose m}$ for a graph with $n$ nodes and $m$ arcs is about three
+times the one typical for web graphs, which are highly redundant, but
+significantly better than the typical values for social networks, which are
+above 50\%. Moreover, as it often happens in networks generated by human
+activity, the transposed graph shows better compression performance because the
+in-degree distribution (shown in \cref{fig:compression-indegree}) has a fatter
+tail than the out-degree distribution, (\cref{fig:compression-outdegree})
+resulting in nodes with very dense predecessor lists.
 
 \begin{figure}
     \centering
@@ -516,9 +520,9 @@ cheap server-grade hardware---at current market
 rates,\footnote{\url{https://jcmit.net/memoryprice.htm}, accessed 2019-10-18}
 100\,GB of main memory costs less than 300 U.S.~dollars. Fitting \emph{both}
 graph directions on workstation deployments might be more challenging, but it
-is not always needed (e.g., one can load one graph direction depending on
-experimental needs) and still fit cheap server-grade deployments by current
-standards.
+is not always needed (e.g., one can choose to load only one graph direction
+depending on experimental needs) and still fit cheap server-grade deployments
+by current standards.
 
 \subsection{Compression with Layered Label Propagation}%
 \label{sec:llp-compression}
@@ -526,18 +530,19 @@ standards.
 Further compression improvements can be achieved by the \acrfull{LLP}
 algorithm~\cite{BRSLLP} presented in \cref{sec:compression-background}
 to reorder nodes. The \gls{LLP} algorithm finds locality-preserving orders by
-clustering nodes in close proximity together.  This algorithm is particularly
-interesting for our use case as it is unsupervised, and does not rely on prior
-information on the clusters present in the graph. The idea behind the
-clustering algorithm is to randomly distribute communities to the nodes in the
-graph, then iteratively assign to each node the community most represented in
-its neighbors.
+clustering nodes in close proximity together.  Similar to the \gls{BFS}, this
+algorithm is particularly interesting for our use case as it is unsupervised,
+and does not rely on prior information on the clusters present in the graph.
+The idea behind the clustering algorithm is to randomly distribute communities
+to the nodes in the graph, then iteratively assign to each node the community
+most represented in its neighbors.
 
-\gls{LLP} is more costly in both time and memory. Even though the algorithm has
-a linear time complexity, it does multiple iterations on the graph and is
-significantly slower than the \gls{BFS} which is just one single traversal.
-Moreover, keeping track of the communities requires a total of 33 bytes per
-node, which increases the RAM requirements to more than 600\,GiB.
+\gls{LLP} is more costly than simple \gls{BFS}-based compression in both time
+and memory. Even though the algorithm has a linear time complexity, it does
+multiple iterations on the graph and is significantly slower than the \gls{BFS}
+which is just one single traversal.  Moreover, keeping track of the communities
+requires a total of 33 bytes per node, which increases the RAM requirements to
+more than 600\,GiB.
 
 Because of these constraints, it is unrealistic to run the \gls{LLP} algorithm
 on the uncompressed version of the graph which already takes around 800\,GiB of

@@ -22,13 +22,12 @@ studied to this extent in the extant literature.
 
 \paragraph*{Contextualization}
 
-The first original contribution in my work stems from an inquiry into the
-extent to which making a large corpus of software developement data accessible
-to researchers can be the most useful to software mining research. For this
-purpose, I realized an extensive literature review
-(\cref{chp:introduction,sec:msr-lit-review}) which helped determine the most
-effective ways in which making the Software Heritage data accessible to
-researchers can be of use to future software mining studies
+The first original contribution in my work stems from an inquiry into how
+making a large corpus of software developement data accessible to researchers
+can be the most useful to software mining research. For this purpose, I
+realized a literature review (\cref{chp:introduction,sec:msr-lit-review}) which
+helped determine the most effective ways in which making the Software Heritage
+data accessible to researchers can be of use to future software mining studies
 (\cref{sec:functional-requirements}). From this, I derived a concrete roadmap
 to create a software mining platform for the Software Heritage archive
 (\cref{sec:roadmap}).
@@ -136,16 +135,17 @@ findings.
 
 \paragraph*{Graph connectivity and sharding}
 
-One important empirical finding from the topology analysis is that the graph is
-generally well connected due to the deduplication of the software artifacts it
-contains. This is particularly true at the level of the filesystem, where 97\%
-of all the files and directories in the graph are all reachable from each other
-and form a giant connected component. This giant component precludes the use of
-naive partition techniques, such as regrouping nodes in small tightly connected
-clusters, as a way to ``shard'' the graph on multiple machines in order to
-scale-out computations. This high connectivity is resilient, and does not
-depend on the existence of a few nodes with large in-degrees; removing these
-nodes does little to help partition the giant component.
+Another important empirical finding from the topology analysis is that the
+graph is generally well connected due to the deduplication of the software
+artifacts it contains. This is particularly true at the level of the
+filesystem, where 97\% of all the files and directories in the graph are all
+reachable from each other and form a giant connected component. This giant
+component precludes the use of naive partition techniques, such as regrouping
+nodes in small tightly connected clusters, as a way to ``shard'' the graph on
+multiple machines in order to scale-out computations. This high connectivity is
+resilient, and does not depend on the existence of a few nodes with large
+in-degrees; removing these nodes does little to help partition the giant
+component.
 
 However, restricting our view to the history layer yields a very different
 picture: revision chains are less connected, with the giant component only

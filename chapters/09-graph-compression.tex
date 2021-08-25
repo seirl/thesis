@@ -342,6 +342,7 @@ be made accessible, and the different speed and memory trade-offs this entails.
     backwards.}%
   \label{fig:compression-pipeline}
 \end{figure*}
+% TODO: cluster box around the new part of the pipeline
 
 To compress the dataset we use the WebGraph framework to realize the
 compression pipeline shown in \cref{fig:compression-pipeline}. The
@@ -656,6 +657,34 @@ time) and then perform a domain-specific experiment.
 \subsection{Graph traversal}%
 \label{sec:compression-exptraversal}
 
+In the worst case of any given mining experiment, one will have to traverse the
+entire corpus to obtain some insights. Hence it is important to know the
+baseline of how long a single traversal takes.
+\Cref{tab:compression-bfs-benchmark} shows the results of benchmarking complete
+graph visits in breadth-first order (BFS), with no parallelism (single thread)
+for both the original and transposed graphs. Timings have been measured on a
+server equipped with 3\,GHz Intel Xeon Gold 6154 CPUs (only one of which has
+been used for the visits), with enough RAM to load either graph direction in
+memory without swapping to disk.
+
+Results show that the in-memory approach delivers impressive performances. A
+full visit of the forward graph takes less than 2 hours with a throughput
+nearing 2 million nodes per second, or about 500 nanoseconds per node. Visiting
+the transposed graph is slower due to the already discussed differences in
+in-degree vs.\ out-degree distributions, but still very fast in absolute terms:
+the full transposed graph can be visited in little more than 3 hours with a
+throughput nearing 1 million nodes/second (1 $\mu$s/node).
+
+\Cref{tab:compression-arc-benchmark} shows the results of benchmarking
+random access to nodes and edges in the graph. A random sample of 1 billion
+nodes (8.3\% of the entire graph) has been taken, enumerating for every node
+all of its successors.  Results show that having the graph in memory gives
+impressive results also in terms of random lookup time, with minimal overhead
+due to the compressed representation. On the original graph, looking up the
+successor of a node takes 83 nanoseconds on average, close to the 50--60\,ns
+estimates for current DRAM random access memory. Arc lookup on the transposed
+graph is slower, as already observed for full graph visits.
+
 \begin{table}
   \centering
   \caption{Full graph visit benchmarks for a single-threaded BFS visit}%
@@ -718,33 +747,6 @@ time) and then perform a domain-specific experiment.
   \hfill
 \end{table}
 
-In the worst case of any given mining experiment, one will have to traverse the
-entire corpus to obtain some insights. Hence it is important to know the
-baseline of how long a single traversal takes.
-\Cref{tab:compression-bfs-benchmark} shows the results of benchmarking complete
-graph visits in breadth-first order (BFS), with no parallelism (single thread)
-for both the original and transposed graphs. Timings have been measured on a
-server equipped with 3\,GHz Intel Xeon Gold 6154 CPUs (only one of which has
-been used for the visits), with enough RAM to load either graph direction in
-memory without swapping to disk.
-
-Results show that the in-memory approach delivers impressive performances. A
-full visit of the forward graph takes less than 2 hours with a throughput
-nearing 2 million nodes per second, or about 500 nanoseconds per node. Visiting
-the transposed graph is slower due to the already discussed differences in
-in-degree vs.\ out-degree distributions, but still very fast in absolute terms:
-the full transposed graph can be visited in little more than 3 hours with a
-throughput nearing 1 million nodes/second (1 $\mu$s/node).
-
-\Cref{tab:compression-arc-benchmark} shows the results of benchmarking
-random access to nodes and edges in the graph. A random sample of 1 billion
-nodes (8.3\% of the entire graph) has been taken, enumerating for every node
-all of its successors.  Results show that having the graph in memory gives
-impressive results also in terms of random lookup time, with minimal overhead
-due to the compressed representation. On the original graph, looking up the
-successor of a node takes 83 nanoseconds on average, close to the 50--60\,ns
-estimates for current DRAM random access memory. Arc lookup on the transposed
-graph is slower, as already observed for full graph visits.
 
 
 \subsection{Source code artifact multiplication}%
@@ -759,13 +761,13 @@ in the corpus. We will measure:
 \begin{enumerate}
 
 \item The multiplication of source code file contents across commits
-  (\emph{blob$\to$revision multiplication} in the following), i.e., how much
+  (\emph{blob $\to$ revision multiplication} in the following), i.e., how much
   the same unmodified file content reappears in different commits, regardless
   of which origins they were found in. This measure correlates with and
-  is a requirement for Type 1 (exact) clone detection, both within and across
-  repositories.
+  is a requirement for Type 1 (exact) clone
+  detection~\cite{bellon2007comparison}, both within and across repositories.
 
-\item The multiplication of commits across origins (\emph{revision$\to$origin
+\item The multiplication of commits across origins (\emph{revision $\to$ origin
   multiplication}), i.e., the frequency with which the same commit reappears
   in different repositories. The fact that the same commit reappears at
   different origins is partly the result of collaborative social coding,
@@ -774,20 +776,20 @@ in the corpus. We will measure:
 
 \end{enumerate}
 
-In the given data model, blob$\to$revision multiplication can be measured by
+In the given data model, blob $\to$ revision multiplication can be measured by
 iterating on all nodes of type ``blob'', then performing a visit on the
 transposed graph that only follows arcs leading to revision nodes---i.e.,
-excluding (the transposed of) arcs snapshot$\to$revision, release$\to$revision,
-and origin$\to$ snapshot---and finally counting the number of revision leaves
-reached with the visit. Results can then be visualized as a distribution of the
-``popularity'' of blobs across commits.
+excluding (the transposed of) arcs snapshot $\to$ revision, release $\to$
+revision, and origin $\to$ snapshot---and finally counting the number of
+revision leaves reached with the visit. Results can then be visualized as a
+distribution of the ``popularity'' of blobs across commits.
 
 Note that, even if the compressed graph representation does not natively store
 type information for arcs, we can use the type map discussed in
 \cref{sec:compression-comp-scope} to stop the visit when it is no longer
 possible to reach additional revision nodes.
 
-The approach for determining revision$\to$origin multiplication is similar.
+The approach for determining revision $\to$ origin multiplication is similar.
 The only difference is that visits will start from commit nodes and stop at
 origin nodes (graph roots), which can then be counted and visualized as before.
 
@@ -799,18 +801,18 @@ efficiency of full graph visits, we chose these approaches for the sake of
 simplicity and explainability.
 
 More time-efficient approaches are possible and would be equally well supported
-by the graph paradigm. For instance, one could propagate ancestry information
-during the visit, obtaining linear-time algorithms at the price of extra memory
-requirements (or extra memory mapping). Our main point is that the entire
-corpus \emph{itself} can be fit in relatively little memory and accessed with
-excellent performances; other algorithmic considerations will vary according to
-the needs of the planned mining task, as they always do.
+by the compressed graph framework. For instance, one could propagate ancestry
+information during the visit, obtaining linear-time algorithms at the price of
+extra memory requirements (or extra memory mapping). Our main point is that the
+entire corpus \emph{itself} can be fit in relatively little memory and accessed
+with excellent performances; other algorithmic considerations will vary
+according to the needs of the planned mining task, as they always do.
 
 
 \subsection{Results}
 
 \Cref{fig:compression-distrib-cnt-rev} shows the multiplication factor
-distribution for blob$\to$revision, measured on a random sample of 953\,M
+distribution for blob $\to$ revision, measured on a random sample of 953\,M
 blobs. Looking at the cumulative distribution (top line) the average
 multiplication factor appears to be very high. There are more than 100 million
 blobs ($\approx$20\% of the sample) that are duplicated more than one
@@ -818,7 +820,7 @@ thousand times in different commits; 10 million blobs (1\%) reoccur in more
 than ten thousand commits; and 1 million blobs (0.1\%) in more than a
 hundred thousand commits.
 
-As we didn't partition by origin, these results do not say whether this
+As we did not partition by origin, these results do not say whether this
 multiplication is due to the long life of unmodified source code files in
 long-lived code bases, or instead due to reuse of the same unmodified files
 across different repositories. It would be easy to modify the experiment to
@@ -829,7 +831,7 @@ follow edges up to origin nodes to determine that.
 \begin{figure}
   \centering
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents.png}
-  \caption{Content$\to$revision multiplication, i.e., how often file contents
+  \caption{Content $\to$ revision multiplication, i.e., how often file contents
     (Y axis) reoccur unmodified in different commits (X axis), based on a
     random sample of 953\,M blobs (17\% of all blobs).}%
   \label{fig:compression-distrib-cnt-rev}
@@ -838,14 +840,14 @@ follow edges up to origin nodes to determine that.
 \begin{figure}
   \centering
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions.png}
-  \caption{Revision$\to$origin multiplication, i.e., how often commits (Y axis)
-    reoccur in different repositories (X axis), based on a random sample of
-    8.5\,M revision (0.77\% of all revisions).}%
+  \caption{Revision $\to$ origin multiplication, i.e., how often commits (Y
+  axis) reoccur in different repositories (X axis), based on a random sample of
+  8.5\,M revision (0.77\% of all revisions).}%
   \label{fig:compression-distrib-rev-ori}
 \end{figure}
 
 \Cref{fig:compression-distrib-rev-ori} shows analogous results for the
-revision$\to$origin layer, on a random sample of 8.5\,M revisions. To interpret
+revision $\to$ origin layer, on a random sample of 8.5\,M revisions. To interpret
 them, it is important to realize how it happens that the same commit (i.e.,
 with an identical SHA1 identifier) is found in different repositories. The main
 reason is the distributed nature of modern version control systems, whose
@@ -869,7 +871,7 @@ resiliency to the disappearance of a single point of source code distribution.
   \centering
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents_node_size.png}
   \caption{Visit size, as the number of visited nodes, for measuring
-    blobs$\to$revision multiplication on the same sample of
+    blobs $\to$ revision multiplication on the same sample of
     \cref{fig:compression-distrib-cnt-rev}.}%
   \label{fig:compression-size-cnt-rev}
 \end{figure}
@@ -878,7 +880,7 @@ resiliency to the disappearance of a single point of source code distribution.
   \centering
   \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions_node_size.png}
   \caption{Visit size, as the number of visited nodes, for measuring
-    revision$\to$origin multiplication on the same sample of
+    revision $\to$ origin multiplication on the same sample of
     \cref{fig:compression-distrib-rev-ori}.}%
   \label{fig:compression-size-rev-ori}
 \end{figure}
@@ -888,33 +890,32 @@ resiliency to the disappearance of a single point of source code distribution.
 To better appreciate the graph-intensive nature of realizing the above two
 experiments in practice, we have also measured visit sizes.
 \cref{fig:compression-size-cnt-rev} and \cref{fig:compression-size-rev-ori}
-show the results in terms of visited nodes; results in terms of visited edges
-have been omitted for brevity, but they exhibit nearly identical patterns.
+show the results in terms of visited nodes.
 
-Content$\to$revision visits traverse significantly more nodes (and edges) than
-revision$\to$origin visits. This is expected due to the respective sizes of the
-traversed subgraphs and it is a dominant
-factor over the fact that, on average, the filesystem layer of the graph
-(blobs $\cup$ directory nodes) has shorter graph paths than the revision
-layer (VCS repositories of large software projects such as the Linux kernel can
-have commit chains nearing 1\,M commits in length).
+Content $\to$ revision visits traverse significantly more nodes (and edges)
+than revision $\to$ origin visits. This is expected due to the respective sizes
+of the traversed subgraphs and it is a dominant factor over the fact that, on
+average, the filesystem layer of the graph (blobs $\cup$ directory nodes) has
+shorter graph paths than the revision layer (VCS repositories of large software
+projects such as the Linux kernel can have commit chains nearing 1\,M commits
+in length).
 
 \smallskip
 
 In terms of timings, the presented results have been obtained on multi-core
 machines with, respectively, 20 $\times$ 2.40\,GHz CPUs (for
-blob$\to$revision) and 36 $\times$ 3.00\,GHz CPUs (for revision$\to$origin),
-letting the experiments run for about 2.5 days. In spite of the naive $O(V\cdot
-E)$ algorithmic approaches chosen, such short running times have allowed to
-process very large subgraphs.
+blob $\to$ revision) and 36 $\times$ 3.00\,GHz CPUs (for revision $\to$ origin),
+letting the experiments run for about 2.5 days in total. In spite of the naive
+$O(V\cdot E)$ algorithmic approaches chosen, such short running times have
+allowed to process very large subgraphs.
 
 \smallskip
 
-The main conclusions of this section are that: (1) graphs are suitable data
-models for conducting version control system analyses, including code
-duplication experiments; and (2) \emph{compressed} graphs allow such analyses
-to be performed at ultra-large-scale with impressive graph traversal
-performances.
+The main conclusions we can draw from these experiments are that: (1) graphs
+are suitable data models for conducting version control system analyses,
+including code duplication experiments; and (2) \emph{compressed} graphs allow
+such analyses to be performed at ultra-large-scale with impressive graph
+traversal performances.
 
 \section{Discussion}%
 \label{sec:compression-discussion}
@@ -1100,12 +1101,12 @@ More precisely, if an object requires $z$ bits to be represented, a succinct
 data structure uses $z+o(z)$ bits.
 
 A simple, practical data structure of this kind is the \emph{Elias-Fano
-representation of monotone sequences}~\cite{EliESRCASF}. This representation
-is technically not succinct, and in fact usually named \emph{quasi-succinct},
+representation of monotone sequences}~\cite{EliESRCASF}, which are technically
+not fully succinct but \emph{quasi-succinct}.
 An advantage of the
 Elias-Fano representation is the possibility of finding in constant time both
 the $k$-th successor and the first successor greater than or equal a
-given bound $b$. In particular, the last property makes it possible to compute
+given bound $b$. In particular, the last property makes it possible to verify
 adjacency in constant time, and neighborhood intersections in sublinear time.
 
 \emph{Partitioned Elias-Fano}~\cite{OtVPEFI} is a improvement over the basic

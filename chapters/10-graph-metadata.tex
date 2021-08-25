@@ -40,13 +40,13 @@ available externally, the process is more involved: it requires returning the
 entire transitive closure from the blob, then joining it with the timestamps,
 which can require transferring very large amounts of nodes to join with the
 timestamps (up to significant fractions of the entire graph, e.g., for the
-empty file).
+empty file), before finally filtering on the highest timestamp found.
 
 The added complexity gets even worse when the traversed edges are conditional
 on the properties themselves. Consider the following query:
 
 \textbf{Query 2}: \emph{Given a snapshot, find all unique blobs which were
-present at the path \texttt{src/test/README.txt} at any point in its
+present at the path \allowbreak\texttt{src/test/README.txt} at any point in its
 development history.}
 
 With direct access to the properties of the graph, the algorithm is again
@@ -57,7 +57,8 @@ fixed depth for each source code tree, for a time complexity of $O(|R|)$ where
 $R$ is the set of revisions in the transitive closure of the snapshot. In
 contrast, when the file and directory names of the graph edges are not directly
 accessible, one needs to return the \emph{entire transitive closure} ($O(|N|)$)
-of the snapshot to later join this data with the graph properties.
+of the snapshot to later join this data with the graph properties, and use
+these to filter the nodes matching the condition in the query.
 
 Whether the compressed graph is used only for selecting artifacts for the
 purpose of performing subsequent scale-out analyses on the extracted data, or
@@ -70,21 +71,22 @@ graph.
 
 \section{SWHID mappings}
 
-The input of the graph compression is a list of nodes and edges referenced by
-their \glspl{SWHID} in a format described in \cref{sec:edges-format}. These
-\glspl{SWHID} are the unique identifiers of the objects in the graph, and are
-of prime importance to be able to relate the nodes being manipulated in the
-compressed representation with the archived artifacts themselves.
+The most basic property of the graph is the \acrfull{SWHID} of each node, their
+unique identifier in the archive. They are of prime importance to be able to
+relate the nodes being manipulated in the compressed representation with the
+archived artifacts themselves.
 
-As detailed in \cref{sec:compression-pipeline}, the graph compression pipeline
-works by mapping each unique \gls{SWHID} to a set of $\{0,\ldots,N-1\}$
-consecutive integers, where $N$ is the number of nodes in the graph by
-computing a \emph{minimal perfect hash function}~\cite{GOVFSCF}.
-After this hashing step, the \gls{SWHID} information is lost, and all the nodes
-are subsequently referred to as their integer identifier from the contiguous
-set. To restore the ability to associate the graph nodes with the objects they
-refer to, we need to construct mapping functions that allow us to translate
-between integer node IDs and \glspl{SWHID} in both directions.
+The input of the graph compression pipeline is a list of nodes and edges
+referenced by their \glspl{SWHID} in a format described in
+\cref{sec:edges-format}.  As detailed in \cref{sec:compression-pipeline}, this
+pipeline works by mapping each unique \gls{SWHID} to a set of consecutive
+integers $\{0,\ldots,N-1\}$, where $N$ is the number of nodes in the graph by
+computing a \emph{minimal perfect hash function}~\cite{GOVFSCF}.  After this
+hashing step, the \gls{SWHID} information is lost, and all the nodes are
+subsequently referred to as their integer identifier from the contiguous set.
+To restore the ability to associate the graph nodes with the objects they refer
+to, we need to construct mapping functions that allow us to translate between
+integer node IDs and \glspl{SWHID} in both directions.
 
 \subsection{SWHID $\to$ Node ID}%
 \label{sec:swhid2node}
@@ -266,6 +268,9 @@ verify that the node is in the input domain, and returning an error otherwise:
 \section{Node properties}%
 \label{sec:node-properties}
 
+After having restored the association between the nodes in the graph and their
+archive identifiers, we now move to storing node properties \emph{other} than
+\glspl{SWHID}.
 For the reasons outlined in \cref{sec:node2swhid}, mapping nodes to properties
 in external storage is generally a relatively simple feat. Because the node IDs
 in the compressed graph are consecutive integers in the range ${0,\ldots,N-1}$,
@@ -291,7 +296,8 @@ load this node type mapping in memory along with the graph, contrary to the
 other mappings which have to be loaded on demand.
 This mapping is implemented very efficiently as a bit array indexed by integer
 node identifiers, with records of only 3 bits per node (as there are 6 node
-types in total), which amounts to around 7\,GB of RAM for the 2020-12-15 graph.
+types in total), which amounts to around 7\,GiB of RAM for the 2020-12-15
+graph.
 
 \subsection{Integer properties}%
 \label{sec:mapping-integers}
@@ -300,7 +306,7 @@ The following properties are simple integers, either 16, 32 or 64 bits:
 
 \begin{itemize}
     \setlength\itemsep{0em}
-    \item \texttt{content.length}: length of a blob
+    \item \texttt{content.length}: size of a blob in bytes
     \item \texttt{revision.date}: timestamp of when a revision was authored
     \item \texttt{revision.date\_offset}: timezone offset of when a revision
         was authored
@@ -310,6 +316,10 @@ The following properties are simple integers, either 16, 32 or 64 bits:
         revision was committed
     \item \texttt{release.date}: timestamp of when a release was authored
 \end{itemize}
+
+All the dates can be represented as a 64-bit timestamp storing the number of
+nanoseconds since the Unix epoch. The timezone information is stored as a
+16-bit integer representing the timezone offset with UTC.
 
 Storing these integer properties in property files is done in a similar way
 to storing permutations in order files, which we described in
@@ -322,15 +332,21 @@ number of bits of the integer field (16, 32 or 64). For the 2020-12-15 export,
 these bit sizes correspond respectively to property files of size 35\,GiB,
 71\,GiB and 145\,GiB.
 
+This could further be improved if the nodes of each type were stored
+contiguously, as it would allow us to store integers in a contiguous array
+without having holes for nodes of irrelevant types. Using such a typed graph
+would have various advantages in terms of property storage and locality-based
+compression, and is left as a future work.
+
 \subsection{Persons}%
 \label{sec:mapping-persons}
 
 The following properties represent ``persons'', which are stored as records
-containing a full name and an email address.\footnote{Like projects, persons
-are ontologically complex objects and cannot be solely described by a name and
-an email: people have multiple emails, change names, can misspell their own
-name, etc. Past works have attempted to map authorship information to a
-canonical concept of ``persons'' by merging duplicate information to single
+containing a full name and an email address.\footnote{Like software projects,
+persons are ontologically complex objects and cannot be solely described by a
+name and an email: people have multiple emails, change names, can misspell
+their own name, etc. Past works have attempted to map authorship information to
+a canonical concept of ``persons'' by merging duplicate information to single
 identities~\cite{wiese2016mailing, zhu2019empirical}. For the purposes of this
 thesis, we call ``person'' a unique pair of full name and email address, and
 leave identity deduplication in the hands of the users of the platform.}
@@ -429,14 +445,15 @@ a contiguous integer range, in all cases the data structure only needs to map
 this range to a set of properties, which can be done efficiently in most cases.
 However, for properties attached to the graph \emph{edges}, doing so gets
 technically harder: the input domain of the mapping is the sparse adjacency
-matrix of the entire graph, which cannot be easily represented in a naive data
-structure.
+matrix of the entire graph, which cannot be compactly represented in a naive
+data structure.
 
 To solve this issue, the WebGraph framework provides an experimental set of
 libraries\footnote{\url{https://webgraph.di.unimi.it/docs/it/unimi/dsi/webgraph/labelling/package-summary.html}}
 under \texttt{webgraph.labelling} which implements arc labelling, i.e.,
 associating arbitrary properties to the graph edges. The basic principle for
-the serialization of labels using this system is twofold.
+the serialization of labels (the objects storing the edge properties) using
+this system is twofold.
 
 First, all labels are written to a \texttt{graph.labels} file in the order
 obtained by iterating on all edges of the graph.  As a reminder, WebGraph
@@ -460,7 +477,8 @@ possible to get the specific arc label of a $k_1 \to k_2$ edge in constant
 time, as WebGraph does not allow access to arbitrary edges in constant time;
 instead, all outgoing edges of $k_1$ need to be iterated along with their
 labels until $k_2$ is encountered in the adjacency list, which has an average
-complexity of $O(d_{\mathrm{out}})$.
+complexity of $O(d_{\mathrm{out}})$, where $d_{\mathrm{out}}$ is the average
+out-degree of the nodes in the graph.
 
 % TODO: maybe an illustration would be welcome here.
 
@@ -473,8 +491,9 @@ an identical content, for example two empty files, as shown in
 \cref{fig:multiple-labels}. In our data model, this would be represented as two
 nodes (the directory and the blob corresponding to the empty file) and two
 edges from the first to the second node (one for each file entry). In the
-compressed graph however, these nodes would only be linked together by a single
-arc, to which we cannot associate a single file name.
+compressed graph however, due to the copy-list model of compression, these
+nodes would only be linked together by a single arc, to which we cannot
+associate a single file name.
 
 \begin{figure}
     \centering
@@ -484,20 +503,23 @@ arc, to which we cannot associate a single file name.
         \draw [style=arrow, bend left] (0) to node [above, sloped]
             {\texttt{.gitkeep}} (1);
         \draw [style=arrow, bend right] (0) to node [above, sloped]
-            {\texttt{README}} (1);
+            {\texttt{ISSUES.txt}} (1);
 
     \end{tikzpicture}
     \caption{Two directory entries with different names pointing to the same
-        blob (the empty file). This is stored as a single edge in the
-        compressed graph, and thus has to be represented with multiple labels per
-    arc.}%
+    blob (the empty file). This is stored as a single edge in the compressed
+    graph, and thus has to be represented with multiple labels per arc.}%
     \label{fig:multiple-labels}
 \end{figure}
+
+% \footnotetext{The astute reader might notice that a software project with an
+% empty bug list is rather unlikely; it is indeed used here as a highly
+% hypothetical example.}
 
 To represent this possibility of having multiple file names for a single arc,
 in the case of multiple relationships between two identical nodes, we cannot
 rely on having one fixed-size label for each arc. Instead, each arc label is
-stored a \emph{list} of records, each record representing one relationship
+stored as a \emph{list} of records, each record representing one relationship
 between two nodes, which allows us to circumvent the single arc constraint.
 A version of this design which can store lists of fixed-size integers as the
 arc labels is implemented as the \texttt{FixedWidthIntListLabel} class in the
@@ -566,8 +588,8 @@ functions map their input to integers in an arbitrary order, which nullifies
 the advantages of the front-coding. Some \gls{MPH} functions, called
 \emph{monotone minimal perfect hashing functions}, can be used to map their
 input in an order-preserving fashion~\cite{belazzougui2008theory}, although the
-resulting functions are generally larger and have a slower hash rate. An
-implementation of such a function is implemented as the
+resulting functions are generally larger and have a slower hashing throughput.
+An implementation of such a function is implemented as the
 \texttt{LcpMonotoneMinimalPerfectHashFunction} in the Sux4J
 framework\footnote{\url{https://sux.di.unimi.it/}}.
 
@@ -601,11 +623,12 @@ drastically reduces the size of the reverse mapping: 172\,GiB for the unsorted
 list, 108\,GiB for the sorted list, for a total compression ratio of 1.59.
 Among the two options with a sorted front-coded string list,
 option~\ref{itm:label-gov3-pfcl} adds to that amount a 16\,GiB permutation
-array, while option~\ref{itm:label-gov3-pfcl} increases the size of the hash
-function from 0.6\,GiB to 5.7\,GiB. Because the hashing rate is practically
-identical between the two different hashing functions, and using a monotone
-\gls{MPH} makes the label writing pipeline simpler, we pragmatically oriented
-ourselves towards that latter option.
+array for a total of 124\,GiB, while option~\ref{itm:label-gov3-pfcl} increases
+the size of the hash function from 0.6\,GiB to 5.7\,GiB for a total of
+114\,GiB. Because the hashing rate is practically identical between the two
+different hashing functions, and using a monotone \gls{MPH} makes the label
+writing pipeline simpler, we pragmatically oriented ourselves towards that
+latter option.
 
 \begin{table}
     \centering
@@ -617,7 +640,7 @@ ourselves towards that latter option.
         \textbf{Option} & \textbf{Implementation} & \textbf{MPH size} & \textbf{Total size} & \textbf{Hashing rate} \\ \hline
         \ref{itm:label-gov3-fcl} & Standard MPH + unsorted FCL & 0.6\,GiB & 172\,GiB & 521 k lines/s \\
         \ref{itm:label-gov3-pfcl} & Standard MPH + permuted FCL & 0.6\,GiB & 124\,GiB & 521 k lines/s \\
-        \ref{itm:label-gov3-pfcl} & Monotone MPH + sorted FCL & 5.7\,GiB & 114\,GiB & 511 k lines/s
+        \ref{itm:label-lcp-fcl} & Monotone MPH + sorted FCL & 5.7\,GiB & 114\,GiB & 511 k lines/s
     \end{tabular}
 \end{table}
 
@@ -629,6 +652,8 @@ the 2021-03-23 graph) encoding the permission value in its three lower bits and
 the index of the entry name in the front-coded string list in its upper bits.
 
 \subsection{Label compression pipeline}
+
+% TODO diagram of the compression pipeline
 
 Having settled the format for arc labels, we can now describe a compression
 pipeline to generate the on-disk labels from the input dataset. As a reminder,
@@ -646,7 +671,7 @@ with the \texttt{-u} option, to only keep unique entries. We then compress the
 output using the Zstandard algorithm~\cite{collet2015zstd}, and obtain a
 compressed and sorted set of all the unique label names in the graph.
 
-\paragraph{Label hashing}
+\paragraph{Label monotone MPH}
 Using the set of label names, we can generate the hashing function to convert
 entry names to and from the set of integers $\{0, \ldots, N_L\}$ using a
 Monotone \gls{MPH} as described in \cref{sec:label-format}. The
@@ -672,7 +697,8 @@ arbitrary and depends on the export process. We thus need to hash the node
 destination, and the $h_L$ function on the label byte strings in order to
 reorder them in the final compressed order.
 
-To illustrate this process, given the following edges dataset:
+To illustrate this process, given the following edges dataset (in the format
+described in \cref{sec:edges-format}):
 
 \begin{minted}{text}
 <src> <dst> <label_name> <perms>
@@ -796,7 +822,7 @@ compressed graph.
 
 As one might expect, in the graph of software development the vast majority of
 storage space is occupied by the properties themselves; the structure of nodes
-and arcs is just a small portion of the entire data usage. This highlights an
+and arcs is just a small portion of the total size. This highlights an
 important speed/memory trade-off: it is highly unlikely that the entire
 property graph can be realistically stored in memory in the same way as the
 graph structure itself. Therefore, it makes sense for the properties to be
@@ -834,8 +860,9 @@ its own memory requirements:
 From the level of the graph compression framework, it makes sense to put the
 direct loading and memory-mapping methods at the disposal of the end-user, so
 that they can tune on-demand property loading to their specific workloads and
-hardware. We thus try to provide, for the mappings that support it,
-respectively two loading methods: \texttt{load} and \texttt{loadMapped}.
+hardware. We thus try to provide, for the mappings that support it, two loading
+methods: \texttt{load} and \texttt{loadMapped} to implement options (1) and
+(2), respectively.
 Each mapping can be loaded at any point during runtime. It is generally more
 efficient to directly load smaller mappings which are often used in RAM (e.g.,
 the node type mapping should generally always be loaded directly), whereas
@@ -871,9 +898,9 @@ virtual mapping to the in-RAM structure.
 
 \section{Walkthrough}
 
-This section briefly demonstrates how to use graph properties from the
-\texttt{swh.graph} framework using the mapping techniques described in the
-sections above.
+We conclude this chapter by briefly demonstrating how to use graph properties
+from the Java API of the \texttt{swh.graph} framework using the mapping
+techniques described in the sections above.
 
 The graph itself can be loaded either with memory-mapping or direct loading; it
 is however recommended to always load it using memory-mapping while using the
@@ -895,7 +922,7 @@ comparatively small. The type of each node can then be looked-up using
 \texttt{getType}:
 
 \begin{minted}{java}
-// Printing all the node types
+// Printing all node types
 NodeIterator it = graph.nodeIterator();
 while (it.hasNext()) {
     long k = it.nextLong();
@@ -916,7 +943,7 @@ other bigger files are memory-mapped.
 // Loading SWHID <-> node ID maps
 NodeIdMap m = new NodeIdMap(graphPath, graph.numNodes());
 
-// Printing all the node SWHIDs
+// Printing all node SWHIDs
 NodeIterator it = graph.nodeIterator();
 while (it.hasNext()) {
     long k = it.nextLong();
@@ -938,7 +965,7 @@ long[][] revTimestamps = (long[][]) BinIO.loadLongsBig(
 LongBigList revTimestamps = ByteBufferLongBigList.map(
     new FileInputStream(graphPath + "-rev_timestamps.bin").getChannel());
 
-// Printing all the commit timestamps
+// Printing all commit timestamps
 NodeIterator it = graph.nodeIterator();
 while (it.hasNext()) {
     long k = it.nextLong();
@@ -964,7 +991,7 @@ NodeIdMap nodeMap = new NodeIdMap(graphPath, graph.numNodes());
 FrontCodedStringBigList labelNameMap = (FrontCodedStringBigList) BinIO.loadObject(
     graphPath + "-labels.fcl");
 
-// Print all the edges and their labels
+// Print all edges and their labels
 ArcLabelledNodeIterator it = graph.nodeIterator();
 while (it.hasNext()) {
     long srcNode = it.nextLong();

@@ -617,20 +617,7 @@ different techniques for label name mapping on the 2020-12-15 graph:
         rate), and a sorted front-coded string list.
 \end{enumerate}
 
-The results of this benchmark are shown in \cref{tab:label-mph-benchmark}. As
-can be seen in the results, the front-coded compression on sorted lists
-drastically reduces the size of the reverse mapping: 172\,GiB for the unsorted
-list, 108\,GiB for the sorted list, for a total compression ratio of 1.59.
-Among the two options with a sorted front-coded string list,
-option~\ref{itm:label-gov3-pfcl} adds to that amount a 16\,GiB permutation
-array for a total of 124\,GiB, while option~\ref{itm:label-gov3-pfcl} increases
-the size of the hash function from 0.6\,GiB to 5.7\,GiB for a total of
-114\,GiB. Because the hashing rate is practically identical between the two
-different hashing functions, and using a monotone \gls{MPH} makes the label
-writing pipeline simpler, we pragmatically oriented ourselves towards that
-latter option.
-
-\begin{table}
+\begin{table}[b]
     \centering
     \caption{Benchmark results of three different techniques to hash and build
         a reverse mapping of the set of snapshot branch names and directory
@@ -644,6 +631,19 @@ latter option.
     \end{tabular}
 \end{table}
 
+The results of this benchmark are shown in \cref{tab:label-mph-benchmark}. As
+can be seen in the results, the front-coded compression on sorted lists
+drastically reduces the size of the reverse mapping: 172\,GiB for the unsorted
+list, 108\,GiB for the sorted list, for a total compression ratio of 1.59.
+Among the two options with a sorted front-coded string list,
+option~\ref{itm:label-gov3-pfcl} adds to that amount a 16\,GiB permutation
+array for a total of 124\,GiB, while option~\ref{itm:label-gov3-pfcl} increases
+the size of the hash function from 0.6\,GiB to 5.7\,GiB for a total of
+114\,GiB. Because the hashing rate is practically identical between the two
+different hashing functions, and using a monotone \gls{MPH} makes the label
+writing pipeline simpler, we pragmatically oriented ourselves towards that
+latter option.
+
 Armed with efficient encoding mechanisms for the two fields of arc labels
 (permission enumeration and monotonically hashed entry name identifiers), we
 can specify the format for each record: a $3 +
@@ -653,7 +653,13 @@ the index of the entry name in the front-coded string list in its upper bits.
 
 \subsection{Label compression pipeline}
 
-% TODO diagram of the compression pipeline
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/graph-properties/label-compression}
+    \caption{Label compression pipeline}%
+    \label{fig:label-compression-pipeline}
+\end{figure}
+
 
 Having settled the format for arc labels, we can now describe a compression
 pipeline to generate the on-disk labels from the input dataset. As a reminder,
@@ -671,7 +677,7 @@ with the \texttt{-u} option, to only keep unique entries. We then compress the
 output using the Zstandard algorithm~\cite{collet2015zstd}, and obtain a
 compressed and sorted set of all the unique label names in the graph.
 
-\paragraph{Label monotone MPH}
+\paragraph{Monotone MPH}
 Using the set of label names, we can generate the hashing function to convert
 entry names to and from the set of integers $\{0, \ldots, N_L\}$ using a
 Monotone \gls{MPH} as described in \cref{sec:label-format}. The
@@ -767,7 +773,7 @@ in order, and synchronize the traversed edges with the stream of labelled
 edges, skipping unlabeled edges in the graph. This process is shown in
 \cref{algo:label-writing} and has a complexity of $O(|E|)$.
 
-\begin{algorithm}[t]
+\begin{algorithm}[htb]
     \begin{algorithmic}
         \Function{WriteLabels}{$G,~S_E$}
         \State $l \gets \{-1, -1, -1, -1\}$ \Comment{Placeholder edge line}

@@ -1,25 +1,31 @@
 digraph "Label compression steps" {
     // Horizontal graph
-    rankdir=LR;
+    // rankdir=LR;
 
-    mph [label="Lcp Monotone MPH", shape=box];
+    { rank = same; edges_dataset compressed }
+    { rank = same; mph fcl }
+    { rank = same; label_hashing sorting arc_labelling }
+    { rank = same; labels labeloffsets reverse_map }
+
+
     fcl [label="Reverse mapping", shape=box];
+    mph [label="Monotone MPH", shape=box];
     label_hashing [label="Label hashing", shape=box];
     sorting [label="Label sorting", shape=box];
     arc_labelling [label="Arc labelling", shape=box];
 
     label_set [label="graph.labels.csv.zst\n(Sorted label set)", shape=none];
     compressed [label="Compressed\ngraph", shape=none];
-    edges_dataset [label="Edges dataset from\nthe Merkle DAG", shape=none];
+    edges_dataset [label="Edges dataset\nfrom the\nMerkle DAG", shape=none];
 
-    reverse_map [label="graph-labels.fcl", shape=none];
     labels [label="graph.labels", shape=none];
     labeloffsets [label="graph.labeloffsets", shape=none];
+    reverse_map [label="graph-labels.fcl", shape=none];
 
     edges_dataset -> label_set;
-    label_set -> mph;
     label_set -> fcl;
     fcl -> reverse_map;
+    label_set -> mph;
     edges_dataset -> label_hashing;
     mph -> label_hashing;
     label_hashing -> sorting;

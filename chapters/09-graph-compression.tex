@@ -52,8 +52,8 @@ the undirected version of the graph, while being a linear algorithm with a
 theoretical time complexity of $O(|V| + |E|)$, takes around six hours when
 running on a cluster of more than 80 machines, each with 64 vCPUs and 500\,GiB
 of RAM\@. On the Azure Cloud, the estimated total cost of running this linear
-algorithm for the entire graph is $\approx$5000 USD using the GraphFrames
-library on Azure Databricks.
+algorithm for the entire graph is $\approx \num{5000}$\,USD using the
+GraphFrames library on Azure Databricks.
 
 In this chapter, we evaluate the feasibility of a less resource-hungry approach
 to the analysis of the development history of very large software collections.
@@ -96,13 +96,13 @@ Dataset (see \cref{chp:graph-dataset}), consisting of 5 billion unique source
 code files and 1 billion unique commits, harvested from more than 90 million
 software projects.
 
-As a size benchmark, we show that the resulting compressed VCS graph, containing
-the development history of the entire corpus, can be loaded in $\approx$94\,GiB
-of RAM, for an impressive compression ratio of 4.9 bits/arc---as opposed to 8
-bytes per arc that a naive in-memory representation of the graph using
-adjacency lists would require. At current market rates the graph can thus be
-fit in RAM on commodity hardware with an investment of less than 300 USD for
-main memory.
+As a size benchmark, we show that the resulting compressed VCS graph,
+containing the development history of the entire corpus, can be loaded in
+$\approx 94$\,GiB of RAM, for an impressive compression ratio of 4.9
+bits/arc---as opposed to 8 bytes per arc that a naive in-memory representation
+of the graph using adjacency lists would require. At current market rates the
+graph can thus be fit in RAM on commodity hardware with an investment of less
+than 300 USD for main memory.
 
 As a speed benchmark, we measure the time required to visit the entire graph,
 obtaining a visit time of less than 2 hours and a processing throughput of
@@ -118,7 +118,7 @@ different commits, and (2) how often identical commits are found in different
 repositories. Our experiences show the advantages of having the development
 history of the entire corpus in main memory as opposed to secondary memory.
 In spite of the naive algorithmic approaches chosen---with time complexities
-of $O(V\cdot E)$ on the full graph---we manage to run the experiments on
+of $O(|V|\cdot |E|)$ on the full graph---we manage to run the experiments on
 representative corpus subsets in just a few days of analysis.
 
 \paragraph*{Replication package}
@@ -132,15 +132,15 @@ on Zenodo~\cite{swh-saner2020graph-replication}.
 
 Many datasets are shaped into a graph structure that contains a wealth of
 information about the data itself, and many data mining tasks can be
-accomplished from this information alone (e.g., detecting outlier elements,
-identifying interest groups, estimating measures of importance and so
-on). Often, such tasks can be solved through suitable graph algorithms which
-typically assume that the graph is stored in main memory.  However, this
-assumption is far from trivial to realize in many real-world cases, including
-the case of interest for the present thesis, where many billions of nodes and
-arcs might exist. Finding effective techniques to store and access large graphs
-that can be applied fruitfully to these situations is one of the central
-algorithmic issues in the field of modern data mining.
+accomplished from this information alone (e.g., detecting outliers, identifying
+interest groups, estimating measures of importance and so on). Often, such
+tasks can be solved through suitable graph algorithms which typically assume
+that the graph is stored in main memory.  However, this assumption is far from
+trivial to realize in many real-world cases, including the case of interest for
+the present thesis, where many billions of nodes and arcs might exist. Finding
+effective techniques to store and access large graphs that can be applied
+fruitfully to these situations is one of the central algorithmic issues in the
+field of modern data mining.
 
 A (lossless) \emph{compressed data structure} for a graph must provide very
 fast access to the graph (let us say, slower but comparable to the access time
@@ -169,7 +169,7 @@ past is the directed graph of the Web (or \emph{web graph}), consisting of one
 node per page and one arc per hyperlink between pages.  A pioneering attempt at
 compressing the web graph is the LINK Database~\cite{RSWLD}. Suppose that nodes
 are ordered lexicographically by URL (i.e., node $i$ is the node representing
-the $i$-th URL in lexicographic order); then the following two properties are
+the $i$th URL in lexicographic order); then the following two properties are
 true: \begin{itemize}
 
 \item \emph{Locality}: Most arcs are between nodes that are close to each other
@@ -194,7 +194,7 @@ true: \begin{itemize}
   \label{tab:compression-naive}
   \begin{tabular}{|l|l|l|}
     \hline
-    \textbf{Node} & \textbf{Outdegree} & \textbf{Successors} \\
+    \textbf{Node} & \textbf{Out-degree} & \textbf{Successors} \\
     \hline
     $\cdots$ & $\cdots$ & $\cdots$\\
     15 & 11 & 13, 15, 16, 17, 18, 19, 23, 24, 203, 315, 1034\\
@@ -320,7 +320,7 @@ As a sole exception we will also keep \emph{node types} in memory, i.e., whether
 a node is a blob, directory, revision, etc. That can be done very
 efficiently using a \emph{type map} implemented as a bit array indexed by
 node identifiers and requiring only 3 bits per node (as there are 6 node
-types in total), or 4\,GB of RAM for the entire graph. The reason to make this
+types in total), or 4\,GiB of RAM for the entire graph. The reason to make this
 exception is that node type filtering is useful in many use cases to determine
 at runtime what kind of objects graph traversals should be looking at.
 
@@ -351,7 +351,7 @@ figure) as a pair of textual nodes and edges file. These files use the
 ``edges'' format described in \cref{sec:edges-format}: the nodes file
 consists of one node label per line; the arcs file consists of one
 source/destination pair of node labels per linel; each label is a \gls{SWHID}.
-Then, the following steps are executed in order:\footnote{we refer to the
+Then, the following steps are executed in order:\footnote{We refer to the
 WebGraph documentation on how to practically run them:
 \url{http://webgraph.di.unimi.it/}}
 
@@ -375,7 +375,7 @@ graph adjacency matrix is key to achieving good compression. Unlike web
 graphs, version control system graphs do not sport ready-to-use ordering
 heuristics (such as the URL of each page) that are compression friendly. In
 fact, given that native VCS node identifiers are generally based on
-cryptographic checksums (e.g., SHA1), the links from one node to the next will
+cryptographic checksums (e.g., SHA-1), the links from one node to the next will
 tend to jump \emph{randomly} from one identifier to another in the space of all
 possible identifiers.
 
@@ -433,11 +433,11 @@ breakdown to perform the various steps on the initial dataset is given in
 \cref{tab:compression-bfs-time}, totaling less than 6 days of compression
 time.
 
-Timings have been taken on a server equipped with 24 CPUs and 750\,GB of
+Timings have been taken on a server equipped with 24 CPUs and 750\,GiB of
 RAM\@. Note however, that such huge amounts of RAM are not actually \emph{needed}
 for compression; minimum RAM requirements correspond to the resources needed to
 load the final compressed graph in memory. The only step that used more than
-100\,GB of RAM was the BFS visit, which used a memory mapping to access the BV
+100\,GiB of RAM was the BFS visit, which used a memory mapping to access the BV
 graph on disk using RAM as cache. Recent results on BFS memory
 efficiency~\cite{hagerup2019bfs} further confirm that the BFS step is not an
 impediment on the general applicability of the approach.
@@ -480,7 +480,7 @@ rented for one-time use, e.g., on public clouds.
 Compression results are shown in \cref{tab:compression-bfs-results}.
 Besides the raw datum of less than 5 bits per arc, which shows that the
 compression is very effective in practice, the compression ratio
-($\approx$15\%) with respect to the information-theoretical lower bound of
+($\approx 15\%$) with respect to the information-theoretical lower bound of
 $\log {n\choose m}$ for a graph with $n$ nodes and $m$ arcs is about three
 times the one typical for web graphs, which are highly redundant, but
 significantly better than the typical values for social networks, which are
@@ -495,16 +495,16 @@ resulting in nodes with very dense predecessor lists.
     \begin{subfigure}[b]{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/compression/indegree.png}
-        \caption{Indegrees.}%
+        \caption{In-degrees.}%
         \label{fig:compression-indegree}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/compression/outdegree.png}
-        \caption{Outdegrees.}%
+        \caption{Out-degrees.}%
         \label{fig:compression-outdegree}
     \end{subfigure}
-    \caption{Indegree and oudegree distributions for the entire corpus as a
+    \caption{In-degree and out-degree distributions for the entire corpus as a
     graph. Plots show both frequency (red dots) and Fibonacci binning (solid
     black line), which highlight more clearly the shape of the associated
     distribution~\cite{VigFB}. Note how the in-degree distribution has a fatter
@@ -515,11 +515,11 @@ resulting in nodes with very dense predecessor lists.
 \end{figure}
 
 Practically speaking, either direction of the input corpus can be fit in less
-than 100\,GB of RAM, even including the 4\,GB type map discussed above. Such an
+than 100\,GiB of RAM, even including the 4\,GiB type map discussed above. Such an
 amount of memory can be easily installed on either powerful workstations or
 cheap server-grade hardware---at current market
 rates,\footnote{\url{https://jcmit.net/memoryprice.htm}, accessed 2019-10-18}
-100\,GB of main memory costs less than 300 U.S.~dollars. Fitting \emph{both}
+100\,GiB of main memory costs less than 300 USD. Fitting \emph{both}
 graph directions on workstation deployments might be more challenging, but it
 is not always needed (e.g., one can choose to load only one graph direction
 depending on experimental needs) and still fit cheap server-grade deployments
@@ -577,10 +577,10 @@ the form $\displaystyle \frac{j}{2^k}$; the default $\gamma$ values used in the
 \gls{LLP} implementation of the WebGraph framework are:
 
 \[
-    \Bigl\{
+    \left\{
     1,~\frac{1}{2},~\frac{1}{4},~\frac{1}{8},~\frac{1}{16},~\frac{1}{32},~%
     \frac{1}{64},~\frac{1}{128},~\frac{1}{256},~\frac{1}{512},~\frac{1}{1024},~0
-    \Bigr\}
+    \right\}.
 \]
 
 However, the combination procedure is very slow, and giving that many $\gamma$
@@ -799,10 +799,10 @@ origin nodes (graph roots), which can then be counted and visualized as before.
 
 The chosen approaches are naive from an algorithmic point of view---the same
 edges will be traversed repeatedly for different input nodes,
-resulting in a time complexity of $O(V\cdot E)$, which is generally considered
-impractical on graphs of this scale.  Having already established the overall
-efficiency of full graph visits, we chose these approaches for the sake of
-simplicity and explainability.
+resulting in a time complexity of $O(|V|\cdot |E|)$, which is generally
+considered impractical on graphs of this scale.  Having already established the
+overall efficiency of full graph visits, we chose these approaches for the sake
+of simplicity and explainability.
 
 More time-efficient approaches are possible and would be equally well supported
 by the compressed graph framework. For instance, one could propagate ancestry
@@ -819,7 +819,7 @@ according to the needs of the planned mining task, as they always do.
 distribution for blob $\to$ revision, measured on a random sample of 953\,M
 blobs. Looking at the cumulative distribution (top line) the average
 multiplication factor appears to be very high. There are more than 100 million
-blobs ($\approx$20\% of the sample) that are duplicated more than one
+blobs ($\approx 20\%$ of the sample) that are duplicated more than one
 thousand times in different commits; 10 million blobs (1\%) reoccur in more
 than ten thousand commits; and 1 million blobs (0.1\%) in more than a
 hundred thousand commits.
@@ -853,13 +853,13 @@ follow edges up to origin nodes to determine that.
 \Cref{fig:compression-distrib-rev-ori} shows analogous results for the
 revision $\to$ origin layer, on a random sample of 8.5\,M revisions. To interpret
 them, it is important to realize how it happens that the same commit (i.e.,
-with an identical SHA1 identifier) is found in different repositories. The main
+with an identical SHA-1 identifier) is found in different repositories. The main
 reason is the distributed nature of modern version control systems, whose
 repositories are massively represented in the corpus under analysis. Developers
 that work together using Git will have individual repositories that communicate
-by exchanging SHA1-identical commits. Furthermore the pull request development
+by exchanging SHA-1-identical commits. Furthermore the pull request development
 model~\cite{gousios2014pullrequests} popularized by GitHub natively creates new
-repositories (hosted at different origin URLs) that initially contains all
+repositories (hosted at different origin URLs) that initially contain all
 commits (unmodified) of the originally ``forked'' repository.
 
 The cumulative distribution of \cref{fig:compression-distrib-rev-ori} measures
@@ -893,7 +893,7 @@ resiliency to the disappearance of a single point of source code distribution.
 
 To better appreciate the graph-intensive nature of realizing the above two
 experiments in practice, we have also measured visit sizes.
-\cref{fig:compression-size-cnt-rev} and \cref{fig:compression-size-rev-ori}
+\Cref{fig:compression-size-cnt-rev} and \cref{fig:compression-size-rev-ori}
 show the results in terms of visited nodes.
 
 Content $\to$ revision visits traverse significantly more nodes (and edges)
@@ -910,8 +910,8 @@ In terms of timings, the presented results have been obtained on multi-core
 machines with, respectively, 20 $\times$ 2.40\,GHz CPUs (for
 blob $\to$ revision) and 36 $\times$ 3.00\,GHz CPUs (for revision $\to$ origin),
 letting the experiments run for about 2.5 days in total. In spite of the naive
-$O(V\cdot E)$ algorithmic approaches chosen, such short running times have
-allowed to process very large subgraphs.
+$O(|V|\cdot |E|)$ algorithmic approaches chosen, such short running times have
+enabled the processing of very large subgraphs.
 
 \smallskip
 
@@ -1109,7 +1109,7 @@ representation of monotone sequences}~\cite{EliESRCASF}, which are technically
 not fully succinct but \emph{quasi-succinct}.
 An advantage of the
 Elias-Fano representation is the possibility of finding in constant time both
-the $k$-th successor and the first successor greater than or equal a
+the $k$th successor and the first successor greater than or equal a
 given bound $b$. In particular, the last property makes it possible to verify
 adjacency in constant time, and neighborhood intersections in sublinear time.
 

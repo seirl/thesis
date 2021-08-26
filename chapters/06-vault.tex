@@ -153,7 +153,7 @@ the cooking capacity to be horizontally scaled in a straightforward manner by
 having new resources simply register themselves in the task queue.
 
 In a typical workflow, a user requests the cooking of a bundle from the web
-API\footnote{\url{https://docs.softwareheritage.org/devel/swh-vault/api.html}},
+API,\footnote{\url{https://docs.softwareheritage.org/devel/swh-vault/api.html}}
 which forwards the cooking request to the Vault backend. The backend then tries
 to add this cooking request to the database; if no cooking request for this
 artifact is already present as pending or completed, it asynchronously
@@ -301,8 +301,8 @@ object storage. These objects can then be delta-compressed together using
 
 The Vault is generally an efficient way to retrieve substantial lists of
 repositories or source code trees from the archive. A moderately sized
-repository with around $\approx390$ commits takes around 7 minutes, while its
-source code tree of $\approx60$ files takes 19 seconds. By extrapolating these
+repository with around $\approx 390$ commits takes around 7 minutes, while its
+source code tree of $\approx 60$ files takes 19 seconds. By extrapolating these
 benchmarks and from our own experiments, the Vault is suitable to retrieve up
 to tens of thousands of directories and thousands of repositories from the
 archive in a reasonable time (between a few hours and a few days). This service
@@ -336,7 +336,7 @@ valuable for these use cases, as the original repositories are not guaranteed to
 still be available or even stable over time due to history rewrites, however it
 leaves significant room for improvement.  The next chapter tries to bridge the
 gap between simplicity and low friction for small-scale mining studies by
-exploring another way of making repositories available for use with day to day
+exploring another way of making repositories available for use with day-to-day
 CLI utilities while requiring less setup.
 
 % \TODO{more numbers. what storage impact? how long would it take to fetch

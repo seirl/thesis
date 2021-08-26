@@ -56,8 +56,8 @@ resulting set if not present. This only requires following a single path of
 fixed depth for each source code tree, for a time complexity of $O(|R|)$ where
 $R$ is the set of revisions in the transitive closure of the snapshot. In
 contrast, when the file and directory names of the graph edges are not directly
-accessible, one needs to return the \emph{entire transitive closure} ($O(|N|)$)
-of the snapshot to later join this data with the graph properties, and use
+accessible, one needs to return the \emph{entire transitive closure} of the
+snapshot in $O(|N|)$ to later join this data with the graph properties, and use
 these to filter the nodes matching the condition in the query.
 
 Whether the compressed graph is used only for selecting artifacts for the
@@ -163,7 +163,7 @@ For the same example, the estimated size would then be:
     = 19.3 \times 10^9 \times
         \left\lceil{\frac{\log_2(19.3 \times 10^9)}{8}}\right\rceil
         \times \frac{1}{2^{30}}
-    \approx 90\,\mathrm{GiB}
+    \approx 90\,\mathrm{GiB.}
 \]
 
 \subsection{Node ID $\to$ SWHID}%
@@ -176,12 +176,12 @@ compressed graph. This reverse mapping is the inverse function
 $\mathit{node2swhid}$ (= $\mathit{swhid2node}^{-1}$) of the mapping
 described in the previous section.
 
-This function is relatively easy to represent on-disk for two reasons. First,
-its input domain is a contiguous set of integers ${0,\ldots,N-1}$, which means
-the function does not require any hashing scheme to associate images to its
-inputs; they can simply be stored as a contiguous array. Second, because the
-images are \glspl{SWHID} they all have a fixed size, which facilitates random
-access in the array.
+This function is relatively easy to represent on disk for two reasons. First,
+its input domain is a contiguous set of integers $\{0,\ldots,N-1\}$, which
+means the function does not require any hashing scheme to associate images to
+its inputs; they can simply be stored as a contiguous array. Second, because
+the images are \glspl{SWHID} they all have a fixed size, which facilitates
+random access in the array.
 
 This reverse mapping is stored in a file called \texttt{graph.node2swhid.bin},
 a binary file containing a contiguous binary sequence of records, each record
@@ -216,11 +216,11 @@ around 395\,GiB ($\approx 19.3 \times 10^9 \times 22 \times \frac{1}{2^{30}}$).
 One caveat of the approach described in \cref{sec:swhid2node} to map
 \gls{SWHID} $\to$ node ID is that it does not do any kind of checking on its
 input domain; an unknown/invalid \gls{SWHID} will be accepted by the hash
-function, which will return an arbitrary integer in its image ${0,\ldots,N-1}$
-instead of throwing an error. This is problematic for some use cases: if the
-compressed graph is exposed as an API, it needs to be able to reject queries
-using unknown \glspl{SWHID}, instead of silently computing a garbage result on
-the wrong input node without any way for the user to notice.
+function, which will return an arbitrary integer in its image
+$\{0,\ldots,N-1\}$ instead of throwing an error. This is problematic for some
+use cases: if the compressed graph is exposed as an API, it needs to be able to
+reject queries using unknown \glspl{SWHID}, instead of silently computing a
+garbage result on the wrong input node without any way for the user to notice.
 
 While it is possible to externally check whether a \gls{SWHID} is present in
 the Software Heritage archive by querying its API, this is not sufficient for
@@ -273,14 +273,15 @@ archive identifiers, we now move to storing node properties \emph{other} than
 \glspl{SWHID}.
 For the reasons outlined in \cref{sec:node2swhid}, mapping nodes to properties
 in external storage is generally a relatively simple feat. Because the node IDs
-in the compressed graph are consecutive integers in the range ${0,\ldots,N-1}$,
-mapping each node to a given property is equivalent to creating a random-access
-list of properties, in which the property found at index $k$ is the one
-associated with the node $k$.
+in the compressed graph are consecutive integers in the range
+$\{0,\ldots,N-1\}$, mapping each node to a given property is equivalent to
+creating a random-access list of properties, in which the property found at
+index $k$ is the one associated with the node $k$.
 
 The best way to achieve this depends on the type and characteristics of each
 property, detailed in \cref{sec:relational-model}. We can use these to organize
-the properties in different categories:
+the properties in different categories, for each of which we describe an
+implementation for compact on-disk storage in this section.
 
 \subsection{Node types}%
 \label{sec:mapping-types}
@@ -325,7 +326,7 @@ Storing these integer properties in property files is done in a similar way
 to storing permutations in order files, which we described in
 \cref{sec:swhid2node}. Because integers have a fixed width, these properties
 can be stored in a relatively straightforward manner as binary array of
-integers in which the $k$-th integer corresponds to the value of the property
+integers in which the $k$th integer corresponds to the value of the property
 for node $k$.  The resulting property files have a size of {\Large $n \times
 \frac{w}{8}$}, where $n$ is the number of nodes in the graph, and $w$ the
 number of bits of the integer field (16, 32 or 64). For the 2020-12-15 export,
@@ -404,7 +405,7 @@ it allows random access. For this purpose we use the
 class\footnote{https://dsiutils.di.unimi.it/docs/it/unimi/dsi/big/util/FrontCodedStringBigList.html}
 from the \texttt{dsiutils} library\footnote{https://dsiutils.di.unimi.it/} used
 in the WebGraph framework. It contains an index table to efficiently jump to
-the $k$-th bytestring in the array.
+the $k$th bytestring in the array.
 For the 2021-03-23 export, the total size of all the byte strings we need to
 store is 159\,GiB, which is a manageable amount.  However,
 \texttt{FrontCodedStringBigList} objects have to be loaded entirely in memory,
@@ -576,7 +577,7 @@ estimation of the naive approach down to only 62\,GiB, which is far more
 manageable (especially for fast access as it can be stored in a single SSD).
 
 For that purpose, we can once again use a \gls{MPH} function to associate each
-label with a unique integer in the range $\{0, \ldots, N_L\}$ where $N_L$ is
+label with a unique integer in the range $\{0, \ldots, N_L-1\}$ where $N_L$ is
 the total number of unique names used in arc labels. Then, we can use a reverse
 mapping to retrieve a given byte sequence from its associated integer using a
 \texttt{FrontCodedStringList} as detailed in \cref{sec:node-properties}.  Here,
@@ -664,7 +665,7 @@ the index of the entry name in the front-coded string list in its upper bits.
 Having settled the format for arc labels, we can now describe a compression
 pipeline to generate the on-disk labels from the input dataset. As a reminder,
 in \cref{sec:edges-format} we described the input edges format for graph
-compression, a CSV of edges in the format:
+compression, a CSV file of edges in the format:
 
 \texttt{<source node> <destination node> [<entry name> [<permissions>]]<CR>}
 
@@ -679,7 +680,7 @@ compressed and sorted set of all the unique label names in the graph.
 
 \paragraph{Monotone MPH}
 Using the set of label names, we can generate the hashing function to convert
-entry names to and from the set of integers $\{0, \ldots, N_L\}$ using a
+entry names to and from the set of integers $\{0, \ldots, N_L-1\}$ using a
 Monotone \gls{MPH} as described in \cref{sec:label-format}. The
 \texttt{LcpMonotoneMinimalPerfectHashFunction} class takes the sorted set of
 labels $L$ as an input, and generates an $h_L$ function which converts any
@@ -832,7 +833,7 @@ and arcs is just a small portion of the total size. This highlights an
 important speed/memory trade-off: it is highly unlikely that the entire
 property graph can be realistically stored in memory in the same way as the
 graph structure itself. Therefore, it makes sense for the properties to be
-stored offline by default (presumably on-disk) and then loaded on demand
+stored offline by default (presumably on disk) and then loaded on demand
 when the analysis requires it.
 
 There are different ``levels'' of loading external data on-demand, each with

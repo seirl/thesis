@@ -29,7 +29,7 @@ individual blobs, along with all their associated properties.
 
 Exhaustive studies of the source code files themselves are very expensive, both
 in terms of required storage space and bandwidth to fetch the entirety of more
-than 10 billion blobs totalling around 850\,TiB of storage space as of May
+than 10 billion blobs totaling around 850\,TiB of storage space as of May
 2021, and in terms of computing power to process this vast amount of data.
 However, the property graph of software development \emph{excluding the blobs
 themselves} is in itself a valuable trove of data, while only being a fraction
@@ -495,7 +495,7 @@ latter is preferred in production exports, as the performance of inserts
 degrades less quickly than SQLite after a few hundred million insertions.
 
 While the exports themselves are massive (around 10 TiB, depending on the
-export format) and are generally expected to be outputted on a large \gls{HDD},
+export format) and are generally expected to be output on a large \gls{HDD},
 the on-disk sets are significantly smaller (in the order of magnitude of
 hundreds of gigabytes); their location is configurable, and it is recommended
 to store them on a \gls{SSD}, as reading and writing performance of this set
@@ -543,7 +543,7 @@ export:
         Hadoop environment.
     \item \textbf{Edge files} (e.g., Gremlin CSV files) which can
         be loaded in graph database services like Apache Tinkerpop, Amazon
-        Neptune or Neo4J.
+        Neptune or Neo4j.
 \end{itemize}
 
 \subsection{Relational formats}
@@ -574,7 +574,8 @@ object described by the following JSON document:
 \end{minted}
 }
 
-will be transformed into data rows in two different relational tables:
+\noindent will be transformed into data rows in two different relational
+tables:
 
 \vspace{1em}
 
@@ -726,7 +727,7 @@ origins. It was subject of a publication~\cite{swh-msr2019-dataset} accepted at 
 later used~\cite{msr-2020-challenge} as the ``Mining Challenge'' of the 17th
 International Conference on Mining Software Repositories (MSR 2020).
 This first iteration is available in two formats (Parquet and CSV,
-$\approx$1~TiB each) and downloadable from Zenodo at
+$\approx 1$\,TiB each) and downloadable from Zenodo at
 \url{https://zenodo.org/record/2583978}, (\doi{10.5281/zenodo.2583978}). It
 used a different schema derived from a less efficient exporting pipeline.
 
@@ -1065,9 +1066,9 @@ To reduce the number of joined rows a 1\% sample of the rows is processed,
 thus scanning 317~GiB\ in $1'20''$.
 The order of the resulting language files
 (JavaScript $>$ C $>$ C++ $>$ Python $>$ \textsc{php} $>$ C\# $>$ Ruby)
-indicates that, with the exception of JavaScript\footnote{This is likely
+indicates that, with the exception of JavaScript,\footnote{This is likely
     because Javascript is often used as a target format for transcompilation,
-    minification and source code bundling}, languages offering more abstraction
+    minification and source code bundling.} languages offering more abstraction
     facilities are associated with smaller source code files.
 
 \subsection{Spark on Azure Databricks}
@@ -1091,7 +1092,7 @@ and can be loaded directly as temporary views from a Python notebook on Azure
 Databricks, as shown in \cref{lst:databricks-load-tables}.
 Once the tables are loaded in Spark, the query in
 \cref{lst:spark-directory-outdegree} can be used to generate an
-outdegree distribution of the directories.
+out-degree distribution of the directories.
 
 \begin{listing}
 \begin{minted}{python}
@@ -1110,7 +1111,7 @@ for table in tables:
 
 \begin{listing}
     \inputminted{sql}{codesamples/graph-dataset/spark-degree.sql}
-    \caption{Outdegree distribution of directories}%
+    \caption{Out-degree distribution of directories}%
     \label{lst:spark-directory-outdegree}
 \end{listing}
 

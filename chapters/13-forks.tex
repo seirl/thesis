@@ -593,7 +593,7 @@ use a cryptographic hash fingerprint to avoid adding multiple times the same
 clique if it has multiple root commits. While this algorithm technically does
 not change the worst case complexity on arbitrary graphs, it is still a huge
 speed improvement in our case, as commit chains tend to be degenerate (i.e.,
-very long chains with indegrees and outdegrees close to 1 on
+very long chains with in-degrees and out-degrees close to 1 on
 average). \Cref{algo:fork-clique} has a best-case complexity of
 $\Theta(C)$, equivalent to a single DFS traversal. The commit graph is largely
 close to this best-case scenario, making the algorithm run in just a few hours

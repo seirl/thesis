@@ -212,7 +212,7 @@ SQLite query costs.
 % a compressed in-memory representation of the \SWH{} archive, obtained applying
 % webgraph compression techniques~\cite{saner-2020-swh-graph}. The compressed
 % structure of the global VCS graph comprising 17\,B nodes and 200\,B edges
-% fits in $\approx$100\,GiB of RAM and can be visited with amortized traversal
+% fits in $\approx 100$\,GiB of RAM and can be visited with amortized traversal
 % cost close to a single memory access per traversed edge.
 % 
 % We have extended the SWH API to expose the \texttt{swh-graph} graph traversal
@@ -406,11 +406,11 @@ $ ls -F 2015-07-09/
 meta.json  snapshot@
 \end{minted}
 
-we can see a list of all archival crawls of the Linux kernel repository made by
-Software Heritage, and then navigate to the state of the repository as it was
-in 2015 (as a snapshot object). Note that one needs to use the exact origin URL
-and percent-encode it. To help with that, the companion \texttt{swh web search}
-CLI tool is available:
+\noindent we can see a list of all archival crawls of the Linux kernel
+repository made by Software Heritage, and then navigate to the state of the
+repository as it was in 2015 (as a snapshot object). Note that one needs to use
+the exact origin URL and percent-encode it. To help with that, the companion
+\texttt{swh web search} CLI tool is available:
 
 \begin{minted}{console}
 $ swh web search "torvalds linux" --limit 1 --url-encode | cut -f1
@@ -439,7 +439,7 @@ specific files in a repository, e.g., license or README files.
 Moreover, the use of symbolic links to implement sharing relationships between
 the software artifacts materializes the DAG in a way that can be studied
 practically: it is easy to check whether two artifacts are the same by
-checking whether their symbolic link resolves to the same filesystem node. This
+checking whether their symbolic links resolve to the same filesystem node. This
 makes it possible to implement graph traversal algorithms directly at the
 filesystem level.
 

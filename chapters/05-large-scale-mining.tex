@@ -33,7 +33,7 @@ This chapter is based on an article~\cite{swh-benevol2018-universal-analysis}
 accepted at the 17th Belgium-Netherlands Software Evolution Workshop (BENEVOL
 2018).
 
-\section{Cataloguing Research Needs}
+\section{Cataloging Research Needs}
 
 \subsection{Literature Review}%
 \label{sec:msr-lit-review}
@@ -414,10 +414,10 @@ scale, both from a network transfer perspective and for the undue burden it
 would cause on local storage requirements.
 
 Handling the file contents of the archive requires a lot of resources and
-expertise. The total size of the blobs (currently $\approx 850$ TB) require
+expertise. The total size of the blobs (currently $\approx 850$\,TiB) require
 large amounts of storage capacity, and the blobs cannot easily be stored on a
 single machine using consumer-grade storage. The unusual size distribution of
-the blobs, whose median size is approximately 3~kB, also makes it challenging
+the blobs, whose median size is approximately 3\,kiB, also makes it challenging
 to use industry-grade storage solutions, as they generally are not designed to
 store a large quantity of very small files. On conventional systems, some
 limitations on inode management may apply. Other distributed storage solutions
@@ -431,7 +431,7 @@ archive). Further techniques based on ``packing heuristics'' to compress
 similar contents together should be investigated to reduce their size even
 more.
 
-The size of the Merkle DAG itself is more reasonable (around 6 TB when stored
+The size of the Merkle DAG itself is more reasonable (around 6\,TiB when stored
 in the relational database format), but using it efficiently often requires
 various indexes, which significantly increases its size on-disk.  Moreover,
 some intensive processing on the graph itself could require having it stored
@@ -470,7 +470,7 @@ In the Software Heritage archive, the deduplication requires this to go
 through an additional index of the hashes of the directories. The interface
 therefore has to provide a utility to ``flatten'' the compact representation
 into a more classical directory structure, although doing so systematically
-would invalidate the benefits of de-duplication.
+would invalidate the benefits of deduplication.
 
 For the revision graph itself, there is no current standard of representation,
 so most of the research experiments thus far have worked on tool-specific
@@ -582,6 +582,6 @@ computations on these common use cases.
 
 While the cost of disk access for the file contents cannot be avoided, another
 interesting research direction performance-wise will be to store as much of the
-history graph as possible directly in memory. This should allow for efficiently
-query the complex structures that constitute the archive graph and allow us to
-analyze it in more detail.
+history graph as possible directly in memory. This should enable efficient
+querying of the complex structures that constitute the archive graph and allow
+us to analyze it in more detail.

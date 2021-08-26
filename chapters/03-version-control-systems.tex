@@ -223,7 +223,7 @@ development history by capturing the successive states of this source tree over
 time.
 
 One immediately apparent issue that arises when trying to implement this model
-in a naïve way is the sheer amount of \emph{duplication} of identical data
+in a naive way is the sheer amount of \emph{duplication} of identical data
 across revisions: creating a new revision for a single line change duplicates
 the entire source tree and all the files it contains. This drawback goes
 opposite to one of the goal of modern \glspl{VCS}, which is to encourage a high
@@ -404,7 +404,7 @@ deduplicated and replaced by a reference to the already existing directory.
 The hashing scheme we described is generalized and applied to all the objects
 in the graph of development history, like revisions and tags. All the software
 artifacts are attributed an intrinsic hash recursively computed from the
-objects it refers to (e.g in the case of revisions, its parents and thus,
+objects it refers to (e.g., in the case of revisions, its parents and thus,
 recursively, its descendants). These intrinsic hashes will be the primary
 identifiers of the software artifacts, and guarantee their unicity in the graph
 of the \gls{VCS}.

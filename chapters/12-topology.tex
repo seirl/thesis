@@ -477,9 +477,6 @@ undirected graphs (e.g., social networks).
 of in-degrees and out-degrees of the entire graph in log-log scale.  These plots
 respectively show, for each degree $d$ on the x-axis, the number of nodes that
 have a degree of exactly $d$, and a degree of $d$ or more.
-% Using the methodology described in \TODO{best fit section}, we try to fit a
-% power law to the distributions \TODO{exponent? compare with other
-% distributions.}
 
 \plotinout{dir+cnt}{Filesystem layer}
 
@@ -487,7 +484,6 @@ have a degree of exactly $d$, and a degree of $d$ or more.
 layer. Its similarity with \cref{fig:inout_full} underscores that the
 filesystem layer largely dominates the frequency distribution of the entire
 graph.
-%\TODO{exponent?}
 The out-degree distribution gives an idea of the number of objects present in
 the archived directories. Most directories seem to contain less than ten
 entries, with a threshold effect at around ten files after which the frequency
@@ -541,7 +537,6 @@ generally refer to the in-degree of commits as the ``fork-degree'', that is the
 number of commits that were based on a specific commit, and to the out-degree as
 the ``merge-degree'', the number of commits that were merged in a specific
 commit.
-%\TODO{power law, exponent}
 The fork-degree distribution is very smooth with no notable threshold effect.
 This can be explained by common development patterns: forks are generally
 feature branches that are based on the latest revision in the main development
@@ -611,7 +606,6 @@ repository. This happens anytime time someone makes an exact copy of a
 repository, for instance by clicking on the ``fork'' button in GitHub, without
 then updating it with new commits or branches: a new origin is created, but it
 points to the same repository state as the first origin.
-%\TODO{power law, exponent, outliers}
 
 
 % \begin{figure}%
@@ -861,11 +855,12 @@ component.
     \end{subfigure}\hfill
 
     \caption{Connected components size distributions by number of \emph{origins} in
-    each component. \TODO{Integrate in prose}}
+    each component.}
     \label{fig:connectedcomponents_byorigins}
 \end{figure}
 
-\TODO{Integrate in prose ? discuss (or not) CC / layer. size= number of origin nodes}
+% Integrate in prose ? discuss (or not) CC / layer. size= number of origin
+% nodes
 
 \begin{figure}
     \centering

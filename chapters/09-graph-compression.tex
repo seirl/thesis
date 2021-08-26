@@ -609,22 +609,26 @@ values. The results are shown in \cref{tab:compression-llp-gammas}.
       & size & bits/arc & ratio \\
 
       \hline \emph{BFS baseline}
-      & 118\,GiB & \TODO{} & \TODO{}
-      & 94\,GiB & \TODO{} & \TODO{} \\
+      & 118\,GiB & 5.2 & 16\%
+      & 94\,GiB & 4.11 & 13\% \\
 
       \hline $0$, $1$, $\frac{1}{64}$
-      & 91\,GiB & \TODO{} & \TODO{}
-      & 82\,GiB & \TODO{} & \TODO{} \\
+      & 91\,GiB & 3.98 & 12\%
+      & 82\,GiB & 3.58 & 11\% \\
 
       \hline $\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{16}$
-      & 77\,GiB & \TODO{} & \TODO{}
-      & 62\,GiB & \TODO{} & \TODO{} \\
+      & 77\,GiB & 3.37 & 11\%
+      & 62\,GiB & 2.71 & 8\% \\
     \hline
   \end{tabular}
 \end{table}
 
-% \TODO{sentence explaining how good the results are once we have the up-to-date
-% numbers}.
+As can be seen, the compression ratio is significantly improved using the LLP
+algorithm. In the best case, the size of the compressed graph is reduced by
+35\% from the BFS baseline. If the graph is to be loaded in fully RAM, such
+differences are very significant to determine the practicality of the approach
+on some given hardware. The additional complexity of adding LLP in the
+compression pipeline can therefore be easily justified.
 
 An interesting result is that smaller values of $\gamma$ seem to generate
 better compression ratios.

@@ -15,7 +15,7 @@ discuss open questions and future research directions.
 
 \section{Summary of academic contributions}
 
-I have made several contributions to the scientific literature that I describe
+I have made several contributions to the scientific literature that I described
 in this thesis, taking the form of novel research questions, techniques and
 empirical studies. These contributions were, to the best of my knowledge, never
 studied to this extent in the extant literature.
@@ -28,9 +28,9 @@ can be the most useful to software mining research. For this purpose, I
 realized a literature review (\cref{chp:introduction,sec:msr-lit-review}) which
 helped determine the most effective ways in which making the Software Heritage
 data accessible to researchers can be of use to future software mining studies
-(\cref{sec:functional-requirements}). From this, I derived a concrete roadmap
-to create a software mining platform for the Software Heritage archive
-(\cref{sec:roadmap}).
+(\cref{sec:functional-requirements}). From this, I derived a concrete
+roadmap~\cite{swh-benevol2018-universal-analysis} to create a software mining
+platform for the Software Heritage archive (\cref{sec:roadmap}).
 
 \paragraph*{Small-scale artifact processing}
 
@@ -38,79 +38,81 @@ I presented the designs and implementations for two techniques to access and
 process small to medium sets of software artifacts (up the order of tens of
 thousands) from a large remote repository of artifacts, one based on preparing
 bundles of artifacts on the server-side (\cref{chp:vault}) and another using a
-virtual filesystem to provide lazy access to objects (\cref{chp:fuse}). The
-latter is, as far as I know, the first attempt to create a virtual filesystem
-for a universal corpus of source code and software development.
+virtual filesystem~\cite{swh-2021-swhfs} to provide lazy access to objects
+(\cref{chp:fuse}). The latter is, as far as I know, the first attempt to create
+a virtual filesystem for a universal corpus of source code and software
+development.
 
 \paragraph*{Scale-out processing of the relational graph}
 
 As described in \cref{chp:graph-dataset}, I have made available several exports
-of the graph of development history as an exploitable dataset in a relational
-format, along with a reusable pipeline to produce future versions of this
-dataset. I have shown how this dataset can be leveraged with \gls{OLAP}
-platforms by answering concrete examples of research questions on the entire
-corpus. I have also made the dataset available on public clouds in a way that
-can be queried by researchers with minimal setup, further reducing the friction
-of analyzing the full graph of development history. The usability of these
-graph exports for software mining studies were further demonstrated by making
-it the object of study in the MSR 2020 mining
-challenge~\cite{msr-2020-challenge}.
-While other databases of software development history were already accessible
-in a similar manner (\cite{GHTorrent,web:github-activity-data,mockus2019woc}),
-this is the first time such a vast corpus of deduplicated software artifacts
-archived from such a variety of different sources was made available for study,
-in a way that is demonstrably exploitable for practical uses.
+of the graph of development history as an exploitable
+dataset~\cite{swh-msr2019-dataset} in a relational format, along with a
+reusable pipeline to produce future versions of this dataset. I have shown how
+this dataset can be leveraged with \gls{OLAP} platforms by answering concrete
+examples of research questions on the entire corpus. I have also made the
+dataset available on public clouds in a way that can be queried by researchers
+with minimal setup, further reducing the friction of analyzing the full graph
+of development history. The usability of these graph exports for software
+mining studies were further demonstrated by making it the object of study in
+the MSR 2020 mining challenge~\cite{msr-2020-challenge}.  While other databases
+of software development history were already accessible in a similar manner
+(\cite{GHTorrent,web:github-activity-data,mockus2019woc}), this is the first
+time such a vast corpus of deduplicated software artifacts archived from such a
+variety of different sources was made available for study, in a way that is
+demonstrably exploitable for practical uses.
 
 \paragraph*{Graph compression and exploitation}
 
 In \cref{chp:graph-compression} I introduce graph compression as a way to
-fit the entire graph of software development in the RAM of a single machine,
-which makes it possible to run complex graph algorithms that are not
-necessarily easy to parallelize on large clusters. While the techniques of
-graph compression are not new, applying them to the deduplicated graph of
-software development is a novel approach in the field of software mining: all
-previous works in the literature relied on scale-out approaches for large
-datasets.  Graph compression opens new possibilities for systematic empirical
-analyses of large graphs of software development artifacts. These research
-opportunities are further broadened by the addition of node and edges
-properties to the compressed graph; in \cref{chp:graph-metadata} I describe
-methods to store these graph properties compactly and so that they can be
-queried efficiently from the compressed graph. In
-\cref{chp:graph-exploitation}, I present two ways of querying the compressed
-graph and its properties at a high level; one involves a simple traversal API,
-while the other relies on graph query languages. I also describe different
-techniques to subsample the graph into smaller coherent corpuses, as well as a
-way to estimate the size of the obtained subgraphs using empirical
+fit the entire graph of software development in the RAM of a single
+machine~\cite{saner-2020-swh-graph}, which makes it possible to run complex
+graph algorithms that are not necessarily easy to parallelize on large
+clusters. While the techniques of graph compression are not new, applying them
+to the deduplicated graph of software development is a novel approach in the
+field of software mining: all previous works in the literature relied on
+scale-out approaches for large datasets.  Graph compression opens new
+possibilities for systematic empirical analyses of large graphs of software
+development artifacts. These research opportunities are further broadened by
+the addition of node and edges properties to the compressed graph; in
+\cref{chp:graph-metadata} I describe methods to store these graph properties
+compactly and so that they can be queried efficiently from the compressed
+graph. In \cref{chp:graph-exploitation}, I present two ways of querying the
+compressed graph and its properties at a high level; one involves a simple
+traversal API, while the other relies on graph query languages. I also describe
+different techniques to subsample the graph into smaller coherent corpuses, as
+well as a way to estimate the size of the obtained subgraphs using empirical
 measurements.
 
 \paragraph*{Topological properties}
 
 \Cref{chp:topology} describes how I conducted the first empirical exploratory
-study on the intrinsic structure of the graph of software development and its
-most salient topological properties. I analyzed the following robust measures
-of network topology: degree distributions, connected components, shortest path
-lengths and clustering coefficients.
-Computing these metrics efficiently was made possible by the graph compression
-techniques presented in \cref{chp:graph-compression}, and thus I do not expect
-that this study could have been realized by the software mining community in
-the absence of these contributions. From these metrics, I derived concrete
-implications for software mining research by accurately describing the general
-form of the different layers in the graph, notably by looking at which
-distributions could be considered scale-free.
+study~\cite{msr-2020-topology} on the intrinsic structure of the graph of
+software development and its most salient topological properties as a complex
+network. I analyzed the following robust measures of network topology: degree
+distributions, connected components, shortest path lengths and clustering
+coefficients.  Computing these metrics efficiently was made possible by the
+graph compression techniques presented in \cref{chp:graph-compression}, and
+thus I do not expect that this study could have been realized in the absence of
+these contributions. From these metrics, I derived concrete implications for
+software mining research by accurately describing the general form of the
+different layers in the graph (filesystem, development history and hosting
+layers), notably by looking at which distributions could be considered
+scale-free.
 
 \paragraph*{Identification of software forks}
 
-Finally, I conducted a second extensive empirical study on the semantic
-organization of software projects in groups of forks of varying sizes,
-described in \cref{chp:forks}. I introduce two different notions of ``forks''
-that can be robustly identified without relying on external forge-level
-metadata, instead using shared software artifacts: ``shared commit'' forks and
-``shared root'' forks. I quantitatively compare how these definitions of
-forking match with the definition based on external forking metadata. In
-addition, I empirically analyze how these forks organize in fork networks and
-fork cliques of different sizes. I then propose a computationally feasible way
-to partition the set of origins in the graph by grouping together repositories
-that are all shared commit forks of each other.
+Finally, I conducted a second extensive empirical
+study~\cite{swh-msr2020-forking} on the semantic organization of software
+projects in groups of forks of varying sizes, described in \cref{chp:forks}. I
+introduce two different notions of ``forks'' that can be robustly identified
+without relying on external forge-level metadata, instead using shared software
+artifacts: ``shared commit'' forks and ``shared root'' forks. I quantitatively
+compare how these definitions of forking match with the definition based on
+external forking metadata. In addition, I empirically analyze how these forks
+organize in fork networks and fork cliques of different sizes. I then propose a
+computationally feasible way to partition the set of origins in the graph by
+grouping together repositories that are all shared-commit forks of each other.
 
 \section{Empirical findings and impact on software mining research}
 
@@ -142,10 +144,10 @@ filesystem, where 97\% of all the files and directories in the graph are all
 reachable from each other and form a giant connected component. This giant
 component precludes the use of naive partition techniques, such as regrouping
 nodes in small tightly connected clusters, as a way to ``shard'' the graph on
-multiple machines in order to scale-out computations. This high connectivity is
-resilient, and does not depend on the existence of a few nodes with large
-in-degrees; removing these nodes does little to help partition the giant
-component.
+multiple machines in order to perform scale-out computations. This high
+connectivity is resilient, and does not depend on the existence of a few nodes
+with large in-degrees; removing these nodes does little to help partition the
+giant component.
 
 However, restricting our view to the history layer yields a very different
 picture: revision chains are less connected, with the giant component only
@@ -176,7 +178,8 @@ significant share of what people intuitively think of as software forks.
 By instead using the ``shared commits'' definition of a fork, we identified
 around 9\% more forks than when using the GitHub forking information,
 suggesting that a non-negligible number of repositories are forked without
-using forge forking tools. We expect that this number would be even higher when
+using forge forking tools (e.g., by manually cloning a repository and pushing
+it to a different one). We expect that this number would be even higher when
 including data from other hosting places, as there is no external source of
 information to identify forks across different forges. Empirical software
 mining studies on software forks aiming to be exhaustive in their coverage and
@@ -194,7 +197,7 @@ what we consider to be most promising next steps in pursuing this research.
 
 \paragraph*{Incremental graph compression}
 
-By far the most impactful problem that could be tackled is to produce a
+An impactful research problem that could be tackled is to produce a
 functional design for \emph{incremental graph compression}, i.e., having an
 updating pipeline constantly maintaining the compressed representation of the
 graph up-to-date with the latest software artifact data. Doing so would
@@ -217,7 +220,7 @@ of their output, which pose their own set of challenges.
 \paragraph*{Typed graph compression}
 
 While the \gls{LLP} algorithm (\cref{sec:llp-compression}) for graph reordering
-yields achieves impressive compression ratios, we strongly suspect that even
+achieves impressive compression ratios, we strongly suspect that even
 better results could be achieved by leveraging \emph{typed} graph compression,
 i.e., compressing all the nodes and edges of each of the six node types in
 their own separate graph. This is because there is a higher chance that
@@ -272,12 +275,14 @@ locality-preserving orders in chunks of equal size. These partitions could then
 be benchmarked for sharding efficiency to find out whether parallel graph
 querying workloads would require many synchronization points between the
 different shards, or just a few. This could be extended to other clustering
-techniques that were not investigated in this thesis, such as using Louvain
-community detection~\cite{blondel2008fast} to delimitate groups of nodes.
+techniques that were not investigated in this thesis, such as using modular
+decomposition~\cite{gallai1967transitiv,mcconnell2005linear,NABTI201763} or
+Louvain community detection~\cite{blondel2008fast} to delimitate groups of
+nodes.
 
 \paragraph*{Derived graphs}
 
-One last interesting research opportunity would be to make accessible data
+Another interesting research opportunity would be to make accessible data
 that can be derived from the graph for software mining research. One such
 example is the graph of collaboration in software development, where the nodes
 are unique persons and the edges represent whether two authors collaborated on
@@ -295,6 +300,9 @@ large scale (10\% of the edges in the graph) as part of an unpublished study
 with Wellenzohn et al, delivering promising early results.
 
 \section{Publications}
+
+This section lists the academic articles that I co-wrote in the context of this
+thesis, in chronological order of publication.
 
 \begin{enumerate}
     \item \bibentry{swh-benevol2018-universal-analysis}

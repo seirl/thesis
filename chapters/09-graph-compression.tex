@@ -755,7 +755,7 @@ graph is slower, as already observed for full graph visits.
 As the goal is to benchmark the potential of the proposed approach for
 ultra-large-scale repository analysis, we focus on a domain-specific experiment
 which needs to intensely crawl VCS histories in the studied corpus.
-Specifically, we will replicate the experiments of~\cite{swh-provenance-tr} to
+Specifically, we will replicate the experiments of~\cite{swh-provenance-emse} to
 quantitatively assess the \emph{multiplication factor} of source code artifacts
 in the corpus. We will measure:
 \begin{enumerate}
@@ -1040,12 +1040,12 @@ need to explore on the fly (and as quickly as possible) artifact relationships
 that are not available as pre-computed mappings.
 
 Large-scale VCS analyses have been conducted in the past, usually at much
-smaller scale than ours. An exception is~\cite{swh-provenance-tr}, which
+smaller scale than ours. An exception is~\cite{swh-provenance-emse}, which
 developed a compressed representation for software provenance tracking and used
 it to conduct the multiplication experiments that we have replicated in
 \cref{sec:compression-expmultiplication}. Both approaches can be applied
 to conduct analyses on commodity hardware, but the compression trade-offs are
-different: specialized, lossy, and incremental in~\cite{swh-provenance-tr};
+different: specialized, lossy, and incremental in~\cite{swh-provenance-emse};
 general purpose, lossless, but not incremental here.
 
 LISA~\cite{alexandru2019redundancy} is a framework for reducing artifact

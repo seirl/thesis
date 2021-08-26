@@ -30,10 +30,10 @@ on Mining Software Repositories (MSR 2020).
 \section{Introduction}
 
 In this thesis, we have discussed the possibilities that the Software Heritage
-offers as a large trove of software artifacts, which makes accessible the
-entire \emph{software commons} as a corpus that can be exploited by
-researchers, and discussed various ways to retrieve and analyze the data it
-contains for software mining purposes.
+offers as a large trove of software artifacts, which makes accessible an
+approximation of the entire \emph{software commons} as a corpus that can be
+exploited by researchers, and discussed various ways to retrieve and analyze
+the data it contains for software mining purposes.
 One important property of the software commons is that they are not a
 collection of distant islands of software artifacts, but rather a very
 entangled object. This is because modern software products are built by reusing
@@ -92,7 +92,7 @@ preferable.
 
 \paragraph{Avoid methodological pitfalls.}
 
-The same understanding is needed to avoid making strong assumptions on what
+The same understanding is needed to avoid making too strong assumptions on what
 constitutes ``typical'' VCS data. These pitfalls have been warned against since
 the early days of GitHub~\cite{kalliamvakou2014promises}, but they have been
 neither quantified nor described at the scale we consider in this study yet.
@@ -118,7 +118,7 @@ collaborative software development. As it is commonplace in other sciences (and
 most notably physics), we want to study the intrinsic network properties of the
 development history of our software commons just because the corpus exists, it
 is available, and it is challenging to do so. The resulting findings will
-\emph{also} practically useful, but in spite of that we will obtain a deeper
+\emph{also} be practically useful, but in spite of that we will obtain a deeper
 understanding of the nature of objects we study daily than what is known today.
 
 
@@ -131,7 +131,7 @@ publication bias, hypothesizing after the results, and data dredging, we have
 preregistered a study protocol~\cite{msr-2020-topology} (phase 1) that the
 study described in this chapter is implementing (phase 2).\footnote{Only minor
 deviations have happened between phase 1 and phase 2, which we enumerate and
-discuss in detail in \cref{sec:topology-deviations}.} We detail below the
+discuss in detail in \cref{sec:topology-threats}.} We detail below the
 research questions and other main aspects of the study protocol.
 
 As our main corpus, we analyze the 2020-12-15 version of the \SWHGD{},
@@ -170,15 +170,14 @@ hypotheses, and answer the following research questions:
 \end{enumerate}
 
 
-\section{Related Work}%
+\section{Related work}%
 \label{sec:topology-related}
 
-In terms of related work, there is first an extensive body of work in empirical
-software engineering and mining software repositories about large-scale
-analyses of source code artifacts, which we already referenced extensively
-throughout this thesis (see \cref{chp:introduction},
-\cref{chp:large-scale-mining}, \cref{sec:graph-dataset-related} and
-\cref{sec:compression-related}).
+There is first an extensive body of work in empirical software engineering and
+mining software repositories about large-scale analyses of source code
+artifacts, which we already referenced extensively throughout this thesis (see
+\cref{chp:introduction}, \cref{chp:large-scale-mining},
+\cref{sec:graph-dataset-related} and \cref{sec:compression-related}).
 While the study described in this chapter is, to our knowledge, the first
 attempt at characterizing the structure of the public graph of software
 development, previous work has analyzed the structure of specific layers of
@@ -187,6 +186,14 @@ provenance of source code artifacts~\cite{swh-provenance-emse} or identify
 software ``forks'' without relying on forge metadata have been proposed using
 either the history layer~\cite{swh-msr2020-forking}, or community subgraphs
 derived from the metadata in the history layer~\cite{mockus2020complete}.
+
+A recent work~\cite{trujillo2021penumbra} by Trujillo et al.\ highlighted
+representativeness issues when only using popular platforms like GitHub as a
+convenience sample, by showing large disparities in the characteristics of
+projects stored in these centralized platforms and those existing outside them.
+The representativeness problem outlined in this study is one of the main
+motivations for characterizing topological structure at the scale of the entire
+graph.
 
 In addition to this existing literature from software mining, there are
 comparable studies of the structure of large graphs and complex networks both
@@ -253,12 +260,12 @@ networks, mainly by looking at the relationships between related software
 modules and/or classes in object-oriented systems~\cite{myers2003software,
   valverde2003hierarchical, wen2007javanetwork}.  Collaboration between
 software developers~\cite{singh2010smallworldcollab} and software engineering
-researchers~\cite{hassan2004revengsmallworld} has also been analyze using
+researchers~\cite{hassan2004revengsmallworld} has also been analyzed using
 similar techniques. In this chapter we do not look at collaboration graphs (which
 would be graphs \emph{derivable} from, rather than natively represented in, our
 data model) and neither dig archived software projects to establish their
 dependencies. Both remain interesting areas for further exploration. This
-study provides a fundamental stepping stone for those further analysis,
+study provides a fundamental stepping stone for those further analyses,
 providing a complex network characterization of the largest available
 approximation of the global VCS graph of public code.
 
@@ -288,15 +295,15 @@ In particular, using the work described in \cref{chp:graph-compression}, we
 leverage the \texttt{swh-graph} pipeline for manipulating and analyzing the
 Software Heritage graph dataset in a compressed format.
 
-To run the analyses on the different layers we described in
-\cref{sec:layers}, we also need to export ``subgraphs'' containing only
-the relevant parts of the graph that belong to each layer. We use the
-\texttt{LazySubgraph} overlay described in \cref{sec:subdatasets}, as it offers
-reasonable performance and flexibility and reduces the complexity of the
-pipeline.  In practice, this means that only the main graph is stored in
-memory, and the ``layers'' are implemented as virtual wrappers which
-reimplement the graph access primitives by checking whether the node types
-belong to the current layer in use.
+To run the analyses on the different layers we described in \cref{sec:layers}
+(hosting layer, history layer, commit layer and filesystem layer), we also need
+to export ``subgraphs'' containing only the relevant parts of the graph that
+belong to each layer. We use the \texttt{LazySubgraph} overlay described in
+\cref{sec:subdatasets}, as it offers reasonable performance and flexibility and
+reduces the complexity of the pipeline.  In practice, this means that only the
+main graph is stored in memory, and the ``layers'' are implemented as virtual
+wrappers which reimplement the graph access primitives by checking whether the
+node types belong to the current layer in use.
 
 \subsection{Topology analysis}
 
@@ -341,6 +348,7 @@ getting an exact value of the clustering coefficient has a complexity of
 $O(|V|^3)$, which is impractical at this scale, we use approximation
 heuristics described in~\cite{schank2005approximating} based on uniform random
 sampling.
+% TODO: describe how they work
 
 At a finer-grained level, we also represent the local undirected clustering
 distribution: for each node, the number of edges between nodes pointing to or
@@ -412,7 +420,7 @@ web, and 15 times more sparse than the social graph of Facebook.
 \Cref{tab:degree-comparison} shows a breakdown of the average degree of each
 layer of the SWH graph, as well as a comparison with various other networks
 generated by human activities, which confirms the graph density lies in the
-lower range of real-world networks.
+lower range of other real-world networks.
 
 Because most commits generally only have one parent, with the exception of
 occasional merge commits which can have more, it is not surprising that the
@@ -437,8 +445,8 @@ new edges to the shared nodes without creating new nodes. As a general
 rule, the more deduplication there is in the filesystem layer, the higher we
 can expect its density to be.
 While the filesystem layer is the densest part of the graph, because it is
-still a directed acyclic graph it is by nature more sparse than cyclic or
-undirected graphs (e.g.\ social networks).
+still a directed acyclic graph, it is by nature more sparse than cyclic or
+undirected graphs (e.g., social networks).
 
 \newcommand{\plotinout}[2]{%
 \begin{figure}%
@@ -460,10 +468,10 @@ undirected graphs (e.g.\ social networks).
 }
 
 \plotinout{full}{Full graph}
-\plotinout{dir+cnt}{Filesystem layer}
-\plotinout{rev}{Commit layer}
-\plotinout{rel+rev}{History layer}
-\plotinout{ori+snp}{Hosting layer}
+% \plotinout{dir+cnt}{Filesystem layer}
+% \plotinout{rev}{Commit layer}
+% \plotinout{rel+rev}{History layer}
+% \plotinout{ori+snp}{Hosting layer}
 
 \Cref{fig:inout_full} shows the frequency and cumulative frequency plots
 of in-degrees and out-degrees of the entire graph in log-log scale.  These plots
@@ -473,7 +481,7 @@ have a degree of exactly $d$, and a degree of $d$ or more.
 % power law to the distributions \TODO{exponent? compare with other
 % distributions.}
 
-% \plotinout{dir+cnt}{Filesystem layer}
+\plotinout{dir+cnt}{Filesystem layer}
 
 \Cref{fig:inout_dir+cnt} shows the frequency distributions for the filesystem
 layer. Its similarity with \cref{fig:inout_full} underscores that the
@@ -481,11 +489,13 @@ filesystem layer largely dominates the frequency distribution of the entire
 graph.
 %\TODO{exponent?}
 The out-degree distribution gives an idea of the number of objects present in
-the archived directories. Most directories seem to contain less than ten files,
-with a threshold effect at around ten files after which the frequency drops at
-a faster pace. The points at the end of the tail are gigantic directories
-containing millions of entries. These are mostly binary files generated by
-scripts, or the result of user errors.
+the archived directories. Most directories seem to contain less than ten
+entries, with a threshold effect at around ten files after which the frequency
+drops at a faster pace. The points at the end of the tail are gigantic
+directories containing millions of entries. These are mostly binary files
+generated by scripts, or the result of user errors (e.g., the largest directory
+in the archive contains millions of generated shaders for an amateur videogame,
+in a now deleted branch).
 The in-degree distribution represents the number of directories referencing some
 specific directory of content, and gives some insight on the deduplication
 process of directories and contents (as the in-degrees would always be one if no
@@ -499,12 +509,29 @@ does not handle empty directories.
 It is also interesting to look at ``bumps'' in the distribution that break the
 regularity, as they are generally not isolated anomalies but consistent
 deviations centered around a range of values. In this in-degree distribution,
-there is a bump at around $d = 92 000$ which can be explained by the
+there is a bump at around $d = \num{92 000}$ which can be explained by the
 \texttt{CocoaPods/Specs} repository, a package manager that uses GitHub as a
-CDN.\ This repository has more than 368 k commits, each of them editing a single
-file in a giant directory containing all the packages of the distribution.
+\gls{CDN}. This repository has more than 368 k commits, each of them editing a
+single file in a giant directory containing all the packages of the
+distribution.
 
 % \plotinout{rev}{Commit layer}
+\begin{figure}
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/topology/inout/rev_in}
+        \caption{In-degrees (``fork-degrees'')}
+        \label{fig:inout_in_rev}
+    \end{subfigure}\hfill%
+    \begin{subfigure}{.49\textwidth}
+        \centering%
+        \includegraphics[width=\linewidth]{img/topology/inout/rev_out}
+        \caption{Out-degrees (``merge-degrees'')}
+        \label{fig:inout_out_rev}
+    \end{subfigure}
+    \caption{Degree distributions: Commit layer}
+    \label{fig:inout_rev}
+\end{figure}
 
 The degree distributions for the commit layer are shown in
 \cref{fig:inout_rev}.
@@ -542,7 +569,7 @@ distributions is at $d = 10^6$, and comes from a GitHub repository called
 together by one million of edges. It contains the most forked commit in the
 archive.
 
-% \plotinout{rel+rev}{History layer}
+\plotinout{rel+rev}{History layer}
 
 \begin{figure}
     \centering
@@ -555,19 +582,18 @@ The history layer's degree distribution, shown in \cref{fig:inout_rel+rev},
 is extremely similar to the one of the commit layer as it is largely dominated
 by the commits it contains. However, it is still interesting
 to look at the in-degree distribution of the commit layer from the releases,
-i.e the distribution of the number of releases that point to a given commit. It
-is shown in \cref{fig:inout_rev_in_rel}.
-There is a noticeable threshold effect between $d = 1$ and the rest of the
-distribution, again attributable to development practices. Releases, or named
-tags, are generally used to denote specific versions of a software. It makes
-little sense to have two different versions pointing at a single commit, since
-there would be no code changes to justify the version increment. Occasionally
-releases can be used to annotate some specific milestones in a project in
-addition to its current version, so commits pointed by more than two releases
-do have some significance, although their importance diminishes rapidly in the
-distribution.
+i.e, the distribution of the number of releases that point to a given commit.
+It is shown in \cref{fig:inout_rev_in_rel}.  There is a noticeable threshold
+effect between $d = 1$ and the rest of the distribution, again attributable to
+development practices. Releases, or named tags, are generally used to denote
+specific versions of a software. It makes little sense to have two different
+versions pointing at a single commit, since there would be no code changes to
+justify the version increment. Occasionally releases can be used to annotate
+some specific milestones in a project in addition to its current version, so
+commits pointed by more than two releases do have some significance, although
+their importance diminishes rapidly in the distribution.
 
-% \plotinout{ori+snp}{Hosting layer}
+\plotinout{ori+snp}{Hosting layer}
 
 The distribution of the hosting layer is shown in \cref{fig:inout_ori+snp}.
 Since within the history layer of the graph, an origin cannot have ancestors
@@ -669,12 +695,16 @@ closed triangle corresponds to a cycle. However, the distribution of the number
 of closed triangles in the undirected version of the graph, shown
 in \cref{fig:clustering_full} can be interpreted meaningfully.
 
-In the filesystem layer, a closed triangle corresponds to a file being both in
-a directory $D$ and in a subdirectory $D'$ of $D$. A common instance of this
-happening is when developers copy the contents of a directory in a ``backup''
-or ``old'' directory to take a snapshot of a previous version of the directory.
-\Cref{fig:clustering_dir+cnt} shows the frequency of these triangles forming
-in the filesystem layer, with an apparent scale-invariant regularity.
+Again, the distribution for the full graph is completely dominated by the
+filesystem layer and cannot be interpreted on its own; each layer has to be
+looked at individually.
+In the filesystem layer, a closed triangle corresponds to a file or a directory
+being both in a directory $D$ and in a subdirectory $D'$ of $D$. A common
+instance of this happening is when developers copy the contents of a directory
+in a ``backup'' or ``old'' directory to take a snapshot of a previous version
+of the directory.  \Cref{fig:clustering_dir+cnt} shows the frequency of these
+triangles forming in the filesystem layer, with an apparent scale-invariant
+regularity.
 
 In the commit layer, the closed triangles correspond to a merge commit $C$ with
 two parents $A$ and $B$, with $B$ being a parent of $A$. This often happens
@@ -731,6 +761,17 @@ here.
     \label{fig:connectedcomponents}
 \end{figure}
 
+In this experiment, we symmetrize the graph to treat it as an undirected graph
+and use a breadth-first traversal to compute the sizes of its weakly connected
+components (WCC). \Cref{tab:wcc-stats} shows a breakdown of the number of
+components and sizes of the largest components for each layer. In the entire
+graph, we find a giant component of 18.9 billion nodes, in which a whole 97.8\%
+of the nodes in the graph are reachable from one another by following
+undirected edges. The size distribution for the full graph shown in
+\cref{fig:connectedcomponents_full} clearly indicates the extent to which the
+largest connected component is an outlier that dominates the entire
+distribution, being 8345 times larger than the second largest.
+
 \begin{table}
   \centering
   \caption{Connected components per layer}
@@ -749,16 +790,6 @@ here.
   \end{tabular}
 \end{table}
 
-In this experiment, we symmetrize the graph to treat it as an undirected graph
-and use a breadth-first traversal to compute the sizes of its weakly connected
-components (WCC). \Cref{tab:wcc-stats} shows a breakdown of the number of
-components and sizes of the largest components for each layer. In the entire
-graph, we find a giant component of 18.9 billion nodes, in which a whole 97.8\%
-of the nodes in the graph are reachable from one another by following
-undirected edges. The size distribution for the full graph shown in
-\cref{fig:connectedcomponents_full} clearly indicates the extent to which the
-largest connected component is an outlier that dominates the entire
-distribution, being 8345 times larger than the second largest.
 
 One could wonder whether this high connectivity results from a few
 highly-connected nodes, like the empty file which is present in millions of
@@ -860,7 +891,7 @@ nodes of type origin only \cref{fig:connectedcomponents_byorigins}, and their
 differences using the Komogorov-Smirnov distance \cref{fig:KS}.
 
 The first point of interest concerns the gap for s=2, which corresponds to the
-$\%$ of isolated origins (i.e. a single origin per connected component) which
+$\%$ of isolated origins (i.e., a single origin per connected component) which
 are found in components containing several origins if we integrate the
 following layer.
 
@@ -913,18 +944,19 @@ paths between root and leave nodes in the filesystem
 defined in \cref{sec:metho:avgpath}.
 These have directly transposable meanings in software development. In the
 filesystem layer, they correspond to the minimum directory depth at which a
-given blob can be found. In the commit layer, they are the lengths of the
-commit chains from the first commit of the project to the heads of the branches.
-These are particularly interesting alongside the degree distributions, as they
-help us understand the shape of the graph given its density.
+given blob can be found on average. In the commit layer, they are the lengths
+of the commit chains from the first commit of the project to the heads of the
+branches.  These are particularly interesting alongside the degree
+distributions, as they help us understand the shape of the graph given its
+density.
 
 We saw in \cref{sec:topo:degrees} that the filesystem layer was dense,
 with nodes in close proximity with each other.  The distribution obtained in
 \cref{fig:avgpath_dir+cnt} gives an idea of the depth of the files in the
 directory trees, which interestingly appear in a very characteristic
 configuration. The distribution does not exhibit scale-invariant behavior,
-suggesting that its mean does not diverge.  The files seem to typically be at a
-depth of less than around 15, with the frequency of deeper files dropping
+suggesting that its mean does not diverge.  Typically, most files seem to be at
+a depth of less than around 15, with the frequency of deeper files dropping
 sharply after that threshold.  The most common depth is 3, and files less than
 4 directory deep are less common than files at a depth between 4 and 8. This
 makes some intuitive sense, as the source files which are modified pretty often
@@ -935,7 +967,9 @@ In contrast, \cref{sec:topo:degrees} showed that the history layer was
 sparse with an average degree close to one, indicating that it was mainly
 constituted of degenerate strings of commits. \Cref{fig:avgpath_rev} shows us
 the distribution of the lengths of these strings, which appears to have some
-scale invariance.
+scale invariance. Because these lengths can be interpreted as the ``age'' of a
+given project measured in number of commits, it makes sense that they would
+follow a normal distribution with infinite variance.
 A few outliers are also present in the tail of the distribution, mostly test
 projects like the GitHub repository \texttt{cirosantilli/test-many-commits-1m}
 which contains two million commits.
@@ -994,28 +1028,28 @@ deduplication for identical forks, which are a frequent occurrence in modern
 hosting platforms.
 
 An important practical implication of these findings is that because the
-filesystem vertices largely aggregate in a giant component, there is no natural
-way to partition the entire graph in smaller tightly connected clusters in
-order to scale-out computations. The filesystem layer should be seen as a dense
-network of highly connected software artifacts, and there is no obvious way to
-remove high-connectivity nodes to break it down into multiple disconnected
-subgroups.
-However, because the hosting and history layers are sparse, have a low
-connectivity and smaller giant components, it is possible to easily separate
-them into multiple partitions that can be processed in parallel while retaining
-the performance advantages of exploiting node locality within them.
+filesystem vertices largely aggregate in a giant component, it is not possible
+to apply strict component separation to partition the entire graph in smaller
+tightly connected clusters in order to perform scale-out computations. The
+filesystem layer should be seen as a dense network of highly connected software
+artifacts, and there is no obvious way to remove high-connectivity nodes to
+break it down into multiple disconnected subgroups.  However, because the
+hosting and history layers are sparse, have a low connectivity and smaller
+giant components, it is possible to easily separate them into multiple
+partitions that can be processed in parallel while retaining the performance
+advantages of exploiting node locality within them.
 
 Another key point relevant for empirical software engineering studies is that
 the distributions studied in this article often have heavy tails and a
-generally high kurtosis. This implies that there is often no obvious rule to
-filter out outliers after a given threshold, as they are an integral part of
-the distributions' nature.  As such, empirical studies should be cautious to
-systematically justify how they filter outliers in their methodology, and
-consider sampling biases as potential threats to validity.
+generally high kurtosis (i.e., a high propensity to produce outliers). This
+implies that there is often no obvious rule to filter out outliers after a
+given threshold, as they are an integral part of the distributions' nature.  As
+such, empirical studies should be cautious to systematically justify how they
+filter outliers in their methodology, and consider sampling biases as potential
+threats to validity.
 
 \section{Threats to validity}%
-\label{sec:topology-threats}%
-\label{sec:topology-deviations}
+\label{sec:topology-threats}
 
 \subsection{Internal validity}
 
@@ -1092,9 +1126,9 @@ a given origin, since more frequent crawling generally produces more snapshots.
 
 \paragraph{Non-software data.}
 We acknowledge the habit of developers to use software development platforms
-and hosts for non-software projects (e.g collaborative writing, storing assets,
-etc.). However, we expect software development to be the dominant content
-hosted in these platforms. We also assume that the results of this work would
-be most useful for researchers when applied to similar corpuses, which would
-contain the same kind of non-software data, as opposed to carefully curated
-ones.
+and hosts for non-software projects (e.g., collaborative writing, websites,
+open datasets, art assets, etc.). However, we expect software development to be
+the dominant content hosted in these platforms. We also assume that the results
+of this work would be most useful for researchers when applied to similar
+corpuses, which would contain the same kind of non-software data, as opposed to
+carefully curated ones.

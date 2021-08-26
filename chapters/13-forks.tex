@@ -29,7 +29,7 @@ an existing software product to create a new, competing product, whose
 development will happen elsewhere and taken to different directions. This kind
 of ``hard fork'' is enabled by free/open source software (FOSS)
 licensing~\cite{fogel2005producingoss} and its possibility is an asset that
-guarantees freedom of development; while the actual occurrence of a hard fork
+guarantees freedom of development, while the actual occurrence of a hard fork
 has generally been considered a liability~\cite{robles2012forks} for project
 sustainability~\cite{nyman2011-fork-or-not, nyman2014forking-hackers,
   rastogi2016forking}.
@@ -48,16 +48,6 @@ work on software improvements that will be eventually sent back to the
 originating project as pull requests~\cite{gousios2014pullrequests} for
 integration.
 
-Likely as a consequence of the prevalence of social coding platforms, recent
-literature on forks has focused on a single source of truth to determine what
-constitutes a fork: metadata provided by code hosting providers, and most
-notably GitHub. Clicking the fork button on GitHub indeed, in addition to
-cloning development history into a new repository, also registers a ``is forked
-from'' relationship between the new repository and its parent. This
-relationship forms an ancestry graph that GitHub makes available through its
-API and that is what has traditionally been studied as a large, easily
-exploitable fork network.
-
 Consequently, the literature on software health and evolution has been
 recently focusing on studying this plurality of new forks to better
 understand what they can signal on the state of a software project. The
@@ -68,17 +58,29 @@ their inactive counterparts. Those metrics are particularly useful in that
 they are conceptually independent from the VCS used by the development team,
 which makes them robust across different workflows.
 
+Likely as a consequence of the prevalence of social coding platforms, recent
+literature on forks has focused on a single source of truth to determine what
+constitutes a fork: metadata provided by code hosting providers, and most
+notably GitHub. Clicking the fork button on GitHub indeed, in addition to
+cloning development history into a new repository, also registers a ``is forked
+from'' relationship between the new repository and its parent. This
+relationship forms an ancestry graph that GitHub makes available through its
+API and that is what has traditionally been studied as a large, easily
+exploitable fork network. However, using this forge-level information can pose
+some important methodological challenges for empirical studies.
+
 The first drawback of trusting platform metadata as source of truth for what
 repository is a fork is that it is platform-specific. One cannot identify as
 forks repositories hosted on GitHub that has been forked from, say, GitLab, or
 more generally non-GitHub hosted repositories, and vice-versa. Similarly,
 although arguably less relevant from a quantitative point of view, one cannot
 recognize as forks, say, Git repositories used to collaborate with Subversion
-repositories via \texttt{git-svn}. For a fork ecosystem to be properly studied
-via the current approach, all the parallel development must happen using the
-same VCS and on the same platform. While the prevalence of Git does not seem to
-be waning, Git code hosting diversity is increasing, making the
-platform-specific part of this problem potentially severe.
+repositories via the \texttt{git-svn}
+bridge\footnote{\url{https://git-scm.com/docs/git-svn}}. For a fork ecosystem
+to be properly studied via the current approach, all the parallel development
+must happen using the same VCS and on the same platform. While the prevalence
+of Git does not seem to be waning, Git code hosting diversity is increasing,
+making the platform-specific part of this problem potentially severe.
 
 A second, more subtle methodological drawback is that trusting platform
 metadata introduces a selection bias on both the amount and type of forks that
@@ -96,15 +98,15 @@ their repositories using \texttt{git clone}.
 
 Fork inflation also results in increased duplication of software artifacts
 (source code files or directories, commits, \ldots) across
-repositories~\cite{swh-provenance-tr}, which has a significant impact on fork
+repositories~\cite{swh-provenance-emse}, which has a significant impact on fork
 studies that rely on metrics as simple as repository size (measured as the
 number of hosted commits). Filtering out forked repository is a common solution
 to this problem, which calls into question \emph{how} to properly identify
 forks.
-It has been shown~\cite{swh-provenance-tr} that a partition of commits within
-origins sharing at least 1 commit (``most fit fork'' partition), could
-decrease by several orders of magnitude the tail of the distribution of
-origin size, and impact origins of all sizes greater than 100 commits.
+It has been shown~\cite{swh-provenance-emse} that a partition of commits within
+origins sharing at least 1 commit (``most fit fork'' partition), could decrease
+by several orders of magnitude the tail of the distribution of origin size, and
+impact origins of all sizes greater than 100 commits.
 
 \smallskip
 
@@ -117,8 +119,8 @@ of selection biases.
 
 As an alternative to relying on platform metadata to recognize forks we propose
 to compare the content of VCS and consider as forks repositories that share
-artifacts such as commits or entire source trees. We will explore the impact of
-different such definitions and compare their impact in terms of the amount and
+artifacts such as commits or entire source trees. We will explore different
+definitions of forking and compare their impact in terms of the amount and
 structure of forks identified using platform metadata. Specifically, we will
 answer the following research questions:
 
@@ -394,12 +396,12 @@ cliques make intuitive sense only for type 2 and type 3 forks; type 1 forks
 \subsection{Dataset}
 \label{sec:forks-dataset}
 
-Our goal is to experimentally determine the amount and structure of forks for
-the various definitions we have introduced. To do so we will use two datasets:
-the \SWHGD{} described in \cref{chp:graph-dataset}, which contains the
-development history needed to find intrinsic fork relationships, and a
-reference forge-specific dataset, GHTorrent~\cite{GHTorrent}, which contains
-the fork ancestry relationships as captured by GitHub.
+In this study, our goal is to experimentally determine the amount and structure
+of forks for the various definitions we have introduced. To do so we will use
+two datasets: the \SWHGD{} described in \cref{chp:graph-dataset}, which
+contains the development history needed to find intrinsic fork relationships,
+and a reference forge-specific dataset, GHTorrent~\cite{GHTorrent}, which
+contains the fork ancestry relationships as captured by GitHub.
 
 \paragraph{GHTorrent}
 GitHub is the largest public software forge, and is therefore the candidate of
@@ -428,9 +430,9 @@ DAG~\cite{Merkle}, as described in \cref{chp:swh-model} and
 including commits and source trees, are natively deduplicated within and across
 projects. This property is particularly useful to find intrinsic forks, as it
 enables tracking the relevant artifacts (revisions and directories) across the
-entire dataset and link them back to their source repositories.
+entire dataset and link them back to their source origins.
 
-The dataset contains two intermediate layers between repositories and the
+The dataset contains two intermediate layers between origins and the
 commit graph they point to, snapshots and tags. As none of our fork definitions
 depend on these artifacts, the two layers can be flattened out so that the
 origins point directly to the revision graph.  Likewise, the blob layer and the
@@ -448,7 +450,8 @@ using the WebGraph framework, as described in \cref{chp:graph-compression}.
 The \SWHGD{} is already distributed as a compressed BVGraph and does not need
 any additional processing to be exploited.
 The GHTorrent can be compressed from its relational
-database format using the \texttt{swh-graph compress} utility.
+database format using the same graph compression framework introduced in
+\cref{chp:graph-compression}.
 
 \subsection{Fork networks}
 \label{sec:methodology-fork-networks}
@@ -459,7 +462,7 @@ database format using the \texttt{swh-graph compress} utility.
   \caption{Fork networks identified as connected components, for the case of
     shared commit (type 2) forks. Connected components are computed on the
     undirected version of the shown Merkle DAG. Measuring network sizes as the
-    number of contained repository nodes we obtain that: repositories A and B
+    number of contained origin nodes we obtain that: repositories A and B
     are forks of each other and members of a network of size 2, while
     repository C is in its own singleton network.}
   \label{fig:fork-clusters}
@@ -515,13 +518,16 @@ contained in each component.
 While partitioning the corpus in fork networks gives a good idea of how
 intrinsic forks are linked together, it can group together repositories that
 are not forks of each other, as the intrinsic fork relationship is not
-transitive.  \cref{fig:fork-transitive-fail} shows a pattern, that we
+transitive. \Cref{fig:fork-transitive-fail} shows a pattern, that we
 have verified as commonly found in the wild, where two different cliques will
 be merged in the same fork network---A and B are part of the same clique as
 they share development history; the same applies to B and C; whereas A and C do
 not share any part of their respective development histories but will end up in
-the same network. We expect this effect to merge cliques into giant components,
-that will make the size of the largest networks hard to interpret.
+the same network. In simpler terms, this means that a repository containing a
+merge commit with two parents from otherwise unrelated repositories will make
+those repositories belong to the same fork network.  We expect this effect to
+merge cliques into giant components, that will make the size of the largest
+networks hard to interpret.
 
 The other interesting metric that can be looked at is the distribution of fork
 cliques, as defined in \cref{def:fork-clique}. While cliques do not
@@ -610,14 +616,13 @@ require the equivalent of a \texttt{git merge -{}-allow-unrelated-histories} on
 two completely different repositories), the arbitrary criterion choice is not
 expected to be a significant caveat to interpret the results.
 
-We use the \cref{algo:fork-clique-partition} to generate the partition
-function of the graph based on cliques. To implement the criterion of
-attributing repositories to their largest cliques, cliques are processed in
-decreasing order of size. Building a reverse index of ``repository
-$\rightarrow$ clique it belongs to'' allows direct access to the subsequent
-occurrences of repositories in smaller cliques to remove them. After doing so,
-the cliques left empty are removed and the newly generated graph partition can
-be returned.
+We use \cref{algo:fork-clique-partition} to generate the partition function of
+the graph based on cliques. To implement the criterion of attributing
+repositories to their largest cliques, cliques are processed in decreasing
+order of size. Building a reverse index of ``repository $\rightarrow$ clique it
+belongs to'' allows direct access to the subsequent occurrences of repositories
+in smaller cliques to remove them. After doing so, the cliques left empty are
+removed and the newly generated graph partition can be returned.
 
 The output of this algorithm generate a set of sets of origins that are subsets
 of the input fork cliques. We call this set \emph{``fork p-cliques''} to
@@ -891,8 +896,9 @@ Several points are noteworthy.
 First, only $15\%$ (200 k origins over 1.53 M (red dotted)) of the
 origins that were isolated (blue dot for $size=2$) in forge fork network
 are aggregated in the giant network of shared commit fork.
-This shows that the aggregation mechanism is not only to this "giant" network,
-since $\sim 85\%$ of the origins are aggregated within smaller networks.
+This shows that the aggregation mechanism is not only to this ``giant''
+network, since $\sim 85\%$ of the origins are aggregated within smaller
+networks.
 
 Then, the flux for the 6 largest networks (isolated blue and orange dots around
 $10^5$ that overlap) is almost the same whether we restrict ourselves to the
@@ -1006,8 +1012,8 @@ our knowledge this is one of the largest quantitative fork study to date,
 having considered more than 40 M public version control system repositories.
 
 In the future it would be interesting to extend this approach to forges that
-are raising in popularity, and most notably GitLab. For that we would need a
-GHTorrent equivalent (or corresponding ad hoc crawling of that forge for the
+are raising in popularity, and most notably GitLab.com. For that we would need
+a GHTorrent equivalent (or corresponding ad hoc crawling of that forge for the
 purposes of the study only).
 
 
@@ -1086,7 +1092,7 @@ future studies.
 
 Aside from the already discussed hard forks v.~development forks distinction,
 the only other work we are aware of on formal or semi-formal fork
-characterization is~\cite{swh-provenance-tr}, which introduces the notion of
+characterization is~\cite{swh-provenance-emse}, which introduces the notion of
 \emph{most fit fork}: a repository that, within a group of VCS repositories
 that share commits, contain the largest number of commits. The notion is
 proposed as a long-term approximation of the main development line of a forked
@@ -1109,14 +1115,14 @@ perils \emph{``I: A repository is not necessarily a project''} and \emph{``IX:
   committers who are not registered GitHub users and projects which explicitly
   state that they are mirrors in their description''}.
 
-Half a decade later it is arguably \emph{less} of a risk that development
+Half a decade later, it is arguably \emph{less} of a risk that development
 happens elsewhere and that a high number of committers are not registered
-GitHub users (due to the current marked dominance of GitHub). But it is still
-not zero and might be about to increase again due to push back against
+GitHub users (due to the current market dominance of GitHub). However, it is
+still a risk and might be about to increase again due to push back against
 centralized services among FOSS developers.  In this chapter we provide
 methodological tools and improve upon the mitigation techniques proposed back
 then. Instead of avoiding projects, one can start from cross-platform
-datasets~\cite{swhcacm2018, swh-provenance-tr, swh-msr2019-dataset,
+datasets~\cite{swhcacm2018, swh-provenance-emse, swh-msr2019-dataset,
 mockus2019woc} and measure the amount of shared VCS artifacts in the available
 repositories.
 

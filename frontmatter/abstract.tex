@@ -21,9 +21,7 @@
     We then leverage this infrastructure to study the topology of the entire
     graph, looking at both its local properties and the way software projects
     are organized in forks. The in-depth understanding of this structure then
-    allows us to experimentally test and evaluate different approaches for
-    distributed graph analysis.
-
+    allows us to discuss different approaches for distributed graph analysis.
 \vspace{3mm}
 
 \textbf{Keywords:} empirical software engineering, source code, open source
@@ -58,8 +56,8 @@ exécuter des algorithmes arbitraires sur le graphe compressé, en utilisant
 des techniques de mise en correspondance de ses propriétés au
 niveau des nœuds et des arêtes. Nous utilisons ensuite cette infrastructure
 pour étudier la topologie locale du graphe ainsi que son organisation en forks
-de projets. Comprendre cette structure nous permet ensuite
-d'évaluer expérimentalement différentes approches d'analyse distribuée.
+de projets logiciels. Comprendre cette structure nous permet ensuite de
+discuter de différentes approches pour l'analyse distribuée.
 
 \vspace{3mm}
 
@@ -110,7 +108,7 @@ exponentially over time. At this scale, it is generally difficult to use
 off-the-shelf tools for general purpose data analysis, and new techniques must
 be built on top of the state of the art of large graph processing.
 
-\subsection*{Data availability}
+\subsection*{Making software artifacts available at different scales}
 
 To better understand the kinds of data that need to be made available, we
 systematically categorize the functional requirements of researchers in
@@ -127,10 +125,9 @@ the main pain points of researchers and limitations of the different formats.
 
 We provide a few utilities to fetch the data at a micro-level: the vault, a
 simple tool to gather the transitive closure of a specific software artifact in
-the graph and then representing it in an open format; SwhFS, a virtual
+the graph and then representing it in an open format, and SwhFS, a virtual
 filesystem to run common programs on the code stored in the archive without
-having to pre-download it; and finally a simple way to download a list of
-source code files from a cloud storage service.
+having to pre-download it.
 
 To make possible macro analyses on the entire graph, we extract from the
 archive a property graph containing all the software development metadata at
@@ -144,7 +141,7 @@ for which this relational format is suitable, as well as its limitations,
 notably the difficulty of running experiments that require graph traversal
 algorithms (e.g., walking down a commit chain).
 
-\subsection*{Graph representation}
+\subsection*{Exploiting software development data as a recursive graph}
 
 As the graph dataset is an inherently recursive structure, big data analysis
 tools that exploit the ``flatness'' of data to scale-out their processing cannot
@@ -170,7 +167,7 @@ extract representative graph subdatasets of any given size from the archive. We
 discuss various implementations of ways to obtain a ``view'' of a given part of
 the archive, and make some ``teaser'' datasets available using these techniques.
 
-\subsection*{Graph structure}
+\subsection*{The graph structure of software development}
 
 Understanding the structure of the development graph is a fundamental step
 towards scale-out analysis, as it can help us determine how to partition the
@@ -197,22 +194,11 @@ transitively linked together by forking relationships). We compute these
 structures for the entire Software Heritage graph and measure their size
 distributions.
 
-\subsection*{Applications}
+\subsection*{Conclusion}
 
-Having both a deeper understanding of the underlying structure of the graph as
-well as a platform to run experiments makes it possible to try out different
-scale-out approaches experimentally. We evaluate how ``sharding'' the data with
-respect to different graph orderings (breadth-first order, layered label
-propagation order, fork cliques and connected components) can allow for fast
-parallel processing for common use cases.
-
-The analysis platform can also be used to generate derived data from the graph.
-As a case study, in order to construct an index that can efficiently find the
-first occurrence of a given file in a repository, we showcase a tool to extract
-a ``filesystem diff'' dataset, containing the deltas between the source trees
-of subsequent commits.
-
-Finally, we discuss future research directions and open subjects: supporting
-general-purpose graph queries through an expressive query language, providing
-tooling to streamline scale-out analyses, as well as reducing the lag between
-the public datasets and the live data through incremental graph exports.
+Finally, we summarize the main academic contributions of this thesis, and its
+implications for empirical software engineering research. We discuss future
+research directions and open subjects: supporting general-purpose graph queries
+through an expressive query language, providing tooling to streamline scale-out
+analyses, as well as reducing the lag between the public datasets and the live
+data through incremental graph exports.

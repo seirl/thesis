@@ -157,14 +157,14 @@ nodes in the history layer on multiple machines.
 \paragraph*{Kurtosis, scale invariance and heavy tails}
 
 Some of the frequency distributions studied in this thesis have heavy tails,
-a relatively high kurtosis and could likely be scale-invariant. This has
+a relatively high kurtosis and exhibit scale-invariant behavior. This has
 important implications for empirical software engineering studies using data
 filtering and sampling as a way to get a representative set of software
 artifacts to analyze. Notably, it means that there is often no obvious rule to
 filter out outliers that cross a certain threshold, as they are an integral
 part of the distributions' nature. This emphasizes that empirical software
 mining studies should be cautious to systematically justify their data
-selection methodology, and consider sampling biases potential threats to
+selection methodology, and consider sampling biases as potential threats to
 validity.
 
 \paragraph*{Fork identification}
@@ -249,8 +249,8 @@ This thesis presents a work which leverages the Software Heritage archive to
 build an analysis platform open to all software mining researchers. Among them,
 one of the primary beneficiary of this platform could be the Software Heritage
 initiative itself, as analyzing the data in the archive could yield valuable
-insights that could be used to fine-tune crawling behavior. One example of this
-is for scheduling predictions: the compressed graph augmented with commit
+insights that could be used to fine-tune archiving behavior. One example of
+this is for scheduling predictions: the compressed graph augmented with commit
 timestamps can efficiently compute the frequency at which a given repository is
 updated; feeding that information back to the scheduler could help prioritizing
 the crawling of repositories that get updated often, and reduce the crawling

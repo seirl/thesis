@@ -4,7 +4,7 @@
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{img/SWH-logo}
-    \caption{Logo of the Software Heritage initiative}
+    \caption{Logo of the Software Heritage initiative.}
 \end{figure}
 
 \section{Project goals}
@@ -59,8 +59,9 @@ three major things:
     \item A \textbf{research platform} to enable analysis of all the source
         code in the archive. This implies making the data not only
         \emph{available}, but also \emph{accessible} to researchers and
-        industrials, by providing a framework to perform experiments in ways
-        that are convenient and suitable for large-scale data mining.
+        industrial practitioners, by providing a framework to perform
+        experiments in ways that are convenient and suitable for large-scale
+        data mining.
 \end{enumerate}
 
 The work presented in this thesis is focused on the latter point and explores
@@ -208,20 +209,20 @@ archive.
 \begin{center}
     \includegraphics[width=0.9\textwidth]{img/swh-dataflow}
 \end{center}
-\caption{Data flow of the archival process}%
+\caption{Data flow of the archival process.}%
 \label{fig:archival-data-flow}
 \end{figure}
 
 This entire archival process is shown in \cref{fig:archival-data-flow}. One
 important thing to note is that while the input projects are all retrieved in
-very heterogenous formats, the loaders do not keep the data that way: they
+very heterogeneous formats, the loaders do not keep the data that way: they
 transform the artifacts in a \emph{canonical format} that allows the entire
 archive to be a unified and deduplicated collection of software artifacts,
 thanks to a comprehensive data model described in \cref{chp:swh-model}.
 
 \subsection{Software notability}
 
-One of the stated goals of the Software Heritage initative is exhaustiveness,
+One of the stated goals of the Software Heritage initiative is exhaustiveness,
 which implies not making value judgments as to what constitutes ``important''
 or ``notable'' software. At no point in this process does any filtering occur
 that would remove software artifacts considered unimportant or irrelevant:
@@ -264,14 +265,14 @@ The listers are configured to run on the major code hosting platforms, and the
 archive contains a full copy of GitHub, Bitbucket, GitLab, SourceForge and the
 GNU project. They also periodically crawl the repositories of hundreds of
 decentralized instances of Phabricator, GitLab, cgit, Launchpad and Gitea.
-Some of the projects preserved in the archive were also recovered from defunct
+Some projects preserved in the archive were also recovered from defunct
 hosting platforms such as Gitorious and Google Code, then loaded as a one-shot
 task, as those sources do not require recurrent listing. A more detailed
 breakdown of archived projects per source host is available in
 \cref{sec:swh-dataset-coverage}.
 
 This extensive and far-reaching coverage has implications for research, as it
-allows us to identify heterogenous properties that appear when doing analysis
+allows us to identify heterogeneous properties that appear when doing analysis
 across different \glspl{VCS} used on different hosting platforms. Finding
 patterns and training models on the Software Heritage archive can be a way to
 ensure robustness and applicability to a diverse mosaic of collaboration and
@@ -282,7 +283,7 @@ development practices.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\linewidth]{img/swh-size}
-    \caption{Size of the Software Heritage archive as of May 3, 2021}%
+    \caption{Size of the Software Heritage archive as of May 3, 2021.}%
     \label{fig:swh-size}
 \end{figure}
 
@@ -310,9 +311,10 @@ more than 40 years, and find that the amount of commits in public source code
 doubles every $\approx 30$ months, while the number of unique source code files
 doubles every $\approx 22$ months. Zacchiroli further
 confirmed~\cite{ieee-sw-gender-swh} this exponential trend while studying
-historical gender differences in public software development. As of current
-projections, this exponential growth is still assumed to be sustainable at the
-scale of the archival project due to the also exponentially decreasing cost of
+historical gender differences in public software development, as shown in
+\cref{fig:swh-commit-growth}. As of current projections, this exponential
+growth is still assumed to be sustainable at the scale of the archival project
+due to the also exponentially decreasing cost of
 storage~\cite{swh-provenance-emse}.
 
 The massive scale of the archive as well as its projected growth in the

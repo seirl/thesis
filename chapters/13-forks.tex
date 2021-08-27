@@ -55,7 +55,7 @@ forking process often exhibits some patterns that can be used to determine
 common criteria of healthy software projects, e.g., by measuring contributing
 activity using forks as a proxy, or by comparing successful hard forks to
 their inactive counterparts. Those metrics are particularly useful in that
-they are conceptually independent from the VCS used by the development team,
+they are conceptually independent of the VCS used by the development team,
 which makes them robust across different workflows.
 
 Likely as a consequence of the prevalence of social coding platforms, recent
@@ -88,7 +88,7 @@ are considered. The fact that social coding platform strongly encourage, and
 sometimes even automate, the creation of forked repositories as the main way to
 contribute even the smallest one-liner change, inflates the number of forks.
 Many of these (soft) forks will be short-lived in terms of development
-activity. Hard forks will comparatively be more long lived and will not
+activity. Hard forks will comparatively be more long-lived and will not
 necessarily reside on the same code hosting platform. The example of the Linux
 kernel community is revealing in this respect: several copies of the full
 development history of Linux exist on GitHub, but are not recognizable as forks
@@ -130,13 +130,13 @@ answer the following research questions:
 
 \vspace{1em}
 
-\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ1: how do code hosting
+\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ1: How do code hosting
 platform information about which VCS repositories are forks compare to the
 presence of shared source code artifacts in repositories?}}
 
 \vspace{1em}
 
-\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ2: how are (a) the amount of
+\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ2: How are (a) the amount of
 forks and (b) the structure of fork networks affected by fork definitions based
 on VCS artifact sharing?}}
 
@@ -144,7 +144,7 @@ on VCS artifact sharing?}}
 
 RQ1 will intuitively assess the level of trustworthiness of platform fork
 metadata: if many repositories, e.g., share commits but are not identified as
-fork by platform metadata, then relying on those metadata alone would appear to
+fork by platform metadata, then relying on this metadata alone would appear to
 be methodologically dangerous. As one might consider different types of shared
 VCS artifacts (commits, source tree directories, individual files, \ldots) as
 fork evidence, RQ2 will provide an empirical evaluation of the effects of
@@ -291,7 +291,7 @@ $B$ and between $B$ and $C$ without there necessarily being a shared artifact
 between $A$ and $C$).
 
 Intuitively, the notion of shared commit forks is more robust than that of
-forge forks because it allows to recognize as forks---in the broad sense of
+forge forks because it allows recognizing as forks---in the broad sense of
 ``repositories that collaborate with one another''---repositories that are
 hosted on different platforms. A repository hosted on GitLab.com, or your
 personal git repository on your homepage, can be recognized as a fork of a
@@ -344,7 +344,7 @@ This property of inclusion, in the sense of one definition implying the other,
 is at the heart of the analysis made in \cref{sec:forks-aggregation-process},
 studying the aggregation processes of networks and cliques.
 
-In theory we could go further, and introduce an even more lax notion of fork,
+In theory, we could go further, and introduce an even more lax notion of fork,
 that equates repositories sharing as little as a single file, but that would
 exacerbate the problematic behavior we discussed for sharing sub-directories.
 
@@ -397,7 +397,7 @@ cliques make intuitive sense only for type 2 and type 3 forks; type 1 forks
 \label{sec:forks-dataset}
 
 In this study, our goal is to experimentally determine the amount and structure
-of forks for the various definitions we have introduced. To do so we will use
+of forks for the various definitions we have introduced. To do, so we will use
 two datasets: the \SWHGD{} described in \cref{chp:graph-dataset}, which
 contains the development history needed to find intrinsic fork relationships,
 and a reference forge-specific dataset, GHTorrent~\cite{GHTorrent}, which
@@ -531,7 +531,7 @@ networks hard to interpret.
 
 The other interesting metric that can be looked at is the distribution of fork
 cliques, as defined in \cref{def:fork-clique}. While cliques do not
-provide a partition function for the graph, they allow to narrow down the
+provide a partition function for the graph, they allow narrowing down the
 actual extent of forking relationships within large fork networks.
 
 Due to the fact that shared commit fork cliques are defined pairwise, the naive
@@ -555,7 +555,7 @@ is possible to compute all the cliques simply by doing one traversal per
 ``root'' commit.
 
 \begin{algorithm}[t]
-  \caption{Find all the fork cliques}%
+  \caption{Find all the fork cliques.}%
   \label{algo:fork-clique}
   \begin{algorithmic}
 \Function{FindOriginLeaves}{r}
@@ -601,7 +601,7 @@ on the entire corpus.
 
 While \cref{algo:fork-clique} works well for shared commit forks, the
 speedup does not apply to shared root forks: the induction property no longer
-works for root directories, as they are not organised in nearly-degenerate
+works for root directories, as they are not organized in nearly-degenerate
 chains. The time complexity for type 3 forks is closer to the worst case of
 $O(C \times R)$, which makes the clique analysis impractical for this
 kind of forks.
@@ -630,7 +630,7 @@ emphasize the fact that they form a partition of the repository set in which
 all the groups are fork cliques.
 
 \begin{algorithm}[t]
-    \caption{Compute the p-cliques partition function}
+    \caption{Compute the p-cliques partition function.}
     \label{algo:fork-clique-partition}
     \begin{algorithmic}
     \Function{CliquesToPartition}{$L_C$}
@@ -686,12 +686,12 @@ In the \SWHGD{}, we found 24.0 M connected components, among which 21.3 M
 isolated repositories. The remaining 2.6 M components contain 20.1 M shared
 commit forks (type 2), i.e., 48.44\% of all repositories. We have hence almost
 9\% \emph{more} shared commit forks than forge forks, which is a significant
-divergence for the most strict definition of forks based on shared VCS
+divergence for the strictest definition of forks based on shared VCS
 artifacts.
 
 \begin{table}[t]
     \centering
-    \caption{Number of forks and networks by fork type}%
+    \caption{Number of forks and networks by fork type.}%
     \label{tab:fork-network-results}
     \begin{tabular}{l|c|c}
       \textbf{Fork type} & \textbf{\# forks} & \textbf{\# networks} \\
@@ -713,7 +713,7 @@ truth for what is a fork.
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{img/forks/fork-network-freq-distribution.pdf}
-    \caption{Cumulative frequency distribution of fork network sizes}%
+    \caption{Cumulative frequency distribution of fork network sizes.}%
     \label{fig:fork-network-freq-distrib}
 \end{figure}
 
@@ -861,7 +861,7 @@ networks (or cliques) of a given size will progressively aggregate into fork
 networks (or cliques) of different sizes.
 \Cref{fig:fork-flux-gh-rev_rootdir_pcliques} represents $\delta O$ between
 the forge fork definition baseline and: shared commit fork networks (top),
-shared commit p-cliques (bottom), and shared root tree fork networks (middle)).
+shared commit p-cliques (bottom), and shared root tree fork networks (middle).
 
 While this analysis shows the flux of repositories between clusters identified
 by the different definitions, it can mask some compensating phenomena by
@@ -988,7 +988,7 @@ automatable definitions based on VCS artifact sharing, and qualitative
 assessment by developers that does not scale to datasets like the one studied
 here.
 
-Also as a consequence of the above we do not feel confident at this stage in
+As a consequence of the above we do not feel confident at this stage in
 making a methodological judgment call on whether type 2 or type 3 fork
 definitions ``better'' capture the essence of a fork. We simply warn scholars
 about the extent of the discrepancies between the number of forks detectable
@@ -1093,7 +1093,7 @@ characterization is~\cite{swh-provenance-emse}, which introduces the notion of
 \emph{most fit fork}: a repository that, within a group of VCS repositories
 that share commits, contain the largest number of commits. The notion is
 proposed as a long-term approximation of the main development line of a forked
-(hardly or otherwise) project. Our notion of type 2 fork clique captures the
+(hardly or otherwise) project. Our notion of type 2 fork cliques captures the
 same idea; additionally we show how to use it to partition the global set of
 VCS repositories into independent clusters instead of partitioning the global
 set of commits.

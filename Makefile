@@ -16,5 +16,10 @@ clean:
 distclean: clean
 	$(RM) main.pdf
 
+.PHONY: $(MAIN)-report-textidote.html
+$(MAIN)-report-textidote.html:
+	textidote main.tex > $@
 
-.PHONY: $(MAIN).pdf img
+textidote: $(MAIN)-report-textidote.html
+
+.PHONY: $(MAIN).pdf img textidote

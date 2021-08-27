@@ -32,12 +32,12 @@ repeating a join operation to accumulate more nodes until reaching a fixed
 point when the entire transitive closure has been accumulated.
 
 While this approach generally works efficiently for graphs with a limited depth
-(e.g., code indentation levels), it is often less suited for arbitrarly nested
+(e.g., code indentation levels), it is often less suited for arbitrarily nested
 hierarchies like the graph of software development.
 This notion can be understood quite intuitively when thinking about depth as
 the approximate number of synchronization points required for computing a
 transitive closure. Getting all neighbors of a set of nodes is
-embarassingly parallel, but the resulting sets must be aggregated together at
+embarrassingly parallel, but the resulting sets must be aggregated together at
 each step; this makes the quantity of recursive iterations the most expensive
 factor when performing recursive queries.
 Commit chains are a pathological case of arbitrary nestedness, as they tend to
@@ -182,7 +182,7 @@ true: \begin{itemize}
   variable-length encodings.
 
 \item \emph{Similarity}: nodes that are close to each other in the order tend
-  to have similar sets of neighbours. Similarity can be exploited by using
+  to have similar sets of neighbors. Similarity can be exploited by using
   \emph{reference compression}: some successor lists are represented as a
   difference with respect to the successor list of a previous nearby node.
 
@@ -350,7 +350,7 @@ pipeline input is a simple graph representation (\emph{Merkle DAG} in the
 figure) as a pair of textual nodes and edges file. These files use the
 ``edges'' format described in \cref{sec:edges-format}: the nodes file
 consists of one node label per line; the arcs file consists of one
-source/destination pair of node labels per linel; each label is a \gls{SWHID}.
+source/destination pair of node labels per line; each label is a \gls{SWHID}.
 Then, the following steps are executed in order:\footnote{We refer to the
 WebGraph documentation on how to practically run them:
 \url{http://webgraph.di.unimi.it/}}
@@ -389,7 +389,7 @@ compression pipeline thus performs such a visit on the entire BV graph.
 Once the BFS ordering of nodes is known, this step will reorder nodes (as well
 as rows in the compressed adjacency matrix, performing all needed adaptations)
 according to BFS order. The result of this step is another compressed graph, in
-the same format than the original BV graph but with a better compression ratio.
+the same format as the original BV graph but with a better compression ratio.
 
 \paragraph{Transpose}
 Strictly speaking, the graph structure of the input dataset can be traversed
@@ -401,7 +401,7 @@ visits.
 
 As backward visits correspond to forward visits on the \emph{transposed} input
 graph, one can optionally generate a compressed representation of the
-transposed input graph and use it in addition (or alternatively) to the
+transposed input graph and use it in addition (or as an alternative) to the
 compressed graph obtained thus far. WebGraph supports generating the compressed
 representation of the transposed graph directly from the compressed (forward)
 graph. If desired, the \emph{Transpose} step in the compression pipeline will
@@ -412,7 +412,7 @@ take care of this.
 
 \begin{table}
   \centering
-  \caption{Compression time breakdown}%
+  \caption{Compression time breakdown.}%
   \label{tab:compression-bfs-time}
   \begin{tabular}{l r}
     \multicolumn{1}{c }{\textbf{Step}}
@@ -531,7 +531,7 @@ by current standards.
 Further compression improvements can be achieved by the \acrfull{LLP}
 algorithm~\cite{BRSLLP} presented in \cref{sec:compression-background}
 to reorder nodes. The \gls{LLP} algorithm finds locality-preserving orders by
-clustering nodes in close proximity together.  Similar to the \gls{BFS}, this
+clustering together nodes in close proximity.  Similar to the \gls{BFS}, this
 algorithm is particularly interesting for our use case as it is unsupervised,
 and does not rely on prior information on the clusters present in the graph.
 The idea behind the clustering algorithm is to randomly distribute communities
@@ -568,7 +568,7 @@ be obtained by running the \textbf{Simplify} step, which returns a loopless and
 symmetric graph from the \gls{BFS}-compressed graph. This symmetric graph is
 then fed to the \textbf{LLP} step, which computes the reordering.
 
-The \gls{LLP} algorithm is parametrized by a list of $\gamma$ values, a
+The \gls{LLP} algorithm is parameterized by a list of $\gamma$ values, a
 ``resolution'' parameter which defines the shapes of the clustering it
 produces: either small, but denser pieces, or larger, but unavoidably sparser
 pieces. The algorithm then combines the different clusterings together to
@@ -662,7 +662,7 @@ time) and then perform a domain-specific experiment.
 \label{sec:compression-exptraversal}
 
 In the worst case of any given mining experiment, one will have to traverse the
-entire corpus to obtain some insights. Hence it is important to know the
+entire corpus to obtain some insights. Hence, it is important to know the
 baseline of how long a single traversal takes.
 \Cref{tab:compression-bfs-benchmark} shows the results of benchmarking complete
 graph visits in breadth-first order (BFS), with no parallelism (single thread)
@@ -691,7 +691,7 @@ graph is slower, as already observed for full graph visits.
 
 \begin{table}
   \centering
-  \caption{Full graph visit benchmarks for a single-threaded BFS visit}%
+  \caption{Full graph visit benchmarks for a single-threaded BFS visit.}%
   \label{tab:compression-bfs-benchmark}
   % \begin{tabular}{lr}
   %   visit order    & BFS \\
@@ -722,7 +722,7 @@ graph is slower, as already observed for full graph visits.
 
 \begin{table}
   \centering
-  \caption{Arc lookup benchmarks for 1 billion random nodes}
+  \caption{Arc lookup benchmarks for 1 billion random nodes.}
   \label{tab:compression-arc-benchmark}
 
   % \begin{tabular}{lr}
@@ -793,9 +793,9 @@ type information for arcs, we can use the type map discussed in
 \cref{sec:compression-comp-scope} to stop the visit when it is no longer
 possible to reach additional revision nodes.
 
-The approach for determining revision $\to$ origin multiplication is similar.
-The only difference is that visits will start from commit nodes and stop at
-origin nodes (graph roots), which can then be counted and visualized as before.
+The approach for determining revision $\to$ origin multiplication is similar,
+with the difference that visits will start from commit nodes and stop at origin
+nodes (graph roots), which can then be counted and visualized as before.
 
 The chosen approaches are naive from an algorithmic point of view---the same
 edges will be traversed repeatedly for different input nodes,
@@ -850,14 +850,14 @@ follow edges up to origin nodes to determine that.
   \label{fig:compression-distrib-rev-ori}
 \end{figure}
 
-\Cref{fig:compression-distrib-rev-ori} shows analogous results for the
-revision $\to$ origin layer, on a random sample of 8.5\,M revisions. To interpret
-them, it is important to realize how it happens that the same commit (i.e.,
-with an identical SHA-1 identifier) is found in different repositories. The main
-reason is the distributed nature of modern version control systems, whose
-repositories are massively represented in the corpus under analysis. Developers
-that work together using Git will have individual repositories that communicate
-by exchanging SHA-1-identical commits. Furthermore the pull request development
+\Cref{fig:compression-distrib-rev-ori} shows analogous results for the revision
+$\to$ origin layer, on a random sample of 8.5\,M revisions. To interpret them,
+it is important to realize how it happens that the same commit (i.e., with an
+identical SHA-1 identifier) is found in different repositories. The main reason
+is the distributed nature of modern version control systems, whose repositories
+are massively represented in the corpus under analysis. Developers that work
+together using Git will have individual repositories that communicate by
+exchanging SHA-1-identical commits. Furthermore, the pull request development
 model~\cite{gousios2014pullrequests} popularized by GitHub natively creates new
 repositories (hosted at different origin URLs) that initially contain all
 commits (unmodified) of the originally ``forked'' repository.
@@ -984,7 +984,7 @@ analysis needs.
 
 A limitation of using static graph compression over classic information systems
 to store the data to be analyzed is that \emph{compression is not incremental}
-with regards to the arrival of new artifacts (commits, files, etc.), due to the
+with regard to the arrival of new artifacts (commits, files, etc.), due to the
 need of reordering nodes and updating the compressed representations of
 adjacency lists. Considering that popular VCS repositories receive hundreds of
 new commits a day, the already mentioned exponential growth of original
@@ -1020,7 +1020,7 @@ Boa~\cite{dyer2013boa} has pioneered the idea of a mutualized infrastructure
 hosting both data and compute resources to perform large-scale analyses on
 source code artifacts such as those discussed in this chapter. Our notion of
 ``ultra-large-scale'' is different, with a case study 100x larger by several
-metrics (projects, files, commits, etc.). The compute approach is also
+metrics (projects, files, commits, etc.). The computing approach is also
 different, with Boa relying on distributed clusters (Hadoop) and our approach
 relying on a single machine. Direct performance comparisons are not possible as
 we have not replicated their experiments, but our results hint at a very
@@ -1032,12 +1032,12 @@ this chapter.
 World of Code (WoC)~\cite{mockus2019woc} is a recent attempt at a mutualized
 infrastructure for large-scale VCS analyses. While limited to GitHub---contrary
 to our case study that also encompasses GitLab and major package
-repositories---the target scale of WoC is similar to ours. The compute approach
-is different, with WoC relying on distributed databases running and ours on a
-single machine. The advantage of WoC is that it maintains pre-computed
-mappings, e.g., from files and directories to the places they come from,
-choosing a different spot than ours in the classic space/time trade-off. The
-approach proposed here looks more appealing in terms of cost and ease of
+repositories---the target scale of WoC is similar to ours. Again, the computing
+approach is different, with WoC relying on distributed databases running and
+ours on a single machine. The advantage of WoC is that it maintains
+precomputed mappings, e.g., from files and directories to the places they come
+from, choosing a different spot than ours in the classic space/time trade-off.
+The approach proposed here looks more appealing in terms of cost and ease of
 deployment. But the two approaches are complementary: WoC might benefit from an
 \emph{additional} compressed graph representation that would shine when users
 need to explore on the fly (and as quickly as possible) artifact relationships
@@ -1080,8 +1080,8 @@ of the out-neighborhoods.
 More recently,~\cite{DKKCGIRGB} extended the theoretical model of~\cite{CKLCSN}
 and designed a novel ordering technique, called \emph{recursive graph
 bisection}, that yields the most competitive compression ratios in several
-cases. The core idea is to recursively divide the graph in two clusters of the
-same size so as to minimize an objective function that estimates the
+cases. The core idea is to recursively divide the graph into two clusters of
+the same size so as to minimize an objective function that estimates the
 compressibility of the overall graph when nodes in the first cluster have
 smaller identifiers than nodes in the second cluster.
 
@@ -1113,7 +1113,7 @@ the $k$th successor and the first successor greater than or equal a
 given bound $b$. In particular, the last property makes it possible to verify
 adjacency in constant time, and neighborhood intersections in sublinear time.
 
-\emph{Partitioned Elias-Fano}~\cite{OtVPEFI} is a improvement over the basic
+\emph{Partitioned Elias-Fano}~\cite{OtVPEFI} is an improvement over the basic
 Elias-Fano representation: given a number $k$ of parts, an algorithm splits
 the successor lists in $k$ blocks in such a way that the space used is
 minimized. In this way, dense blocks as those generated by similarity can be

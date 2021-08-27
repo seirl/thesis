@@ -54,7 +54,7 @@ a list of \emph{named} directory entries, each entry pointing to either blob
 objects (``file entries''), directory objects (``directory entries''), or
 revision objects (``revision entries''). Each entry from a directory is
 associated to a local name (i.e., a \emph{relative} path without any path
-separator) and permission metadata (i.e., a Unix permission mode like
+separator) and permission metadata (i.e., a Unix permission mode such as
 \texttt{0o755} for an executable file). While file and directory entries are
 the most common to form nested source code trees, \emph{revision entries} also
 exist and are used to represent sub-directories that reference specific
@@ -161,7 +161,7 @@ More specifically, each snapshot contains a list of references to other
 artifacts, which have an associated binary name (e.g., ``refs/heads/main'' or
 ``refs/tags/v0.1.2'') and the intrinsic hash of the artifact they reference.
 Most references are either to revisions (in the case of branches) or release
-objects, but on rare occasions they they can also point to directories and
+objects, but on rare occasions they can also point to directories and
 contents, which is supported by some \glspl{VCS} and also sometimes present in
 real-world repositories.
 
@@ -173,7 +173,7 @@ symbolic links to the target of the branch they reference.
 
 Snapshots are also deduplicated and identified by an intrinsic hash, computed
 from a textual manifest which associate each branch name and the intrinsic
-identifier of its target. Therefore they also benefit from the advantageous
+identifier of its target. Therefore, they also benefit from the advantageous
 space-complexity of purely functional persistent structures as described in
 \cref{sec:purely-functional}: if two consecutive visits of the same repository
 show that nothing changed in the interval, the visits can both share the same
@@ -225,7 +225,7 @@ which further entangles the relationships between different software projects.
 already allow us to canonicalize and deduplicate objects inside a single
 software project. This principle can be generalized to deduplicate the
 artifacts found in several projects \emph{across the entire archive}.
-This process of systematically gathering and storing all publicly available
+The process of systematically gathering and storing all publicly available
 software artifacts in a deduplicated and canonical fashion is inherently a way
 to materialize an immense highly interconnected graph, linking together all
 derivative works and shared codebases.
@@ -251,7 +251,7 @@ content (a blob of length zero) in the entire archive, and millions of
 directories reference it.
 
 Merging all archived repositories into a single large collection of software
-artifacts leverages all of the benefits of Merkle \gls{DAG} models for single
+artifacts leverages all the benefits of Merkle \gls{DAG} models for single
 repositories to the entire archive: simple identification of unique artifacts,
 built-in data integrity checks, very high rate of deduplication and reduced
 storage costs.
@@ -459,14 +459,15 @@ due to the differences in technical requirements for storing the different
 layers of the graph~\cite{swhipres2017}.
 Most notably, the source contents require orders of magnitude more space
 ($\approx 850$ TiB as of May 2021) than the rest of the archive and are thus
-stored on dedicated key-value object storages, keyed by their intrinsic hash.
-In the infrastructure hosted in-house by the Software Heritage initiative, the
-object hashes allow for efficient horizontal sharding, by assigning hash
-prefixes to specific servers. This technique is used to trivially implement a
-reasonably performant and redundant storage.
-Key-value object storages are an almost universal primitive in cloud offerings,
-which allows Software Heritage to store an entire copy of the content layers in
-two different clouds: the Microsoft Azure Blob Storage and Amazon AWS S3.
+stored on dedicated key-value object storage systems, keyed by their intrinsic
+hash.  In the infrastructure hosted in-house by the Software Heritage
+initiative, the object hashes allow for efficient horizontal sharding, by
+assigning hash prefixes to specific servers. This technique is used to
+trivially implement a reasonably performant and redundant storage.
+Key-value object storage systems are an almost universal primitive in cloud
+offerings, which allows Software Heritage to store an entire copy of the
+content layers in two different clouds: the Microsoft Azure Blob Storage and
+Amazon AWS S3.
 
 On the other hand, the upper layers of the archive require significantly less
 storage space ($\approx 10$ TiB) but have different functional requirements, as
@@ -482,7 +483,7 @@ following their links.
 This approach can have scalability issues, as inserting data in traditional
 \glspl{RDBMS} gets exponentially slower as the tables grow.  Other storage
 systems for the graph are under study to circumvent this problem, notably the
-use of key-value document storages like Cassandra or ScyllaDB.
+use of key-value document storage systems like Cassandra or ScyllaDB.
 
 One last relevant component is the \emph{journal}, which serves as a
 synchronization pipeline across the infrastructure. In order to keep the

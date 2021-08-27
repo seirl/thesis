@@ -12,7 +12,7 @@ our scope to the software artifacts themselves, as studying external project
 management metadata (issues, \acrshort{CI}, mailing list discussions, etc.) is
 a largely different problem, although relevant to the field in its own way.
 
-For that purpose, we first catalogued different use cases by looking at
+For that purpose, we first cataloged different use cases by looking at
 software mining studies and qualitatively assessing which types of data they
 were extracting for their own purposes. This gives us a general idea of the
 queries researchers would want to run on the archive, given the opportunity to
@@ -24,7 +24,7 @@ had at their disposal while conducting it. Part of our goal in making Software
 Heritage a platform for universal software mining is to make new research
 opportunities available by allowing researchers to run studies that were not
 possible before. Therefore, in addition to the use cases we find in the
-literature, we also want to understand general interests for future research
+literature, we also want to understand general interests in future research
 directions as a way to expand this horizon of possibilities.
 
 \vspace{0.5cm}
@@ -168,7 +168,7 @@ we excluded:
         particular repositories;
     \item 8 papers which had an irrelevant methodology (demonstrations of tools
         for building software corpuses, extensive reliance on context such as
-        code snippets from development chats or webpages, etc.).
+        code snippets from development chats or web pages, etc.).
 \end{itemize}
 
 In total, we removed 26 papers as shown in the Sankey diagram
@@ -265,8 +265,8 @@ Each selection criteria described here defines one specific filter on the
 objects, but researchers generally combine these filters together to narrow
 down their corpus of study. Therefore, it is not sufficient to simply provide a
 way to select the data based on one of these filters; the partial filters must
-be able to be joined together in a relational way to ensure enough
-expressiveness in the selection phase.
+be able to be joined together relationally to ensure enough expressiveness in
+the selection phase.
 
 \subsection{Analyzed Data}
 
@@ -297,7 +297,7 @@ By far the most common type of analyzed artifacts are file contents,
 highlighting the clear need to make the source code files easily accessible.
 While there are some studies which only rely on the upper layers of the
 artifact graph like community detection algorithms, research on the source
-files themselves is evidently of foremost interest for software mining.
+files themselves is evidently of foremost interest in software mining.
 
 Studies generally also require basic artifact properties like file names,
 commit messages, dates and authors, etc. Those fields should be relatively easy
@@ -356,7 +356,7 @@ to have:
 
 \textbf{Content access}. One of the most common requests is to obtain a set of
 file contents stored in the archive based on some specific criteria. Those
-requests are usually made in the purpose of analysing the code itself: code
+requests are usually made in the purpose of analyzing the code itself: code
 patterns recognition, language detection, static analysis, malware detection,
 and so on.  Occasionally, those requests also require some data preprocessing
 to be applied to the file contents before the analysis (comment removal, data
@@ -417,7 +417,7 @@ Handling the file contents of the archive requires a lot of resources and
 expertise. The total size of the blobs (currently $\approx 850$\,TiB) require
 large amounts of storage capacity, and the blobs cannot easily be stored on a
 single machine using consumer-grade storage. The unusual size distribution of
-the blobs, whose median size is approximately 3\,kiB, also makes it challenging
+the blobs, whose median size is approximately 3\,KiB, also makes it challenging
 to use industry-grade storage solutions, as they generally are not designed to
 store a large quantity of very small files. On conventional systems, some
 limitations on inode management may apply. Other distributed storage solutions
@@ -485,7 +485,7 @@ analysis tools usually expect.
 Making provenance mappings accessible as a way to look up the different
 places where an object can be found is a hard problem, because of the
 combinatorial explosion of the ancestor relationship mappings.
-A single file content can be found in thousand if not millions of origins.
+A single file content can be found in thousands if not millions of origins.
 There is a difficult balance to find between reducing the size of the
 mappings using intermediate objects in the relationship as layers to compress
 the volume of edges, and reducing as much as possible the amount of
@@ -545,7 +545,7 @@ identified.
 \begin{center}
     \includegraphics[width=0.55\textwidth]{img/roadmap}
 \end{center}
-\caption{Steps towards creating a research platform in Software Heritage}%
+\caption{Steps towards creating a research platform in Software Heritage.}%
 \label{fig:roadmap}
 \end{figure}
 

@@ -23,7 +23,7 @@ studied to this extent in the extant literature.
 \paragraph*{Contextualization}
 
 The first original contribution in my work stems from an inquiry into how
-making a large corpus of software developement data accessible to researchers
+making a large corpus of software development data accessible to researchers
 can be the most useful to software mining research. For this purpose, I
 realized a literature review (\cref{chp:introduction,sec:msr-lit-review}) which
 helped determine the most effective ways in which making the Software Heritage
@@ -138,16 +138,16 @@ findings.
 \paragraph*{Graph connectivity and sharding}
 
 Another important empirical finding from the topology analysis is that the
-graph is generally well connected due to the deduplication of the software
+graph is generally well-connected due to the deduplication of the software
 artifacts it contains. This is particularly true at the level of the
 filesystem, where 97\% of all the files and directories in the graph are all
 reachable from each other and form a giant connected component. This giant
 component precludes the use of naive partition techniques, such as regrouping
 nodes in small tightly connected clusters, as a way to ``shard'' the graph on
-multiple machines in order to perform scale-out computations. This high
-connectivity is resilient, and does not depend on the existence of a few nodes
-with large in-degrees; removing these nodes does little to help partition the
-giant component.
+multiple machines in order to perform scale-out computations. We observe that
+this high connectivity is resilient, and does not depend on the existence of a
+few nodes with large in-degrees; removing these nodes does little to help
+partition the giant component.
 
 However, restricting our view to the history layer yields a very different
 picture: revision chains are less connected, with the giant component only
@@ -208,7 +208,7 @@ archive by using compressed graph algorithms only, and without having to
 fallback on slower algorithms for artifacts that were not present at the time
 of compression.
 
-Incremental graph compression would be a very challenging endeavour, as most of
+Incremental graph compression would be a very challenging endeavor, as most of
 the components in the compression pipeline relies on a fixed number of nodes.
 For instance, one of the core steps of the process is the use of \gls{MPH}
 functions, which rely on a static number of elements and cannot be dynamically
@@ -256,9 +256,9 @@ insights that could be used to fine-tune archiving behavior. One example of
 this is for scheduling predictions: the compressed graph augmented with commit
 timestamps can efficiently compute the frequency at which a given repository is
 updated; feeding that information back to the scheduler could help prioritizing
-the crawling of repositories that get updated often, and reduce the crawling
-frequency of repositories that do not. This could alleviate the total load on
-the archive workers and increase its throughput.
+the crawling of repositories that get updated more often, and reduce the
+crawling frequency of repositories that do not. This could alleviate the total
+load on the archive workers and increase its throughput.
 
 \paragraph*{Graph partitioning techniques}
 
@@ -267,7 +267,7 @@ graph precludes the use of naive graph partitioning techniques to shard the
 graph into smaller isolated units, as most of the nodes in the graph are
 aggregated in a giant connected component that cannot easily be broken down.
 While this remains generally true, if sharding is needed it is still possible
-to try and regroup nodes using their locality characteristics to decide how to
+to try to regroup nodes using their locality characteristics to decide how to
 partition the graph. In \cref{chp:graph-compression} we use two approaches,
 \gls{BFS} and \gls{LLP}, to generate a node ordering which preserves locality.
 It would be interesting to partition the graph nodes by splitting these
@@ -297,7 +297,7 @@ files). This could help answer more research questions efficiently, such as
 finding the list of revisions in which a given file was added for the first
 time. Constructing this derived graph has been experimented at a reasonably
 large scale (10\% of the edges in the graph) as part of an unpublished study
-with Wellenzohn et al, delivering promising early results.
+with Wellenzohn et al., delivering promising early results.
 
 \section{Publications}
 

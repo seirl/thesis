@@ -83,7 +83,7 @@ of non-source-code artifacts.
 
 World of Code (WoC)~\cite{mockus2019woc} is a recent attempt at providing a
 corpus for large-scale VCS analyses, with a target scale similar to ours (18
-billion objects as of October 2020). However the sourcing diversity of the
+billion objects as of October 2020). However, the sourcing diversity of the
 dataset is more limited, only covering Git and GitHub and excluding other
 \glspl{VCS} and hosting locations.
 
@@ -92,7 +92,7 @@ dataset is more limited, only covering Git and GitHub and excluding other
 
 The most common pattern in distributed big data analysis is to query datasets
 provided in a \emph{relational format}, i.e., as a set of data tables linked
-together by pre-defined relationships. The relational \emph{schema} describes
+together by predefined relationships. The relational \emph{schema} describes
 these tables, notably the types of their individual columns and the way they
 relate to each other. These data tables can then be loaded in distributed Big
 Data engines and queried using relational query languages like SQL.
@@ -111,7 +111,7 @@ for join operations.
 
 \begin{figure}
     \includegraphics[width=\linewidth]{img/graph-dataset/db-schema}
-    \caption{Relational schema of the \SWHGD{}}%
+    \caption{Relational schema of the \SWHGD{}.}%
     \label{fig:swh-dataset-schema}
 \end{figure}
 
@@ -128,7 +128,7 @@ predict. Some cloud services like Google BigQuery have size limits on arrays,
 which makes it impossible to store directories of arbitrary length. We
 denormalized that table, as well as two of the snapshot tables. Another minor
 change is the use of hexadecimal string representation of intrinsic hashes
-instead of binary strings, as developers tend to be more comfortable with using
+instead of binary strings, as developers tend to be more comfortable using
 this hexadecimal representation directly. Finally, some columns which we
 considered to be mostly implementation details that would not be useful for
 data analysis were removed from the schema.
@@ -718,7 +718,7 @@ memory buffer as of 2021.
 \label{sec:swh-dataset-coverage}
 
 The first version of the dataset we published captured the state of the \SWH{}
-archive as of September 25th 2018, spanning a full mirror of Github and
+archive as of September 25th 2018, spanning a full mirror of GitHub and
 GitLab.com, the Debian distribution, Gitorious, Google Code, and the PyPI
 repository. Quantitatively, it corresponded to 5 billion unique file contents
 and 1.1 billion unique commits, harvested from more than 85 million software
@@ -739,7 +739,7 @@ downloaded from the Software Heritage annex at
 
 \begin{table}
   \centering
-    \caption{List of dataset exports as of July 2021}%
+    \caption{List of dataset exports as of July 2021.}%
     \label{tab:swh-dataset-exports}
     \begin{tabular}{l r r l}
         \hline\textbf{Export date} & \textbf{\# of nodes} & \textbf{\# of edges} & \textbf{Formats} \\ \hline
@@ -768,7 +768,7 @@ the mechanism used to retrieve the source code artifacts (for the most part a
 VCS or a source package format), the domain of the forge or package repository
 used to host them, as well as the number of origins and visits of them present
 in the archive.  We can notice that git dominates the corpus as a source code
-distribution mechanism, and that GitHub is the dominant forge.  Nonetheless
+distribution mechanism, and that GitHub is the dominant forge.  Nonetheless,
 there is a long tail of both source code distribution mechanisms (other popular
 and historical VCSs; Debian, NPM, PyPI, CRAN, Nix, and Guix source packages)
 and hosting platforms (several popular and historical forges, various
@@ -918,7 +918,7 @@ the Amazon S3 storage service using standard SQL queries. Athena uses a hosted
 version of the Presto engine~\cite{sethi2019presto} to distribute queries on
 large clusters.  One particularly interesting property of Presto is that it
 does not act as a database, but rather a tool to efficiently query vast amounts
-of data by doing automatic scale-out on pre-existing clusters. This has the
+of data by doing automatic scale-out on preexisting clusters. This has the
 advantage of not requiring any up-front setup cost, as the cluster of machines
 is not managed by the users but by Amazon itself. Instead, users are billed on
 a pay-as-you-go basis, depending on the total amount of data queried, at a base
@@ -937,11 +937,11 @@ services like AWS Redshift.\footnote{https://aws.amazon.com/redshift/}
 To read the ORC files with the appropriate schema, Athena uses an approach
 known as \emph{schema-on-read}, which means a predefined schema is projected on
 the data stored in S3 at the time of query. This technique avoids having to
-load, pre-process or convert the S3 data before querying it. However, as a
+load, preprocess or convert the S3 data before querying it. However, as a
 preliminary step, it does require defining the schema on one's own Athena
 instance, as well as the location of the data it refers to. We provide a
 toolchain, \texttt{swh.dataset.athena}, which can automatically define this
-schema on an user provided Athena database. This command defines the schema of
+schema on a user provided Athena database. This command defines the schema of
 the latest graph export (2021-03-23) on the user's ``\texttt{swh}'' Athena
 database and sets its external location to the public dataset S3 bucket:
 
@@ -968,7 +968,7 @@ are some sample SQL queries that can be executed with the dataset on
 
 \begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/popular-file.sql}
-    \caption{Most frequent file name}%
+    \caption{Most frequent file name.}%
     \label{lst:popular-file}
 \end{listing}
 
@@ -980,7 +980,7 @@ million times.
 
 \begin{listing}
     \inputminted[firstline=3]{sql}{codesamples/graph-dataset/popular-commit-words.sql}
-    \caption{Most common commit operations}%
+    \caption{Most common commit operations.}%
     \label{lst:popular-commit-words}
 \end{listing}
 
@@ -1001,7 +1001,7 @@ is not yet available on Athena.)
 
 \begin{listing}
     \inputminted[firstline=3]{sql}{codesamples/graph-dataset/weekend-work.sql}
-    \caption{Ratio of commits performed during each year's weekends}%
+    \caption{Ratio of commits performed during each year's weekends.}%
     \label{lst:weekend-work}
 \end{listing}
 
@@ -1023,13 +1023,13 @@ between revisions committed on the weekends of each year and the total number
 of that year's revisions (see \cref{lst:weekend-work}).
 The results, obtained by scanning 14~GiB\ in $7''$, are shown in
 \cref{fig:weekend-work}. A linear regression shows that this ratio generally
-remained constantly around 22\% over time. The data is inconclusive, and points
-to the need for further analysis to validate the hypothesis, which is left as
-an exercise to the reader.
+remained constantly around 22\% over time. These results are inconclusive, and
+points to the need for further analysis to validate the hypothesis, which is
+left as an exercise to the reader.
 
 \begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/fork-size.sql}
-    \caption{Average number of parents in a revision}%
+    \caption{Average number of parents in a revision.}%
     \label{lst:fork-size}
 \end{listing}
 
@@ -1047,7 +1047,7 @@ of merge operations.
 
 \begin{listing}
     \inputminted[firstline=4]{sql}{codesamples/graph-dataset/file-type-size.sql}
-    \caption{Average size of the most popular file types}%
+    \caption{Average size of the most popular file types.}%
     \label{lst:file-type-size}
 \end{listing}
 
@@ -1105,13 +1105,13 @@ for table in tables:
     df = spark.read.parquet(dataset_path + '/' + table)
     df.createOrReplaceTempView(table)
 \end{minted}
-\caption{Load ORC tables in Azure Databricks}%
+\caption{Load ORC tables in Azure Databricks.}%
 \label{lst:databricks-load-tables}
 \end{listing}
 
 \begin{listing}
     \inputminted{sql}{codesamples/graph-dataset/spark-degree.sql}
-    \caption{Out-degree distribution of directories}%
+    \caption{Out-degree distribution of directories.}%
     \label{lst:spark-directory-outdegree}
 \end{listing}
 
@@ -1132,6 +1132,6 @@ cost of around \num{5000} USD to compute the connected components of the graph.
 
 \begin{listing}
     \inputminted{python}{codesamples/graph-dataset/spark-cc.py}
-    \caption{Connected components of the revision graph}%
+    \caption{Connected components of the revision graph.}%
     \label{lst:cc}
 \end{listing}

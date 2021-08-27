@@ -128,7 +128,7 @@ around 145\,GiB ($\approx 19.3 \times 10^9 \times 8 \times \frac{1}{2^{30}}$
 for 64-bit node IDs).
 This composed permutation (or ``graph permutation'', as it represents how the
 graph is permuted from the original order of the nodes given by the hashing
-function) is stored as a \texttt{graph.order} file in the same format than the
+function) is stored as a \texttt{graph.order} file in the same format as the
 input permutations.
 
 Then, the mapping function for the \gls{SWHID} $\to$ node ID direction can be
@@ -153,10 +153,10 @@ permutation plus the on-disk size of the hash function, which is $\approx
 graph itself (134\,GiB for the forward graph only). This size could be reduced
 by compressing the \texttt{.order} file, which could be achieved by reducing
 the number of bits used for each entry in the permutation to the bare minimum
-necessary to represent an integer in the set of node IDs. This would come at
-the cost of some inefficiency due to the overhead of correcting word
-misalignment, which would potentially be negligible.
-For the same example, the estimated size would then be:
+necessary to represent an integer in the set of node IDs. Doing so would come
+at the cost of some inefficiency due to the overhead of correcting word
+misalignment, which would potentially be negligible.  For the same example, the
+estimated size would then be:
 
 \[
     n \times \left\lceil{\frac{\log_2(n)}{8}}\right\rceil\,\mathrm{bytes}
@@ -236,7 +236,7 @@ not in the original key set. This approach is probabilistic, and false
 positives are possible with a probability of {\Large $\frac{1}{2^w}$}. While
 this is useful to catch bugs, a probabilistic approach does not allow us to
 systematically fall back when encountering an unknown \gls{SWHID} unless using
-very large signatures. Those can also dramatically increase the size of the
+very large signatures. These can also dramatically increase the size of the
 hashing function: for the 2020-12-15 dataset, a 32-bit signatures increases its
 size from 5\,GiB to 72\,GiB while still allowing a false positive every 4
 billion \gls{SWHID} on average, which is less than a quarter of the number of
@@ -289,7 +289,7 @@ implementation for compact on-disk storage in this section.
 In \cref{sec:compression-comp-scope} we already mentioned keeping \emph{node
 types} in memory, i.e., whether a node is a blob, directory, revision, etc.
 Node types have a special status because they are necessary for almost all
-kinds of analyses on the graph as they allow to determine at runtime which
+kinds of analyses on the graph as they allow determining at runtime which
 kinds of objects are being traversed. They are also
 already present as part of the textual identifiers of the nodes themselves,
 being one of the fields in \gls{SWHID}. For that reason, we systematically
@@ -451,7 +451,7 @@ data structure.
 
 To solve this issue, the WebGraph framework provides an experimental set of
 libraries\footnote{\url{https://webgraph.di.unimi.it/docs/it/unimi/dsi/webgraph/labelling/package-summary.html}}
-under \texttt{webgraph.labelling} which implements arc labelling, i.e.,
+under \texttt{webgraph.labelling} which implements arc labeling, i.e.,
 associating arbitrary properties to the graph edges. The basic principle for
 the serialization of labels (the objects storing the edge properties) using
 this system is twofold.
@@ -652,7 +652,7 @@ can specify the format for each record: a $3 +
 the 2021-03-23 graph) encoding the permission value in its three lower bits and
 the index of the entry name in the front-coded string list in its upper bits.
 
-\subsection{Label compression pipeline}
+\subsection{Label compression pipeline.}
 
 \begin{figure}
     \centering
@@ -762,11 +762,11 @@ We benchmarked the label sorting pipeline using \texttt{sort} and
 \texttt{bsort} on a smaller graph of around 350 million edges, and obtained
 similar results ($12'30''$ for \texttt{sort}, $11'30''$ for \texttt{bsort}).
 We have not yet been able to conclusively determine whether one sorting method
-would be significantly faster than the other on larger input files. We thus
-make both sorting methods available, configurable by the user as a command line
-option.
+would be significantly faster than the other on larger input files. Both
+sorting methods are thus made available, configurable by the user as a command
+line option.
 
-\paragraph{Arc labelling}
+\paragraph{Arc labeling}
 Finally, with the ordered list of edges in numerical format, we can write the
 labels to the \texttt{graph.labels} file and its offset to the
 \texttt{graph.labeloffsets} file. For this, we need to traverse the graph edges
@@ -850,7 +850,7 @@ its own memory requirements:
         when a segment of the file is accessed without having been cached,
         accessing the mapping will trigger a page fault and require disk I/O,
         slowing down access times.
-        Here, performance becomes dependant on (a) the amount of available RAM
+        Here, performance becomes dependent on (a) the amount of available RAM
         and (b) how well the kernel is able to predict access patterns (to the
         extent that they are actually predictable and not random seeks).
         The main advantage of this method is to avoid reserving large amounts
@@ -895,7 +895,7 @@ kernel to load it entirely in RAM. Subsequent memory-mappings of the files
 stored in the tmpfs will simply map the data stored in RAM to virtual memory
 pages, and return a pointer to the in-memory structure.
 
-From an user perspective, using the \texttt{cachemount} command can be done in
+From a user perspective, using the \texttt{cachemount} command can be done in
 just a few steps: (1) choose the graph data and mappings which need to always
 be loaded in main memory to be shared by the compressed graph processes; (2)
 call the \texttt{cachemount} command with the list of relevant files, which

@@ -23,7 +23,7 @@ component sizes; distribution of shortest path lengths. We characterize these
 topology aspects for both the entire graph and relevant subgraphs.
 
 % This chapter is based on XXX?
-This chapter is implementing a pre-registered study
+This chapter is implementing a preregistered study
 protocol~\cite{msr-2020-topology} accepted at the 17th International Conference
 on Mining Software Repositories (MSR 2020).
 
@@ -97,13 +97,13 @@ constitutes ``typical'' VCS data. These pitfalls have been warned against since
 the early days of GitHub~\cite{kalliamvakou2014promises}, but they have been
 neither quantified nor described at the scale we consider in this study yet.
 
-The extent to which repositories on popular forges correspond to ``well
-behaved'' development repositories, as opposed to being outliers that are not
-used for software development or are built just to test the limits of hosting
-platforms or \gls{VCS} technology, is unknown. In our experience GitHub alone
-contains repositories with very unusual artifacts (commits with one million
-parents or mimicking bitcoin mining in their IDs, the longest possible paths,
-bogus timestamps, etc.).
+The extent to which repositories on popular forges correspond to
+``well-behaved'' development repositories, as opposed to being outliers that
+are not used for software development or are built just to test the limits of
+hosting platforms or \gls{VCS} technology, is unknown. In our experience GitHub
+alone contains repositories with very unusual artifacts (commits with one
+million parents or mimicking bitcoin mining in their IDs, the longest possible
+paths, bogus timestamps, etc.).
 
 How many statistically relevant outliers of this kind exist is unknown and
 needs to be documented as reference knowledge to help researchers in the
@@ -231,11 +231,11 @@ different aggregation levels (pages, hosts, and domains). The size of the
 analyzed corpus is comparable to ours (3.5 billion nodes, 128 billion edges),
 and their analysis methodology is very close to what we propose here. The graph
 compression framework that we use to conduct the present study
-(Webgraph~\cite{boldi-vigna-webgraph-1, boldi-vigna-webgraph-2}) is also the
+(WebGraph~\cite{boldi-vigna-webgraph-1, boldi-vigna-webgraph-2}) is also the
 same. One particularly notable finding is that this related work overturned the
 validity of prior power law-based characterizations of the various
 distributions, emphasizing the importance of empirically challenging
-pre-concieved notions about the graph properties at a large scale.
+preconceived notions about the graph properties at a large scale.
 
 Other computer-related graphs that have been widely studied as complex networks
 are social network graphs, whose nodes correspond to users and whose edges to
@@ -398,7 +398,7 @@ web, and 15 times more sparse than the social graph of Facebook.
 
 \begin{table}
   \centering
-  \caption{Average degree of various large graphs}
+  \caption{Average degree of various large graphs.}
   \label{tab:degree-comparison}
   \begin{tabular}[t]{l S[table-format=3.3]}
       \textbf{Dataset} & \textbf{Average degree} \\
@@ -428,10 +428,10 @@ commit layer has a density slightly above, but very close to 1. The commit
 chains conform to the general structure of \emph{degenerate trees}. The history
 layer adds a relatively low number of releases to the commit layer, and each
 release always adds one node and one edge.
-The hosting layer still has a low density, although around three times more
-dense than the commit layer, because its contents are arranged as a
-\emph{bipartite graph}: each vertex connects one origin and one snapshot, which
-limits the density by construction.
+The hosting layer still has a low density, although around three times denser
+than the commit layer, because its contents are arranged as a \emph{bipartite
+graph}: each vertex connects one origin and one snapshot, which limits the
+density by construction.
 
 The filesystem layer has a higher density, with an average degree of 12.1.
 Being the dominant component of the graph, it drives the average of the entire
@@ -453,16 +453,16 @@ undirected graphs (e.g., social networks).
     \begin{subfigure}{.49\textwidth}%
         \centering%
         \includegraphics[width=\linewidth]{img/topology/inout/#1_in}%
-        \caption{In-degrees}%
+        \caption{In-degrees.}%
         \label{fig:inout_in_#1}
     \end{subfigure}\hfill%
     \begin{subfigure}{.49\textwidth}%
         \centering%
         \includegraphics[width=\linewidth]{img/topology/inout/#1_out}%
-        \caption{Out-degrees}%
+        \caption{Out-degrees.}%
         \label{fig:inout_out_#1}
     \end{subfigure}%
-    \caption{Degree distributions: #2}%
+    \caption{Degree distributions: #2.}%
     \label{fig:inout_#1}
 \end{figure}%
 }
@@ -490,8 +490,8 @@ entries, with a threshold effect at around ten files after which the frequency
 drops at a faster pace. The points at the end of the tail are gigantic
 directories containing millions of entries. These are mostly binary files
 generated by scripts, or the result of user errors (e.g., the largest directory
-in the archive contains millions of generated shaders for an amateur videogame,
-in a now deleted branch).
+in the archive contains millions of generated shaders for an amateur video
+game, in a now deleted branch).
 The in-degree distribution represents the number of directories referencing some
 specific directory of content, and gives some insight on the deduplication
 process of directories and contents (as the in-degrees would always be one if no
@@ -516,13 +516,13 @@ distribution.
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/inout/rev_in}
-        \caption{In-degrees (``fork-degrees'')}
+        \caption{In-degrees (``fork-degrees'').}
         \label{fig:inout_in_rev}
     \end{subfigure}\hfill%
     \begin{subfigure}{.49\textwidth}
         \centering%
         \includegraphics[width=\linewidth]{img/topology/inout/rev_out}
-        \caption{Out-degrees (``merge-degrees'')}
+        \caption{Out-degrees (``merge-degrees'').}
         \label{fig:inout_out_rev}
     \end{subfigure}
     \caption{Degree distributions: Commit layer}
@@ -555,7 +555,7 @@ and $d = 3$. We expect most of these octopus merges with large degrees to be
 generated by scripts in very peculiar environments, so the irregularities
 observed in the tail of the distribution are not particularly surprising.
 As the shape of this distribution is dominated by outliers and irregularities,
-the power law fit is likely uninterpretable.
+the power law fit likely cannot be interpreted.
 
 The outliers in these distributions are usually experiments aiming to generate
 commits with inordinate amounts of parents. The largest degree in the out-degree
@@ -569,7 +569,7 @@ archive.
 \begin{figure}
     \centering
     \includegraphics[width=.49\textwidth]{img/topology/inout/rev_in_rel}
-    \caption{In-degrees of commits from releases}
+    \caption{In-degrees of commits from releases.}
     \label{fig:inout_rev_in_rel}
 \end{figure}
 
@@ -655,30 +655,30 @@ points to the same repository state as the first origin.
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/full}
-        \caption{Full graph}
+        \caption{Full graph.}
         \label{fig:clustering_full}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/dir+cnt}
-        \caption{Filesystem layer}
+        \caption{Filesystem layer.}
         \label{fig:clustering_dir+cnt}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/rev}
-        \caption{Commit layer}
+        \caption{Commit layer.}
         \label{fig:clustering_rev}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/rel+rev}
-        \caption{History layer}
+        \caption{History layer.}
         \label{fig:clustering_rel+rev}
     \end{subfigure}
 
-    \caption{Clustering distributions (0.1\% uniform sample)}
+    \caption{Clustering distributions (0.1\% uniform sample).}
     \label{fig:clustering}
 \end{figure}%
 
@@ -702,7 +702,7 @@ regularity.
 
 In the commit layer, the closed triangles correspond to a merge commit $C$ with
 two parents $A$ and $B$, with $B$ being a parent of $A$. This often happens
-when merging multiple commits using the ``no fast forward'' strategy
+when merging multiple commits using the ``no fast-forward'' strategy
 (\texttt{--no-ff} in Git). Here, the distribution (\cref{fig:clustering_rev})
 displays a similar pattern to what we observed in the out-degree distribution
 of the commit layer (\cref{fig:inout_out_rev}): the two common cases are
@@ -725,33 +725,33 @@ here.
     \centering
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/full}
-        \caption{Full graph}
+        \caption{Full graph.}
         \label{fig:connectedcomponents_full}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/dir+cnt}
-        \caption{Filesystem layer}
+        \caption{Filesystem layer.}
         \label{fig:connectedcomponents_dir+cnt}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/rev}
-        \caption{Commit layer}
+        \caption{Commit layer.}
         \label{fig:connectedcomponents_rev}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/rel+rev}
-        \caption{History layer}
+        \caption{History layer.}
         \label{fig:connectedcomponents_rel+rev}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/ori+snp}
-        \caption{Hosting layer}
+        \caption{Hosting layer.}
         \label{fig:connectedcomponents_ori+snp}
     \end{subfigure}
 
-    \caption{Connected components distributions}
+    \caption{Connected components distributions.}
     \label{fig:connectedcomponents}
 \end{figure}
 
@@ -768,7 +768,7 @@ distribution, being 8345 times larger than the second largest.
 
 \begin{table}
   \centering
-  \caption{Connected components per layer}
+  \caption{Connected components per layer.}
   \label{tab:wcc-stats}
   \begin{tabular}[t]{l r r r}
       \textbf{Layer} & \textbf{\# of WCC}
@@ -793,10 +793,10 @@ in-degrees from the graph still yields a giant component of about the same order
 of magnitude (only about 5\% smaller). This implies that the connectivity of
 the graph is resilient and does not depend on the existence of a few
 high-degree nodes, and that those highly reused software artifacts exist in a
-graph that is already well connected without them.
+graph that is already well-connected without them.
 This finding is similar to what has been shown for the graph of the Web, where
 removing pages which are central hubs and have a high PageRank does not
-significantly reduces the connectivity of the graph.\cite{broder2000graph}
+significantly reduce the connectivity of the graph.\cite{broder2000graph}
 
 These observations apply similarly to the filesystem layer which again
 dominates the distribution of the full graph. However, the distributions of the
@@ -823,7 +823,7 @@ the existence of a component with more than seven million nodes, which is an
 order of magnitude higher than the most forked repository. By walking random
 paths in this component, it is possible to see some patterns that could explain
 the size of this component.  One appears to be that beginners sometimes fork
-well known repositories then rewrite their history to replace them with a
+well-known repositories then rewrite their history to replace them with a
 completely different content.  Every time this happens, it links together
 completely unrelated networks of forks, which all aggregate in this large
 component.
@@ -955,8 +955,8 @@ a depth of less than around 15, with the frequency of deeper files dropping
 sharply after that threshold.  The most common depth is 3, and files less than
 4 directory deep are less common than files at a depth between 4 and 8. This
 makes some intuitive sense, as the source files which are modified pretty often
-are generally organized inside directory hierarchies, and rarely at the top
-level.
+are generally organized inside directory hierarchies, and rarely at the
+top-level.
 
 In contrast, \cref{sec:topo:degrees} showed that the history layer was
 sparse with an average degree close to one, indicating that it was mainly
@@ -1099,9 +1099,9 @@ properly capture them in a representative manner.
 \paragraph{Exhaustiveness of data sources.}
 Likewise, the representativeness of the study is limited by the extent of the
 data source coverage of Software Heritage. The archive contains the main
-centralized software forges and package repositories (GitHub, Gitlab,
+centralized software forges and package repositories (GitHub, GitLab,
 Bitbucket, PyPI, Debian, NixOS, …), as well as instances of decentralized
-forges (e.g., various self-hosted Gitlab or Phabricator instances). As the
+forges (e.g., various self-hosted GitLab or Phabricator instances). As the
 archive cannot realistically cover the long tail of smaller self-hosted forges,
 this is another source of popularity bias in the input dataset.
 

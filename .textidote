@@ -1,5 +1,5 @@
 --output html
 --check en
---firstlang fr
+# --firstlang fr
 --remove minted
 --remove-macros mintinline,texttt

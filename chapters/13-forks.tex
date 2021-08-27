@@ -303,9 +303,9 @@ We can push this idea further, trying to make it even more robust, and capable
 of recognizing as forks repositories that have no recognizable shared commits,
 but do share entire source trees. That is of interest when, for example,
 collaboration happens using different version control systems (e.g., a
-developer using git-svn to participate into the development of a Subversion
-based project). Type 3 forks, or \emph{shared root (directory) forks}, allow to
-capture those situations:
+developer using \texttt{git-svn} to participate into the development of a
+Subversion based project). Type 3 forks, or \emph{shared root (directory)
+forks}, allow to capture those situations:
 
 \begin{definition}[Type 3 fork, or shared root fork]
   \label{def:rootdir-fork}
@@ -412,7 +412,7 @@ contains a unique identifier for each repository, and a \texttt{forked\_from}
 column contains the ID of the repository it has been forked from if the
 repository is considered to be a forge forks.  A single SQL query on this table
 allows to extract the full graph of GitHub-declared forks,
-e.g.:\footnote{Additional URL gymnastic is needed in the query to
+e.g.:\footnote{Additional URL gymnastics are needed in the query to
 cross-reference GHTorrent project URLs with \SWH{} ones; we refer to the
 replication package for this kind of details.}
 \begin{minted}{sql}
@@ -484,9 +484,8 @@ results. First, it is trivial to quantify how many repositories are forks by
 counting the number of repositories that belong to non-singleton networks.
 Besides, a direct comparison can be made between the distribution of forge
 forks and shared commit or root forks, as networks provide a partition method
-for both graphs. The sizes of the networks can be directly compared between
-the three definitions while keeping the invariant of number of total
-repositories.
+for both graphs. The network sizes can be directly compared between the three
+definitions while keeping the invariant of number of total repositories.
 This is not the case when looking at fork cliques, since the same repository
 can be found in multiple cliques, which makes comparison harder.
 
@@ -831,7 +830,7 @@ definition A and a fork definition B, and
 represent it as a function of the size of the network (or partitioned clique).
 By definition $\delta O$ is always equal to zero for sizes $s~=~1$ (as all the
 forks are in clusters of size $s \geq 1$) and $s~=~\max(\text{cluster
-sizes})$ (as there are no clusters larger than this size).
+sizes})$, as there are no clusters larger than this size.
 
 \begin{figure}
     \centering
@@ -869,7 +868,7 @@ merging independent processes, as some repositories can migrate from larger to
 smaller clusters,
 % to make more explicite the discussion about delatO <0
 sometimes leading to $\delta O<0$
-(\cref{fig:fork-flux-gh-rev_rootdir_pcliques}, bottom, size$\sim10^5$).
+(\cref{fig:fork-flux-gh-rev_rootdir_pcliques}, bottom, size$\approx 10^5$).
 
 To narrow down this phenomenon, we specifically focus on the
 largest shared-commit fork network to see how it contributes to the global
@@ -885,18 +884,18 @@ global flux.
 %    % 8
 %    \includegraphics[width=\linewidth]{img/forks/gr/Diff_WCCDF_all_bis.png}
     \caption{Contribution (orange dots) of the giant (largest) network that
-    appear using shared commit fork definition w.r.t.
-    $\mathbf{\boldsymbol{\delta} O:}~\textbf{forge~fork} - \textbf{shared~commit~fork}$ (Same as
-    \cref{fig:fork-flux-gh-rev_rootdir_pcliques}, Top)}
+    appears using the shared commit fork definition w.r.t.
+    $\delta O:~\mathrm{forge~fork} - \mathrm{shared~commit~fork}$ (same as
+    \cref{fig:fork-flux-gh-rev_rootdir_pcliques}, top).}
     \label{fig:fork-Diff_WCCDF_all}
 \end{figure}
 
 Several points are noteworthy.
-First, only $15\%$ (200 k origins over 1.53 M (red dotted)) of the
+First, only $15\%$ (200 k origins over 1.53 M, the red dotted line) of the
 origins that were isolated (blue dot for $size=2$) in forge fork network
 are aggregated in the giant network of shared commit fork.
 This shows that the aggregation mechanism is not only to this ``giant''
-network, since $\sim 85\%$ of the origins are aggregated within smaller
+network, since $\approx 85\%$ of the origins are aggregated within smaller
 networks.
 
 Then, the flux for the 6 largest networks (isolated blue and orange dots around
@@ -1087,7 +1086,7 @@ future studies.
 
 \paragraph{Fork definitions}
 
-Aside from the already discussed hard forks v.~development forks distinction,
+Aside from the already discussed hard forks vs.\ development forks distinction,
 the only other work we are aware of on formal or semi-formal fork
 characterization is~\cite{swh-provenance-emse}, which introduces the notion of
 \emph{most fit fork}: a repository that, within a group of VCS repositories

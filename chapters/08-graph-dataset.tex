@@ -928,11 +928,12 @@ terabyte\footnote{\url{https://aws.amazon.com/athena/pricing/}}.
 After a successful graph export, the resulting ORC files are uploaded in a public
 S3 bucket that can be queried by anyone using Amazon Athena. The dataset is
 indexed in the Registry of Open Data on
-AWS,\footnote{https://registry.opendata.aws/software-heritage/} and contains
-information on the S3 bucket and how to query it using Athena. While Athena is
-offered as the default solution for analysis because of its low setup cost,
-researchers can also import this S3 bucket in other potentially more costly AWS
-services like AWS Redshift.\footnote{https://aws.amazon.com/redshift/}
+AWS,\footnote{\url{https://registry.opendata.aws/software-heritage/}} and
+contains information on the S3 bucket and how to query it using Athena. While
+Athena is offered as the default solution for analysis because of its low setup
+cost, researchers can also import this S3 bucket in other potentially more
+costly AWS services like AWS
+Redshift.\footnote{\url{https://aws.amazon.com/redshift/}}
 
 To read the ORC files with the appropriate schema, Athena uses an approach
 known as \emph{schema-on-read}, which means a predefined schema is projected on

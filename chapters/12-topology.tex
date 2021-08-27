@@ -84,7 +84,7 @@ its intrinsic structure, to choose the most appropriate large-scale analysis
 approach depending on the study needs.  For instance, if the graph turns out to
 be easy to partition into disconnected or loosely-connected components, then a
 \emph{scale-out} approach with several compute nodes holding in memory graph
-quasi-partitions would be best. If on the other hand the graph is highly
+quasi-partitions would be best. On the other hand, if the graph is highly
 connected then a \emph{scale-up} approach based on large-scale graph database
 or relying on graph compression~\cite{saner-2020-swh-graph} would be
 preferable.
@@ -331,9 +331,9 @@ computed on both graphs, then the results are added together.
 We measure the in-degree and out-degree distributions of each layer of the graph.
 That is, for each node, the number of edges pointing to it (in-degree) and the
 number of edges starting from it (out-degree).
-This requires a single pass on the graph (time complexity of
-$O(|V|+|E|)$), as well as maintaining one frequency mapping of
-negligible size (a few megabytes) per layer.
+This requires a single pass on the graph in $O(|V|+|E|)$, as well as
+maintaining one frequency mapping of negligible size (a few megabytes) per
+layer.
 
 A single pass is sufficient to compute the distributions of all the layers. As
 we iterate on the edges adjacent to each node, we check the type of their
@@ -363,7 +363,7 @@ whether the graph can be divided in reasonably-sized clusters as a way to
 perform large-scale analysis.
 Using a breadth-first traversal of each layer, we compute the sizes of all the
 connected components in the undirected graph. The traversal has a linear
-complexity ($O(|E|)$ in time, $O(|V|)$ in memory), which
+complexity of $O(|E|)$ in time and $O(|V|)$ in memory, which
 allows us to get an exact result for the entire graph. The frontier is stored
 as an on-disk queue to lower the RAM usage.
 
@@ -796,7 +796,7 @@ high-degree nodes, and that those highly reused software artifacts exist in a
 graph that is already well-connected without them.
 This finding is similar to what has been shown for the graph of the Web, where
 removing pages which are central hubs and have a high PageRank does not
-significantly reduce the connectivity of the graph.\cite{broder2000graph}
+significantly reduce the connectivity of the graph~\cite{broder2000graph}.
 
 These observations apply similarly to the filesystem layer which again
 dominates the distribution of the full graph. However, the distributions of the
@@ -964,7 +964,7 @@ constituted of degenerate strings of commits. \Cref{fig:avgpath_rev} shows us
 the distribution of the lengths of these strings, which appears to have some
 scale invariance. Because these lengths can be interpreted as the ``age'' of a
 given project measured in number of commits, it makes sense that they would
-follow a normal distribution with infinite variance.
+follow a distribution with a high variance.
 A few outliers are also present in the tail of the distribution, mostly test
 projects like the GitHub repository \texttt{cirosantilli/test-many-commits-1m}
 which contains two million commits.
@@ -1114,7 +1114,7 @@ support subscription-based APIs that allow the listers to crawl repositories as
 soon as a change is pushed to them. Some repositories are considered more
 critical to software infrastructures and are crawled daily. Other scheduling
 heuristics are in place to maximize resource usage efficiency of data crawlers.
-Overall, this means that the topology of the `hosting'' layer is endogenous to
+Overall, this means that the topology of the ``hosting'' layer is endogenous to
 the archival process, rather than being an intrinsic property of software
 development. This is mainly reflected in the number of snapshots that neighbor
 a given origin, since more frequent crawling generally produces more snapshots.

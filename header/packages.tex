@@ -13,6 +13,7 @@
 
 % Language
 \usepackage[english]{babel}
+\usepackage{csquotes}
 \usepackage[acronym]{glossaries}
 \usepackage{lipsum}
 
@@ -23,17 +24,10 @@
 \usepackage[normalem]{ulem} % Underline command
 
 % Bibliography
-\usepackage[square, numbers, sort&compress]{natbib}
-\usepackage{bibentry}
-\bibliographystyle{plain}
-\nobibliography*
-\makeatletter
-\renewcommand\bibentry[1]{\nocite{#1}{\frenchspacing
-     \@nameuse{BR@r@#1\@extra@b@citeb}}}
-\makeatother
+\usepackage[backend=biber, style=numeric, maxbibnames=5]{biblatex}
 
 % Links and refs
-\usepackage[colorlinks=true, allcolors=black, backref]{hyperref}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
 % \usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{url}
 \usepackage{cleveref}  % Better \cref with automatic fig names

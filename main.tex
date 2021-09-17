@@ -1,5 +1,5 @@
 % add 'draft' to enable draft option on (see below)
-\documentclass[a4paper,11pt,openbib]{memoir}
+\documentclass[a4paper,11pt]{memoir}
 
 \newcommand{\thetitle}{Organizing the graph of public software development for large-scale mining}
 \newcommand{\theauthor}{Antoine Pietri}
@@ -17,6 +17,9 @@
     \SetWatermarkScale{0.3}
     \SetWatermarkText{\bf Draft: \today}
     \setkeys{Gin}{draft=false}  % Display images in draft mode
+
+
+\addbibresource{thesis.bib}
 
 \begin{document}
 % Relax constraint on constant page height
@@ -119,7 +122,7 @@
 
 \backmatter
 \refstepcounter{chapter}
-\bibliography{thesis}
+\printbibliography
 
 \clearpage
 

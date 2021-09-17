@@ -1,0 +1,600 @@
+Loading graph /dev/shm/swh-graph/default/graph ...
+Graph loaded.
+2021-05-20 16:36:37,994 258785 INFO [main] ROOT - Starting connected components visit...
+2021-05-20 16:36:48,000 268791 INFO [main] ROOT - 2,073,213 nodes, 10s, 207,321.30 nodes/s, 4.82 µs/node; 0% done, 2h 38m 43s to end
+2021-05-20 16:36:57,996 278787 INFO [main] ROOT - 4,125,329 nodes, 20s, 206,266.45 nodes/s, 4.85 µs/node; 0% done, 2h 39m 22s to end
+2021-05-20 16:37:07,996 288787 INFO [main] ROOT - 6,461,482 nodes, 30s, 215,382.73 nodes/s, 4.64 µs/node; 0% done, 2h 32m 26s to end
+2021-05-20 16:37:17,996 298787 INFO [main] ROOT - 8,611,793 nodes, 40s, 215,294.83 nodes/s, 4.64 µs/node; 0% done, 2h 32m 20s to end
+2021-05-20 16:37:27,996 308787 INFO [main] ROOT - 10,879,782 nodes, 50s, 217,595.64 nodes/s, 4.60 µs/node; 0% done, 2h 30m 33s to end
+2021-05-20 16:37:37,996 318787 INFO [main] ROOT - 13,168,708 nodes, 1m 0s, 219,478.47 nodes/s, 4.56 µs/node; 0% done, 2h 29m 5s to end
+2021-05-20 16:37:47,996 328787 INFO [main] ROOT - 15,507,595 nodes, 1m 10s, 221,537.07 nodes/s, 4.51 µs/node; 0% done, 2h 27m 31s to end
+2021-05-20 16:37:57,996 338787 INFO [main] ROOT - 17,850,295 nodes, 1m 20s, 223,128.69 nodes/s, 4.48 µs/node; 0% done, 2h 26m 18s to end
+2021-05-20 16:38:07,996 348787 INFO [main] ROOT - 20,209,928 nodes, 1m 30s, 224,554.76 nodes/s, 4.45 µs/node; 1% done, 2h 25m 11s to end
+2021-05-20 16:38:17,996 358787 INFO [main] ROOT - 22,548,380 nodes, 1m 40s, 225,483.80 nodes/s, 4.43 µs/node; 1% done, 2h 24m 25s to end
+2021-05-20 16:38:27,996 368787 INFO [main] ROOT - 24,872,820 nodes, 1m 50s, 226,116.55 nodes/s, 4.42 µs/node; 1% done, 2h 23m 50s to end
+2021-05-20 16:38:37,996 378787 INFO [main] ROOT - 27,209,330 nodes, 2m 0s, 226,744.42 nodes/s, 4.41 µs/node; 1% done, 2h 23m 16s to end
+2021-05-20 16:38:47,996 388787 INFO [main] ROOT - 29,564,551 nodes, 2m 10s, 227,419.62 nodes/s, 4.40 µs/node; 1% done, 2h 22m 40s to end
+2021-05-20 16:38:57,996 398787 INFO [main] ROOT - 31,961,739 nodes, 2m 20s, 228,298.14 nodes/s, 4.38 µs/node; 1% done, 2h 21m 57s to end
+2021-05-20 16:39:07,996 408787 INFO [main] ROOT - 34,373,396 nodes, 2m 30s, 229,155.97 nodes/s, 4.36 µs/node; 1% done, 2h 21m 15s to end
+2021-05-20 16:39:17,996 418787 INFO [main] ROOT - 36,655,794 nodes, 2m 40s, 229,098.71 nodes/s, 4.36 µs/node; 1% done, 2h 21m 7s to end
+2021-05-20 16:39:27,996 428787 INFO [main] ROOT - 39,139,494 nodes, 2m 50s, 230,232.32 nodes/s, 4.34 µs/node; 1% done, 2h 20m 14s to end
+2021-05-20 16:39:37,996 438787 INFO [main] ROOT - 41,689,215 nodes, 3m 0s, 231,606.75 nodes/s, 4.32 µs/node; 2% done, 2h 19m 13s to end
+2021-05-20 16:39:47,996 448787 INFO [main] ROOT - 44,157,375 nodes, 3m 10s, 232,407.24 nodes/s, 4.30 µs/node; 2% done, 2h 18m 34s to end
+2021-05-20 16:39:57,996 458787 INFO [main] ROOT - 46,888,892 nodes, 3m 20s, 234,444.46 nodes/s, 4.27 µs/node; 2% done, 2h 17m 10s to end
+2021-05-20 16:40:07,996 468787 INFO [main] ROOT - 50,026,054 nodes, 3m 30s, 238,219.30 nodes/s, 4.20 µs/node; 2% done, 2h 14m 46s to end
+2021-05-20 16:40:17,996 478787 INFO [main] ROOT - 53,088,630 nodes, 3m 40s, 241,311.95 nodes/s, 4.14 µs/node; 2% done, 2h 12m 50s to end
+2021-05-20 16:40:27,996 488787 INFO [main] ROOT - 55,420,630 nodes, 3m 50s, 240,959.26 nodes/s, 4.15 µs/node; 2% done, 2h 12m 52s to end
+2021-05-20 16:40:38,003 498794 INFO [main] ROOT - 58,447,760 nodes, 4m 0s, 243,525.23 nodes/s, 4.11 µs/node; 2% done, 2h 11m 16s to end
+2021-05-20 16:40:48,003 508794 INFO [main] ROOT - 61,753,239 nodes, 4m 10s, 247,006.04 nodes/s, 4.05 µs/node; 3% done, 2h 9m 11s to end
+2021-05-20 16:40:58,003 518794 INFO [main] ROOT - 65,255,585 nodes, 4m 20s, 250,976.26 nodes/s, 3.98 µs/node; 3% done, 2h 6m 55s to end
+2021-05-20 16:41:08,003 528794 INFO [main] ROOT - 69,323,585 nodes, 4m 30s, 256,747.36 nodes/s, 3.89 µs/node; 3% done, 2h 3m 48s to end
+2021-05-20 16:41:18,003 538794 INFO [main] ROOT - 72,392,028 nodes, 4m 40s, 258,536.49 nodes/s, 3.87 µs/node; 3% done, 2h 2m 44s to end
+2021-05-20 16:41:28,003 548794 INFO [main] ROOT - 76,064,343 nodes, 4m 50s, 262,284.51 nodes/s, 3.81 µs/node; 3% done, 2h 0m 45s to end
+2021-05-20 16:41:38,004 558795 INFO [main] ROOT - 79,271,279 nodes, 5m 0s, 264,230.55 nodes/s, 3.78 µs/node; 4% done, 1h 59m 40s to end
+2021-05-20 16:41:48,004 568795 INFO [main] ROOT - 82,001,847 nodes, 5m 10s, 264,515.26 nodes/s, 3.78 µs/node; 4% done, 1h 59m 22s to end
+2021-05-20 16:41:58,004 578795 INFO [main] ROOT - 84,920,735 nodes, 5m 20s, 265,370.66 nodes/s, 3.77 µs/node; 4% done, 1h 58m 47s to end
+2021-05-20 16:42:08,004 588795 INFO [main] ROOT - 87,134,341 nodes, 5m 30s, 264,037.06 nodes/s, 3.79 µs/node; 4% done, 1h 59m 15s to end
+2021-05-20 16:42:18,004 598795 INFO [main] ROOT - 89,401,651 nodes, 5m 40s, 262,939.85 nodes/s, 3.80 µs/node; 4% done, 1h 59m 36s to end
+2021-05-20 16:42:28,004 608795 INFO [main] ROOT - 93,471,093 nodes, 5m 50s, 267,054.16 nodes/s, 3.74 µs/node; 4% done, 1h 57m 31s to end
+2021-05-20 16:42:38,004 618795 INFO [main] ROOT - 95,717,368 nodes, 6m 0s, 265,875.67 nodes/s, 3.76 µs/node; 4% done, 1h 57m 53s to end
+2021-05-20 16:42:48,004 628795 INFO [main] ROOT - 97,939,093 nodes, 6m 10s, 264,694.53 nodes/s, 3.78 µs/node; 4% done, 1h 58m 17s to end
+2021-05-20 16:42:58,004 638795 INFO [main] ROOT - 100,171,738 nodes, 6m 20s, 263,604.29 nodes/s, 3.79 µs/node; 5% done, 1h 58m 37s to end
+2021-05-20 16:43:08,004 648795 INFO [main] ROOT - 103,488,342 nodes, 6m 30s, 265,349.28 nodes/s, 3.77 µs/node; 5% done, 1h 57m 38s to end
+2021-05-20 16:43:18,004 658795 INFO [main] ROOT - 106,769,342 nodes, 6m 40s, 266,918.02 nodes/s, 3.75 µs/node; 5% done, 1h 56m 44s to end
+2021-05-20 16:43:28,004 668795 INFO [main] ROOT - 109,685,060 nodes, 6m 50s, 267,519.32 nodes/s, 3.74 µs/node; 5% done, 1h 56m 18s to end
+2021-05-20 16:43:38,004 678795 INFO [main] ROOT - 112,375,868 nodes, 7m 0s, 267,556.49 nodes/s, 3.74 µs/node; 5% done, 1h 56m 7s to end
+2021-05-20 16:43:48,004 688795 INFO [main] ROOT - 114,753,077 nodes, 7m 10s, 266,862.66 nodes/s, 3.75 µs/node; 5% done, 1h 56m 16s to end
+2021-05-20 16:43:58,004 698795 INFO [main] ROOT - 118,440,756 nodes, 7m 20s, 269,178.64 nodes/s, 3.72 µs/node; 5% done, 1h 55m 2s to end
+2021-05-20 16:44:08,004 708795 INFO [main] ROOT - 122,633,289 nodes, 7m 30s, 272,513.58 nodes/s, 3.67 µs/node; 6% done, 1h 53m 22s to end
+2021-05-20 16:44:18,004 718795 INFO [main] ROOT - 125,883,105 nodes, 7m 40s, 273,654.16 nodes/s, 3.65 µs/node; 6% done, 1h 52m 42s to end
+2021-05-20 16:44:28,004 728795 INFO [main] ROOT - 129,747,188 nodes, 7m 50s, 276,053.15 nodes/s, 3.62 µs/node; 6% done, 1h 51m 29s to end
+2021-05-20 16:44:38,004 738795 INFO [main] ROOT - 132,531,809 nodes, 8m 0s, 276,103.33 nodes/s, 3.62 µs/node; 6% done, 1h 51m 18s to end
+2021-05-20 16:44:48,004 748795 INFO [main] ROOT - 135,322,259 nodes, 8m 10s, 276,163.37 nodes/s, 3.62 µs/node; 6% done, 1h 51m 6s to end
+2021-05-20 16:44:58,004 758795 INFO [main] ROOT - 137,147,425 nodes, 8m 20s, 274,290.46 nodes/s, 3.65 µs/node; 6% done, 1h 51m 45s to end
+2021-05-20 16:45:08,004 768795 INFO [main] ROOT - 139,028,632 nodes, 8m 30s, 272,600.88 nodes/s, 3.67 µs/node; 7% done, 1h 52m 20s to end
+2021-05-20 16:45:18,004 778795 INFO [main] ROOT - 141,658,934 nodes, 8m 40s, 272,416.84 nodes/s, 3.67 µs/node; 7% done, 1h 52m 15s to end
+2021-05-20 16:45:28,004 788795 INFO [main] ROOT - 144,144,006 nodes, 8m 50s, 271,965.72 nodes/s, 3.68 µs/node; 7% done, 1h 52m 17s to end
+2021-05-20 16:45:38,004 798795 INFO [main] ROOT - 146,148,635 nodes, 9m 0s, 270,641.61 nodes/s, 3.69 µs/node; 7% done, 1h 52m 42s to end
+2021-05-20 16:45:48,004 808795 INFO [main] ROOT - 148,733,944 nodes, 9m 10s, 270,421.42 nodes/s, 3.70 µs/node; 7% done, 1h 52m 38s to end
+2021-05-20 16:45:58,004 818795 INFO [main] ROOT - 152,284,839 nodes, 9m 20s, 271,933.33 nodes/s, 3.68 µs/node; 7% done, 1h 51m 48s to end
+2021-05-20 16:46:08,004 828795 INFO [main] ROOT - 155,243,618 nodes, 9m 30s, 272,353.40 nodes/s, 3.67 µs/node; 7% done, 1h 51m 27s to end
+2021-05-20 16:46:18,004 838795 INFO [main] ROOT - 158,251,508 nodes, 9m 40s, 272,843.66 nodes/s, 3.67 µs/node; 8% done, 1h 51m 3s to end
+2021-05-20 16:46:28,004 848795 INFO [main] ROOT - 161,915,660 nodes, 9m 50s, 274,429.60 nodes/s, 3.64 µs/node; 8% done, 1h 50m 12s to end
+2021-05-20 16:46:38,004 858795 INFO [main] ROOT - 163,827,937 nodes, 10m 0s, 273,042.92 nodes/s, 3.66 µs/node; 8% done, 1h 50m 38s to end
+2021-05-20 16:46:48,004 868795 INFO [main] ROOT - 167,618,536 nodes, 10m 10s, 274,780.88 nodes/s, 3.64 µs/node; 8% done, 1h 49m 42s to end
+2021-05-20 16:46:58,004 878795 INFO [main] ROOT - 170,128,982 nodes, 10m 20s, 274,398.04 nodes/s, 3.64 µs/node; 8% done, 1h 49m 42s to end
+2021-05-20 16:47:08,004 888795 INFO [main] ROOT - 173,191,830 nodes, 10m 30s, 274,904.18 nodes/s, 3.64 µs/node; 8% done, 1h 49m 19s to end
+2021-05-20 16:47:18,004 898795 INFO [main] ROOT - 175,503,435 nodes, 10m 40s, 274,220.69 nodes/s, 3.65 µs/node; 8% done, 1h 49m 27s to end
+2021-05-20 16:47:28,004 908795 INFO [main] ROOT - 178,398,590 nodes, 10m 50s, 274,455.99 nodes/s, 3.64 µs/node; 9% done, 1h 49m 11s to end
+2021-05-20 16:47:38,004 918795 INFO [main] ROOT - 180,264,034 nodes, 11m 0s, 273,124.01 nodes/s, 3.66 µs/node; 9% done, 1h 49m 36s to end
+2021-05-20 16:47:48,004 928795 INFO [main] ROOT - 181,321,805 nodes, 11m 10s, 270,626.33 nodes/s, 3.70 µs/node; 9% done, 1h 50m 33s to end
+2021-05-20 16:47:58,004 938795 INFO [main] ROOT - 184,080,106 nodes, 11m 20s, 270,702.85 nodes/s, 3.69 µs/node; 9% done, 1h 50m 21s to end
+2021-05-20 16:48:08,004 948795 INFO [main] ROOT - 186,169,369 nodes, 11m 30s, 269,807.55 nodes/s, 3.71 µs/node; 9% done, 1h 50m 35s to end
+2021-05-20 16:48:18,004 958795 INFO [main] ROOT - 189,365,099 nodes, 11m 40s, 270,518.48 nodes/s, 3.70 µs/node; 9% done, 1h 50m 6s to end
+2021-05-20 16:48:28,010 968801 INFO [main] ROOT - 192,508,289 nodes, 11m 50s, 271,133.09 nodes/s, 3.69 µs/node; 9% done, 1h 49m 39s to end
+2021-05-20 16:48:38,010 978801 INFO [main] ROOT - 195,248,057 nodes, 12m 0s, 271,172.58 nodes/s, 3.69 µs/node; 9% done, 1h 49m 28s to end
+2021-05-20 16:48:48,010 988801 INFO [main] ROOT - 198,508,806 nodes, 12m 10s, 271,924.66 nodes/s, 3.68 µs/node; 10% done, 1h 48m 58s to end
+2021-05-20 16:48:58,010 998801 INFO [main] ROOT - 201,544,886 nodes, 12m 20s, 272,352.80 nodes/s, 3.67 µs/node; 10% done, 1h 48m 37s to end
+2021-05-20 16:49:08,010 1008801 INFO [main] ROOT - 203,849,690 nodes, 12m 30s, 271,794.51 nodes/s, 3.68 µs/node; 10% done, 1h 48m 41s to end
+2021-05-20 16:49:18,010 1018801 INFO [main] ROOT - 206,640,806 nodes, 12m 40s, 271,890.79 nodes/s, 3.68 µs/node; 10% done, 1h 48m 29s to end
+2021-05-20 16:49:28,010 1028801 INFO [main] ROOT - 209,574,499 nodes, 12m 50s, 272,169.73 nodes/s, 3.67 µs/node; 10% done, 1h 48m 11s to end
+2021-05-20 16:49:38,010 1038801 INFO [main] ROOT - 213,320,666 nodes, 13m 0s, 273,483.12 nodes/s, 3.66 µs/node; 10% done, 1h 47m 27s to end
+2021-05-20 16:49:48,010 1048801 INFO [main] ROOT - 216,604,502 nodes, 13m 10s, 274,178.06 nodes/s, 3.65 µs/node; 10% done, 1h 46m 58s to end
+2021-05-20 16:49:58,010 1058801 INFO [main] ROOT - 219,371,777 nodes, 13m 20s, 274,209.92 nodes/s, 3.65 µs/node; 11% done, 1h 46m 47s to end
+2021-05-20 16:50:08,011 1068802 INFO [main] ROOT - 222,163,446 nodes, 13m 30s, 274,270.78 nodes/s, 3.65 µs/node; 11% done, 1h 46m 36s to end
+2021-05-20 16:50:18,011 1078802 INFO [main] ROOT - 224,979,469 nodes, 13m 40s, 274,360.19 nodes/s, 3.64 µs/node; 11% done, 1h 46m 23s to end
+2021-05-20 16:50:28,011 1088802 INFO [main] ROOT - 226,421,376 nodes, 13m 50s, 272,791.91 nodes/s, 3.67 µs/node; 11% done, 1h 46m 55s to end
+2021-05-20 16:50:38,011 1098802 INFO [main] ROOT - 230,048,140 nodes, 14m 0s, 273,861.94 nodes/s, 3.65 µs/node; 11% done, 1h 46m 17s to end
+2021-05-20 16:50:48,011 1108802 INFO [main] ROOT - 233,157,399 nodes, 14m 10s, 274,297.98 nodes/s, 3.65 µs/node; 11% done, 1h 45m 55s to end
+2021-05-20 16:50:58,011 1118802 INFO [main] ROOT - 236,016,263 nodes, 14m 20s, 274,432.73 nodes/s, 3.64 µs/node; 11% done, 1h 45m 42s to end
+2021-05-20 16:51:08,011 1128802 INFO [main] ROOT - 239,508,831 nodes, 14m 30s, 275,292.76 nodes/s, 3.63 µs/node; 12% done, 1h 45m 9s to end
+2021-05-20 16:51:18,011 1138802 INFO [main] ROOT - 243,063,902 nodes, 14m 40s, 276,204.27 nodes/s, 3.62 µs/node; 12% done, 1h 44m 35s to end
+2021-05-20 16:51:28,011 1148802 INFO [main] ROOT - 246,423,429 nodes, 14m 50s, 276,875.59 nodes/s, 3.61 µs/node; 12% done, 1h 44m 8s to end
+2021-05-20 16:51:38,011 1158802 INFO [main] ROOT - 250,189,800 nodes, 15m 0s, 277,984.03 nodes/s, 3.60 µs/node; 12% done, 1h 43m 30s to end
+2021-05-20 16:51:48,011 1168802 INFO [main] ROOT - 252,956,191 nodes, 15m 10s, 277,969.25 nodes/s, 3.60 µs/node; 12% done, 1h 43m 20s to end
+2021-05-20 16:51:58,011 1178802 INFO [main] ROOT - 256,191,488 nodes, 15m 20s, 278,464.47 nodes/s, 3.59 µs/node; 12% done, 1h 42m 57s to end
+2021-05-20 16:52:08,011 1188802 INFO [main] ROOT - 259,727,083 nodes, 15m 30s, 279,271.93 nodes/s, 3.58 µs/node; 13% done, 1h 42m 27s to end
+2021-05-20 16:52:18,011 1198802 INFO [main] ROOT - 263,015,129 nodes, 15m 40s, 279,798.86 nodes/s, 3.57 µs/node; 13% done, 1h 42m 3s to end
+2021-05-20 16:52:28,011 1208802 INFO [main] ROOT - 266,190,444 nodes, 15m 50s, 280,196.04 nodes/s, 3.57 µs/node; 13% done, 1h 41m 43s to end
+2021-05-20 16:52:38,011 1218802 INFO [main] ROOT - 269,740,239 nodes, 16m 0s, 280,975.03 nodes/s, 3.56 µs/node; 13% done, 1h 41m 14s to end
+2021-05-20 16:52:48,011 1228802 INFO [main] ROOT - 272,782,927 nodes, 16m 10s, 281,215.16 nodes/s, 3.56 µs/node; 13% done, 1h 40m 58s to end
+2021-05-20 16:52:58,011 1238802 INFO [main] ROOT - 276,249,353 nodes, 16m 20s, 281,882.78 nodes/s, 3.55 µs/node; 13% done, 1h 40m 31s to end
+2021-05-20 16:53:08,011 1248802 INFO [main] ROOT - 279,432,338 nodes, 16m 30s, 282,250.61 nodes/s, 3.54 µs/node; 14% done, 1h 40m 12s to end
+2021-05-20 16:53:18,011 1258802 INFO [main] ROOT - 281,740,451 nodes, 16m 40s, 281,736.22 nodes/s, 3.55 µs/node; 14% done, 1h 40m 15s to end
+2021-05-20 16:53:28,011 1268802 INFO [main] ROOT - 285,309,614 nodes, 16m 50s, 282,480.57 nodes/s, 3.54 µs/node; 14% done, 1h 39m 46s to end
+2021-05-20 16:53:38,011 1278802 INFO [main] ROOT - 288,224,236 nodes, 17m 0s, 282,568.62 nodes/s, 3.54 µs/node; 14% done, 1h 39m 34s to end
+2021-05-20 16:53:48,011 1288802 INFO [main] ROOT - 291,798,334 nodes, 17m 10s, 283,295.23 nodes/s, 3.53 µs/node; 14% done, 1h 39m 6s to end
+2021-05-20 16:53:58,011 1298802 INFO [main] ROOT - 295,338,112 nodes, 17m 20s, 283,974.86 nodes/s, 3.52 µs/node; 14% done, 1h 38m 40s to end
+2021-05-20 16:54:08,011 1308802 INFO [main] ROOT - 298,732,881 nodes, 17m 30s, 284,503.44 nodes/s, 3.51 µs/node; 15% done, 1h 38m 17s to end
+2021-05-20 16:54:18,011 1318802 INFO [main] ROOT - 301,984,536 nodes, 17m 40s, 284,887.04 nodes/s, 3.51 µs/node; 15% done, 1h 37m 57s to end
+2021-05-20 16:54:28,011 1328802 INFO [main] ROOT - 305,496,397 nodes, 17m 50s, 285,506.65 nodes/s, 3.50 µs/node; 15% done, 1h 37m 32s to end
+2021-05-20 16:54:38,011 1338802 INFO [main] ROOT - 308,731,449 nodes, 18m 0s, 285,858.48 nodes/s, 3.50 µs/node; 15% done, 1h 37m 14s to end
+2021-05-20 16:54:48,011 1348802 INFO [main] ROOT - 311,713,848 nodes, 18m 10s, 285,972.07 nodes/s, 3.50 µs/node; 15% done, 1h 37m 1s to end
+2021-05-20 16:54:58,011 1358802 INFO [main] ROOT - 315,000,248 nodes, 18m 20s, 286,359.96 nodes/s, 3.49 µs/node; 15% done, 1h 36m 42s to end
+2021-05-20 16:55:08,011 1368802 INFO [main] ROOT - 318,049,423 nodes, 18m 30s, 286,527.14 nodes/s, 3.49 µs/node; 16% done, 1h 36m 28s to end
+2021-05-20 16:55:18,011 1378802 INFO [main] ROOT - 320,838,933 nodes, 18m 40s, 286,459.50 nodes/s, 3.49 µs/node; 16% done, 1h 36m 19s to end
+2021-05-20 16:55:28,011 1388802 INFO [main] ROOT - 324,370,171 nodes, 18m 50s, 287,049.44 nodes/s, 3.48 µs/node; 16% done, 1h 35m 55s to end
+2021-05-20 16:55:38,011 1398802 INFO [main] ROOT - 327,490,933 nodes, 19m 0s, 287,268.97 nodes/s, 3.48 µs/node; 16% done, 1h 35m 40s to end
+2021-05-20 16:55:48,011 1408802 INFO [main] ROOT - 330,884,288 nodes, 19m 10s, 287,721.71 nodes/s, 3.48 µs/node; 16% done, 1h 35m 19s to end
+2021-05-20 16:55:58,011 1418802 INFO [main] ROOT - 333,733,012 nodes, 19m 20s, 287,697.15 nodes/s, 3.48 µs/node; 16% done, 1h 35m 9s to end
+2021-05-20 16:56:08,011 1428802 INFO [main] ROOT - 336,631,464 nodes, 19m 30s, 287,715.51 nodes/s, 3.48 µs/node; 17% done, 1h 34m 59s to end
+2021-05-20 16:56:18,011 1438802 INFO [main] ROOT - 339,562,812 nodes, 19m 40s, 287,761.44 nodes/s, 3.48 µs/node; 17% done, 1h 34m 48s to end
+2021-05-20 16:56:28,011 1448802 INFO [main] ROOT - 342,723,763 nodes, 19m 50s, 287,999.53 nodes/s, 3.47 µs/node; 17% done, 1h 34m 32s to end
+2021-05-20 16:56:38,011 1458802 INFO [main] ROOT - 345,898,683 nodes, 20m 0s, 288,245.30 nodes/s, 3.47 µs/node; 17% done, 1h 34m 16s to end
+2021-05-20 16:56:48,011 1468802 INFO [main] ROOT - 349,088,305 nodes, 20m 10s, 288,499.15 nodes/s, 3.47 µs/node; 17% done, 1h 34m 0s to end
+2021-05-20 16:56:58,011 1478802 INFO [main] ROOT - 352,365,455 nodes, 20m 20s, 288,820.59 nodes/s, 3.46 µs/node; 17% done, 1h 33m 43s to end
+2021-05-20 16:57:08,011 1488802 INFO [main] ROOT - 355,880,672 nodes, 20m 30s, 289,330.35 nodes/s, 3.46 µs/node; 18% done, 1h 33m 21s to end
+2021-05-20 16:57:18,011 1498802 INFO [main] ROOT - 358,706,679 nodes, 20m 40s, 289,276.08 nodes/s, 3.46 µs/node; 18% done, 1h 33m 12s to end
+2021-05-20 16:57:28,011 1508802 INFO [main] ROOT - 362,413,606 nodes, 20m 50s, 289,927.41 nodes/s, 3.45 µs/node; 18% done, 1h 32m 47s to end
+2021-05-20 16:57:38,011 1518802 INFO [main] ROOT - 365,884,170 nodes, 21m 0s, 290,380.80 nodes/s, 3.44 µs/node; 18% done, 1h 32m 26s to end
+2021-05-20 16:57:48,011 1528802 INFO [main] ROOT - 368,987,751 nodes, 21m 10s, 290,538.10 nodes/s, 3.44 µs/node; 18% done, 1h 32m 12s to end
+2021-05-20 16:57:58,011 1538802 INFO [main] ROOT - 372,047,488 nodes, 21m 20s, 290,658.69 nodes/s, 3.44 µs/node; 18% done, 1h 31m 59s to end
+2021-05-20 16:58:08,011 1548802 INFO [main] ROOT - 375,140,107 nodes, 21m 30s, 290,802.90 nodes/s, 3.44 µs/node; 18% done, 1h 31m 46s to end
+2021-05-20 16:58:18,011 1558802 INFO [main] ROOT - 378,461,221 nodes, 21m 40s, 291,120.66 nodes/s, 3.44 µs/node; 19% done, 1h 31m 29s to end
+2021-05-20 16:58:28,011 1568802 INFO [main] ROOT - 381,715,815 nodes, 21m 50s, 291,382.78 nodes/s, 3.43 µs/node; 19% done, 1h 31m 13s to end
+2021-05-20 16:58:38,011 1578802 INFO [main] ROOT - 385,032,050 nodes, 22m 0s, 291,687.63 nodes/s, 3.43 µs/node; 19% done, 1h 30m 55s to end
+2021-05-20 16:58:48,011 1588802 INFO [main] ROOT - 388,206,003 nodes, 22m 10s, 291,880.92 nodes/s, 3.43 µs/node; 19% done, 1h 30m 41s to end
+2021-05-20 16:58:58,011 1598802 INFO [main] ROOT - 391,298,929 nodes, 22m 20s, 292,010.86 nodes/s, 3.42 µs/node; 19% done, 1h 30m 28s to end
+2021-05-20 16:59:08,011 1608802 INFO [main] ROOT - 394,835,207 nodes, 22m 30s, 292,467.27 nodes/s, 3.42 µs/node; 19% done, 1h 30m 7s to end
+2021-05-20 16:59:18,011 1618802 INFO [main] ROOT - 398,235,049 nodes, 22m 40s, 292,816.66 nodes/s, 3.42 µs/node; 20% done, 1h 29m 49s to end
+2021-05-20 16:59:28,011 1628802 INFO [main] ROOT - 400,474,307 nodes, 22m 50s, 292,313.81 nodes/s, 3.42 µs/node; 20% done, 1h 29m 51s to end
+2021-05-20 16:59:38,012 1638803 INFO [main] ROOT - 400,566,488 nodes, 23m 0s, 290,262.21 nodes/s, 3.45 µs/node; 20% done, 1h 30m 29s to end
+2021-05-20 16:59:48,013 1648804 INFO [main] ROOT - 400,677,726 nodes, 23m 10s, 288,253.83 nodes/s, 3.47 µs/node; 20% done, 1h 31m 6s to end
+2021-05-20 16:59:58,013 1658804 INFO [main] ROOT - 402,803,457 nodes, 23m 20s, 287,713.26 nodes/s, 3.48 µs/node; 20% done, 1h 31m 9s to end
+2021-05-20 17:00:08,013 1668804 INFO [main] ROOT - 406,047,187 nodes, 23m 30s, 287,973.26 nodes/s, 3.47 µs/node; 20% done, 1h 30m 53s to end
+2021-05-20 17:00:18,013 1678804 INFO [main] ROOT - 409,185,560 nodes, 23m 40s, 288,155.40 nodes/s, 3.47 µs/node; 20% done, 1h 30m 39s to end
+2021-05-20 17:00:28,013 1688804 INFO [main] ROOT - 412,285,005 nodes, 23m 50s, 288,307.76 nodes/s, 3.47 µs/node; 20% done, 1h 30m 25s to end
+2021-05-20 17:00:38,013 1698804 INFO [main] ROOT - 415,583,795 nodes, 24m 0s, 288,596.45 nodes/s, 3.47 µs/node; 21% done, 1h 30m 8s to end
+2021-05-20 17:00:48,013 1708804 INFO [main] ROOT - 418,916,093 nodes, 24m 10s, 288,904.26 nodes/s, 3.46 µs/node; 21% done, 1h 29m 51s to end
+2021-05-20 17:00:58,013 1718804 INFO [main] ROOT - 422,396,999 nodes, 24m 20s, 289,309.64 nodes/s, 3.46 µs/node; 21% done, 1h 29m 31s to end
+2021-05-20 17:01:08,013 1728804 INFO [main] ROOT - 425,398,529 nodes, 24m 30s, 289,383.41 nodes/s, 3.46 µs/node; 21% done, 1h 29m 19s to end
+2021-05-20 17:01:18,013 1738804 INFO [main] ROOT - 428,793,930 nodes, 24m 40s, 289,722.30 nodes/s, 3.45 µs/node; 21% done, 1h 29m 1s to end
+2021-05-20 17:01:28,013 1748804 INFO [main] ROOT - 431,988,575 nodes, 24m 50s, 289,921.91 nodes/s, 3.45 µs/node; 21% done, 1h 28m 47s to end
+2021-05-20 17:01:38,013 1758804 INFO [main] ROOT - 435,345,649 nodes, 25m 0s, 290,227.14 nodes/s, 3.45 µs/node; 22% done, 1h 28m 30s to end
+2021-05-20 17:01:48,013 1768804 INFO [main] ROOT - 438,748,454 nodes, 25m 10s, 290,558.62 nodes/s, 3.44 µs/node; 22% done, 1h 28m 12s to end
+2021-05-20 17:01:58,013 1778804 INFO [main] ROOT - 442,089,438 nodes, 25m 20s, 290,845.06 nodes/s, 3.44 µs/node; 22% done, 1h 27m 55s to end
+2021-05-20 17:02:08,013 1788804 INFO [main] ROOT - 445,332,582 nodes, 25m 30s, 291,063.81 nodes/s, 3.44 µs/node; 22% done, 1h 27m 40s to end
+2021-05-20 17:02:18,013 1798804 INFO [main] ROOT - 448,668,863 nodes, 25m 40s, 291,340.20 nodes/s, 3.43 µs/node; 22% done, 1h 27m 24s to end
+2021-05-20 17:02:28,013 1808804 INFO [main] ROOT - 452,071,040 nodes, 25m 50s, 291,655.54 nodes/s, 3.43 µs/node; 22% done, 1h 27m 6s to end
+2021-05-20 17:02:38,013 1818804 INFO [main] ROOT - 455,378,466 nodes, 26m 0s, 291,906.09 nodes/s, 3.43 µs/node; 23% done, 1h 26m 50s to end
+2021-05-20 17:02:48,013 1828804 INFO [main] ROOT - 458,629,380 nodes, 26m 10s, 292,117.46 nodes/s, 3.42 µs/node; 23% done, 1h 26m 36s to end
+2021-05-20 17:02:58,013 1838804 INFO [main] ROOT - 461,991,019 nodes, 26m 20s, 292,396.23 nodes/s, 3.42 µs/node; 23% done, 1h 26m 19s to end
+2021-05-20 17:03:08,013 1848804 INFO [main] ROOT - 465,237,914 nodes, 26m 30s, 292,599.33 nodes/s, 3.42 µs/node; 23% done, 1h 26m 4s to end
+2021-05-20 17:03:18,013 1858804 INFO [main] ROOT - 468,322,837 nodes, 26m 40s, 292,698.66 nodes/s, 3.42 µs/node; 23% done, 1h 25m 52s to end
+2021-05-20 17:03:28,023 1868814 INFO [main] ROOT - 471,515,753 nodes, 26m 50s, 292,862.02 nodes/s, 3.41 µs/node; 23% done, 1h 25m 38s to end
+2021-05-20 17:03:38,023 1878814 INFO [main] ROOT - 474,708,865 nodes, 27m 0s, 293,025.28 nodes/s, 3.41 µs/node; 24% done, 1h 25m 25s to end
+2021-05-20 17:03:48,023 1888814 INFO [main] ROOT - 477,930,728 nodes, 27m 10s, 293,204.18 nodes/s, 3.41 µs/node; 24% done, 1h 25m 10s to end
+2021-05-20 17:03:58,023 1898814 INFO [main] ROOT - 481,286,454 nodes, 27m 20s, 293,462.52 nodes/s, 3.41 µs/node; 24% done, 1h 24m 54s to end
+2021-05-20 17:04:08,023 1908814 INFO [main] ROOT - 484,503,091 nodes, 27m 30s, 293,633.43 nodes/s, 3.41 µs/node; 24% done, 1h 24m 41s to end
+2021-05-20 17:04:18,023 1918814 INFO [main] ROOT - 487,874,056 nodes, 27m 40s, 293,895.25 nodes/s, 3.40 µs/node; 24% done, 1h 24m 25s to end
+2021-05-20 17:04:28,023 1928814 INFO [main] ROOT - 491,338,002 nodes, 27m 50s, 294,209.62 nodes/s, 3.40 µs/node; 24% done, 1h 24m 7s to end
+2021-05-20 17:04:38,023 1938814 INFO [main] ROOT - 494,896,540 nodes, 28m 0s, 294,576.54 nodes/s, 3.39 µs/node; 25% done, 1h 23m 49s to end
+2021-05-20 17:04:48,023 1948814 INFO [main] ROOT - 498,322,426 nodes, 28m 10s, 294,860.63 nodes/s, 3.39 µs/node; 25% done, 1h 23m 33s to end
+2021-05-20 17:04:58,023 1958814 INFO [main] ROOT - 501,662,730 nodes, 28m 20s, 295,091.04 nodes/s, 3.39 µs/node; 25% done, 1h 23m 17s to end
+2021-05-20 17:05:08,023 1968814 INFO [main] ROOT - 505,011,184 nodes, 28m 30s, 295,323.51 nodes/s, 3.39 µs/node; 25% done, 1h 23m 2s to end
+2021-05-20 17:05:18,023 1978814 INFO [main] ROOT - 508,368,657 nodes, 28m 40s, 295,558.53 nodes/s, 3.38 µs/node; 25% done, 1h 22m 47s to end
+2021-05-20 17:05:28,023 1988814 INFO [main] ROOT - 511,780,277 nodes, 28m 50s, 295,822.13 nodes/s, 3.38 µs/node; 25% done, 1h 22m 31s to end
+2021-05-20 17:05:38,023 1998814 INFO [main] ROOT - 514,139,648 nodes, 29m 0s, 295,477.97 nodes/s, 3.38 µs/node; 26% done, 1h 22m 29s to end
+2021-05-20 17:05:48,023 2008814 INFO [main] ROOT - 517,269,017 nodes, 29m 10s, 295,577.74 nodes/s, 3.38 µs/node; 26% done, 1h 22m 16s to end
+2021-05-20 17:05:58,023 2018814 INFO [main] ROOT - 520,564,042 nodes, 29m 20s, 295,770.49 nodes/s, 3.38 µs/node; 26% done, 1h 22m 2s to end
+2021-05-20 17:06:08,023 2028814 INFO [main] ROOT - 523,338,485 nodes, 29m 30s, 295,666.95 nodes/s, 3.38 µs/node; 26% done, 1h 21m 54s to end
+2021-05-20 17:06:18,023 2038814 INFO [main] ROOT - 526,469,582 nodes, 29m 40s, 295,764.94 nodes/s, 3.38 µs/node; 26% done, 1h 21m 42s to end
+2021-05-20 17:06:28,023 2048814 INFO [main] ROOT - 529,838,034 nodes, 29m 50s, 295,994.44 nodes/s, 3.38 µs/node; 26% done, 1h 21m 27s to end
+2021-05-20 17:06:38,023 2058814 INFO [main] ROOT - 533,139,894 nodes, 30m 0s, 296,184.39 nodes/s, 3.38 µs/node; 26% done, 1h 21m 13s to end
+2021-05-20 17:06:48,023 2068814 INFO [main] ROOT - 536,453,142 nodes, 30m 10s, 296,378.53 nodes/s, 3.37 µs/node; 27% done, 1h 20m 58s to end
+2021-05-20 17:06:58,023 2078814 INFO [main] ROOT - 539,750,817 nodes, 30m 20s, 296,561.98 nodes/s, 3.37 µs/node; 27% done, 1h 20m 44s to end
+2021-05-20 17:07:08,023 2088814 INFO [main] ROOT - 542,980,619 nodes, 30m 30s, 296,706.34 nodes/s, 3.37 µs/node; 27% done, 1h 20m 31s to end
+2021-05-20 17:07:18,023 2098814 INFO [main] ROOT - 546,463,594 nodes, 30m 40s, 296,986.73 nodes/s, 3.37 µs/node; 27% done, 1h 20m 15s to end
+2021-05-20 17:07:28,023 2108814 INFO [main] ROOT - 549,900,441 nodes, 30m 50s, 297,239.14 nodes/s, 3.36 µs/node; 27% done, 1h 19m 59s to end
+2021-05-20 17:07:38,023 2118814 INFO [main] ROOT - 553,202,714 nodes, 31m 0s, 297,416.50 nodes/s, 3.36 µs/node; 27% done, 1h 19m 45s to end
+2021-05-20 17:07:48,023 2128814 INFO [main] ROOT - 556,581,222 nodes, 31m 10s, 297,632.72 nodes/s, 3.36 µs/node; 28% done, 1h 19m 30s to end
+2021-05-20 17:07:58,023 2138814 INFO [main] ROOT - 559,891,658 nodes, 31m 20s, 297,810.43 nodes/s, 3.36 µs/node; 28% done, 1h 19m 16s to end
+2021-05-20 17:08:08,023 2148814 INFO [main] ROOT - 563,190,096 nodes, 31m 30s, 297,979.92 nodes/s, 3.36 µs/node; 28% done, 1h 19m 2s to end
+2021-05-20 17:08:18,023 2158814 INFO [main] ROOT - 566,500,946 nodes, 31m 40s, 298,154.16 nodes/s, 3.35 µs/node; 28% done, 1h 18m 49s to end
+2021-05-20 17:08:28,023 2168814 INFO [main] ROOT - 569,995,249 nodes, 31m 50s, 298,422.61 nodes/s, 3.35 µs/node; 28% done, 1h 18m 33s to end
+2021-05-20 17:08:38,023 2178814 INFO [main] ROOT - 573,358,109 nodes, 32m 0s, 298,619.82 nodes/s, 3.35 µs/node; 29% done, 1h 18m 18s to end
+2021-05-20 17:08:48,023 2188814 INFO [main] ROOT - 576,766,597 nodes, 32m 10s, 298,838.62 nodes/s, 3.35 µs/node; 29% done, 1h 18m 3s to end
+2021-05-20 17:08:58,023 2198814 INFO [main] ROOT - 580,152,231 nodes, 32m 20s, 299,043.38 nodes/s, 3.34 µs/node; 29% done, 1h 17m 49s to end
+2021-05-20 17:09:08,023 2208814 INFO [main] ROOT - 583,498,324 nodes, 32m 30s, 299,225.77 nodes/s, 3.34 µs/node; 29% done, 1h 17m 35s to end
+2021-05-20 17:09:18,023 2218814 INFO [main] ROOT - 586,866,051 nodes, 32m 40s, 299,417.33 nodes/s, 3.34 µs/node; 29% done, 1h 17m 21s to end
+2021-05-20 17:09:28,023 2228814 INFO [main] ROOT - 590,296,056 nodes, 32m 50s, 299,638.56 nodes/s, 3.34 µs/node; 29% done, 1h 17m 6s to end
+2021-05-20 17:09:38,023 2238814 INFO [main] ROOT - 593,749,630 nodes, 33m 0s, 299,869.46 nodes/s, 3.33 µs/node; 30% done, 1h 16m 51s to end
+2021-05-20 17:09:48,023 2248814 INFO [main] ROOT - 597,250,066 nodes, 33m 10s, 300,121.59 nodes/s, 3.33 µs/node; 30% done, 1h 16m 35s to end
+2021-05-20 17:09:58,023 2258814 INFO [main] ROOT - 600,680,625 nodes, 33m 20s, 300,336.26 nodes/s, 3.33 µs/node; 30% done, 1h 16m 20s to end
+2021-05-20 17:10:08,023 2268814 INFO [main] ROOT - 604,185,632 nodes, 33m 30s, 300,585.83 nodes/s, 3.33 µs/node; 30% done, 1h 16m 5s to end
+2021-05-20 17:10:18,036 2278827 INFO [main] ROOT - 607,728,871 nodes, 33m 40s, 300,849.92 nodes/s, 3.32 µs/node; 30% done, 1h 15m 49s to end
+2021-05-20 17:10:28,036 2288827 INFO [main] ROOT - 611,195,980 nodes, 33m 50s, 301,075.83 nodes/s, 3.32 µs/node; 30% done, 1h 15m 34s to end
+2021-05-20 17:10:38,036 2298827 INFO [main] ROOT - 614,602,294 nodes, 34m 0s, 301,269.73 nodes/s, 3.32 µs/node; 31% done, 1h 15m 20s to end
+2021-05-20 17:10:48,036 2308827 INFO [main] ROOT - 618,033,577 nodes, 34m 10s, 301,473.91 nodes/s, 3.32 µs/node; 31% done, 1h 15m 6s to end
+2021-05-20 17:10:58,036 2318827 INFO [main] ROOT - 621,483,389 nodes, 34m 20s, 301,685.11 nodes/s, 3.31 µs/node; 31% done, 1h 14m 51s to end
+2021-05-20 17:11:08,036 2328827 INFO [main] ROOT - 625,042,294 nodes, 34m 30s, 301,946.96 nodes/s, 3.31 µs/node; 31% done, 1h 14m 35s to end
+2021-05-20 17:11:18,036 2338827 INFO [main] ROOT - 628,579,332 nodes, 34m 40s, 302,195.79 nodes/s, 3.31 µs/node; 31% done, 1h 14m 20s to end
+2021-05-20 17:11:28,036 2348827 INFO [main] ROOT - 632,029,094 nodes, 34m 50s, 302,400.48 nodes/s, 3.31 µs/node; 31% done, 1h 14m 5s to end
+2021-05-20 17:11:38,036 2358827 INFO [main] ROOT - 635,621,224 nodes, 35m 0s, 302,671.01 nodes/s, 3.30 µs/node; 32% done, 1h 13m 50s to end
+2021-05-20 17:11:48,036 2368827 INFO [main] ROOT - 639,011,418 nodes, 35m 10s, 302,843.27 nodes/s, 3.30 µs/node; 32% done, 1h 13m 36s to end
+2021-05-20 17:11:58,036 2378827 INFO [main] ROOT - 642,551,337 nodes, 35m 20s, 303,084.53 nodes/s, 3.30 µs/node; 32% done, 1h 13m 21s to end
+2021-05-20 17:12:08,036 2388827 INFO [main] ROOT - 646,123,796 nodes, 35m 30s, 303,338.81 nodes/s, 3.30 µs/node; 32% done, 1h 13m 5s to end
+2021-05-20 17:12:18,036 2398827 INFO [main] ROOT - 649,598,375 nodes, 35m 40s, 303,544.97 nodes/s, 3.29 µs/node; 32% done, 1h 12m 51s to end
+2021-05-20 17:12:28,036 2408827 INFO [main] ROOT - 653,097,768 nodes, 35m 50s, 303,760.75 nodes/s, 3.29 µs/node; 33% done, 1h 12m 36s to end
+2021-05-20 17:12:38,036 2418827 INFO [main] ROOT - 656,604,420 nodes, 36m 0s, 303,977.90 nodes/s, 3.29 µs/node; 33% done, 1h 12m 21s to end
+2021-05-20 17:12:48,036 2428827 INFO [main] ROOT - 660,054,342 nodes, 36m 10s, 304,166.90 nodes/s, 3.29 µs/node; 33% done, 1h 12m 7s to end
+2021-05-20 17:12:58,036 2438827 INFO [main] ROOT - 663,541,441 nodes, 36m 20s, 304,371.22 nodes/s, 3.29 µs/node; 33% done, 1h 11m 53s to end
+2021-05-20 17:13:08,036 2448827 INFO [main] ROOT - 667,015,593 nodes, 36m 30s, 304,567.77 nodes/s, 3.28 µs/node; 33% done, 1h 11m 39s to end
+2021-05-20 17:13:18,036 2458827 INFO [main] ROOT - 670,550,769 nodes, 36m 40s, 304,790.26 nodes/s, 3.28 µs/node; 33% done, 1h 11m 24s to end
+2021-05-20 17:13:28,036 2468827 INFO [main] ROOT - 674,036,808 nodes, 36m 50s, 304,988.51 nodes/s, 3.28 µs/node; 34% done, 1h 11m 10s to end
+2021-05-20 17:13:38,036 2478827 INFO [main] ROOT - 677,594,332 nodes, 37m 0s, 305,217.17 nodes/s, 3.28 µs/node; 34% done, 1h 10m 55s to end
+2021-05-20 17:13:48,036 2488827 INFO [main] ROOT - 681,133,025 nodes, 37m 10s, 305,435.34 nodes/s, 3.27 µs/node; 34% done, 1h 10m 40s to end
+2021-05-20 17:13:58,036 2498827 INFO [main] ROOT - 684,633,045 nodes, 37m 20s, 305,634.29 nodes/s, 3.27 µs/node; 34% done, 1h 10m 26s to end
+2021-05-20 17:14:08,036 2508827 INFO [main] ROOT - 688,201,551 nodes, 37m 30s, 305,861.92 nodes/s, 3.27 µs/node; 34% done, 1h 10m 11s to end
+2021-05-20 17:14:18,036 2518827 INFO [main] ROOT - 691,747,068 nodes, 37m 40s, 306,077.36 nodes/s, 3.27 µs/node; 34% done, 1h 9m 57s to end
+2021-05-20 17:14:28,036 2528827 INFO [main] ROOT - 695,268,722 nodes, 37m 50s, 306,280.38 nodes/s, 3.26 µs/node; 35% done, 1h 9m 43s to end
+2021-05-20 17:14:38,036 2538827 INFO [main] ROOT - 698,902,738 nodes, 38m 0s, 306,530.91 nodes/s, 3.26 µs/node; 35% done, 1h 9m 27s to end
+2021-05-20 17:14:48,036 2548827 INFO [main] ROOT - 702,336,639 nodes, 38m 10s, 306,691.87 nodes/s, 3.26 µs/node; 35% done, 1h 9m 14s to end
+2021-05-20 17:14:58,036 2558827 INFO [main] ROOT - 705,798,672 nodes, 38m 20s, 306,863.65 nodes/s, 3.26 µs/node; 35% done, 1h 9m 0s to end
+2021-05-20 17:15:08,036 2568827 INFO [main] ROOT - 709,301,728 nodes, 38m 30s, 307,051.71 nodes/s, 3.26 µs/node; 35% done, 1h 8m 46s to end
+2021-05-20 17:15:18,036 2578827 INFO [main] ROOT - 712,798,419 nodes, 38m 40s, 307,235.40 nodes/s, 3.25 µs/node; 36% done, 1h 8m 33s to end
+2021-05-20 17:15:28,036 2588827 INFO [main] ROOT - 716,277,397 nodes, 38m 50s, 307,409.91 nodes/s, 3.25 µs/node; 36% done, 1h 8m 19s to end
+2021-05-20 17:15:38,036 2598827 INFO [main] ROOT - 719,867,129 nodes, 39m 0s, 307,630.27 nodes/s, 3.25 µs/node; 36% done, 1h 8m 4s to end
+2021-05-20 17:15:48,036 2608827 INFO [main] ROOT - 723,377,364 nodes, 39m 10s, 307,814.92 nodes/s, 3.25 µs/node; 36% done, 1h 7m 50s to end
+2021-05-20 17:15:58,036 2618827 INFO [main] ROOT - 726,951,920 nodes, 39m 20s, 308,025.25 nodes/s, 3.25 µs/node; 36% done, 1h 7m 36s to end
+2021-05-20 17:16:08,036 2628827 INFO [main] ROOT - 730,529,666 nodes, 39m 30s, 308,235.16 nodes/s, 3.24 µs/node; 36% done, 1h 7m 22s to end
+2021-05-20 17:16:18,036 2638827 INFO [main] ROOT - 734,072,713 nodes, 39m 40s, 308,428.73 nodes/s, 3.24 µs/node; 37% done, 1h 7m 8s to end
+2021-05-20 17:16:28,036 2648827 INFO [main] ROOT - 737,593,960 nodes, 39m 50s, 308,611.55 nodes/s, 3.24 µs/node; 37% done, 1h 6m 54s to end
+2021-05-20 17:16:38,036 2658827 INFO [main] ROOT - 741,191,654 nodes, 40m 0s, 308,824.71 nodes/s, 3.24 µs/node; 37% done, 1h 6m 39s to end
+2021-05-20 17:16:48,036 2668827 INFO [main] ROOT - 744,835,030 nodes, 40m 10s, 309,055.05 nodes/s, 3.24 µs/node; 37% done, 1h 6m 25s to end
+2021-05-20 17:16:58,036 2678827 INFO [main] ROOT - 748,432,878 nodes, 40m 20s, 309,264.67 nodes/s, 3.23 µs/node; 37% done, 1h 6m 10s to end
+2021-05-20 17:17:08,036 2688827 INFO [main] ROOT - 752,010,026 nodes, 40m 30s, 309,464.05 nodes/s, 3.23 µs/node; 38% done, 1h 5m 56s to end
+2021-05-20 17:17:18,036 2698827 INFO [main] ROOT - 755,606,894 nodes, 40m 40s, 309,669.88 nodes/s, 3.23 µs/node; 38% done, 1h 5m 42s to end
+2021-05-20 17:17:28,036 2708827 INFO [main] ROOT - 759,136,785 nodes, 40m 50s, 309,846.69 nodes/s, 3.23 µs/node; 38% done, 1h 5m 28s to end
+2021-05-20 17:17:38,036 2718827 INFO [main] ROOT - 762,722,960 nodes, 41m 0s, 310,044.94 nodes/s, 3.23 µs/node; 38% done, 1h 5m 14s to end
+2021-05-20 17:17:48,036 2728827 INFO [main] ROOT - 766,191,272 nodes, 41m 10s, 310,193.87 nodes/s, 3.22 µs/node; 38% done, 1h 5m 1s to end
+2021-05-20 17:17:58,036 2738827 INFO [main] ROOT - 769,756,411 nodes, 41m 20s, 310,380.64 nodes/s, 3.22 µs/node; 38% done, 1h 4m 47s to end
+2021-05-20 17:18:08,036 2748827 INFO [main] ROOT - 773,363,242 nodes, 41m 30s, 310,582.66 nodes/s, 3.22 µs/node; 39% done, 1h 4m 33s to end
+2021-05-20 17:18:18,036 2758827 INFO [main] ROOT - 776,976,664 nodes, 41m 40s, 310,785.69 nodes/s, 3.22 µs/node; 39% done, 1h 4m 19s to end
+2021-05-20 17:18:28,036 2768827 INFO [main] ROOT - 780,564,634 nodes, 41m 50s, 310,976.97 nodes/s, 3.22 µs/node; 39% done, 1h 4m 5s to end
+2021-05-20 17:18:38,036 2778827 INFO [main] ROOT - 784,214,103 nodes, 42m 0s, 311,191.13 nodes/s, 3.21 µs/node; 39% done, 1h 3m 51s to end
+2021-05-20 17:18:48,036 2788827 INFO [main] ROOT - 787,866,798 nodes, 42m 10s, 311,404.88 nodes/s, 3.21 µs/node; 39% done, 1h 3m 36s to end
+2021-05-20 17:18:58,036 2798827 INFO [main] ROOT - 791,467,316 nodes, 42m 20s, 311,596.40 nodes/s, 3.21 µs/node; 40% done, 1h 3m 23s to end
+2021-05-20 17:19:08,036 2808827 INFO [main] ROOT - 795,092,434 nodes, 42m 30s, 311,796.06 nodes/s, 3.21 µs/node; 40% done, 1h 3m 8s to end
+2021-05-20 17:19:18,036 2818827 INFO [main] ROOT - 798,679,796 nodes, 42m 40s, 311,979.42 nodes/s, 3.21 µs/node; 40% done, 1h 2m 55s to end
+2021-05-20 17:19:28,036 2828827 INFO [main] ROOT - 802,299,598 nodes, 42m 50s, 312,173.97 nodes/s, 3.20 µs/node; 40% done, 1h 2m 41s to end
+2021-05-20 17:19:38,036 2838827 INFO [main] ROOT - 805,930,647 nodes, 43m 0s, 312,371.38 nodes/s, 3.20 µs/node; 40% done, 1h 2m 27s to end
+2021-05-20 17:19:48,036 2848827 INFO [main] ROOT - 809,558,784 nodes, 43m 10s, 312,566.13 nodes/s, 3.20 µs/node; 40% done, 1h 2m 13s to end
+2021-05-20 17:19:58,036 2858827 INFO [main] ROOT - 813,185,485 nodes, 43m 20s, 312,758.84 nodes/s, 3.20 µs/node; 41% done, 1h 1m 59s to end
+2021-05-20 17:20:08,036 2868827 INFO [main] ROOT - 816,731,899 nodes, 43m 30s, 312,919.30 nodes/s, 3.20 µs/node; 41% done, 1h 1m 46s to end
+2021-05-20 17:20:18,036 2878827 INFO [main] ROOT - 820,305,809 nodes, 43m 40s, 313,089.04 nodes/s, 3.19 µs/node; 41% done, 1h 1m 32s to end
+2021-05-20 17:20:28,036 2888827 INFO [main] ROOT - 823,936,837 nodes, 43m 50s, 313,279.20 nodes/s, 3.19 µs/node; 41% done, 1h 1m 18s to end
+2021-05-20 17:20:38,036 2898827 INFO [main] ROOT - 827,601,177 nodes, 44m 0s, 313,480.54 nodes/s, 3.19 µs/node; 41% done, 1h 1m 4s to end
+2021-05-20 17:20:48,036 2908827 INFO [main] ROOT - 831,263,917 nodes, 44m 10s, 313,679.76 nodes/s, 3.19 µs/node; 42% done, 1h 0m 50s to end
+2021-05-20 17:20:58,036 2918827 INFO [main] ROOT - 834,849,183 nodes, 44m 20s, 313,848.36 nodes/s, 3.19 µs/node; 42% done, 1h 0m 37s to end
+2021-05-20 17:21:08,036 2928827 INFO [main] ROOT - 838,463,871 nodes, 44m 30s, 314,026.71 nodes/s, 3.18 µs/node; 42% done, 1h 0m 23s to end
+2021-05-20 17:21:18,036 2938827 INFO [main] ROOT - 842,070,266 nodes, 44m 40s, 314,200.63 nodes/s, 3.18 µs/node; 42% done, 1h 0m 10s to end
+2021-05-20 17:21:28,036 2948827 INFO [main] ROOT - 845,730,467 nodes, 44m 50s, 314,393.27 nodes/s, 3.18 µs/node; 42% done, 59m 56s to end
+2021-05-20 17:21:38,036 2958827 INFO [main] ROOT - 849,429,388 nodes, 45m 0s, 314,598.82 nodes/s, 3.18 µs/node; 42% done, 59m 42s to end
+2021-05-20 17:21:48,036 2968827 INFO [main] ROOT - 853,080,540 nodes, 45m 10s, 314,785.22 nodes/s, 3.18 µs/node; 43% done, 59m 28s to end
+2021-05-20 17:21:58,036 2978827 INFO [main] ROOT - 856,680,838 nodes, 45m 20s, 314,951.56 nodes/s, 3.18 µs/node; 43% done, 59m 15s to end
+2021-05-20 17:22:08,036 2988827 INFO [main] ROOT - 860,177,683 nodes, 45m 30s, 315,078.78 nodes/s, 3.17 µs/node; 43% done, 59m 2s to end
+2021-05-20 17:22:18,036 2998827 INFO [main] ROOT - 863,760,438 nodes, 45m 40s, 315,236.43 nodes/s, 3.17 µs/node; 43% done, 58m 49s to end
+2021-05-20 17:22:28,036 3008827 INFO [main] ROOT - 867,381,903 nodes, 45m 50s, 315,407.01 nodes/s, 3.17 µs/node; 43% done, 58m 36s to end
+2021-05-20 17:22:38,036 3018827 INFO [main] ROOT - 871,013,150 nodes, 46m 0s, 315,579.90 nodes/s, 3.17 µs/node; 44% done, 58m 22s to end
+2021-05-20 17:22:48,036 3028827 INFO [main] ROOT - 874,609,069 nodes, 46m 10s, 315,738.79 nodes/s, 3.17 µs/node; 44% done, 58m 9s to end
+2021-05-20 17:22:58,036 3038827 INFO [main] ROOT - 878,252,205 nodes, 46m 20s, 315,913.51 nodes/s, 3.17 µs/node; 44% done, 57m 56s to end
+2021-05-20 17:23:08,036 3048827 INFO [main] ROOT - 881,847,548 nodes, 46m 30s, 316,069.86 nodes/s, 3.16 µs/node; 44% done, 57m 43s to end
+2021-05-20 17:23:18,036 3058827 INFO [main] ROOT - 885,437,764 nodes, 46m 40s, 316,223.26 nodes/s, 3.16 µs/node; 44% done, 57m 30s to end
+2021-05-20 17:23:28,036 3068827 INFO [main] ROOT - 889,090,583 nodes, 46m 50s, 316,397.84 nodes/s, 3.16 µs/node; 44% done, 57m 16s to end
+2021-05-20 17:23:38,036 3078827 INFO [main] ROOT - 892,706,125 nodes, 47m 0s, 316,557.97 nodes/s, 3.16 µs/node; 45% done, 57m 3s to end
+2021-05-20 17:23:48,036 3088827 INFO [main] ROOT - 896,286,068 nodes, 47m 10s, 316,704.38 nodes/s, 3.16 µs/node; 45% done, 56m 50s to end
+2021-05-20 17:23:58,036 3098827 INFO [main] ROOT - 899,939,691 nodes, 47m 20s, 316,875.71 nodes/s, 3.16 µs/node; 45% done, 56m 37s to end
+2021-05-20 17:24:08,036 3108827 INFO [main] ROOT - 903,596,748 nodes, 47m 30s, 317,047.04 nodes/s, 3.15 µs/node; 45% done, 56m 23s to end
+2021-05-20 17:24:18,036 3118827 INFO [main] ROOT - 907,199,071 nodes, 47m 40s, 317,198.04 nodes/s, 3.15 µs/node; 45% done, 56m 11s to end
+2021-05-20 17:24:28,036 3128827 INFO [main] ROOT - 910,860,072 nodes, 47m 50s, 317,368.42 nodes/s, 3.15 µs/node; 46% done, 55m 57s to end
+2021-05-20 17:24:38,036 3138827 INFO [main] ROOT - 914,529,426 nodes, 48m 0s, 317,540.53 nodes/s, 3.15 µs/node; 46% done, 55m 44s to end
+2021-05-20 17:24:48,036 3148827 INFO [main] ROOT - 918,140,553 nodes, 48m 10s, 317,691.30 nodes/s, 3.15 µs/node; 46% done, 55m 31s to end
+2021-05-20 17:24:58,036 3158827 INFO [main] ROOT - 921,815,041 nodes, 48m 20s, 317,862.87 nodes/s, 3.15 µs/node; 46% done, 55m 17s to end
+2021-05-20 17:25:08,036 3168827 INFO [main] ROOT - 925,494,030 nodes, 48m 30s, 318,034.81 nodes/s, 3.14 µs/node; 46% done, 55m 4s to end
+2021-05-20 17:25:18,036 3178827 INFO [main] ROOT - 929,127,176 nodes, 48m 40s, 318,189.88 nodes/s, 3.14 µs/node; 47% done, 54m 51s to end
+2021-05-20 17:25:28,036 3188827 INFO [main] ROOT - 932,780,013 nodes, 48m 50s, 318,350.61 nodes/s, 3.14 µs/node; 47% done, 54m 38s to end
+2021-05-20 17:25:38,036 3198827 INFO [main] ROOT - 936,438,376 nodes, 49m 0s, 318,512.12 nodes/s, 3.14 µs/node; 47% done, 54m 25s to end
+2021-05-20 17:25:48,036 3208827 INFO [main] ROOT - 940,118,482 nodes, 49m 10s, 318,679.91 nodes/s, 3.14 µs/node; 47% done, 54m 12s to end
+2021-05-20 17:25:58,036 3218827 INFO [main] ROOT - 943,744,463 nodes, 49m 20s, 318,828.28 nodes/s, 3.14 µs/node; 47% done, 53m 59s to end
+2021-05-20 17:26:08,036 3228827 INFO [main] ROOT - 947,429,387 nodes, 49m 30s, 318,995.50 nodes/s, 3.13 µs/node; 47% done, 53m 45s to end
+2021-05-20 17:26:18,036 3238827 INFO [main] ROOT - 951,069,043 nodes, 49m 40s, 319,146.40 nodes/s, 3.13 µs/node; 48% done, 53m 32s to end
+2021-05-20 17:26:28,036 3248827 INFO [main] ROOT - 954,716,902 nodes, 49m 50s, 319,299.04 nodes/s, 3.13 µs/node; 48% done, 53m 20s to end
+2021-05-20 17:26:38,036 3258827 INFO [main] ROOT - 958,399,827 nodes, 50m 0s, 319,462.35 nodes/s, 3.13 µs/node; 48% done, 53m 6s to end
+2021-05-20 17:26:48,036 3268827 INFO [main] ROOT - 962,049,621 nodes, 50m 10s, 319,613.57 nodes/s, 3.13 µs/node; 48% done, 52m 53s to end
+2021-05-20 17:26:58,036 3278827 INFO [main] ROOT - 965,718,050 nodes, 50m 20s, 319,769.95 nodes/s, 3.13 µs/node; 48% done, 52m 40s to end
+2021-05-20 17:27:08,036 3288827 INFO [main] ROOT - 969,310,648 nodes, 50m 30s, 319,900.28 nodes/s, 3.13 µs/node; 49% done, 52m 28s to end
+2021-05-20 17:27:18,036 3298827 INFO [main] ROOT - 972,940,592 nodes, 50m 40s, 320,042.04 nodes/s, 3.12 µs/node; 49% done, 52m 15s to end
+2021-05-20 17:27:28,036 3308827 INFO [main] ROOT - 976,625,350 nodes, 50m 50s, 320,200.83 nodes/s, 3.12 µs/node; 49% done, 52m 2s to end
+2021-05-20 17:27:38,036 3318827 INFO [main] ROOT - 980,267,595 nodes, 51m 0s, 320,344.70 nodes/s, 3.12 µs/node; 49% done, 51m 49s to end
+2021-05-20 17:27:48,036 3328827 INFO [main] ROOT - 983,920,851 nodes, 51m 10s, 320,491.22 nodes/s, 3.12 µs/node; 49% done, 51m 36s to end
+2021-05-20 17:27:58,036 3338827 INFO [main] ROOT - 987,609,030 nodes, 51m 20s, 320,648.12 nodes/s, 3.12 µs/node; 49% done, 51m 23s to end
+2021-05-20 17:28:08,036 3348827 INFO [main] ROOT - 991,283,882 nodes, 51m 30s, 320,799.69 nodes/s, 3.12 µs/node; 50% done, 51m 11s to end
+2021-05-20 17:28:18,036 3358827 INFO [main] ROOT - 994,871,671 nodes, 51m 40s, 320,922.20 nodes/s, 3.12 µs/node; 50% done, 50m 58s to end
+2021-05-20 17:28:28,036 3368827 INFO [main] ROOT - 998,537,729 nodes, 51m 50s, 321,069.10 nodes/s, 3.11 µs/node; 50% done, 50m 45s to end
+2021-05-20 17:28:38,036 3378827 INFO [main] ROOT - 1,002,198,776 nodes, 52m 0s, 321,213.44 nodes/s, 3.11 µs/node; 50% done, 50m 33s to end
+2021-05-20 17:28:48,036 3388827 INFO [main] ROOT - 1,005,855,361 nodes, 52m 10s, 321,355.43 nodes/s, 3.11 µs/node; 50% done, 50m 20s to end
+2021-05-20 17:28:58,036 3398827 INFO [main] ROOT - 1,009,506,883 nodes, 52m 20s, 321,494.91 nodes/s, 3.11 µs/node; 51% done, 50m 7s to end
+2021-05-20 17:29:08,036 3408827 INFO [main] ROOT - 1,013,158,663 nodes, 52m 30s, 321,633.59 nodes/s, 3.11 µs/node; 51% done, 49m 55s to end
+2021-05-20 17:29:18,036 3418827 INFO [main] ROOT - 1,016,807,776 nodes, 52m 40s, 321,770.54 nodes/s, 3.11 µs/node; 51% done, 49m 42s to end
+2021-05-20 17:29:28,036 3428827 INFO [main] ROOT - 1,020,466,344 nodes, 52m 50s, 321,909.61 nodes/s, 3.11 µs/node; 51% done, 49m 29s to end
+2021-05-20 17:29:38,036 3438827 INFO [main] ROOT - 1,024,121,627 nodes, 53m 0s, 322,046.78 nodes/s, 3.11 µs/node; 51% done, 49m 17s to end
+2021-05-20 17:29:48,036 3448827 INFO [main] ROOT - 1,027,732,418 nodes, 53m 10s, 322,169.13 nodes/s, 3.10 µs/node; 51% done, 49m 4s to end
+2021-05-20 17:29:58,036 3458827 INFO [main] ROOT - 1,031,351,932 nodes, 53m 20s, 322,293.45 nodes/s, 3.10 µs/node; 52% done, 48m 52s to end
+2021-05-20 17:30:08,036 3468827 INFO [main] ROOT - 1,035,020,965 nodes, 53m 30s, 322,432.42 nodes/s, 3.10 µs/node; 52% done, 48m 39s to end
+2021-05-20 17:30:18,036 3478827 INFO [main] ROOT - 1,038,632,803 nodes, 53m 40s, 322,552.76 nodes/s, 3.10 µs/node; 52% done, 48m 27s to end
+2021-05-20 17:30:28,036 3488827 INFO [main] ROOT - 1,042,295,264 nodes, 53m 50s, 322,688.04 nodes/s, 3.10 µs/node; 52% done, 48m 14s to end
+2021-05-20 17:30:38,036 3498827 INFO [main] ROOT - 1,045,962,477 nodes, 54m 0s, 322,823.94 nodes/s, 3.10 µs/node; 52% done, 48m 2s to end
+2021-05-20 17:30:48,036 3508827 INFO [main] ROOT - 1,049,626,301 nodes, 54m 10s, 322,957.96 nodes/s, 3.10 µs/node; 53% done, 47m 49s to end
+2021-05-20 17:30:58,036 3518827 INFO [main] ROOT - 1,053,268,484 nodes, 54m 20s, 323,084.53 nodes/s, 3.10 µs/node; 53% done, 47m 37s to end
+2021-05-20 17:31:08,036 3528827 INFO [main] ROOT - 1,056,939,070 nodes, 54m 30s, 323,219.00 nodes/s, 3.09 µs/node; 53% done, 47m 24s to end
+2021-05-20 17:31:18,036 3538827 INFO [main] ROOT - 1,060,568,005 nodes, 54m 40s, 323,339.96 nodes/s, 3.09 µs/node; 53% done, 47m 12s to end
+2021-05-20 17:31:28,036 3548827 INFO [main] ROOT - 1,064,230,217 nodes, 54m 50s, 323,470.30 nodes/s, 3.09 µs/node; 53% done, 47m 0s to end
+2021-05-20 17:31:38,036 3558827 INFO [main] ROOT - 1,067,875,994 nodes, 55m 0s, 323,594.86 nodes/s, 3.09 µs/node; 54% done, 46m 47s to end
+2021-05-20 17:31:48,036 3568827 INFO [main] ROOT - 1,071,508,927 nodes, 55m 10s, 323,714.80 nodes/s, 3.09 µs/node; 54% done, 46m 35s to end
+2021-05-20 17:31:58,036 3578827 INFO [main] ROOT - 1,075,179,179 nodes, 55m 20s, 323,845.25 nodes/s, 3.09 µs/node; 54% done, 46m 23s to end
+2021-05-20 17:32:08,036 3588827 INFO [main] ROOT - 1,078,825,691 nodes, 55m 30s, 323,967.79 nodes/s, 3.09 µs/node; 54% done, 46m 10s to end
+2021-05-20 17:32:18,036 3598827 INFO [main] ROOT - 1,082,481,517 nodes, 55m 40s, 324,092.38 nodes/s, 3.09 µs/node; 54% done, 45m 58s to end
+2021-05-20 17:32:28,036 3608827 INFO [main] ROOT - 1,086,132,225 nodes, 55m 50s, 324,214.70 nodes/s, 3.08 µs/node; 54% done, 45m 46s to end
+2021-05-20 17:32:38,036 3618827 INFO [main] ROOT - 1,089,793,698 nodes, 56m 0s, 324,339.50 nodes/s, 3.08 µs/node; 55% done, 45m 33s to end
+2021-05-20 17:32:48,036 3628827 INFO [main] ROOT - 1,093,449,685 nodes, 56m 10s, 324,461.93 nodes/s, 3.08 µs/node; 55% done, 45m 21s to end
+2021-05-20 17:32:58,036 3638827 INFO [main] ROOT - 1,097,089,917 nodes, 56m 20s, 324,578.97 nodes/s, 3.08 µs/node; 55% done, 45m 9s to end
+2021-05-20 17:33:08,036 3648827 INFO [main] ROOT - 1,100,750,970 nodes, 56m 30s, 324,701.47 nodes/s, 3.08 µs/node; 55% done, 44m 57s to end
+2021-05-20 17:33:18,036 3658827 INFO [main] ROOT - 1,104,304,013 nodes, 56m 40s, 324,791.48 nodes/s, 3.08 µs/node; 55% done, 44m 45s to end
+2021-05-20 17:33:28,036 3668827 INFO [main] ROOT - 1,107,937,728 nodes, 56m 50s, 324,904.61 nodes/s, 3.08 µs/node; 56% done, 44m 33s to end
+2021-05-20 17:33:38,036 3678827 INFO [main] ROOT - 1,111,567,167 nodes, 57m 0s, 325,015.84 nodes/s, 3.08 µs/node; 56% done, 44m 21s to end
+2021-05-20 17:33:48,036 3688827 INFO [main] ROOT - 1,115,209,870 nodes, 57m 10s, 325,130.28 nodes/s, 3.08 µs/node; 56% done, 44m 8s to end
+2021-05-20 17:33:58,036 3698827 INFO [main] ROOT - 1,118,869,254 nodes, 57m 20s, 325,248.91 nodes/s, 3.07 µs/node; 56% done, 43m 56s to end
+2021-05-20 17:34:08,036 3708827 INFO [main] ROOT - 1,122,510,086 nodes, 57m 30s, 325,361.47 nodes/s, 3.07 µs/node; 56% done, 43m 44s to end
+2021-05-20 17:34:18,036 3718827 INFO [main] ROOT - 1,126,114,967 nodes, 57m 40s, 325,462.99 nodes/s, 3.07 µs/node; 56% done, 43m 32s to end
+2021-05-20 17:34:28,036 3728827 INFO [main] ROOT - 1,129,752,240 nodes, 57m 50s, 325,573.26 nodes/s, 3.07 µs/node; 57% done, 43m 20s to end
+2021-05-20 17:34:38,036 3738827 INFO [main] ROOT - 1,133,398,976 nodes, 58m 0s, 325,685.62 nodes/s, 3.07 µs/node; 57% done, 43m 8s to end
+2021-05-20 17:34:48,036 3748827 INFO [main] ROOT - 1,137,050,534 nodes, 58m 10s, 325,798.71 nodes/s, 3.07 µs/node; 57% done, 42m 56s to end
+2021-05-20 17:34:58,036 3758827 INFO [main] ROOT - 1,140,697,598 nodes, 58m 20s, 325,909.87 nodes/s, 3.07 µs/node; 57% done, 42m 44s to end
+2021-05-20 17:35:08,036 3768827 INFO [main] ROOT - 1,144,352,536 nodes, 58m 30s, 326,022.65 nodes/s, 3.07 µs/node; 57% done, 42m 32s to end
+2021-05-20 17:35:18,036 3778827 INFO [main] ROOT - 1,147,985,695 nodes, 58m 40s, 326,128.59 nodes/s, 3.07 µs/node; 58% done, 42m 20s to end
+2021-05-20 17:35:28,036 3788827 INFO [main] ROOT - 1,151,639,906 nodes, 58m 50s, 326,239.90 nodes/s, 3.07 µs/node; 58% done, 42m 8s to end
+2021-05-20 17:35:38,036 3798827 INFO [main] ROOT - 1,155,247,700 nodes, 59m 0s, 326,337.47 nodes/s, 3.06 µs/node; 58% done, 41m 56s to end
+2021-05-20 17:35:48,036 3808827 INFO [main] ROOT - 1,158,900,116 nodes, 59m 10s, 326,447.06 nodes/s, 3.06 µs/node; 58% done, 41m 44s to end
+2021-05-20 17:35:58,036 3818827 INFO [main] ROOT - 1,162,537,379 nodes, 59m 20s, 326,551.77 nodes/s, 3.06 µs/node; 58% done, 41m 32s to end
+2021-05-20 17:36:08,036 3828827 INFO [main] ROOT - 1,166,163,655 nodes, 59m 30s, 326,652.83 nodes/s, 3.06 µs/node; 59% done, 41m 20s to end
+2021-05-20 17:36:18,036 3838827 INFO [main] ROOT - 1,169,765,985 nodes, 59m 40s, 326,746.62 nodes/s, 3.06 µs/node; 59% done, 41m 8s to end
+2021-05-20 17:36:28,036 3848827 INFO [main] ROOT - 1,173,407,668 nodes, 59m 50s, 326,850.86 nodes/s, 3.06 µs/node; 59% done, 40m 56s to end
+2021-05-20 17:36:38,036 3858827 INFO [main] ROOT - 1,177,046,375 nodes, 1h 0m 0s, 326,953.69 nodes/s, 3.06 µs/node; 59% done, 40m 45s to end
+2021-05-20 17:36:48,036 3868827 INFO [main] ROOT - 1,180,690,954 nodes, 1h 0m 10s, 327,057.58 nodes/s, 3.06 µs/node; 59% done, 40m 33s to end
+2021-05-20 17:36:58,036 3878827 INFO [main] ROOT - 1,184,325,468 nodes, 1h 0m 20s, 327,158.12 nodes/s, 3.06 µs/node; 59% done, 40m 21s to end
+2021-05-20 17:37:08,036 3888827 INFO [main] ROOT - 1,187,901,102 nodes, 1h 0m 30s, 327,241.88 nodes/s, 3.06 µs/node; 60% done, 40m 9s to end
+2021-05-20 17:37:18,036 3898827 INFO [main] ROOT - 1,191,536,754 nodes, 1h 0m 40s, 327,341.66 nodes/s, 3.05 µs/node; 60% done, 39m 57s to end
+2021-05-20 17:37:28,036 3908827 INFO [main] ROOT - 1,195,201,992 nodes, 1h 0m 50s, 327,449.01 nodes/s, 3.05 µs/node; 60% done, 39m 45s to end
+2021-05-20 17:37:38,036 3918827 INFO [main] ROOT - 1,198,835,521 nodes, 1h 1m 0s, 327,547.11 nodes/s, 3.05 µs/node; 60% done, 39m 34s to end
+2021-05-20 17:37:48,036 3928827 INFO [main] ROOT - 1,202,489,455 nodes, 1h 1m 10s, 327,650.23 nodes/s, 3.05 µs/node; 60% done, 39m 22s to end
+2021-05-20 17:37:58,036 3938827 INFO [main] ROOT - 1,206,074,551 nodes, 1h 1m 20s, 327,734.09 nodes/s, 3.05 µs/node; 61% done, 39m 10s to end
+2021-05-20 17:38:08,036 3948827 INFO [main] ROOT - 1,209,683,602 nodes, 1h 1m 30s, 327,823.98 nodes/s, 3.05 µs/node; 61% done, 38m 59s to end
+2021-05-20 17:38:18,036 3958827 INFO [main] ROOT - 1,213,305,084 nodes, 1h 1m 40s, 327,916.75 nodes/s, 3.05 µs/node; 61% done, 38m 47s to end
+2021-05-20 17:38:28,036 3968827 INFO [main] ROOT - 1,216,928,095 nodes, 1h 1m 50s, 328,009.43 nodes/s, 3.05 µs/node; 61% done, 38m 35s to end
+2021-05-20 17:38:38,036 3978827 INFO [main] ROOT - 1,220,548,954 nodes, 1h 2m 0s, 328,101.03 nodes/s, 3.05 µs/node; 61% done, 38m 23s to end
+2021-05-20 17:38:48,036 3988827 INFO [main] ROOT - 1,224,193,254 nodes, 1h 2m 10s, 328,198.43 nodes/s, 3.05 µs/node; 61% done, 38m 12s to end
+2021-05-20 17:38:58,036 3998827 INFO [main] ROOT - 1,227,797,534 nodes, 1h 2m 20s, 328,284.60 nodes/s, 3.05 µs/node; 62% done, 38m 0s to end
+2021-05-20 17:39:08,036 4008827 INFO [main] ROOT - 1,231,395,656 nodes, 1h 2m 30s, 328,368.67 nodes/s, 3.05 µs/node; 62% done, 37m 49s to end
+2021-05-20 17:39:18,036 4018827 INFO [main] ROOT - 1,234,976,376 nodes, 1h 2m 40s, 328,447.67 nodes/s, 3.04 µs/node; 62% done, 37m 37s to end
+2021-05-20 17:39:28,036 4028827 INFO [main] ROOT - 1,238,554,482 nodes, 1h 2m 50s, 328,525.55 nodes/s, 3.04 µs/node; 62% done, 37m 26s to end
+2021-05-20 17:39:38,036 4038827 INFO [main] ROOT - 1,242,169,748 nodes, 1h 3m 0s, 328,612.86 nodes/s, 3.04 µs/node; 62% done, 37m 14s to end
+2021-05-20 17:39:48,036 4048827 INFO [main] ROOT - 1,245,780,325 nodes, 1h 3m 10s, 328,698.46 nodes/s, 3.04 µs/node; 63% done, 37m 2s to end
+2021-05-20 17:39:58,036 4058827 INFO [main] ROOT - 1,249,393,249 nodes, 1h 3m 20s, 328,784.24 nodes/s, 3.04 µs/node; 63% done, 36m 51s to end
+2021-05-20 17:40:08,036 4068827 INFO [main] ROOT - 1,253,019,975 nodes, 1h 3m 30s, 328,873.18 nodes/s, 3.04 µs/node; 63% done, 36m 39s to end
+2021-05-20 17:40:18,036 4078827 INFO [main] ROOT - 1,256,599,407 nodes, 1h 3m 40s, 328,949.28 nodes/s, 3.04 µs/node; 63% done, 36m 28s to end
+2021-05-20 17:40:28,036 4088827 INFO [main] ROOT - 1,260,194,194 nodes, 1h 3m 50s, 329,028.99 nodes/s, 3.04 µs/node; 63% done, 36m 16s to end
+2021-05-20 17:40:38,036 4098827 INFO [main] ROOT - 1,263,796,939 nodes, 1h 4m 0s, 329,110.36 nodes/s, 3.04 µs/node; 63% done, 36m 5s to end
+2021-05-20 17:40:48,036 4108827 INFO [main] ROOT - 1,267,390,692 nodes, 1h 4m 10s, 329,188.97 nodes/s, 3.04 µs/node; 64% done, 35m 54s to end
+2021-05-20 17:40:58,036 4118827 INFO [main] ROOT - 1,271,009,128 nodes, 1h 4m 20s, 329,273.56 nodes/s, 3.04 µs/node; 64% done, 35m 42s to end
+2021-05-20 17:41:08,036 4128827 INFO [main] ROOT - 1,274,596,921 nodes, 1h 4m 30s, 329,349.81 nodes/s, 3.04 µs/node; 64% done, 35m 31s to end
+2021-05-20 17:41:18,036 4138827 INFO [main] ROOT - 1,278,159,840 nodes, 1h 4m 40s, 329,419.24 nodes/s, 3.04 µs/node; 64% done, 35m 19s to end
+2021-05-20 17:41:28,036 4148827 INFO [main] ROOT - 1,281,773,336 nodes, 1h 4m 50s, 329,501.33 nodes/s, 3.03 µs/node; 64% done, 35m 8s to end
+2021-05-20 17:41:38,036 4158827 INFO [main] ROOT - 1,285,353,142 nodes, 1h 5m 0s, 329,574.35 nodes/s, 3.03 µs/node; 65% done, 34m 57s to end
+2021-05-20 17:41:48,036 4168827 INFO [main] ROOT - 1,288,889,470 nodes, 1h 5m 10s, 329,635.88 nodes/s, 3.03 µs/node; 65% done, 34m 45s to end
+2021-05-20 17:41:58,036 4178827 INFO [main] ROOT - 1,292,452,938 nodes, 1h 5m 20s, 329,704.02 nodes/s, 3.03 µs/node; 65% done, 34m 34s to end
+2021-05-20 17:42:08,036 4188827 INFO [main] ROOT - 1,296,033,055 nodes, 1h 5m 30s, 329,776.05 nodes/s, 3.03 µs/node; 65% done, 34m 23s to end
+2021-05-20 17:42:18,036 4198827 INFO [main] ROOT - 1,299,584,329 nodes, 1h 5m 40s, 329,840.39 nodes/s, 3.03 µs/node; 65% done, 34m 12s to end
+2021-05-20 17:42:28,036 4208827 INFO [main] ROOT - 1,303,126,258 nodes, 1h 5m 50s, 329,902.04 nodes/s, 3.03 µs/node; 65% done, 34m 1s to end
+2021-05-20 17:42:38,036 4218827 INFO [main] ROOT - 1,306,653,720 nodes, 1h 6m 0s, 329,959.73 nodes/s, 3.03 µs/node; 66% done, 33m 50s to end
+2021-05-20 17:42:48,036 4228827 INFO [main] ROOT - 1,310,224,289 nodes, 1h 6m 10s, 330,027.98 nodes/s, 3.03 µs/node; 66% done, 33m 38s to end
+2021-05-20 17:42:58,036 4238827 INFO [main] ROOT - 1,313,777,790 nodes, 1h 6m 20s, 330,091.60 nodes/s, 3.03 µs/node; 66% done, 33m 27s to end
+2021-05-20 17:43:08,036 4248827 INFO [main] ROOT - 1,317,307,407 nodes, 1h 6m 30s, 330,148.92 nodes/s, 3.03 µs/node; 66% done, 33m 16s to end
+2021-05-20 17:43:18,036 4258827 INFO [main] ROOT - 1,320,835,853 nodes, 1h 6m 40s, 330,205.66 nodes/s, 3.03 µs/node; 66% done, 33m 5s to end
+2021-05-20 17:43:28,036 4268827 INFO [main] ROOT - 1,324,368,594 nodes, 1h 6m 50s, 330,263.19 nodes/s, 3.03 µs/node; 67% done, 32m 54s to end
+2021-05-20 17:43:38,036 4278827 INFO [main] ROOT - 1,327,938,474 nodes, 1h 7m 0s, 330,329.67 nodes/s, 3.03 µs/node; 67% done, 32m 43s to end
+2021-05-20 17:43:48,036 4288827 INFO [main] ROOT - 1,331,527,772 nodes, 1h 7m 10s, 330,400.63 nodes/s, 3.03 µs/node; 67% done, 32m 32s to end
+2021-05-20 17:43:58,036 4298827 INFO [main] ROOT - 1,335,097,141 nodes, 1h 7m 20s, 330,466.32 nodes/s, 3.03 µs/node; 67% done, 32m 20s to end
+2021-05-20 17:44:08,036 4308827 INFO [main] ROOT - 1,338,671,350 nodes, 1h 7m 30s, 330,532.87 nodes/s, 3.03 µs/node; 67% done, 32m 9s to end
+2021-05-20 17:44:18,036 4318827 INFO [main] ROOT - 1,342,197,527 nodes, 1h 7m 40s, 330,587.27 nodes/s, 3.02 µs/node; 67% done, 31m 58s to end
+2021-05-20 17:44:28,036 4328827 INFO [main] ROOT - 1,345,756,788 nodes, 1h 7m 50s, 330,649.52 nodes/s, 3.02 µs/node; 68% done, 31m 47s to end
+2021-05-20 17:44:38,036 4338827 INFO [main] ROOT - 1,349,328,589 nodes, 1h 8m 0s, 330,714.55 nodes/s, 3.02 µs/node; 68% done, 31m 36s to end
+2021-05-20 17:44:48,036 4348827 INFO [main] ROOT - 1,352,903,842 nodes, 1h 8m 10s, 330,780.10 nodes/s, 3.02 µs/node; 68% done, 31m 25s to end
+2021-05-20 17:44:58,036 4358827 INFO [main] ROOT - 1,356,463,901 nodes, 1h 8m 20s, 330,841.63 nodes/s, 3.02 µs/node; 68% done, 31m 14s to end
+2021-05-20 17:45:08,036 4368827 INFO [main] ROOT - 1,360,025,827 nodes, 1h 8m 30s, 330,903.31 nodes/s, 3.02 µs/node; 68% done, 31m 2s to end
+2021-05-20 17:45:18,036 4378827 INFO [main] ROOT - 1,363,557,381 nodes, 1h 8m 40s, 330,957.32 nodes/s, 3.02 µs/node; 68% done, 30m 51s to end
+2021-05-20 17:45:28,036 4388827 INFO [main] ROOT - 1,367,099,656 nodes, 1h 8m 50s, 331,013.66 nodes/s, 3.02 µs/node; 69% done, 30m 40s to end
+2021-05-20 17:45:38,036 4398827 INFO [main] ROOT - 1,370,676,069 nodes, 1h 9m 0s, 331,077.98 nodes/s, 3.02 µs/node; 69% done, 30m 29s to end
+2021-05-20 17:45:48,036 4408827 INFO [main] ROOT - 1,374,254,387 nodes, 1h 9m 10s, 331,142.44 nodes/s, 3.02 µs/node; 69% done, 30m 18s to end
+2021-05-20 17:45:58,036 4418827 INFO [main] ROOT - 1,377,807,025 nodes, 1h 9m 20s, 331,200.43 nodes/s, 3.02 µs/node; 69% done, 30m 7s to end
+2021-05-20 17:46:08,036 4428827 INFO [main] ROOT - 1,381,360,328 nodes, 1h 9m 30s, 331,258.29 nodes/s, 3.02 µs/node; 69% done, 29m 56s to end
+2021-05-20 17:46:18,036 4438827 INFO [main] ROOT - 1,384,899,050 nodes, 1h 9m 40s, 331,312.39 nodes/s, 3.02 µs/node; 70% done, 29m 45s to end
+2021-05-20 17:46:28,036 4448827 INFO [main] ROOT - 1,388,448,574 nodes, 1h 9m 50s, 331,368.81 nodes/s, 3.02 µs/node; 70% done, 29m 34s to end
+2021-05-20 17:46:38,036 4458827 INFO [main] ROOT - 1,391,965,388 nodes, 1h 10m 0s, 331,417.17 nodes/s, 3.02 µs/node; 70% done, 29m 23s to end
+2021-05-20 17:46:48,036 4468827 INFO [main] ROOT - 1,395,498,300 nodes, 1h 10m 10s, 331,469.13 nodes/s, 3.02 µs/node; 70% done, 29m 12s to end
+2021-05-20 17:46:58,036 4478827 INFO [main] ROOT - 1,399,043,524 nodes, 1h 10m 20s, 331,523.76 nodes/s, 3.02 µs/node; 70% done, 29m 1s to end
+2021-05-20 17:47:08,036 4488827 INFO [main] ROOT - 1,402,583,048 nodes, 1h 10m 30s, 331,576.78 nodes/s, 3.02 µs/node; 70% done, 28m 50s to end
+2021-05-20 17:47:18,036 4498827 INFO [main] ROOT - 1,406,085,858 nodes, 1h 10m 40s, 331,620.89 nodes/s, 3.02 µs/node; 71% done, 28m 40s to end
+2021-05-20 17:47:28,036 4508827 INFO [main] ROOT - 1,409,594,101 nodes, 1h 10m 50s, 331,666.08 nodes/s, 3.02 µs/node; 71% done, 28m 29s to end
+2021-05-20 17:47:38,036 4518827 INFO [main] ROOT - 1,413,106,350 nodes, 1h 11m 0s, 331,711.99 nodes/s, 3.01 µs/node; 71% done, 28m 18s to end
+2021-05-20 17:47:48,036 4528827 INFO [main] ROOT - 1,416,587,547 nodes, 1h 11m 10s, 331,750.42 nodes/s, 3.01 µs/node; 71% done, 28m 7s to end
+2021-05-20 17:47:58,036 4538827 INFO [main] ROOT - 1,420,083,286 nodes, 1h 11m 20s, 331,792.06 nodes/s, 3.01 µs/node; 71% done, 27m 56s to end
+2021-05-20 17:48:08,036 4548827 INFO [main] ROOT - 1,423,585,514 nodes, 1h 11m 30s, 331,835.02 nodes/s, 3.01 µs/node; 72% done, 27m 46s to end
+2021-05-20 17:48:18,036 4558827 INFO [main] ROOT - 1,427,035,869 nodes, 1h 11m 40s, 331,865.72 nodes/s, 3.01 µs/node; 72% done, 27m 35s to end
+2021-05-20 17:48:28,036 4568827 INFO [main] ROOT - 1,430,533,748 nodes, 1h 11m 50s, 331,907.30 nodes/s, 3.01 µs/node; 72% done, 27m 24s to end
+2021-05-20 17:48:38,036 4578827 INFO [main] ROOT - 1,433,990,231 nodes, 1h 12m 0s, 331,939.11 nodes/s, 3.01 µs/node; 72% done, 27m 14s to end
+2021-05-20 17:48:48,036 4588827 INFO [main] ROOT - 1,437,491,859 nodes, 1h 12m 10s, 331,981.20 nodes/s, 3.01 µs/node; 72% done, 27m 3s to end
+2021-05-20 17:48:58,036 4598827 INFO [main] ROOT - 1,440,988,504 nodes, 1h 12m 20s, 332,021.94 nodes/s, 3.01 µs/node; 72% done, 26m 52s to end
+2021-05-20 17:49:08,036 4608827 INFO [main] ROOT - 1,444,506,784 nodes, 1h 12m 30s, 332,067.47 nodes/s, 3.01 µs/node; 73% done, 26m 41s to end
+2021-05-20 17:49:18,036 4618827 INFO [main] ROOT - 1,447,978,533 nodes, 1h 12m 40s, 332,102.12 nodes/s, 3.01 µs/node; 73% done, 26m 31s to end
+2021-05-20 17:49:28,036 4628827 INFO [main] ROOT - 1,451,479,062 nodes, 1h 12m 50s, 332,143.20 nodes/s, 3.01 µs/node; 73% done, 26m 20s to end
+2021-05-20 17:49:38,036 4638827 INFO [main] ROOT - 1,454,973,875 nodes, 1h 13m 0s, 332,182.78 nodes/s, 3.01 µs/node; 73% done, 26m 9s to end
+2021-05-20 17:49:48,036 4648827 INFO [main] ROOT - 1,458,471,073 nodes, 1h 13m 10s, 332,222.73 nodes/s, 3.01 µs/node; 73% done, 25m 59s to end
+2021-05-20 17:49:58,036 4658827 INFO [main] ROOT - 1,461,955,114 nodes, 1h 13m 20s, 332,259.51 nodes/s, 3.01 µs/node; 73% done, 25m 48s to end
+2021-05-20 17:50:08,036 4668827 INFO [main] ROOT - 1,465,455,968 nodes, 1h 13m 30s, 332,299.93 nodes/s, 3.01 µs/node; 74% done, 25m 37s to end
+2021-05-20 17:50:18,036 4678827 INFO [main] ROOT - 1,468,904,508 nodes, 1h 13m 40s, 332,328.33 nodes/s, 3.01 µs/node; 74% done, 25m 27s to end
+2021-05-20 17:50:28,036 4688827 INFO [main] ROOT - 1,472,383,269 nodes, 1h 13m 50s, 332,363.43 nodes/s, 3.01 µs/node; 74% done, 25m 16s to end
+2021-05-20 17:50:38,036 4698827 INFO [main] ROOT - 1,475,862,233 nodes, 1h 14m 0s, 332,398.41 nodes/s, 3.01 µs/node; 74% done, 25m 6s to end
+2021-05-20 17:50:48,036 4708827 INFO [main] ROOT - 1,479,359,259 nodes, 1h 14m 10s, 332,437.29 nodes/s, 3.01 µs/node; 74% done, 24m 55s to end
+2021-05-20 17:50:58,036 4718827 INFO [main] ROOT - 1,482,829,272 nodes, 1h 14m 20s, 332,469.95 nodes/s, 3.01 µs/node; 75% done, 24m 44s to end
+2021-05-20 17:51:08,036 4728827 INFO [main] ROOT - 1,486,298,135 nodes, 1h 14m 30s, 332,502.20 nodes/s, 3.01 µs/node; 75% done, 24m 34s to end
+2021-05-20 17:51:18,036 4738827 INFO [main] ROOT - 1,489,738,177 nodes, 1h 14m 40s, 332,527.87 nodes/s, 3.01 µs/node; 75% done, 24m 23s to end
+2021-05-20 17:51:28,036 4748827 INFO [main] ROOT - 1,493,227,700 nodes, 1h 14m 50s, 332,564.45 nodes/s, 3.01 µs/node; 75% done, 24m 13s to end
+2021-05-20 17:51:38,036 4758827 INFO [main] ROOT - 1,496,741,930 nodes, 1h 15m 0s, 332,606.36 nodes/s, 3.01 µs/node; 75% done, 24m 2s to end
+2021-05-20 17:51:48,036 4768827 INFO [main] ROOT - 1,500,269,576 nodes, 1h 15m 10s, 332,651.06 nodes/s, 3.01 µs/node; 75% done, 23m 51s to end
+2021-05-20 17:51:58,036 4778827 INFO [main] ROOT - 1,503,771,857 nodes, 1h 15m 20s, 332,689.94 nodes/s, 3.01 µs/node; 76% done, 23m 40s to end
+2021-05-20 17:52:08,036 4788827 INFO [main] ROOT - 1,507,275,077 nodes, 1h 15m 30s, 332,728.87 nodes/s, 3.01 µs/node; 76% done, 23m 30s to end
+2021-05-20 17:52:18,036 4798827 INFO [main] ROOT - 1,510,758,505 nodes, 1h 15m 40s, 332,763.26 nodes/s, 3.01 µs/node; 76% done, 23m 19s to end
+2021-05-20 17:52:28,036 4808827 INFO [main] ROOT - 1,514,246,637 nodes, 1h 15m 50s, 332,798.53 nodes/s, 3.00 µs/node; 76% done, 23m 8s to end
+2021-05-20 17:52:38,036 4818827 INFO [main] ROOT - 1,517,728,370 nodes, 1h 16m 0s, 332,832.25 nodes/s, 3.00 µs/node; 76% done, 22m 58s to end
+2021-05-20 17:52:48,036 4828827 INFO [main] ROOT - 1,521,223,274 nodes, 1h 16m 10s, 332,868.70 nodes/s, 3.00 µs/node; 76% done, 22m 47s to end
+2021-05-20 17:52:58,036 4838827 INFO [main] ROOT - 1,524,627,334 nodes, 1h 16m 20s, 332,885.16 nodes/s, 3.00 µs/node; 77% done, 22m 37s to end
+2021-05-20 17:53:08,036 4848827 INFO [main] ROOT - 1,528,122,251 nodes, 1h 16m 30s, 332,921.34 nodes/s, 3.00 µs/node; 77% done, 22m 26s to end
+2021-05-20 17:53:18,036 4858827 INFO [main] ROOT - 1,531,574,560 nodes, 1h 16m 40s, 332,948.10 nodes/s, 3.00 µs/node; 77% done, 22m 16s to end
+2021-05-20 17:53:28,036 4868827 INFO [main] ROOT - 1,535,069,098 nodes, 1h 16m 50s, 332,983.90 nodes/s, 3.00 µs/node; 77% done, 22m 5s to end
+2021-05-20 17:53:38,036 4878827 INFO [main] ROOT - 1,538,537,912 nodes, 1h 17m 0s, 333,013.98 nodes/s, 3.00 µs/node; 77% done, 21m 55s to end
+2021-05-20 17:53:48,036 4888827 INFO [main] ROOT - 1,542,007,359 nodes, 1h 17m 10s, 333,044.07 nodes/s, 3.00 µs/node; 78% done, 21m 44s to end
+2021-05-20 17:53:58,036 4898827 INFO [main] ROOT - 1,545,471,431 nodes, 1h 17m 20s, 333,072.87 nodes/s, 3.00 µs/node; 78% done, 21m 34s to end
+2021-05-20 17:54:08,036 4908827 INFO [main] ROOT - 1,548,960,470 nodes, 1h 17m 30s, 333,106.91 nodes/s, 3.00 µs/node; 78% done, 21m 23s to end
+2021-05-20 17:54:18,036 4918827 INFO [main] ROOT - 1,552,401,358 nodes, 1h 17m 40s, 333,130.48 nodes/s, 3.00 µs/node; 78% done, 21m 12s to end
+2021-05-20 17:54:28,036 4928827 INFO [main] ROOT - 1,555,840,000 nodes, 1h 17m 50s, 333,153.46 nodes/s, 3.00 µs/node; 78% done, 21m 2s to end
+2021-05-20 17:54:38,036 4938827 INFO [main] ROOT - 1,559,309,328 nodes, 1h 18m 0s, 333,182.91 nodes/s, 3.00 µs/node; 78% done, 20m 52s to end
+2021-05-20 17:54:48,036 4948827 INFO [main] ROOT - 1,562,766,668 nodes, 1h 18m 10s, 333,209.67 nodes/s, 3.00 µs/node; 79% done, 20m 41s to end
+2021-05-20 17:54:58,036 4958827 INFO [main] ROOT - 1,566,215,974 nodes, 1h 18m 20s, 333,234.61 nodes/s, 3.00 µs/node; 79% done, 20m 31s to end
+2021-05-20 17:55:08,036 4968827 INFO [main] ROOT - 1,569,669,295 nodes, 1h 18m 30s, 333,260.29 nodes/s, 3.00 µs/node; 79% done, 20m 20s to end
+2021-05-20 17:55:18,036 4978827 INFO [main] ROOT - 1,573,120,978 nodes, 1h 18m 40s, 333,285.52 nodes/s, 3.00 µs/node; 79% done, 20m 10s to end
+2021-05-20 17:55:28,036 4988827 INFO [main] ROOT - 1,576,565,222 nodes, 1h 18m 50s, 333,309.07 nodes/s, 3.00 µs/node; 79% done, 19m 59s to end
+2021-05-20 17:55:38,036 4998827 INFO [main] ROOT - 1,580,011,515 nodes, 1h 19m 0s, 333,332.95 nodes/s, 3.00 µs/node; 79% done, 19m 49s to end
+2021-05-20 17:55:48,036 5008827 INFO [main] ROOT - 1,583,439,621 nodes, 1h 19m 10s, 333,352.90 nodes/s, 3.00 µs/node; 80% done, 19m 39s to end
+2021-05-20 17:55:58,036 5018827 INFO [main] ROOT - 1,586,909,283 nodes, 1h 19m 20s, 333,381.50 nodes/s, 3.00 µs/node; 80% done, 19m 28s to end
+2021-05-20 17:56:08,036 5028827 INFO [main] ROOT - 1,590,342,192 nodes, 1h 19m 30s, 333,402.28 nodes/s, 3.00 µs/node; 80% done, 19m 18s to end
+2021-05-20 17:56:18,036 5038827 INFO [main] ROOT - 1,593,790,097 nodes, 1h 19m 40s, 333,426.10 nodes/s, 3.00 µs/node; 80% done, 19m 7s to end
+2021-05-20 17:56:28,036 5048827 INFO [main] ROOT - 1,597,197,070 nodes, 1h 19m 50s, 333,441.28 nodes/s, 3.00 µs/node; 80% done, 18m 57s to end
+2021-05-20 17:56:38,036 5058827 INFO [main] ROOT - 1,600,617,423 nodes, 1h 20m 0s, 333,459.18 nodes/s, 3.00 µs/node; 80% done, 18m 47s to end
+2021-05-20 17:56:48,036 5068827 INFO [main] ROOT - 1,604,068,340 nodes, 1h 20m 10s, 333,483.37 nodes/s, 3.00 µs/node; 81% done, 18m 36s to end
+2021-05-20 17:56:58,036 5078827 INFO [main] ROOT - 1,607,459,107 nodes, 1h 20m 20s, 333,494.97 nodes/s, 3.00 µs/node; 81% done, 18m 26s to end
+2021-05-20 17:57:08,036 5088827 INFO [main] ROOT - 1,610,870,874 nodes, 1h 20m 30s, 333,510.88 nodes/s, 3.00 µs/node; 81% done, 18m 16s to end
+2021-05-20 17:57:18,036 5098827 INFO [main] ROOT - 1,614,315,411 nodes, 1h 20m 40s, 333,533.49 nodes/s, 3.00 µs/node; 81% done, 18m 5s to end
+2021-05-20 17:57:28,036 5108827 INFO [main] ROOT - 1,617,693,471 nodes, 1h 20m 50s, 333,542.29 nodes/s, 3.00 µs/node; 81% done, 17m 55s to end
+2021-05-20 17:57:38,036 5118827 INFO [main] ROOT - 1,621,078,665 nodes, 1h 21m 0s, 333,552.54 nodes/s, 3.00 µs/node; 82% done, 17m 45s to end
+2021-05-20 17:57:48,036 5128827 INFO [main] ROOT - 1,624,453,174 nodes, 1h 21m 10s, 333,560.54 nodes/s, 3.00 µs/node; 82% done, 17m 35s to end
+2021-05-20 17:57:58,036 5138827 INFO [main] ROOT - 1,627,852,830 nodes, 1h 21m 20s, 333,573.67 nodes/s, 3.00 µs/node; 82% done, 17m 25s to end
+2021-05-20 17:58:08,036 5148827 INFO [main] ROOT - 1,631,229,382 nodes, 1h 21m 30s, 333,582.01 nodes/s, 3.00 µs/node; 82% done, 17m 14s to end
+2021-05-20 17:58:18,036 5158827 INFO [main] ROOT - 1,634,640,960 nodes, 1h 21m 40s, 333,597.47 nodes/s, 3.00 µs/node; 82% done, 17m 4s to end
+2021-05-20 17:58:28,036 5168827 INFO [main] ROOT - 1,638,001,686 nodes, 1h 21m 50s, 333,602.51 nodes/s, 3.00 µs/node; 82% done, 16m 54s to end
+2021-05-20 17:58:38,036 5178827 INFO [main] ROOT - 1,641,405,741 nodes, 1h 22m 0s, 333,616.34 nodes/s, 3.00 µs/node; 83% done, 16m 44s to end
+2021-05-20 17:58:48,036 5188827 INFO [main] ROOT - 1,644,844,284 nodes, 1h 22m 10s, 333,637.11 nodes/s, 3.00 µs/node; 83% done, 16m 33s to end
+2021-05-20 17:58:58,036 5198827 INFO [main] ROOT - 1,648,250,577 nodes, 1h 22m 20s, 333,651.26 nodes/s, 3.00 µs/node; 83% done, 16m 23s to end
+2021-05-20 17:59:08,036 5208827 INFO [main] ROOT - 1,651,669,179 nodes, 1h 22m 30s, 333,667.84 nodes/s, 3.00 µs/node; 83% done, 16m 13s to end
+2021-05-20 17:59:18,036 5218827 INFO [main] ROOT - 1,655,050,314 nodes, 1h 22m 40s, 333,676.81 nodes/s, 3.00 µs/node; 83% done, 16m 3s to end
+2021-05-20 17:59:28,036 5228827 INFO [main] ROOT - 1,658,430,856 nodes, 1h 22m 50s, 333,685.62 nodes/s, 3.00 µs/node; 83% done, 15m 53s to end
+2021-05-20 17:59:38,036 5238827 INFO [main] ROOT - 1,661,820,590 nodes, 1h 23m 0s, 333,696.23 nodes/s, 3.00 µs/node; 84% done, 15m 42s to end
+2021-05-20 17:59:48,036 5248827 INFO [main] ROOT - 1,665,112,611 nodes, 1h 23m 10s, 333,687.23 nodes/s, 3.00 µs/node; 84% done, 15m 33s to end
+2021-05-20 17:59:58,036 5258827 INFO [main] ROOT - 1,668,495,349 nodes, 1h 23m 20s, 333,696.40 nodes/s, 3.00 µs/node; 84% done, 15m 22s to end
+2021-05-20 18:00:08,036 5268827 INFO [main] ROOT - 1,671,892,771 nodes, 1h 23m 30s, 333,708.47 nodes/s, 3.00 µs/node; 84% done, 15m 12s to end
+2021-05-20 18:00:18,036 5278827 INFO [main] ROOT - 1,675,234,611 nodes, 1h 23m 40s, 333,709.41 nodes/s, 3.00 µs/node; 84% done, 15m 2s to end
+2021-05-20 18:00:28,036 5288827 INFO [main] ROOT - 1,678,615,703 nodes, 1h 23m 50s, 333,718.16 nodes/s, 3.00 µs/node; 84% done, 14m 52s to end
+2021-05-20 18:00:38,036 5298827 INFO [main] ROOT - 1,681,981,211 nodes, 1h 24m 0s, 333,723.78 nodes/s, 3.00 µs/node; 85% done, 14m 42s to end
+2021-05-20 18:00:48,036 5308827 INFO [main] ROOT - 1,685,369,853 nodes, 1h 24m 10s, 333,733.96 nodes/s, 3.00 µs/node; 85% done, 14m 32s to end
+2021-05-20 18:00:58,036 5318827 INFO [main] ROOT - 1,688,726,768 nodes, 1h 24m 20s, 333,737.83 nodes/s, 3.00 µs/node; 85% done, 14m 22s to end
+2021-05-20 18:01:08,036 5328827 INFO [main] ROOT - 1,692,087,001 nodes, 1h 24m 30s, 333,742.34 nodes/s, 3.00 µs/node; 85% done, 14m 12s to end
+2021-05-20 18:01:18,036 5338827 INFO [main] ROOT - 1,695,453,374 nodes, 1h 24m 40s, 333,748.04 nodes/s, 3.00 µs/node; 85% done, 14m 2s to end
+2021-05-20 18:01:28,036 5348827 INFO [main] ROOT - 1,698,813,455 nodes, 1h 24m 50s, 333,752.48 nodes/s, 3.00 µs/node; 85% done, 13m 51s to end
+2021-05-20 18:01:38,036 5358827 INFO [main] ROOT - 1,702,147,983 nodes, 1h 25m 0s, 333,751.89 nodes/s, 3.00 µs/node; 86% done, 13m 41s to end
+2021-05-20 18:01:48,036 5368827 INFO [main] ROOT - 1,705,533,054 nodes, 1h 25m 10s, 333,761.19 nodes/s, 3.00 µs/node; 86% done, 13m 31s to end
+2021-05-20 18:01:58,036 5378827 INFO [main] ROOT - 1,708,888,501 nodes, 1h 25m 20s, 333,764.68 nodes/s, 3.00 µs/node; 86% done, 13m 21s to end
+2021-05-20 18:02:08,036 5388827 INFO [main] ROOT - 1,712,244,927 nodes, 1h 25m 30s, 333,768.34 nodes/s, 3.00 µs/node; 86% done, 13m 11s to end
+2021-05-20 18:02:18,036 5398827 INFO [main] ROOT - 1,715,596,806 nodes, 1h 25m 40s, 333,771.10 nodes/s, 3.00 µs/node; 86% done, 13m 1s to end
+2021-05-20 18:02:28,036 5408827 INFO [main] ROOT - 1,718,942,370 nodes, 1h 25m 50s, 333,772.63 nodes/s, 3.00 µs/node; 86% done, 12m 51s to end
+2021-05-20 18:02:38,036 5418827 INFO [main] ROOT - 1,722,287,302 nodes, 1h 26m 0s, 333,774.02 nodes/s, 3.00 µs/node; 87% done, 12m 41s to end
+2021-05-20 18:02:48,036 5428827 INFO [main] ROOT - 1,725,645,286 nodes, 1h 26m 10s, 333,777.94 nodes/s, 3.00 µs/node; 87% done, 12m 31s to end
+2021-05-20 18:02:58,036 5438827 INFO [main] ROOT - 1,728,988,685 nodes, 1h 26m 20s, 333,779.02 nodes/s, 3.00 µs/node; 87% done, 12m 21s to end
+2021-05-20 18:03:08,036 5448827 INFO [main] ROOT - 1,732,330,985 nodes, 1h 26m 30s, 333,779.89 nodes/s, 3.00 µs/node; 87% done, 12m 11s to end
+2021-05-20 18:03:18,036 5458827 INFO [main] ROOT - 1,735,665,832 nodes, 1h 26m 40s, 333,779.32 nodes/s, 3.00 µs/node; 87% done, 12m 1s to end
+2021-05-20 18:03:28,036 5468827 INFO [main] ROOT - 1,738,979,717 nodes, 1h 26m 50s, 333,774.73 nodes/s, 3.00 µs/node; 87% done, 11m 51s to end
+2021-05-20 18:03:38,036 5478827 INFO [main] ROOT - 1,742,279,325 nodes, 1h 27m 0s, 333,767.43 nodes/s, 3.00 µs/node; 88% done, 11m 41s to end
+2021-05-20 18:03:48,036 5488827 INFO [main] ROOT - 1,745,589,229 nodes, 1h 27m 10s, 333,762.12 nodes/s, 3.00 µs/node; 88% done, 11m 31s to end
+2021-05-20 18:03:58,036 5498827 INFO [main] ROOT - 1,748,900,247 nodes, 1h 27m 20s, 333,757.04 nodes/s, 3.00 µs/node; 88% done, 11m 21s to end
+2021-05-20 18:04:08,036 5508827 INFO [main] ROOT - 1,752,201,800 nodes, 1h 27m 30s, 333,750.18 nodes/s, 3.00 µs/node; 88% done, 11m 11s to end
+2021-05-20 18:04:18,036 5518827 INFO [main] ROOT - 1,755,504,241 nodes, 1h 27m 40s, 333,743.52 nodes/s, 3.00 µs/node; 88% done, 11m 2s to end
+2021-05-20 18:04:28,036 5528827 INFO [main] ROOT - 1,758,805,659 nodes, 1h 27m 50s, 333,736.68 nodes/s, 3.00 µs/node; 88% done, 10m 52s to end
+2021-05-20 18:04:38,036 5538827 INFO [main] ROOT - 1,762,095,749 nodes, 1h 28m 0s, 333,727.73 nodes/s, 3.00 µs/node; 89% done, 10m 42s to end
+2021-05-20 18:04:48,036 5548827 INFO [main] ROOT - 1,765,389,143 nodes, 1h 28m 10s, 333,719.43 nodes/s, 3.00 µs/node; 89% done, 10m 32s to end
+2021-05-20 18:04:58,036 5558827 INFO [main] ROOT - 1,768,665,791 nodes, 1h 28m 20s, 333,708.01 nodes/s, 3.00 µs/node; 89% done, 10m 22s to end
+2021-05-20 18:05:08,036 5568827 INFO [main] ROOT - 1,771,956,059 nodes, 1h 28m 30s, 333,699.19 nodes/s, 3.00 µs/node; 89% done, 10m 12s to end
+2021-05-20 18:05:18,036 5578827 INFO [main] ROOT - 1,775,230,799 nodes, 1h 28m 40s, 333,687.49 nodes/s, 3.00 µs/node; 89% done, 10m 3s to end
+2021-05-20 18:05:28,036 5588827 INFO [main] ROOT - 1,778,502,640 nodes, 1h 28m 50s, 333,675.29 nodes/s, 3.00 µs/node; 89% done, 9m 53s to end
+2021-05-20 18:05:38,036 5598827 INFO [main] ROOT - 1,781,797,724 nodes, 1h 29m 0s, 333,667.49 nodes/s, 3.00 µs/node; 90% done, 9m 43s to end
+2021-05-20 18:05:48,036 5608827 INFO [main] ROOT - 1,785,030,982 nodes, 1h 29m 10s, 333,648.16 nodes/s, 3.00 µs/node; 90% done, 9m 33s to end
+2021-05-20 18:05:58,036 5618827 INFO [main] ROOT - 1,788,320,363 nodes, 1h 29m 20s, 333,639.37 nodes/s, 3.00 µs/node; 90% done, 9m 23s to end
+2021-05-20 18:06:08,036 5628827 INFO [main] ROOT - 1,791,602,474 nodes, 1h 29m 30s, 333,629.26 nodes/s, 3.00 µs/node; 90% done, 9m 14s to end
+2021-05-20 18:06:18,036 5638827 INFO [main] ROOT - 1,794,855,721 nodes, 1h 29m 40s, 333,613.82 nodes/s, 3.00 µs/node; 90% done, 9m 4s to end
+2021-05-20 18:06:28,036 5648827 INFO [main] ROOT - 1,798,121,337 nodes, 1h 29m 50s, 333,600.74 nodes/s, 3.00 µs/node; 90% done, 8m 54s to end
+2021-05-20 18:06:38,036 5658827 INFO [main] ROOT - 1,801,394,439 nodes, 1h 30m 0s, 333,589.09 nodes/s, 3.00 µs/node; 91% done, 8m 44s to end
+2021-05-20 18:06:48,036 5668827 INFO [main] ROOT - 1,804,647,421 nodes, 1h 30m 10s, 333,573.77 nodes/s, 3.00 µs/node; 91% done, 8m 35s to end
+2021-05-20 18:06:58,036 5678827 INFO [main] ROOT - 1,807,925,097 nodes, 1h 30m 20s, 333,563.05 nodes/s, 3.00 µs/node; 91% done, 8m 25s to end
+2021-05-20 18:07:08,036 5688827 INFO [main] ROOT - 1,811,197,317 nodes, 1h 30m 30s, 333,551.38 nodes/s, 3.00 µs/node; 91% done, 8m 15s to end
+2021-05-20 18:07:18,036 5698827 INFO [main] ROOT - 1,814,450,422 nodes, 1h 30m 40s, 333,536.23 nodes/s, 3.00 µs/node; 91% done, 8m 5s to end
+2021-05-20 18:07:28,036 5708827 INFO [main] ROOT - 1,817,731,650 nodes, 1h 30m 50s, 333,526.30 nodes/s, 3.00 µs/node; 91% done, 7m 55s to end
+2021-05-20 18:07:38,036 5718827 INFO [main] ROOT - 1,820,998,818 nodes, 1h 31m 0s, 333,513.82 nodes/s, 3.00 µs/node; 92% done, 7m 46s to end
+2021-05-20 18:07:48,036 5728827 INFO [main] ROOT - 1,824,243,126 nodes, 1h 31m 10s, 333,497.22 nodes/s, 3.00 µs/node; 92% done, 7m 36s to end
+2021-05-20 18:07:58,036 5738827 INFO [main] ROOT - 1,827,495,068 nodes, 1h 31m 20s, 333,482.07 nodes/s, 3.00 µs/node; 92% done, 7m 26s to end
+2021-05-20 18:08:08,036 5748827 INFO [main] ROOT - 1,830,767,119 nodes, 1h 31m 30s, 333,470.63 nodes/s, 3.00 µs/node; 92% done, 7m 16s to end
+2021-05-20 18:08:18,036 5758827 INFO [main] ROOT - 1,834,002,077 nodes, 1h 31m 40s, 333,452.50 nodes/s, 3.00 µs/node; 92% done, 7m 7s to end
+2021-05-20 18:08:28,036 5768827 INFO [main] ROOT - 1,837,267,296 nodes, 1h 31m 50s, 333,439.92 nodes/s, 3.00 µs/node; 92% done, 6m 57s to end
+2021-05-20 18:08:38,036 5778827 INFO [main] ROOT - 1,840,524,710 nodes, 1h 32m 0s, 333,425.97 nodes/s, 3.00 µs/node; 93% done, 6m 47s to end
+2021-05-20 18:08:48,036 5788827 INFO [main] ROOT - 1,843,764,834 nodes, 1h 32m 10s, 333,408.95 nodes/s, 3.00 µs/node; 93% done, 6m 38s to end
+2021-05-20 18:08:58,036 5798827 INFO [main] ROOT - 1,846,996,008 nodes, 1h 32m 20s, 333,390.37 nodes/s, 3.00 µs/node; 93% done, 6m 28s to end
+2021-05-20 18:09:08,036 5808827 INFO [main] ROOT - 1,850,230,522 nodes, 1h 32m 30s, 333,372.47 nodes/s, 3.00 µs/node; 93% done, 6m 18s to end
+2021-05-20 18:09:18,036 5818827 INFO [main] ROOT - 1,853,473,558 nodes, 1h 32m 40s, 333,356.16 nodes/s, 3.00 µs/node; 93% done, 6m 8s to end
+2021-05-20 18:09:28,036 5828827 INFO [main] ROOT - 1,856,696,140 nodes, 1h 32m 50s, 333,336.23 nodes/s, 3.00 µs/node; 93% done, 5m 59s to end
+2021-05-20 18:09:38,036 5838827 INFO [main] ROOT - 1,859,920,146 nodes, 1h 33m 0s, 333,316.63 nodes/s, 3.00 µs/node; 94% done, 5m 49s to end
+2021-05-20 18:09:48,036 5848827 INFO [main] ROOT - 1,863,159,172 nodes, 1h 33m 10s, 333,299.79 nodes/s, 3.00 µs/node; 94% done, 5m 39s to end
+2021-05-20 18:09:58,036 5858827 INFO [main] ROOT - 1,866,389,688 nodes, 1h 33m 20s, 333,281.49 nodes/s, 3.00 µs/node; 94% done, 5m 30s to end
+2021-05-20 18:10:08,036 5868827 INFO [main] ROOT - 1,869,629,132 nodes, 1h 33m 30s, 333,264.85 nodes/s, 3.00 µs/node; 94% done, 5m 20s to end
+2021-05-20 18:10:18,036 5878827 INFO [main] ROOT - 1,872,863,555 nodes, 1h 33m 40s, 333,247.37 nodes/s, 3.00 µs/node; 94% done, 5m 10s to end
+2021-05-20 18:10:28,036 5888827 INFO [main] ROOT - 1,876,090,462 nodes, 1h 33m 50s, 333,228.62 nodes/s, 3.00 µs/node; 94% done, 5m 1s to end
+2021-05-20 18:10:38,036 5898827 INFO [main] ROOT - 1,879,313,916 nodes, 1h 34m 0s, 333,209.32 nodes/s, 3.00 µs/node; 95% done, 4m 51s to end
+2021-05-20 18:10:48,036 5908827 INFO [main] ROOT - 1,882,552,010 nodes, 1h 34m 10s, 333,192.69 nodes/s, 3.00 µs/node; 95% done, 4m 41s to end
+2021-05-20 18:10:58,036 5918827 INFO [main] ROOT - 1,885,779,954 nodes, 1h 34m 20s, 333,174.32 nodes/s, 3.00 µs/node; 95% done, 4m 32s to end
+2021-05-20 18:11:08,036 5928827 INFO [main] ROOT - 1,889,017,818 nodes, 1h 34m 30s, 333,157.76 nodes/s, 3.00 µs/node; 95% done, 4m 22s to end
+2021-05-20 18:11:18,036 5938827 INFO [main] ROOT - 1,892,243,067 nodes, 1h 34m 40s, 333,139.04 nodes/s, 3.00 µs/node; 95% done, 4m 12s to end
+2021-05-20 18:11:28,036 5948827 INFO [main] ROOT - 1,895,458,075 nodes, 1h 34m 50s, 333,118.59 nodes/s, 3.00 µs/node; 95% done, 4m 3s to end
+2021-05-20 18:11:38,036 5958827 INFO [main] ROOT - 1,898,683,957 nodes, 1h 35m 0s, 333,100.11 nodes/s, 3.00 µs/node; 96% done, 3m 53s to end
+2021-05-20 18:11:48,036 5968827 INFO [main] ROOT - 1,901,910,788 nodes, 1h 35m 10s, 333,081.87 nodes/s, 3.00 µs/node; 96% done, 3m 43s to end
+2021-05-20 18:11:58,036 5978827 INFO [main] ROOT - 1,905,130,016 nodes, 1h 35m 20s, 333,062.36 nodes/s, 3.00 µs/node; 96% done, 3m 34s to end
+2021-05-20 18:12:08,036 5988827 INFO [main] ROOT - 1,908,350,080 nodes, 1h 35m 30s, 333,043.06 nodes/s, 3.00 µs/node; 96% done, 3m 24s to end
+2021-05-20 18:12:18,036 5998827 INFO [main] ROOT - 1,911,568,922 nodes, 1h 35m 40s, 333,023.62 nodes/s, 3.00 µs/node; 96% done, 3m 14s to end
+2021-05-20 18:12:28,036 6008827 INFO [main] ROOT - 1,914,795,518 nodes, 1h 35m 50s, 333,005.60 nodes/s, 3.00 µs/node; 96% done, 3m 5s to end
+2021-05-20 18:12:38,036 6018827 INFO [main] ROOT - 1,918,021,172 nodes, 1h 36m 0s, 332,987.47 nodes/s, 3.00 µs/node; 97% done, 2m 55s to end
+2021-05-20 18:12:48,036 6028827 INFO [main] ROOT - 1,921,232,200 nodes, 1h 36m 10s, 332,966.88 nodes/s, 3.00 µs/node; 97% done, 2m 45s to end
+2021-05-20 18:12:58,036 6038827 INFO [main] ROOT - 1,924,453,325 nodes, 1h 36m 20s, 332,948.10 nodes/s, 3.00 µs/node; 97% done, 2m 36s to end
+2021-05-20 18:13:08,036 6048827 INFO [main] ROOT - 1,927,670,169 nodes, 1h 36m 30s, 332,928.64 nodes/s, 3.00 µs/node; 97% done, 2m 26s to end
+2021-05-20 18:13:18,036 6058827 INFO [main] ROOT - 1,930,899,725 nodes, 1h 36m 40s, 332,911.45 nodes/s, 3.00 µs/node; 97% done, 2m 16s to end
+2021-05-20 18:13:28,036 6068827 INFO [main] ROOT - 1,934,138,516 nodes, 1h 36m 50s, 332,895.90 nodes/s, 3.00 µs/node; 97% done, 2m 7s to end
+2021-05-20 18:13:38,036 6078827 INFO [main] ROOT - 1,937,372,189 nodes, 1h 37m 0s, 332,879.53 nodes/s, 3.00 µs/node; 98% done, 1m 57s to end
+2021-05-20 18:13:48,036 6088827 INFO [main] ROOT - 1,940,615,124 nodes, 1h 37m 10s, 332,864.80 nodes/s, 3.00 µs/node; 98% done, 1m 47s to end
+2021-05-20 18:13:58,036 6098827 INFO [main] ROOT - 1,943,842,665 nodes, 1h 37m 20s, 332,847.49 nodes/s, 3.00 µs/node; 98% done, 1m 38s to end
+2021-05-20 18:14:08,036 6108827 INFO [main] ROOT - 1,947,088,043 nodes, 1h 37m 30s, 332,833.29 nodes/s, 3.00 µs/node; 98% done, 1m 28s to end
+2021-05-20 18:14:18,036 6118827 INFO [main] ROOT - 1,950,338,903 nodes, 1h 37m 40s, 332,820.07 nodes/s, 3.00 µs/node; 98% done, 1m 18s to end
+2021-05-20 18:14:28,036 6128827 INFO [main] ROOT - 1,953,585,494 nodes, 1h 37m 50s, 332,806.16 nodes/s, 3.00 µs/node; 98% done, 1m 8s to end
+2021-05-20 18:14:38,036 6138827 INFO [main] ROOT - 1,956,850,466 nodes, 1h 38m 0s, 332,795.43 nodes/s, 3.00 µs/node; 99% done, 58s to end
+2021-05-20 18:14:48,036 6148827 INFO [main] ROOT - 1,960,132,215 nodes, 1h 38m 10s, 332,787.59 nodes/s, 3.00 µs/node; 99% done, 49s to end
+2021-05-20 18:14:58,036 6158827 INFO [main] ROOT - 1,963,344,611 nodes, 1h 38m 20s, 332,768.02 nodes/s, 3.01 µs/node; 99% done, 39s to end
+2021-05-20 18:15:08,036 6168827 INFO [main] ROOT - 1,966,647,012 nodes, 1h 38m 30s, 332,763.74 nodes/s, 3.01 µs/node; 99% done, 29s to end
+2021-05-20 18:15:18,036 6178827 INFO [main] ROOT - 1,969,954,975 nodes, 1h 38m 40s, 332,760.42 nodes/s, 3.01 µs/node; 99% done, 19s to end
+2021-05-20 18:15:28,036 6188827 INFO [main] ROOT - 1,973,275,838 nodes, 1h 38m 50s, 332,759.28 nodes/s, 3.01 µs/node; 99% done, 9s to end
+2021-05-20 18:15:38,036 6198827 INFO [main] ROOT - 1,976,415,575 nodes, 1h 39m 0s, 332,727.65 nodes/s, 3.01 µs/node; 99% done, 182ms to end
+2021-05-20 18:15:38,469 6199260 INFO [main] ROOT - Completed.
+2021-05-20 18:15:38,469 6199260 INFO [main] ROOT - Elapsed: 1h 39m 0s [1,976,476,233 nodes, 332,713.61 nodes/s, 3.01 µs/node]
+2021-05-20 18:15:38,529 6199320 INFO [main] ROOT - Elapsed: 1h 39m 0s [1,976,476,233 nodes, 332,713.61 nodes/s, 3.01 µs/node]

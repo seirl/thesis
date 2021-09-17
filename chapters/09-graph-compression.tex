@@ -61,7 +61,7 @@ Specifically, we will answer the following research question:
 
 \vspace{1em}
 
-\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ\@: is it possible to
+\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ\@: Is it possible to
 efficiently perform software development history analyses at an ultra large
 scale, on a single, relatively cheap machine?}}
 
@@ -494,23 +494,20 @@ resulting in nodes with very dense predecessor lists.
     \centering
     \begin{subfigure}[b]{.49\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{img/compression/indegree.png}
+        \includegraphics[width=\linewidth]{img/topology/inout/full_in}
         \caption{In-degrees.}%
         \label{fig:compression-indegree}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{.49\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{img/compression/outdegree.png}
+        \includegraphics[width=\linewidth]{img/topology/inout/full_out}
         \caption{Out-degrees.}%
         \label{fig:compression-outdegree}
     \end{subfigure}
     \caption{In-degree and out-degree distributions for the entire corpus as a
-    graph. Plots show both frequency (red dots) and Fibonacci binning (solid
-    black line), which highlight more clearly the shape of the associated
-    distribution~\cite{VigFB}. Note how the in-degree distribution has a fatter
-    tail than the indeegree one leading, as we will show experimentally, to
-    better compression (but worse traversal) performances for the transposed
-    graph.}%
+    graph. Note how the in-degree distribution has a fatter tail than the
+    out-degree one leading, as we will show experimentally, to better
+    compression (but worse traversal) performances for the transposed graph.}%
     \label{fig:compression-inoutdegree}
 \end{figure}
 
@@ -834,7 +831,7 @@ follow edges up to origin nodes to determine that.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents.png}
+  \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents}
   \caption{Content $\to$ revision multiplication, i.e., how often file contents
     (Y axis) reoccur unmodified in different commits (X axis), based on a
     random sample of 953\,M blobs (17\% of all blobs).}%
@@ -843,7 +840,7 @@ follow edges up to origin nodes to determine that.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions.png}
+  \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions}
   \caption{Revision $\to$ origin multiplication, i.e., how often commits (Y
   axis) reoccur in different repositories (X axis), based on a random sample of
   8.5\,M revision (0.77\% of all revisions).}%
@@ -872,21 +869,47 @@ software development is nowadays very distributed, to a point of strong
 resiliency to the disappearance of a single point of source code distribution.
 
 \begin{figure}
-  \centering
-  \includegraphics[width=0.7\linewidth]{img/compression/distributions/contents_node_size.png}
-  \caption{Visit size, as the number of visited nodes, for measuring
-    blobs $\to$ revision multiplication on the same sample of
-    \cref{fig:compression-distrib-cnt-rev}.}%
-  \label{fig:compression-size-cnt-rev}
 \end{figure}
 
 \begin{figure}
-  \centering
-  \includegraphics[width=0.7\linewidth]{img/compression/distributions/revisions_node_size.png}
-  \caption{Visit size, as the number of visited nodes, for measuring
-    revision $\to$ origin multiplication on the same sample of
-    \cref{fig:compression-distrib-rev-ori}.}%
-  \label{fig:compression-size-rev-ori}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/compression/distributions/contents_node_size}
+        \caption{Visit size, as the number of visited \emph{nodes}, for
+            measuring blobs $\to$ revision multiplication on the same sample of
+            \cref{fig:compression-distrib-cnt-rev}.}%
+        \label{fig:compression-size-cnt-rev}
+    \end{subfigure}\hfill%
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/compression/distributions/revisions_node_size}
+        \caption{Visit size, as the number of visited \emph{nodes}, for
+            measuring revision $\to$ origin multiplication on the same sample
+            of \cref{fig:compression-distrib-rev-ori}.}%
+        \label{fig:compression-size-rev-ori}
+    \end{subfigure}
+
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/compression/distributions/contents_arc_size}
+        \caption{Visit size, as the number of visited \emph{edges}, for
+            measuring blobs $\to$ revision multiplication on the same sample of
+        \cref{fig:compression-distrib-cnt-rev}.}%
+        \label{fig:compression-size-cnt-rev-arc}
+    \end{subfigure}\hfill%
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/compression/distributions/revisions_arc_size}
+        \caption{Visit size, as the number of visited \emph{edges}, for
+            measuring revision $\to$ origin multiplication on the same sample
+            of \cref{fig:compression-distrib-rev-ori}.}%
+        \label{fig:compression-size-rev-ori-arc}
+    \end{subfigure}
+    \caption{Distribution of the number of nodes and edges visited for the
+    multiplication factor experiments.}
 \end{figure}
 
 \smallskip
@@ -894,7 +917,9 @@ resiliency to the disappearance of a single point of source code distribution.
 To better appreciate the graph-intensive nature of realizing the above two
 experiments in practice, we have also measured visit sizes.
 \Cref{fig:compression-size-cnt-rev} and \cref{fig:compression-size-rev-ori}
-show the results in terms of visited nodes.
+show the results in terms of visited nodes, while
+\cref{fig:compression-size-cnt-rev-arc} and
+\cref{fig:compression-size-rev-ori-arc} show them in terms of visited edges.
 
 Content $\to$ revision visits traverse significantly more nodes (and edges)
 than revision $\to$ origin visits. This is expected due to the respective sizes

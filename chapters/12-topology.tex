@@ -368,7 +368,7 @@ allows us to get an exact result for the entire graph. The frontier is stored
 as an on-disk queue to lower the RAM usage.
 
 \subsubsection{Path length distribution}%
-\label{sec:metho:avgpath}
+\label{sec:metho:shortestpath}
 
 We compute the distribution of the length of the shortest paths between all the
 root (in-degree = 0) and all the leave (out-degree = 0) nodes in the filesystem
@@ -914,29 +914,29 @@ criterion alone.
 
 \subsection{Shortest path lengths}
 
-% \plotdistribs{img/topology/avgpath/dir+cnt}
-% \plotdistribs{img/topology/avgpath/rev}
+% \plotdistribs{img/topology/shortestpath/dir+cnt}
+% \plotdistribs{img/topology/shortestpath/rev}
 
 \begin{figure}
     \centering
     \begin{subfigure}{.49\textwidth}
-        \includegraphics[width=\linewidth]{img/topology/avgpath/dir+cnt}
+        \includegraphics[width=\linewidth]{img/topology/shortestpath/dir+cnt}
         \caption{Filesystem layer (10\% uniform sample)}
-        \label{fig:avgpath_dir+cnt}
+        \label{fig:shortestpath_dir+cnt}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
-        \includegraphics[width=\linewidth]{img/topology/avgpath/rev}
+        \includegraphics[width=\linewidth]{img/topology/shortestpath/rev}
         \caption{Commit layer}
-        \label{fig:avgpath_rev}
+        \label{fig:shortestpath_rev}
     \end{subfigure}
     \caption{Shortest path length distributions}
-    \label{fig:avgpath}
+    \label{fig:shortestpath}
 \end{figure}
 
 The last topological property we look at is the average length of the shortest
 paths between root and leave nodes in the filesystem
-(\cref{fig:avgpath_dir+cnt}) and commit layer (\cref{fig:avgpath_rev}), as
-defined in \cref{sec:metho:avgpath}.
+(\cref{fig:shortestpath_dir+cnt}) and commit layer
+(\cref{fig:shortestpath_rev}), as defined in \cref{sec:metho:shortestpath}.
 These have directly transposable meanings in software development. In the
 filesystem layer, they correspond to the minimum directory depth at which a
 given blob can be found on average. In the commit layer, they are the lengths
@@ -947,7 +947,7 @@ density.
 
 We saw in \cref{sec:topo:degrees} that the filesystem layer was dense,
 with nodes in close proximity with each other.  The distribution obtained in
-\cref{fig:avgpath_dir+cnt} gives an idea of the depth of the files in the
+\cref{fig:shortestpath_dir+cnt} gives an idea of the depth of the files in the
 directory trees, which interestingly appear in a very characteristic
 configuration. The distribution does not exhibit scale-invariant behavior,
 suggesting that its mean does not diverge.  Typically, most files seem to be at
@@ -960,8 +960,8 @@ top-level.
 
 In contrast, \cref{sec:topo:degrees} showed that the history layer was
 sparse with an average degree close to one, indicating that it was mainly
-constituted of degenerate strings of commits. \Cref{fig:avgpath_rev} shows us
-the distribution of the lengths of these strings, which appears to have some
+constituted of degenerate strings of commits. \Cref{fig:shortestpath_rev} shows
+us the distribution of the lengths of these strings, which appears to have some
 scale invariance. Because these lengths can be interpreted as the ``age'' of a
 given project measured in number of commits, it makes sense that they would
 follow a distribution with a high variance.

@@ -1,0 +1,18 @@
+2021-05-18 18:31:58,808 101382043 INFO [main] ROOT - 19,283,889,867 nodes, 28h 5m 21s, 190,699.82 nodes/s, 5.24 µs/node; 99% done, 4m 5s to end
+2021-05-18 18:32:08,808 101392043 INFO [main] ROOT - 19,286,457,113 nodes, 28h 5m 31s, 190,706.35 nodes/s, 5.24 µs/node; 99% done, 3m 52s to end
+2021-05-18 18:32:18,808 101402043 INFO [main] ROOT - 19,289,031,709 nodes, 28h 5m 41s, 190,712.95 nodes/s, 5.24 µs/node; 99% done, 3m 38s to end
+2021-05-18 18:32:28,808 101412043 INFO [main] ROOT - 19,291,637,126 nodes, 28h 5m 51s, 190,719.85 nodes/s, 5.24 µs/node; 99% done, 3m 25s to end
+2021-05-18 18:32:38,808 101422043 INFO [main] ROOT - 19,294,258,407 nodes, 28h 6m 1s, 190,726.91 nodes/s, 5.24 µs/node; 99% done, 3m 11s to end
+2021-05-18 18:32:48,808 101432043 INFO [main] ROOT - 19,296,920,049 nodes, 28h 6m 11s, 190,734.36 nodes/s, 5.24 µs/node; 99% done, 2m 57s to end
+2021-05-18 18:32:58,808 101442043 INFO [main] ROOT - 19,299,614,813 nodes, 28h 6m 21s, 190,742.15 nodes/s, 5.24 µs/node; 99% done, 2m 43s to end
+2021-05-18 18:33:08,808 101452043 INFO [main] ROOT - 19,302,335,338 nodes, 28h 6m 31s, 190,750.18 nodes/s, 5.24 µs/node; 99% done, 2m 28s to end
+2021-05-18 18:33:18,808 101462043 INFO [main] ROOT - 19,305,118,139 nodes, 28h 6m 41s, 190,758.83 nodes/s, 5.24 µs/node; 99% done, 2m 14s to end
+2021-05-18 18:33:28,808 101472043 INFO [main] ROOT - 19,308,013,212 nodes, 28h 6m 51s, 190,768.59 nodes/s, 5.24 µs/node; 99% done, 1m 59s to end
+2021-05-18 18:33:38,808 101482043 INFO [main] ROOT - 19,311,060,855 nodes, 28h 7m 1s, 190,779.85 nodes/s, 5.24 µs/node; 99% done, 1m 43s to end
+2021-05-18 18:33:48,808 101492043 INFO [main] ROOT - 19,314,351,728 nodes, 28h 7m 11s, 190,793.51 nodes/s, 5.24 µs/node; 99% done, 1m 25s to end
+2021-05-18 18:33:58,808 101502043 INFO [main] ROOT - 19,318,117,344 nodes, 28h 7m 21s, 190,811.86 nodes/s, 5.24 µs/node; 99% done, 1m 6s to end
+2021-05-18 18:34:08,808 101512043 INFO [main] ROOT - 19,322,701,663 nodes, 28h 7m 31s, 190,838.29 nodes/s, 5.24 µs/node; 99% done, 42s to end
+2021-05-18 18:34:18,808 101522043 INFO [main] ROOT - 19,328,253,918 nodes, 28h 7m 41s, 190,874.28 nodes/s, 5.24 µs/node; 99% done, 13s to end
+2021-05-18 18:34:22,905 101526140 INFO [main] ROOT - Completed.
+2021-05-18 18:34:22,905 101526140 INFO [main] ROOT - Elapsed: 28h 7m 45s [19,330,739,526 nodes, 190,891.10 nodes/s, 5.24 µs/node]
+2021-05-18 18:34:22,945 101526180 INFO [main] ROOT - Elapsed: 28h 7m 45s [19,330,739,526 nodes, 190,891.10 nodes/s, 5.24 µs/node]

@@ -58,6 +58,12 @@ of information: (1) what were the \emph{selection criteria} used to narrow the
 study to work on a specific set of software artifacts, and (2) which types of
 \emph{analyzed data} were required for their analyses.
 
+\definecolor{google-green}{HTML}{B7E1CD}
+\definecolor{google-yellow}{HTML}{FCE8B2}
+\definecolor{google-blue}{HTML}{C6DAFC}
+\definecolor{google-red}{HTML}{F4C7C3}
+\definecolor{google-grey}{HTML}{F5F5F5}
+
 \begin{figure}[b]
 \begin{tikzpicture}[x=1pt,y=1pt,font=\tiny]
   \begin{sankeydiagram}[
@@ -67,7 +73,7 @@ study to work on a specific set of software artifacts, and (2) which types of
     sankey fill/.style={%
       draw,line width=0pt,
       fill,
-      lime!50,
+      google-grey,
     },
     sankey draw/.style={%
       draw=black,
@@ -98,7 +104,7 @@ study to work on a specific set of software artifacts, and (2) which types of
         \tikzset{%
             sankey fill/.append style={%
                 line width=0pt,
-                lime!50!green!50,
+                google-green,
             }
         }
         \sankeyadvance{p5}{60pt}
@@ -111,7 +117,7 @@ study to work on a specific set of software artifacts, and (2) which types of
         \tikzset{%
             sankey fill/.append style={%
                 line width=0pt,
-                red!50!lime!50,
+                google-red,
             }
         }
         \sankeyturn{ex1}{-90}

@@ -22,9 +22,23 @@
 \usepackage[dvipsnames]{xcolor}         % Creates coloured text and background
 \usepackage{microtype}      % Makes pdf look better.
 \usepackage[normalem]{ulem} % Underline command
+\setlength{\cftpartnumwidth}{2em}
+\setlength{\cftchapternumwidth}{2em}
+
 
 % Bibliography
-\usepackage[backend=biber, style=numeric, maxbibnames=5]{biblatex}
+\usepackage[backend=biber, style=numeric, maxnames=6]{biblatex}
+% Only show DOI when both DOI and URL are present
+% https://tex.stackexchange.com/a/424799
+\DeclareSourcemap{%
+  \maps[datatype=bibtex]{%
+    \map[overwrite]{%
+      \step[fieldsource=doi, final]
+      \step[fieldset=url, null]
+      \step[fieldset=eprint, null]
+    }
+  }
+}
 
 % Links and refs
 \usepackage[colorlinks=true, allcolors=black]{hyperref}

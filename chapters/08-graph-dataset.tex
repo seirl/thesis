@@ -95,7 +95,7 @@ provided in a \emph{relational format}, i.e., as a set of data tables linked
 together by predefined relationships. The relational \emph{schema} describes
 these tables, notably the types of their individual columns and the way they
 relate to each other. These data tables can then be loaded in distributed Big
-Data engines and queried using relational query languages like SQL.
+Data engines and queried using relational query languages like SQL\@.
 
 The data in the Software Heritage archive is already internally stored in a
 relational format inside a PostgreSQL database. However, this format is
@@ -471,7 +471,7 @@ If an export is interrupted because of an error or a server failure, resuming
 it can be achieved by reusing the same export identifier. The journal client
 will then start reading the log after the last committed offset.
 
-\subsection{Object unicity}
+\subsection{Object unicity}%
 \label{sec:dataset-export-unicity}
 
 To guarantee that each object is only present once in the final export, there
@@ -537,7 +537,7 @@ export:
 
 \begin{itemize}
     \item \textbf{Database dumps} (e.g., CSV) which can be imported in a local
-        \gls{RDBMS} like PostgreSQL.
+        \gls{RDBMS} like PostgreSQL\@.
     \item \textbf{Columnar data storage} (e.g., ORC, Avro, Parquet) which can
         be used in data lakes and big data processing ecosystems like the
         Hadoop environment.
@@ -622,7 +622,7 @@ workflows. Columnar storage also has useful properties for parallelism, notably
 ease of partitioning on single columns, which can be used to efficiently
 scale-out computations.
 
-\subsection{Edges dataset}
+\subsection{Edges dataset}%
 \label{sec:edges-format}
 The edge format is stripped of all the metadata except the intrinsic
 identifiers and types of the nodes (i.e., whether an artifact is a revision, a
@@ -780,7 +780,7 @@ among developers.
 
 \begin{table}
   \centering
-  \caption{Node and edge statistics for the 2020-12-15 dataset.}
+  \caption{Node and edge statistics for the 2020-12-15 dataset.}%
   \label{tab:corpus-stats}
   \begin{tabular}[t]{l|rr}
     % \multicolumn{1}{c|}{\textbf{Layer}} &
@@ -822,7 +822,7 @@ among developers.
 
 \begin{table}
   \caption{Crawling statistics: number of origins and visits by origin type for
-  the 2021-03-23 dataset.}
+  the 2021-03-23 dataset.}%
   \label{tab:visits-by-type}
   \centering
   \begin{tabular}{l|rr|rr}
@@ -849,7 +849,7 @@ among developers.
 
 \begin{table}
   \caption{Crawling statistics: number of origins and visits by forge domain
-  for the 2021-03-23 dataset (domains with $>1000$ origins).}
+  for the 2021-03-23 dataset (domains with $>1000$ origins).}%
   \label{tab:visits-by-domain}
   \centering
   \begin{tabular}{l|rr|rr}

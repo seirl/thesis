@@ -245,9 +245,9 @@ Facebook~\cite{ugander2011facebook} and Twitter~\cite{myers2014twitter}.
 
 In the realm of interconnected software-related artifacts, software dependency
 graphs have also been studied and characterized as complex networks.
-\cite{labelle2004inter} looked at the basic properties of the dependency graphs
+\Cite{labelle2004inter} looked at the basic properties of the dependency graphs
 of Debian and BSD packages, again with a methodology similar to the web graph
-studies, albeit on a much smaller graph. \cite{abate2009strong} is a different
+studies, albeit on a much smaller graph. \Cite{abate2009strong} is a different
 take on characterizing the graph of software dependencies in Debian,
 considering semantic rather than merely semantic dependencies. On the same
 graph,~\cite{maillart2008empirical} adds the time dimension to the analysis by
@@ -270,7 +270,7 @@ providing a complex network characterization of the largest available
 approximation of the global VCS graph of public code.
 
 
-\section{Methodology}
+\section{Methodology}%
 \label{sec:topology-methodology}
 
 In this section we present our methodology for analyzing the global graph of
@@ -382,10 +382,10 @@ commit chains are generally long and degenerate, allowing us to run an exact
 algorithm on the entire commit layer.
 
 
-\section{Topological properties}
+\section{Topological properties}%
 \label{sec:topology-results}
 
-\subsection{In-degrees and out-degrees}
+\subsection{In-degrees and out-degrees}%
 \label{sec:topo:degrees}
 
 The first indicator that can be used to understand the density of each layer in
@@ -398,7 +398,7 @@ web, and 15 times more sparse than the social graph of Facebook.
 
 \begin{table}
   \centering
-  \caption{Average degree of various large graphs.}
+  \caption{Average degree of various large graphs.}%
   \label{tab:degree-comparison}
   \begin{tabular}[t]{l S[table-format=3.3]}
       \textbf{Dataset} & \textbf{Average degree} \\
@@ -406,14 +406,14 @@ web, and 15 times more sparse than the social graph of Facebook.
     \textbf{swh-2020-history}    & 1.021 \\
     \textbf{swh-2020-commit}     & 1.022 \\
     \textbf{swh-2020-hosting}    & 3.39 \\
-    bitcoin-2013 \cite{maesa2018data}                 & 6.4 \\
+    bitcoin-2013~\cite{maesa2018data}                 & 6.4 \\
     dblp-2011                    & 6.8 \\
     \textbf{swh-2020}            & 11.0 \\
     \textbf{swh-2020-filesystem} & 12.1 \\
-    twitter-2010 \cite{kwak2010twitter}      & 35.2 \\
+    twitter-2010~\cite{kwak2010twitter}      & 35.2 \\
     clueweb12                    & 43.1 \\
-    uk-2014 (Web) \cite{BMSB}               & 60.4 \\
-    fb-2011 (Facebook) \cite{backstrom2012four}          & 169.0 \\
+    uk-2014 (Web)~\cite{BMSB}               & 60.4 \\
+    fb-2011 (Facebook)~\cite{backstrom2012four}          & 169.0 \\
   \end{tabular}
 \end{table}
 
@@ -516,16 +516,16 @@ distribution.
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/inout/rev_in}
-        \caption{In-degrees (``fork-degrees'').}
+        \caption{In-degrees (``fork-degrees'').}%
         \label{fig:inout_in_rev}
     \end{subfigure}\hfill%
     \begin{subfigure}{.49\textwidth}
         \centering%
         \includegraphics[width=\linewidth]{img/topology/inout/rev_out}
-        \caption{Out-degrees (``merge-degrees'').}
+        \caption{Out-degrees (``merge-degrees'').}%
         \label{fig:inout_out_rev}
     \end{subfigure}
-    \caption{Degree distributions: Commit layer}
+    \caption{Degree distributions: Commit layer}%
     \label{fig:inout_rev}
 \end{figure}
 
@@ -569,7 +569,7 @@ archive.
 \begin{figure}
     \centering
     \includegraphics[width=.49\textwidth]{img/topology/inout/rev_in_rel}
-    \caption{In-degrees of commits from releases.}
+    \caption{In-degrees of commits from releases.}%
     \label{fig:inout_rev_in_rel}
 \end{figure}
 
@@ -655,30 +655,30 @@ points to the same repository state as the first origin.
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/full}
-        \caption{Full graph.}
+        \caption{Full graph.}%
         \label{fig:clustering_full}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/dir+cnt}
-        \caption{Filesystem layer.}
+        \caption{Filesystem layer.}%
         \label{fig:clustering_dir+cnt}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/rev}
-        \caption{Commit layer.}
+        \caption{Commit layer.}%
         \label{fig:clustering_rev}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \centering
         \includegraphics[width=\linewidth]{img/topology/clusteringcoeff/rel+rev}
-        \caption{History layer.}
+        \caption{History layer.}%
         \label{fig:clustering_rel+rev}
     \end{subfigure}
 
-    \caption{Clustering distributions (0.1\% uniform sample).}
+    \caption{Clustering distributions (0.1\% uniform sample).}%
     \label{fig:clustering}
 \end{figure}%
 
@@ -725,33 +725,33 @@ here.
     \centering
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/full}
-        \caption{Full graph.}
+        \caption{Full graph.}%
         \label{fig:connectedcomponents_full}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/dir+cnt}
-        \caption{Filesystem layer.}
+        \caption{Filesystem layer.}%
         \label{fig:connectedcomponents_dir+cnt}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/rev}
-        \caption{Commit layer.}
+        \caption{Commit layer.}%
         \label{fig:connectedcomponents_rev}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/rel+rev}
-        \caption{History layer.}
+        \caption{History layer.}%
         \label{fig:connectedcomponents_rel+rev}
     \end{subfigure}
     \newline
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/connectedcomponents/ori+snp}
-        \caption{Hosting layer.}
+        \caption{Hosting layer.}%
         \label{fig:connectedcomponents_ori+snp}
     \end{subfigure}
 
-    \caption{Connected components distributions.}
+    \caption{Connected components distributions.}%
     \label{fig:connectedcomponents}
 \end{figure}
 
@@ -768,7 +768,7 @@ distribution, being 8345 times larger than the second largest.
 
 \begin{table}
   \centering
-  \caption{Connected components per layer.}
+  \caption{Connected components per layer.}%
   \label{tab:wcc-stats}
   \begin{tabular}[t]{l r r r}
       \textbf{Layer} & \textbf{\# of WCC}
@@ -921,15 +921,15 @@ criterion alone.
     \centering
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/shortestpath/dir+cnt}
-        \caption{Filesystem layer (10\% uniform sample)}
+        \caption{Filesystem layer (10\% uniform sample)}%
         \label{fig:shortestpath_dir+cnt}
     \end{subfigure}\hfill
     \begin{subfigure}{.49\textwidth}
         \includegraphics[width=\linewidth]{img/topology/shortestpath/rev}
-        \caption{Commit layer}
+        \caption{Commit layer}%
         \label{fig:shortestpath_rev}
     \end{subfigure}
-    \caption{Shortest path length distributions}
+    \caption{Shortest path length distributions}%
     \label{fig:shortestpath}
 \end{figure}
 
@@ -969,7 +969,7 @@ A few outliers are also present in the tail of the distribution, mostly test
 projects like the GitHub repository \texttt{cirosantilli/test-many-commits-1m}
 which contains two million commits.
 
-\section{Discussion}
+\section{Discussion}%
 \label{sec:topology-discussion}
 
 Our results shed light on some properties of the software development graph

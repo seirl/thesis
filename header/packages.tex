@@ -12,7 +12,7 @@
 \usepackage{upgreek}             % Calls other kind of greek alphabet
 
 % Language
-\usepackage[english]{babel}
+\usepackage[french,main=english]{babel}
 \usepackage{csquotes}
 \usepackage[acronym]{glossaries}
 \usepackage{lipsum}
@@ -63,3 +63,9 @@
     %   /Keywords (One; Two;Three)
 }
 \fi
+
+% Draft
+\usepackage[firstpage,stamp=true]{draftwatermark}
+\SetWatermarkScale{0.3}
+\SetWatermarkText{\bf Draft: \today}
+\setkeys{Gin}{draft=false}  % Display images in draft mode

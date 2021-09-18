@@ -320,7 +320,7 @@ The following properties are simple integers, either 16, 32 or 64 bits:
 
 All the dates can be represented as a 64-bit timestamp storing the number of
 nanoseconds since the Unix epoch. The timezone information is stored as a
-16-bit integer representing the timezone offset with UTC.
+16-bit integer representing the timezone offset with UTC\@.
 
 Storing these integer properties in property files is done in a similar way
 to storing permutations in order files, which we described in
@@ -527,7 +527,7 @@ arc labels is implemented as the \texttt{FixedWidthIntListLabel} class in the
 WebGraph framework; we extended this class to allow for lists of larger (up to
 64 bits) fixed width labels in a new class, \texttt{FixedWidthLongListLabel}.
 
-\subsection{Label format}
+\subsection{Label format}%
 \label{sec:label-format}
 
 Each record in the label list described above represents one relationship
@@ -598,12 +598,12 @@ We empirically benchmarked the storage performance and hashing speed of three
 different techniques for label name mapping on the 2020-12-15 graph:
 
 \begin{enumerate}
-    \item \label{itm:label-gov3-fcl}
+    \item\label{itm:label-gov3-fcl}
         \textbf{Standard \gls{MPH} with unsorted front-coded string list}: this
         approach uses a standard \gls{MPH} which does not preserve the order of
         its input keys, negating the compression benefits of front-coded string
         lists.
-    \item \label{itm:label-gov3-pfcl}
+    \item\label{itm:label-gov3-pfcl}
         \textbf{Standard \gls{MPH} with permuted sorted front-coded string
         list}: this approach uses a standard \gls{MPH} which does not preserve
         the order. However, the front-coded string list is stored by
@@ -611,7 +611,7 @@ different techniques for label name mapping on the 2020-12-15 graph:
         compression. To map the results of the hash function to the order in
         the list, a \emph{permutation array} is used, as described in
         \cref{sec:swhid2node}.
-    \item \label{itm:label-lcp-fcl}
+    \item\label{itm:label-lcp-fcl}
         \textbf{Monotone \gls{MPH} with sorted front-coded string list}: this
         approach uses a monotone \gls{MPH} which maps its input in an
         order-preserving fashion (but has a larger size and lower hashing
@@ -626,9 +626,9 @@ different techniques for label name mapping on the 2020-12-15 graph:
     \label{tab:label-mph-benchmark}
     \begin{tabular}{c l r r r}
         \textbf{Option} & \textbf{Implementation} & \textbf{MPH size} & \textbf{Total size} & \textbf{Hashing rate} \\ \hline
-        \ref{itm:label-gov3-fcl} & Standard MPH + unsorted FCL & 0.6\,GiB & 172\,GiB & 521 k lines/s \\
-        \ref{itm:label-gov3-pfcl} & Standard MPH + permuted FCL & 0.6\,GiB & 124\,GiB & 521 k lines/s \\
-        \ref{itm:label-lcp-fcl} & Monotone MPH + sorted FCL & 5.7\,GiB & 114\,GiB & 511 k lines/s
+        {\ref{itm:label-gov3-fcl}} & Standard MPH + unsorted FCL & 0.6\,GiB & 172\,GiB & 521 k lines/s \\
+        {\ref{itm:label-gov3-pfcl}} & Standard MPH + permuted FCL & 0.6\,GiB & 124\,GiB & 521 k lines/s \\
+        {\ref{itm:label-lcp-fcl}} & Monotone MPH + sorted FCL & 5.7\,GiB & 114\,GiB & 511 k lines/s
     \end{tabular}
 \end{table}
 
@@ -715,8 +715,8 @@ swh:1:dir:05faa1… swh:1:dir:d0ff82… dGVzdA== 16384
 \end{minted}
 
 We (1) hash and permute the source and destination nodes using
-$p_G(\mathit{mph}(s)$, and (2) monotonically hash the labels using $h_L(l)$, to
-obtain the identifiers which will be used in the compressed graph:
+$p_G(\mathit{mph}(s))$, and (2) monotonically hash the labels using $h_L(l)$,
+to obtain the identifiers which will be used in the compressed graph:
 
 \begin{minted}{text}
 pG(mph(<src>) pG(mph(<dst>)) hL(<label_name>) <perms>
@@ -742,7 +742,7 @@ This sorting step is extremely intensive in time and memory: because there are
 more than 220 billion edges to sort in the latest dataset and because the
 sorting algorithm has a complexity of $O(|E| \times \log(|E|))$, the process
 can take entire weeks, terabytes of disk space and hundreds of gigabytes of
-RAM.
+RAM\@.
 
 Since the lines that need to be sorted are fixed-width numbers, other
 sorting methods can be used to reduce memory usage. The
@@ -891,7 +891,7 @@ We propose another approach to share data across two different compressed graph
 processes while loading it \emph{directly in RAM}, through the use of the
 \texttt{swh graph cachemount} command. By copying graph data to a
 \emph{tmpfs}~\cite{snyder1990tmpfs} not backed by a disk swap, we can force the
-kernel to load it entirely in RAM. Subsequent memory-mappings of the files
+kernel to load it entirely in RAM\@. Subsequent memory-mappings of the files
 stored in the tmpfs will simply map the data stored in RAM to virtual memory
 pages, and return a pointer to the in-memory structure.
 

@@ -365,7 +365,7 @@ simplicity.
     metadata fields and intrinsic hashes.}%
 \end{figure}
 
-\subsection{Layers}
+\subsection{Layers}%
 \label{sec:layers}
 
 While each relationship can be analyzed independently, is useful to regroup
@@ -408,7 +408,7 @@ the specific subgraphs named above.
 The intrinsic hashes used to identify the nodes can be used to provide a
 standardized and portable way of referring to the artifacts in the archive. This
 is achieved by \glspl{SWHID},
-% (IPA\@: /swiːd/)
+% (IPA: /swiːd/)
 short strings that identify a single object and which are guaranteed to remain
 stable over time.  These identifiers were introduced in~\cite{cise-2020-doi}
 and are documented in the Software Heritage development
@@ -483,7 +483,7 @@ following their links.
 This approach can have scalability issues, as inserting data in traditional
 \glspl{RDBMS} gets exponentially slower as the tables grow.  Other storage
 systems for the graph are under study to circumvent this problem, notably the
-use of key-value document storage systems like Cassandra or ScyllaDB.
+use of key-value document storage systems like Cassandra or ScyllaDB\@.
 
 One last relevant component is the \emph{journal}, which serves as a
 synchronization pipeline across the infrastructure. In order to keep the

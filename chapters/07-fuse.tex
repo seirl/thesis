@@ -1,4 +1,4 @@
-\chapter{The Software Heritage Filesystem (SwhFS)}
+\chapter{The Software Heritage Filesystem (SwhFS)}%
 \label{chp:fuse}
 
 While the Software Heritage Vault provides a simple way to retrieve
@@ -47,7 +47,7 @@ remote Git repositories as local filesystems, loading them lazily in order to
 reduce disk and bandwidth usage for large code bases, retaining compatibility
 with standard Git tools.
 Scalar~\cite{msscalar} is the successor of VFS for Git and no longer provides
-a virtual filesystem UX.
+a virtual filesystem UX\@.
 
 GitFS~\cite{presslabs-gitfs} and FigFS~\cite{grant2009figfs} also offer virtual
 filesystem interfaces on top of Git. FigFS is now abandoned. GitFS is not, but
@@ -132,7 +132,7 @@ for examples).
 Relationships between accessed archived objects are represented using symbolic
 links. For instance, the source tree of a commit object
 \texttt{archive/swh:1:rev:…/root} is a symbolic link to a directory object
-located under \texttt{archive/}, e.g., \texttt{"->~../../swh:1:dir:…"}. This
+located under \texttt{archive/}, e.g., \texttt{``->~../../swh:1:dir:…''}. This
 approach avoids duplications in the virtual filesystem, reifying the sharing of
 Merkle structures on disk.
 
@@ -234,7 +234,7 @@ persistent HTTP connections to the remote API backend, rather than establishing
 new ones at each call.
 
 
-\section{Walkthrough}
+\section{Walkthrough}%
 \label{sec:fuse-walkthrough}
 
 This section shows how to use \SWHFS{} via concrete examples. A screencast video
@@ -243,7 +243,7 @@ is available online at \url{https://dx.doi.org/10.5281/zenodo.4531411}.
 \paragraph{Installation}
 
 \SWHFS{} is implemented in Python, released under the GPL3 license, and
-distributed via PyPI.
+distributed via PyPI\@.
 % as \SWHFSpy.\footnote{\url{https://pypi.org/project/swh.fuse/}}
 It can be installed from there running \mintinline{bash}{pip install swh.fuse}.
 

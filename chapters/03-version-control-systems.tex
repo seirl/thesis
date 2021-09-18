@@ -44,7 +44,7 @@ are also often logically grouped in the same directory, sometimes called a
                     .3 eval.c.
                     .3 operands.c.
         }
-        \caption{Directory listing.}
+        \caption{Directory listing.}%
         \label{fig:vcs-dir-flat}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{.58\textwidth}
@@ -386,7 +386,7 @@ capture the essential nature of a directory and all its contents.
     \caption{Deduplication of an entire subtree in the example repository. An
     intrinsic hash is recursively computed for each directory, allowing the
 storage to deduplicate the unmodified ``\texttt{src}'' directory between the
-second and third revisions.}
+second and third revisions.}%
     \label{fig:deduplicate-subtree}
 \end{figure}
 
@@ -452,7 +452,7 @@ corrupted data and reject them, which is particularly useful in the case of
 \glspl{DVCS} where artifacts can be broadcast through unreliable data links and
 from potentially untrusted sources.
 
-\subsection{Purely functional persistence}
+\subsection{Purely functional persistence}%
 \label{sec:purely-functional}
 
 Because the goal of \glspl{VCS} is to preserve the history of the software

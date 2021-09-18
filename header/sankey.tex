@@ -1,3 +1,6 @@
+% chktex-file 8
+% chktex-file 36
+
 \usetikzlibrary{calc}
 \usepackage{etoolbox}
 
@@ -227,7 +230,7 @@
       \pgfmathsetmacro{\diff}{abs(\iprop-\sankeytot)}
       \pgfmathtruncatemacro{\finish}{\diff<0.01?1:0}
       \ifnumequal{\finish}{1}{}{
-        \message{*** Warning: bad sankey fork (maybe)...}
+        \message{*** Warning: bad sankey fork (maybe).}
         \message{\iprop-\sankeytot}
       }
     };

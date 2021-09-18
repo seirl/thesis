@@ -81,7 +81,7 @@ further narrow it down as follows:
 
 \item with \emph{cheap machine} we mean commodity hardware, either desktop- or
   server-grade, that can be easily acquired by researchers with a moderate
-  investment of a few thousand USD.
+  investment of a few thousand USD\@.
 
 \end{itemize}
 
@@ -434,13 +434,13 @@ breakdown to perform the various steps on the initial dataset is given in
 time.
 
 Timings have been taken on a server equipped with 24 CPUs and 750\,GiB of
-RAM\@. Note however, that such huge amounts of RAM are not actually \emph{needed}
-for compression; minimum RAM requirements correspond to the resources needed to
-load the final compressed graph in memory. The only step that used more than
-100\,GiB of RAM was the BFS visit, which used a memory mapping to access the BV
-graph on disk using RAM as cache. Recent results on BFS memory
-efficiency~\cite{hagerup2019bfs} further confirm that the BFS step is not an
-impediment on the general applicability of the approach.
+RAM\@. Note however, that such huge amounts of RAM are not actually
+\emph{needed} for compression; minimum RAM requirements correspond to the
+resources needed to load the final compressed graph in memory. The only step
+that used more than 100\,GiB of RAM was the BFS visit, which used a memory
+mapping to access the BV graph on disk using RAM as cache. Recent results on
+BFS memory efficiency~\cite{hagerup2019bfs} further confirm that the BFS step
+is not an impediment on the general applicability of the approach.
 
 We also stress that even \emph{if} significantly more resources were needed for
 compression than for exploitation of the compressed result, that would be an
@@ -516,7 +516,7 @@ than 100\,GiB of RAM, even including the 4\,GiB type map discussed above. Such a
 amount of memory can be easily installed on either powerful workstations or
 cheap server-grade hardware---at current market
 rates,\footnote{\url{https://jcmit.net/memoryprice.htm}, accessed 2019-10-18}
-100\,GiB of main memory costs less than 300 USD. Fitting \emph{both}
+100\,GiB of main memory costs less than 300 USD\@. Fitting \emph{both}
 graph directions on workstation deployments might be more challenging, but it
 is not always needed (e.g., one can choose to load only one graph direction
 depending on experimental needs) and still fit cheap server-grade deployments
@@ -544,9 +544,9 @@ more than 600\,GiB.
 
 Because of these constraints, it is unrealistic to run the \gls{LLP} algorithm
 on the uncompressed version of the graph which already takes around 800\,GiB of
-RAM. Thus, instead of replacing \gls{BFS} reordering compression, the \gls{LLP}
-reordering is computed \emph{from} the previously compressed graph, and
-therefore comes after the full compression pipeline shown in
+RAM\@. Thus, instead of replacing \gls{BFS} reordering compression, the
+\gls{LLP} reordering is computed \emph{from} the previously compressed graph,
+and therefore comes after the full compression pipeline shown in
 \cref{sec:compression-pipeline}.
 
 \begin{figure*}
@@ -719,7 +719,7 @@ graph is slower, as already observed for full graph visits.
 
 \begin{table}
   \centering
-  \caption{Arc lookup benchmarks for 1 billion random nodes.}
+  \caption{Arc lookup benchmarks for 1 billion random nodes.}%
   \label{tab:compression-arc-benchmark}
 
   % \begin{tabular}{lr}

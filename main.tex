@@ -1,7 +1,7 @@
-% add 'draft' to enable draft option on (see below)
-\documentclass[a4paper,11pt]{memoir}
+\documentclass[a4paper, 11pt]{memoir}
 
-\newcommand{\thetitle}{Organizing the graph of public software development for large-scale mining}
+\newcommand{\thetitle}{Organizing the graph of public software development for
+large-scale mining}
 \newcommand{\theauthor}{Antoine Pietri}
 
 \input{header/packages}
@@ -10,65 +10,33 @@
 \input{header/acronyms}
 \input{header/tikz}
 
-% Draft
-\ifdraftdoc
-\fi
-\usepackage[firstpage]{draftwatermark}
-    \SetWatermarkScale{0.3}
-    \SetWatermarkText{\bf Draft: \today}
-    \setkeys{Gin}{draft=false}  % Display images in draft mode
-
-
 \addbibresource{thesis.bib}
 
 \begin{document}
-% Relax constraint on constant page height
-\raggedbottom
-
 \frontmatter
-% \pagenumbering{gobble}
-%
+
+% Titlepage
 \input{frontmatter/title}
 \clearemptydoublepage
 
-%
+% Abstract
 \input{frontmatter/abstract}
 \clearemptydoublepage
-%
+
+% Dedication
 \input{frontmatter/dedication}
 \clearemptydoublepage
 
-
-%%%%% TABLE OF CONTENTS
-\renewcommand{\contentsname}{Table of Contents}
+% Table of contents
 \maxtocdepth{subsection}
 \tableofcontents*
-\addtocontents{toc}{\par\nobreak \mbox{}\hfill{\bf Page}\par\nobreak}
-%\clearemptydoublepage
-%
 
+% Thesis structure
 \input{frontmatter/structure}
 \clearemptydoublepage
 
-\iffalse
-%%%%% LIST OF TABLES
-\listoftables
-\addtocontents{lot}{\par\nobreak\textbf{{\scshape Table} \hfill Page}\par\nobreak}
-\clearemptydoublepage
-%%%%% LIST OF FIGURES
-\listoffigures
-\addtocontents{lof}{\par\nobreak\textbf{{\scshape Figure} \hfill Page}\par\nobreak}
-\clearemptydoublepage
-\fi
-%
-%
-% The bulk of the document is delegated to these chapter files in
-% subdirectories.
 \mainmatter
-%
 \glsresetall
-
-%\part{Prelude}
 
 \part{Software development and software mining}
 
@@ -90,60 +58,42 @@
 \input{chapters/09-graph-compression.tex}
 \input{chapters/10-graph-metadata.tex}
 \input{chapters/11-graph-exploitation.tex}
-% \input{chapters/11-subdatasets.tex}
-% \input{chapters/12-graph-querying.tex}
 
 \part{The graph structure of software development}
 
 \input{chapters/12-topology.tex}
 \input{chapters/13-forks.tex}
 
-\part*{}
+\part{Conclusion}
 
 \input{chapters/14-conclusion.tex}
 
-
-
-%\part*{Conclusions}
-%\addcontentsline{toc}{part}{Conclusions}
-
-% \import{chapters/}{7-conclusion.tex}
-
-%\clearemptydoublepage
-%
-%
 % APPENDIX
-\iffalse
-\appendix
+% \appendix
 % \import{chapters/appendices/}{app0A.tex}
-\clearemptydoublepage
-\fi
-
+% \clearemptydoublepage
 
 \backmatter
+
+% Bibliography
 \refstepcounter{chapter}
 \printbibliography
 
+% Glossary
 \clearpage
-
 \printglossary[type=\acronymtype]
 
 
-%% credits for the template
+% Colophon
 \clearemptydoublepage
 \newpage
 \thispagestyle{empty}
 \vspace*{\fill}
-\centering{%
-\footnotesize{{\LaTeX{} thesis template adapted from \href{https://www.overleaf.com/latex/templates/university-of-bristol-thesis-template/kzqrfvyxxcdm#.W1h6jeFfiEJ}{V\'ictor F. Bre\~na-Medina's template} (Creative Commons CC BY 4.0)}
+\begin{center}
+    % \LaTeX{} thesis template adapted from
+    % \href{https://www.overleaf.com/latex/templates/university-of-bristol-thesis-template/kzqrfvyxxcdm#.W1h6jeFfiEJ}{V\'ictor
+    % F. Bre\~na-Medina's template} (Creative Commons CC BY 4.0)
+    % \url{https://frama.link/thesis_template}
+\end{center}
 
-\url{https://frama.link/thesis_template}}
-}
-
-
-%\clearemptydoublepage
-%
-% Add index
-%\printindex
-%
 \end{document}

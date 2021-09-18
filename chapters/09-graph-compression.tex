@@ -237,10 +237,11 @@ successors, if no reference compression is used) are gap-compressed.
 \subsection{The WebGraph framework}
 
 Some years later, building on the same approach, the WebGraph
-framework~\cite{BoVWFI} attained a web graph compression of less than 3
-bits/arc by using the \emph{BV scheme} (and even less than 2 for the transposed
-graph) with a random-access successor enumeration time of a few hundreds of
-nanoseconds per arc (and much faster than that for sequential access).
+framework~\cite{boldi-vigna-webgraph-1} attained a web graph compression of
+less than 3 bits/arc by using the \emph{BV scheme} (and even less than 2 for
+the transposed graph) with a random-access successor enumeration time of a few
+hundreds of nanoseconds per arc (and much faster than that for sequential
+access).
 % Present timings are in the range of a few dozens nanoseconds per arc.
 
 The techniques described above are strongly sensitive to node order: this is
@@ -366,7 +367,7 @@ incurring the risk of collisions.
 Compress the adjacency matrix of the graph using gap compression and the other
 techniques described in \cref{sec:compression-background}, but without
 relying on a sensible ordering of nodes yet. The output of this step is a
-\emph{BV graph}~\cite{BoVWFI}.
+\emph{BV graph}~\cite{boldi-vigna-webgraph-1}.
 
 \paragraph{BFS}
 As discussed in \cref{sec:compression-background}, finding a node

@@ -229,20 +229,22 @@
 }
 @inproceedings{swh-msr2019-dataset,
     title        = {
-        The {S}oftware {H}eritage graph dataset: public software development
-        under one roof
+        The Software Heritage Graph Dataset: public software development under
+        one roof
     },
     author       = {Antoine Pietri and Diomidis Spinellis and Stefano Zacchiroli},
     year         = 2019,
     booktitle    = {
         Proceedings of the 16th International Conference on Mining Software
-        Repositories, {MSR} 2019, 26-27 May 2019, Montreal, Canada.
+        Repositories, {MSR} 2019, 26-27 May 2019, Montreal, Canada
     },
+    publisher    = {{IEEE} / {ACM}},
     pages        = {138--142},
-    url          = {https://dl.acm.org/citation.cfm?id=3341907},
-    crossref     = {DBLP:conf/msr/2019},
-    timestamp    = {Sun, 23 Jun 2019 16:40:54 +0200},
-    biburl       = {https://dblp.org/rec/bib/conf/msr/PietriSZ19},
+    doi          = {10.1109/MSR.2019.00030},
+    url          = {https://doi.org/10.1109/MSR.2019.00030},
+    editor       = {Margaret-Anne D. Storey and Bram Adams and Sonia Haiduc},
+    timestamp    = {Tue, 29 Dec 2020 18:36:57 +0100},
+    biburl       = {https://dblp.org/rec/conf/msr/PietriSZ19.bib},
     bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @inproceedings{msr-2020-challenge,
@@ -253,25 +255,17 @@
     author       = {Antoine Pietri and Diomidis Spinellis and Stefano Zacchiroli},
     year         = 2020,
     booktitle    = {
-        MSR 2020: The 17th International Conference on Mining Software
-        Repositories
+        {MSR} '20: 17th International Conference on Mining Software
+        Repositories, Seoul, Republic of Korea, 29-30 June, 2020
     },
-    publisher    = {IEEE},
-    abstract     = {
-        Software Heritage is the largest existing public archive of software
-        source code and accompanying development history. It spans more than
-        five billion unique source code files and one billion unique commits,
-        coming from more than 80 million software projects. These software
-        artifacts were retrieved from major collaborative development platforms
-        (e.g., GitHub, GitLab) and package repositories (e.g., PyPI, Debian,
-        NPM), and stored in a uniform representation linking together source
-        code files, directories, commits, and full snapshots of version control
-        systems (VCS) repositories as observed by Software Heritage during
-        periodic crawls. This dataset is unique in terms of accessibility and
-        scale, and allows to explore a number of research questions on the long
-        tail of public software development, instead of solely focusing on
-        "most starred" repositories as it often happens.
-    },
+    publisher    = {ACM},
+    pages        = {1--5},
+    doi          = {10.1145/3379597.3387510},
+    url          = {https://doi.org/10.1145/3379597.3387510},
+    editor       = {Sunghun Kim and Georgios Gousios and Sarah Nadi and Joseph Hejderup},
+    timestamp    = {Tue, 29 Dec 2020 18:36:57 +0100},
+    biburl       = {https://dblp.org/rec/conf/msr/PietriSZ20.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @proceedings{DBLP:conf/msr/2017,
     title        = {
@@ -331,10 +325,8 @@
 @misc{web:github-activity-data,
     title        = {Github Activity Data},
     year         = 2016,
+    url          = {https://console.cloud.google.com/marketplace/product/github/github-repos},
     key          = {github-activity-data},
-    howpublished = {
-        \url{https://console.cloud.google.com/marketplace/product/github/github-repos}
-    },
 }
 @proceedings{DBLP:conf/msr/2012,
     title        = {
@@ -351,38 +343,23 @@
     bibsource    = {dblp computer science bibliography, http://dblp.org},
 }
 @inproceedings{boldi-vigna-webgraph-1,
-    title        = {The webgraph framework {I:} compression techniques},
+    title        = {The Webgraph Framework {I:} compression techniques},
     author       = {Paolo Boldi and Sebastiano Vigna},
     year         = 2004,
     booktitle    = {
         Proceedings of the 13th international conference on World Wide Web,
         {WWW} 2004, New York, NY, USA, May 17-20, 2004
     },
-    publisher    = {ACM Press},
+    publisher    = {ACM},
     address      = {Manhattan, USA},
     pages        = {595--602},
     doi          = {10.1145/988672.988752},
     url          = {https://doi.org/10.1145/988672.988752},
+    editor       = {Stuart I. Feldman and Mike Uretsky and Marc Najork and Craig E. Wills},
     crossref     = {DBLP:conf/www/2004},
     timestamp    = {Tue, 06 Nov 2018 16:57:08 +0100},
     biburl       = {https://dblp.org/rec/bib/conf/www/BoldiV04},
     bibsource    = {dblp computer science bibliography, https://dblp.org},
-    notextra     = {
-        <dl> <dt>Abstract</dt><dd> <p>Studying web graphs is often difficult
-        due to their large size. Recently, several proposals have been
-        published about various techniques that allow to store a web graph in
-        memory in a limited space, exploiting the inner redundancies of the
-        web. The WebGraph framework is a suite of codes, algorithms and tools
-        that aims at making it easy to manipulate large web graphs. This papers
-        presents the compression techniques used in WebGraph, which are centred
-        around referentiation and intervalisation (which in turn are dual to
-        each other). WebGraph can compress the WebBase graph (118 Mnodes, 1
-        Glinks) in as little as 3.08 bits per link, and its transposed version
-        in as little as 2.89 bits per link.</p></dd> <dt><a
-        href="http://vigna.di.unimi.it/ftp/papers/WebGraphI.pdf">PDF
-        version</a>; to download software and data sets, please look at the <a
-        href="http://webgraph.di.unimi.it/">WebGraph home page</a>.</dt> </dl>
-    },
 }
 @proceedings{DBLP:conf/www/2004,
     title        = {
@@ -392,10 +369,10 @@
     year         = 2004,
     publisher    = {ACM},
     isbn         = {1-58113-844-X},
-    editor       = {Stuart I. Feldman and Mike Uretsky and Marc Najork and Craig E. Wills},
-    timestamp    = {Fri, 10 Sep 2004 15:22:27 +0200},
-    biburl       = {https://dblp.org/rec/bib/conf/www/2004},
     bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/www/2004.bib},
+    editor       = {Stuart I. Feldman and Mike Uretsky and Marc Najork and Craig E. Wills},
+    timestamp    = {Fri, 10 Sep 2004 01:00:00 +0200},
 }
 @inproceedings{boldi-vigna-webgraph-2,
     title        = {The WebGraph Framework {II:} Codes For The World-Wide Web},
@@ -898,28 +875,21 @@
     },
     year         = 2020,
     booktitle    = {
-        SANER 2020: The 27th IEEE International Conference on Software
-        Analysis, Evolution and Reengineering
+        27th {IEEE} International Conference on Software Analysis, Evolution
+        and Reengineering, {SANER} 2020, London, ON, Canada, February 18-21,
+        2020
     },
     publisher    = {IEEE},
-    abstract     = {
-        We consider the problem of mining the development historyâ€”as captured
-        by modern version control systemsâ€”of ultra-large-scale software
-        archives (e.g., tens of millions software repositories corresponding).
-        We show that graph compression techniques can be applied to the
-        problem, dramatically reducing the hardware resources needed to mine
-        similarly-sized corpus. As a concrete use case we compress the full
-        Software Heritage archive, consisting of 5 billion unique source code
-        files and 1 billion unique commits, harvested from more than 80 million
-        software projectsâ€”encompassing a full mirror of GitHub. The resulting
-        compressed graph fits in less than 100 GB of RAM, corresponding to a
-        hardware cost of less than 300 U.S. dollars. We show that the
-        compressed in-memory representation of the full corpus can be accessed
-        with excellent performances, with edge lookup times close to memory
-        random access. As a sample exploitation experiment we show that the
-        compressed graph can be used to conduct clone detection at this scale,
-        benefiting from main memory access speed.
+    pages        = {184--194},
+    doi          = {10.1109/SANER48275.2020.9054827},
+    url          = {https://doi.org/10.1109/SANER48275.2020.9054827},
+    editor       = {
+        Kostas Kontogiannis and Foutse Khomh and Alexander Chatzigeorgiou and
+        Marios-Eleftherios Fokaefs and Minghui Zhou
     },
+    timestamp    = {Thu, 16 Apr 2020 16:52:52 +0200},
+    biburl       = {https://dblp.org/rec/conf/wcre/BoldiPVZ20.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @article{cise-2020-doi,
     title        = {
@@ -936,23 +906,6 @@
     pages        = {33--43},
     doi          = {10.1109/MCSE.2019.2963148},
     issn         = {1521-9615},
-    abstract     = {
-        Among the entities involved in software citation, software source code
-        requires special attention, due to the role it plays in ensuring
-        scientific reproducibility. To reference source code we need
-        identifiers that are not only unique and persistent, but also support
-        integrity checking intrinsically. Suitable iden- tifiers must guarantee
-        that denoted objects will always stay the same, without relying on
-        external third parties and administrative processes. We analyze the
-        role of identifiers for digital objects (IDOs), whose properties are
-        different from, and complementary to, those of the various digital
-        identifiers of objects (DIOs) that are today popular building blocks of
-        software and data citation toolchains. We argue that both kinds of
-        identifiers are needed and detail the syntax, semantics, and practical
-        implementation of the persistent identifiers (PIDs) adopted by the
-        Software Heritage project to reference billions of software source code
-        artifacts such as source code files, directories, and commits.
-    },
 }
 @book{fogel2005producingoss,
     title        = {
@@ -978,11 +931,17 @@
     author       = {Antoine Pietri and Guillaume Rousseau and Stefano Zacchiroli},
     year         = 2020,
     booktitle    = {
-        Proceedings of the 17th International Conference on Mining Software
-        Repositories
+        {MSR} '20: 17th International Conference on Mining Software
+        Repositories, Seoul, Republic of Korea, 29-30 June, 2020
     },
+    publisher    = {ACM},
     pages        = {277--287},
+    doi          = {10.1145/3379597.3387450},
     url          = {https://doi.org/10.1145/3379597.3387450},
+    editor       = {Sunghun Kim and Georgios Gousios and Sarah Nadi and Joseph Hejderup},
+    timestamp    = {Thu, 24 Sep 2020 10:48:37 +0200},
+    biburl       = {https://dblp.org/rec/conf/msr/PietriRZ20.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @article{mockus2020complete,
     title        = {
@@ -994,8 +953,9 @@
         Gabriel John
     },
     year         = 2020,
-    journal      = {arXiv preprint arXiv:2002.02707},
-    howpublished = {\url{https://arxiv.org/abs/2002.02707}},
+    journal      = {ArXiv preprint},
+    volume       = {abs/2002.02707},
+    url          = {https://arxiv.org/abs/2002.02707},
 }
 @article{belady1976model,
     title        = {A model of large program development},
@@ -1119,21 +1079,6 @@
     pages        = {45--50},
     doi          = {10.1109/MS.2020.3038765},
     issn         = {0740-7459},
-    abstract     = {
-        Gender imbalance in information technology in general, and Free/Open
-        Source Software specifically, is a well-known problem in the field.
-        Still, little is known yet about the large-scale extent and long-term
-        trends that underpin the phenomenon. We contribute to fill this gap by
-        conducting a longitudinal study of the population of contributors to
-        publicly available software source code. We analyze 1.6 billion commits
-        corresponding to the development history of 120 million projects,
-        contributed by 33 million distinct authors over a period of 50 years.
-        We classify author names by gender and study their evolution over time.
-        We show that, while the amount of commits by female authors remains low
-        overall, there is evidence of a stable long-term increase in their
-        proportion over all contributions, providing hope of a more
-        gender-balanced future for collaborative software development.
-    },
 }
 @inproceedings{stevens2017first,
     title        = {The first collision for full SHA-1},
@@ -1160,17 +1105,25 @@
     author       = {Nicolas Dandrimont},
     year         = 2018,
     url          = {https://marc.info/?l=ceph-users\&m=153013955112932},
-    howpublished = {
-        Ceph Users Mailing List
-        \url{https://marc.info/?l=ceph-users\&m=153013955112932}
-    },
+    howpublished = {Ceph Users Mailing List},
 }
 @inproceedings{swh-benevol2018-universal-analysis,
-    title        = {Towards Universal Software Evolution Analysis.},
+    title        = {Towards Universal Software Evolution Analysis},
     author       = {Antoine Pietri and Stefano Zacchiroli},
     year         = 2018,
-    booktitle    = {BENEVOL},
+    booktitle    = {
+        Proceedings of the 17th Belgium-Netherlands Software Evolution
+        Workshop, Delft, the Netherlands, December 10th - to - 11th, 2018
+    },
+    publisher    = {CEUR-WS.org},
+    series       = {{CEUR} Workshop Proceedings},
+    volume       = 2361,
     pages        = {6--10},
+    url          = {http://ceur-ws.org/Vol-2361/short2.pdf},
+    editor       = {Georgios Gousios and Joseph Hejderup},
+    timestamp    = {Wed, 12 Feb 2020 16:44:55 +0100},
+    biburl       = {https://dblp.org/rec/conf/benevol/PietriZ18.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @article{williams2005automatic,
     title        = {
@@ -1259,14 +1212,20 @@
         The Software Heritage Filesystem (SwhFS): Integrating Source Code
         Archival with Development
     },
-    author       = {Allan{\c{c}}on, Thibault and Pietri, Antoine and Zacchiroli, Stefano},
+    author       = {Thibault Allan{\c{c}}on and Antoine Pietri and Stefano Zacchiroli},
     year         = 2021,
     booktitle    = {
-        2021 IEEE/ACM 43rd International Conference on Software Engineering:
-        Companion Proceedings (ICSE-Companion)
+        43rd {IEEE/ACM} International Conference on Software Engineering:
+        Companion Proceedings, {ICSE} Companion 2021, Madrid, Spain, May 25-28,
+        2021
     },
+    publisher    = {IEEE},
     pages        = {45--48},
-    organization = {IEEE},
+    doi          = {10.1109/ICSE-Companion52605.2021.00032},
+    url          = {https://doi.org/10.1109/ICSE-Companion52605.2021.00032},
+    timestamp    = {Mon, 28 Jun 2021 14:10:32 +0200},
+    biburl       = {https://dblp.org/rec/conf/icse/AllanconPZ21.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @inproceedings{vangoor2017fuseperf,
     title        = {To {FUSE} or Not to {FUSE:} Performance of User-Space File Systems},
@@ -1339,41 +1298,41 @@
 @misc{msvfsforgit,
     title        = {{VFS} for {Git}},
     author       = {Microsoft},
+    url          = {https://vfsforgit.org/},
     note         = {Accessed 2020-09-29},
-    howpublished = {\url{https://vfsforgit.org/}},
 }
 @misc{msscalar,
     title        = {Scalar},
     author       = {Microsoft},
+    url          = {https://github.com/microsoft/scalar},
     note         = {Accessed 2020-09-29},
-    howpublished = {\url{https://github.com/microsoft/scalar}},
 }
 @misc{fuse,
     title        = {Filesystem in Userspace ({FUSE})},
     author       = {Rath, Nikolaus},
+    url          = {https://github.com/libfuse/libfuse},
     note         = {Accessed 2020-09-29},
-    howpublished = {\url{https://github.com/libfuse/libfuse}},
 }
 @misc{brown2018c4,
     title        = {The {C4} model for Software Architecture},
     author       = {Brown, Simon},
     year         = 2018,
+    url          = {https://c4model.com/},
     note         = {Accessed 2020-11-16},
-    howpublished = {\url{https://c4model.com/}},
 }
 @misc{presslabs-gitfs,
     title        = {gitfs: Version controlled file system},
     author       = {Presslabs},
     year         = 2014,
+    url          = {https://github.com/presslabs/gitfs},
     note         = {Accessed 2020-11-17},
-    howpublished = {\url{https://github.com/presslabs/gitfs}},
 }
 @misc{sourced-gitbase,
     title        = {gitbase: a {SQL} database interface to {Git} repositories},
     author       = {source\{d\}},
     year         = 2016,
+    url          = {https://github.com/src-d/gitbase},
     note         = {Accessed 2020-11-17},
-    howpublished = {\url{https://github.com/src-d/gitbase}},
 }
 @book{owens2006sqlitebook,
     title        = {The definitive guide to {SQLite}},
@@ -1434,7 +1393,6 @@
     url          = {http://doi.acm.org/10.1145/3133956.3134072},
     numpages     = 15,
     acmid        = 3134072,
-    keywords     = {empirical study, patch complexity, security patches, vulnerabilities},
 }
 @inproceedings{Grieco2016,
     title        = {Toward Large-Scale Vulnerability Discovery Using Machine Learning},
@@ -1457,10 +1415,6 @@
     url          = {http://doi.acm.org/10.1145/2857705.2857720},
     numpages     = 12,
     acmid        = 2857720,
-    keywords     = {
-        dynamic analysis, machine learning, static analysis, vulnerability
-        detection
-    },
 }
 @article{MartinezM15,
     title        = {
@@ -1490,23 +1444,6 @@
     },
     pages        = {9--9},
     doi          = {10.1109/PROMISE.2007.10},
-    abstract     = {
-        We have mapped defects from the bug database of eclipse (one of the
-        largest open-source projects) to source code locations. The resulting
-        data set lists the number of pre- and post-release defects for every
-        package and file in the eclipse releases 2.0, 2.1, and 3.0. We
-        additionally annotated the data with common complexity metrics. All
-        data is publicly available and can serve as a benchmark for defect
-        prediction models.
-    },
-    keywords     = {
-        program debugging;public domain software;Eclipse;bug database;common
-        complexity metrics;defect prediction models;open-source projects;source
-        code locations;Availability;Computer bugs;Databases;Density
-        measurement;Open source software;Packaging;Predictive
-        models;Programming environments;Software engineering;Uniform resource
-        locators
-    },
 }
 @inproceedings{ZimmermannWDZ04,
     title        = {Mining Version Histories to Guide Software Changes},
@@ -1557,26 +1494,6 @@
     pages        = {772--774},
     doi          = {10.1109/ICSE.2015.245},
     issn         = {0270-5257},
-    abstract     = {
-        The open source community relies upon licensing in order to govern the
-        distribution, modification, and reuse of existing code. These licenses
-        evolve to better suit the requirements of the development communities
-        and to cope with unaddressed or new legal issues. In this paper, we
-        report the results of a large empirical study conducted over the change
-        history of 16,221 open source Java projects mined from Git Hub. Our
-        study investigates how licensing usage and adoption changes over a
-        period of ten years. We consider both the distribution of license usage
-        within projects of a rapidly growing forge and the extent that new
-        versions of licenses are introduced in these projects.
-    },
-    keywords     = {
-        Java;law;public domain software;software reusability;GitHub;code
-        distribution;code modification;code reuse;development communities;legal
-        issues;license distribution;license usage;licensing;open source Java
-        projects;open source community;Conferences;Data
-        mining;Law;Licenses;Software;Software engineering;Empirical
-        Studies;Mining Software Repositories;Software Licenses
-    },
 }
 @proceedings{DBLP:conf/wikis/2017,
     title        = {
@@ -1661,7 +1578,6 @@
     author       = {Georgios Gousios},
     year         = 2016,
     url          = {https://gousios.gr/blog/Issue-thirty-two.html},
-    howpublished = {\url={https://gousios.gr/blog/Issue-thirty-two.html}},
 }
 @misc{ghemawat2011leveldb,
     title        = {LevelDB},
@@ -1671,16 +1587,23 @@
 @inproceedings{huai2014orc,
     title        = {Major technical advancements in apache hive},
     author       = {
-        Huai, Yin and Chauhan, Ashutosh and Gates, Alan and Hagleitner, Gunther
-        and Hanson, Eric N and O'Malley, Owen and Pandey, Jitendra and Yuan,
-        Yuan and Lee, Rubao and Zhang, Xiaodong
+        Yin Huai and Ashutosh Chauhan and Alan Gates and G{\"{u}}nther
+        Hagleitner and Eric N. Hanson and Owen O'Malley and Jitendra Pandey and
+        Yuan Yuan and Rubao Lee and Xiaodong Zhang
     },
     year         = 2014,
     booktitle    = {
-        Proceedings of the 2014 ACM SIGMOD international conference on
-        Management of data
+        International Conference on Management of Data, {SIGMOD} 2014,
+        Snowbird, UT, USA, June 22-27, 2014
     },
+    publisher    = {ACM},
     pages        = {1235--1246},
+    doi          = {10.1145/2588555.2595630},
+    url          = {https://doi.org/10.1145/2588555.2595630},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/sigmod/HuaiCGHHOPYL014.bib},
+    editor       = {Curtis E. Dyreson and Feifei Li and M. Tamer {\"{O}}zsu},
+    timestamp    = {Tue, 06 Nov 2018 00:00:00 +0100},
 }
 @article{twitter2013parquet,
     title        = {Dremel made simple with parquet},
@@ -1692,48 +1615,52 @@
     url          = {
         https://blog.twitter.com/engineering/en_us/a/2013/dremel-made-simple-with-parquet
     },
-    howpublished = {
-        \url={https://blog.twitter.com/engineering/en_us/a/2013/dremel-made-simple-with-parquet}
-    },
 }
 @misc{collet2015zstd,
     title        = {Zstandard},
     author       = {Collet, Yann},
     year         = 2015,
     url          = {https://facebook.github.io/zstd/},
-    howpublished = {\url{https://facebook.github.io/zstd/}},
 }
 @misc{website-apache-parquet,
     title        = {Apache Parquet},
     author       = {Apache},
     year         = 2019,
-    howpublished = {\url{https://parquet.apache.org}},
+    url          = {https://parquet.apache.org},
 }
 @misc{website-amazon-athena,
     title        = {Amazon Athena},
     author       = {Amazon},
     year         = 2019,
-    howpublished = {\url{https://aws.amazon.com/athena/}},
+    url          = {https://aws.amazon.com/athena/},
 }
 @misc{website-azure-databricks,
     title        = {Azure Databricks},
     author       = {Microsoft},
     year         = 2019,
-    howpublished = {\url{https://azure.microsoft.com/en-in/services/databricks/}},
+    url          = {https://azure.microsoft.com/en-in/services/databricks/},
 }
 @inproceedings{armbrust2015spark,
-    title        = {Spark sql: Relational data processing in spark},
+    title        = {Spark {SQL:} Relational Data Processing in Spark},
     author       = {
-        Armbrust, Michael and Xin, Reynold S and Lian, Cheng and Huai, Yin and
-        Liu, Davies and Bradley, Joseph K and Meng, Xiangrui and Kaftan, Tomer
-        and Franklin, Michael J and Ghodsi, Ali and others
+        Michael Armbrust and Reynold S. Xin and Cheng Lian and Yin Huai and
+        Davies Liu and Joseph K. Bradley and Xiangrui Meng and Tomer Kaftan and
+        Michael J. Franklin and Ali Ghodsi and Matei Zaharia
     },
     year         = 2015,
     booktitle    = {
-        Proceedings of the 2015 ACM SIGMOD international conference on
-        management of data
+        Proceedings of the 2015 {ACM} {SIGMOD} International Conference on
+        Management of Data, Melbourne, Victoria, Australia, May 31 - June 4,
+        2015
     },
+    publisher    = {ACM},
     pages        = {1383--1394},
+    doi          = {10.1145/2723372.2742797},
+    url          = {https://doi.org/10.1145/2723372.2742797},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/sigmod/ArmbrustXLHLBMK15.bib},
+    editor       = {Timos K. Sellis and Susan B. Davidson and Zachary G. Ives},
+    timestamp    = {Tue, 06 Nov 2018 00:00:00 +0100},
 }
 @article{zaharia2016apache,
     title        = {Apache {Spark}: a unified engine for big data processing},
@@ -1805,40 +1732,21 @@
     },
     author       = {Paolo Boldi and Marco Rosa and Massimo Santini and Sebastiano Vigna},
     year         = 2011,
-    booktitle    = {Proceedings of the 20th international conference on World Wide Web},
+    booktitle    = {
+        Proceedings of the 20th International Conference on World Wide Web,
+        {WWW} 2011, Hyderabad, India, March 28 - April 1, 2011
+    },
     publisher    = {ACM},
     pages        = {587--596},
+    doi          = {10.1145/1963405.1963488},
+    url          = {https://doi.org/10.1145/1963405.1963488},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/www/BoldiRSV11.bib},
     editor       = {
         Sadagopan Srinivasan and Krithi Ramamritham and Arun Kumar and M. P.
         Ravindra and Elisa Bertino and Ravi Kumar
     },
-    notextra     = {
-        <dl> <dt>Abstract</dt><dd> <p>We continue the line of research on graph
-        compression started with WebGraph, but we move our focus to the
-        compression of <em>social networks</em> in a proper sense (e.g.,
-        LiveJournal): the approaches that have been used for a long time to
-        compress web graphs rely on a <em>specific</em> ordering of the nodes
-        (lexicographical URL ordering) whose extension to general social
-        networks is not trivial. In this paper, we propose a solution that
-        mixes clusterings and orders, and devise a new algorithm, called
-        <em>Layered Label Propagation</em>, that builds on previous work on
-        scalable clustering and can be used to reorder very large graphs
-        (billions of nodes). Our implementation uses <em>decomposition</em> to
-        perform aggressively on multi-core architecture, making it possible to
-        reorder graphs of more than 600 millions nodes in a few hours.
-        Experiments performed on a wide array of web graphs and social networks
-        show that combining the order produced by the proposed algorithm with
-        the WebGraph compression framework provides a major increase in
-        compression with respect to all currently known techniques,
-        <em>both</em> on web graphs <em>and</em> on social networks. These
-        improvements make it possible to analyse in main memory significantly
-        larger graphs.</p></dd> <dt><a
-        href="http://vigna.di.unimi.it/ftp/papers/LayeredLabelPropagation.pdf">PDF
-        version</a>; public datasets and Java&trade; implementations are
-        available as free software at the <a
-        href="http://law.di.unimi.it/"><acronym title="Laboratory for Web
-        Algorithmics">LAW</acronym> site</a>.</dt> </dl>
-    },
+    timestamp    = {Tue, 06 Nov 2018 00:00:00 +0100},
 }
 @inproceedings{CKLCSN,
     title        = {On compressing social networks},
@@ -1861,17 +1769,27 @@
 @inproceedings{DKKCGIRGB,
     title        = {Compressing Graphs and Indexes with Recursive Graph Bisection},
     author       = {
-        Dhulipala, Laxman and Kabiljo, Igor and Karrer, Brian and Ottaviano,
-        Giuseppe and Pupyrev, Sergey and Shalita, Alon
+        Laxman Dhulipala and Igor Kabiljo and Brian Karrer and Giuseppe
+        Ottaviano and Sergey Pupyrev and Alon Shalita
     },
     year         = 2016,
     booktitle    = {
-        Proceedings of the 22Nd ACM SIGKDD International Conference on
-        Knowledge Discovery and Data Mining
+        Proceedings of the 22nd {ACM} {SIGKDD} International Conference on
+        Knowledge Discovery and Data Mining, San Francisco, CA, USA, August
+        13-17, 2016
     },
     publisher    = {ACM},
     address      = {New York, NY, USA},
     pages        = {1535--1544},
+    doi          = {10.1145/2939672.2939862},
+    url          = {https://doi.org/10.1145/2939672.2939862},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/kdd/DhulipalaKKOPS16.bib},
+    editor       = {
+        Balaji Krishnapuram and Mohak Shah and Alexander J. Smola and Charu C.
+        Aggarwal and Dou Shen and Rajeev Rastogi
+    },
+    timestamp    = {Tue, 06 Nov 2018 00:00:00 +0100},
 }
 @inproceedings{GOVFSCF,
     title        = {Fast Scalable Construction of (Minimal Perfect Hash) Functions},
@@ -1884,33 +1802,6 @@
     publisher    = {Springer},
     pages        = {339--352},
     editor       = {Goldberg, Andrew V. and Kulikov, Alexander S.},
-    notextra     = {
-        <dl> <dt>Abstract</dt><dd> <p>Recent advances in random linear systems
-        on finite fields have paved the way for the construction of
-        constant-time data structures representing static functions and minimal
-        perfect hash functions using less space with respect to existing
-        techniques. The main obstruction for any practical application of these
-        results is the cubic-time Gaussian elimination required to solve these
-        linear systems: despite they can be made very small, the computation is
-        still too slow to be feasible.</p>
-
-        <p>In this paper we describe in detail a number of heuristics and
-        programming techniques to speed up the resolution of these systems by
-        several orders of magnitude, making the overall construction
-        competitive with the standard and widely used MWHC technique, which is
-        based on hypergraph peeling. In particular, we introduce <em>broadword
-        programming</em> techniques for fast equation manipulation and a
-        <em>lazy Gaussian elimination</em> algorithm. We also describe a number
-        of technical improvements to the data structure which further reduce
-        space usage and improve lookup speed.</p>
-
-        <p>Our implementation of these techniques yields a minimal perfect hash
-        function data structure occupying 2.24 bits per element, compared to
-        2.68 for MWHC-based ones, and a static function data structure which
-        reduces the multiplicative overhead from 1.23 to 1.03.</p> <dt><a
-        href="http://vigna.di.unimi.it/ftp/papers/FastScalableConstruction.pdf">PDF
-        version</a>.</dt> </dl>
-    },
 }
 @book{NavCDS,
     title        = {Compact data structures: A practical approach},
@@ -1959,15 +1850,9 @@
         Stefano
     },
     year         = 2019,
-    note         = {
-        Persistent Software Heritage identifier~\cite{swhipres2018} of the main
-        software component used in the paper (swh.graph):
-        \href{https://archive.softwareheritage.org/browse/swh:1:rel:132327bf1601eb890e28e96353bd61141923d9e1}{swh:1:rel:132327bf1601eb890e28e96353bd61141923d9e1}
-    },
-    howpublished = {
-        Zenodo \url{https://zenodo.org/record/3574459},
-        \doi{10.5281/zenodo.3574459}
-    },
+    doi          = {10.5281/zenodo.3574459},
+    url          = {https://zenodo.org/record/3574459},
+    howpublished = {Zenodo},
 }
 @article{Brisaboa2014152,
     title        = {Compact representation of {Web} graphs with extended functionality},
@@ -2002,17 +1887,27 @@
 }
 @inproceedings{OtVPEFI,
     title        = {Partitioned {E}lias--{F}ano Indexes},
-    author       = {Ottaviano, Giuseppe and Venturini, Rossano},
+    author       = {Giuseppe Ottaviano and Rossano Venturini},
     year         = 2014,
-    booktitle    = {Proceedings of the 37th International ACM SIGIR Conference},
+    booktitle    = {
+        The 37th International {ACM} {SIGIR} Conference on Research and
+        Development in Information Retrieval, {SIGIR} '14, Gold Coast , QLD,
+        Australia - July 06 - 11, 2014
+    },
     publisher    = {ACM},
     address      = {New York, NY, USA},
     series       = {SIGIR '14},
     pages        = {273--282},
     doi          = {10.1145/2600428.2609615},
     isbn         = {978-1-4503-2257-7},
-    numpages     = 10,
-    keywords     = {compression, dynamic programming, inverted indexes},
+    url          = {https://doi.org/10.1145/2600428.2609615},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/sigir/OttavianoV14.bib},
+    editor       = {
+        Shlomo Geva and Andrew Trotman and Peter Bruza and Charles L. A. Clarke
+        and Kalervo J{\"{a}}rvelin
+    },
+    timestamp    = {Tue, 06 Nov 2018 00:00:00 +0100},
 }
 @inproceedings{PiVDEFR,
     title        = {Dynamic Elias-Fano Representation},
@@ -2129,15 +2024,25 @@
     pages        = {1--10},
 }
 @inproceedings{francis2018cypher,
-    title        = {Cypher: An evolving query language for property graphs},
+    title        = {Cypher: An Evolving Query Language for Property Graphs},
     author       = {
-        Francis, Nadime and Green, Alastair and Guagliardo, Paolo and Libkin,
-        Leonid and Lindaaker, Tobias and Marsault, Victor and Plantikow, Stefan
-        and Rydberg, Mats and Selmer, Petra and Taylor, Andr{\'e}s
+        Nadime Francis and Alastair Green and Paolo Guagliardo and Leonid
+        Libkin and Tobias Lindaaker and Victor Marsault and Stefan Plantikow
+        and Mats Rydberg and Petra Selmer and Andr{\'{e}}s Taylor
     },
     year         = 2018,
-    booktitle    = {Proceedings of the 2018 International Conference on Management of Data},
+    booktitle    = {
+        Proceedings of the 2018 International Conference on Management of Data,
+        {SIGMOD} Conference 2018, Houston, TX, USA, June 10-15, 2018
+    },
+    publisher    = {ACM},
     pages        = {1433--1445},
+    doi          = {10.1145/3183713.3190657},
+    url          = {https://doi.org/10.1145/3183713.3190657},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/sigmod/FrancisGGLLMPRS18.bib},
+    editor       = {Gautam Das and Christopher M. Jermaine and Philip A. Bernstein},
+    timestamp    = {Sat, 19 Oct 2019 01:00:00 +0200},
 }
 @inproceedings{van2016pgql,
     title        = {PGQL: a property graph query language},
@@ -2153,15 +2058,26 @@
     pages        = {1--6},
 }
 @inproceedings{angles2018g,
-    title        = {G-CORE: A core for future graph query languages},
+    title        = {{G-CORE:} {A} Core for Future Graph Query Languages},
     author       = {
-        Angles, Renzo and Arenas, Marcelo and Barcel{\'o}, Pablo and Boncz,
-        Peter and Fletcher, George and Gutierrez, Claudio and Lindaaker, Tobias
-        and Paradies, Marcus and Plantikow, Stefan and Sequeda, Juan and others
+        Renzo Angles and Marcelo Arenas and Pablo Barcel{\'{o}} and Peter A.
+        Boncz and George H. L. Fletcher and Claudio Guti{\'{e}}rrez and Tobias
+        Lindaaker and Marcus Paradies and Stefan Plantikow and Juan F. Sequeda
+        and Oskar van Rest and Hannes Voigt
     },
     year         = 2018,
-    booktitle    = {Proceedings of the 2018 International Conference on Management of Data},
+    booktitle    = {
+        Proceedings of the 2018 International Conference on Management of Data,
+        {SIGMOD} Conference 2018, Houston, TX, USA, June 10-15, 2018
+    },
+    publisher    = {ACM},
     pages        = {1421--1432},
+    doi          = {10.1145/3183713.3190654},
+    url          = {https://doi.org/10.1145/3183713.3190654},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/sigmod/AnglesABBFGLPPS18.bib},
+    editor       = {Gautam Das and Christopher M. Jermaine and Philip A. Bernstein},
+    timestamp    = {Thu, 26 Nov 2020 00:00:00 +0100},
 }
 @misc{michels2017standardizing,
     title        = {Standardizing Graph Database Functionality},
@@ -2187,18 +2103,26 @@
     author       = {Antoine Pietri and Guillaume Rousseau and Stefano Zacchiroli},
     year         = 2020,
     booktitle    = {
-        MSR 2020: The 17th International Conference on Mining Software
-        Repositories
+        {MSR} '20: 17th International Conference on Mining Software
+        Repositories, Seoul, Republic of Korea, 29-30 June, 2020
     },
-    publisher    = {IEEE},
+    publisher    = {ACM},
+    pages        = {602--605},
     doi          = {10.1145/3379597.3387506},
+    url          = {https://doi.org/10.1145/3379597.3387506},
     note         = {OSF registration available online at: \url{https://osf.io/7r2w4}},
+    editor       = {Sunghun Kim and Georgios Gousios and Sarah Nadi and Joseph Hejderup},
+    timestamp    = {Thu, 24 Sep 2020 10:48:37 +0200},
+    biburl       = {https://dblp.org/rec/conf/msr/PietriRZ20a.bib},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
 }
 @article{ugander2011facebook,
     title        = {The anatomy of the facebook social graph},
     author       = {Ugander, Johan and Karrer, Brian and Backstrom, Lars and Marlow, Cameron},
     year         = 2011,
-    journal      = {arXiv preprint arXiv:1111.4503},
+    journal      = {ArXiv preprint},
+    volume       = {abs/1111.4503},
+    url          = {https://arxiv.org/abs/1111.4503},
 }
 @inproceedings{myers2014twitter,
     title        = {
@@ -2242,7 +2166,7 @@
     author       = {LaBelle, Nathan and Wallingford, Eugene},
     year         = 2004,
     journal      = {arXiv preprint cs/0411096},
-    howpublished = {\url{https://arxiv.org/abs/cs/0411096}},
+    url          = {https://arxiv.org/abs/cs/0411096},
 }
 @inproceedings{abate2009strong,
     title        = {Strong dependencies between software components},
@@ -2276,10 +2200,20 @@
 }
 @inproceedings{kwak2010twitter,
     title        = {What is Twitter, a social network or a news media?},
-    author       = {Kwak, Haewoon and Lee, Changhyun and Park, Hosung and Moon, Sue},
+    author       = {Haewoon Kwak and Changhyun Lee and Hosung Park and Sue B. Moon},
     year         = 2010,
-    booktitle    = {Proceedings of the 19th international conference on World wide web},
+    booktitle    = {
+        Proceedings of the 19th International Conference on World Wide Web,
+        {WWW} 2010, Raleigh, North Carolina, USA, April 26-30, 2010
+    },
+    publisher    = {ACM},
     pages        = {591--600},
+    doi          = {10.1145/1772690.1772751},
+    url          = {https://doi.org/10.1145/1772690.1772751},
+    bibsource    = {dblp computer science bibliography, https://dblp.org},
+    biburl       = {https://dblp.org/rec/conf/www/KwakLPM10.bib},
+    editor       = {Michael Rappa and Paul Jones and Juliana Freire and Soumen Chakrabarti},
+    timestamp    = {Sun, 02 Jun 2019 01:00:00 +0200},
 }
 @article{valverde2003hierarchical,
     title        = {Hierarchical small worlds in software architecture},
@@ -2476,9 +2410,9 @@
     },
     author       = {Trujillo, Milo Z and H{\'e}bert-Dufresne, Laurent and Bagrow, James P},
     year         = 2021,
-    journal      = {arXiv preprint arXiv:2106.15611},
-    url          = {https://arxiv.org/pdf/2106.15611.pdf},
-    howpublished = {\url{https://arxiv.org/pdf/2106.15611.pdf}},
+    journal      = {ArXiv preprint},
+    volume       = {abs/2106.15611},
+    url          = {https://arxiv.org/abs/2106.15611},
 }
 @article{gallai1967transitiv,
     title        = {Transitiv orientierbare graphen},
@@ -2513,25 +2447,4 @@
     doi          = {https://doi.org/10.1016/j.future.2017.04.005},
     issn         = {0167-739X},
     url          = {https://www.sciencedirect.com/science/article/pii/S0167739X17305435},
-    keywords     = {
-        Subgraph isomorphism, Graph queries, Massive graph databases, Graph
-        compression, Modular decomposition
-    },
-    abstract     = {
-        Querying graph data is a fundamental problem that witnesses an
-        increasing interest especially for massive graph databases which come
-        as a promising alternative to relational databases for big data
-        modeling. In this paper, we study the problem of subgraph isomorphism
-        search which consists to enumerate the embedding of a query graph in a
-        data graph. The most known solutions of this NP-complete problem are
-        backtracking-based and result in a high computational cost when we deal
-        with massive graph databases. We address this problem and its
-        challenges via graph compression with modular decomposition. In our
-        approach, subgraph isomorphism search is performed on compressed graphs
-        without decompressing them yielding substantial reduction of the search
-        space and consequently a significant saving in processing time as well
-        as in storage space for the graphs. We evaluated our algorithms on nine
-        real-word datasets. The experimental results show that our approach is
-        efficient and scalable.
-    },
 }

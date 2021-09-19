@@ -145,29 +145,29 @@ and 221 billion edges connecting them.
 
 On this corpus we will perform an exploratory study, with no predetermined
 hypotheses, and answer the following research questions:
-% \newcommand{\RQdegrees}{RQ\ref{rq:degrees}\xspace}
-% \newcommand{\RQpaths}{RQ\ref{rq:paths}\xspace}
-% \newcommand{\RQccs}{RQ\ref{rq:ccs}\xspace}
-\begin{enumerate}[\bfseries RQ1]
 
-\item\label{rq:degrees} %
-  What is the distribution of in-degrees, out-degrees and local clustering of the
-  public VCS history graph? Which laws do they fit?
+\begin{researchquestion}%
+\label{rq:degrees}
+What is the distribution of in-degrees, out-degrees and local clustering of the
+public VCS history graph? Which laws do they fit?
+How do such distributions vary across the different graph layers described in
+\cref{sec:layers} --- file system layer (source code files and directories)
+vs.\ development history layer (commits + releases) vs.\ software origin
+layer?
+\end{researchquestion}
 
-  How do such distributions vary across the different graph layers described in
-  \cref{sec:layers} --- file system layer (source code files and directories)
-  vs.\ development history layer (commits + releases) vs.\ software origin
-  layer?
+\begin{researchquestion}%
+\label{rq:ccs}
+What is the distribution of connected component sizes for the public VCS
+history graph?  How does it vary across graph layers?
+\end{researchquestion}
 
-\item\label{rq:ccs} %
-  What is the distribution of connected component sizes for the public VCS
-  history graph?  How does it vary across graph layers?
-
-\item\label{rq:paths} %
-  What is the distribution of shortest path lengths from roots to leaves in the
-  recursive layers (file system and development history layers) of public VCS
-  history graph?
-\end{enumerate}
+\begin{researchquestion}%
+\label{rq:paths}
+What is the distribution of shortest path lengths from roots to leaves in the
+recursive layers (file system and development history layers) of public VCS
+history graph?
+\end{researchquestion}
 
 
 \section{Related work}%
@@ -284,13 +284,13 @@ started our experiments, dated 2020-12-15. In terms of size, this export
 contains 19 billion nodes and 221 billion edges in total.
 
 Some of the analyses we need to perform could be easily performed in a
-scale-out/distributed fashion (e.g., degree measurements, for RQ1), others
-benefit more from a scale-up/centralized approach (e.g., connected components
-for RQ2 and path lengths for RQ3) to avoid incurring the price of costly
-synchronization points. For uniformity, and also because there is no real
-drawback in doing \emph{all} analyses with a scale-up approach once we have to
-do at least some of them in that fashion, we adopted a centralized approach for
-all analyses.
+scale-out/distributed fashion (e.g., degree measurements, for
+\cref{rq:degrees}), others benefit more from a scale-up/centralized approach
+(e.g., connected components for \cref{rq:ccs} and path lengths for
+\cref{rq:paths}) to avoid incurring the price of costly synchronization points.
+For uniformity, and also because there is no real drawback in doing \emph{all}
+analyses with a scale-up approach once we have to do at least some of them in
+that fashion, we adopted a centralized approach for all analyses.
 In particular, using the work described in \cref{chp:graph-compression}, we
 leverage the \texttt{swh-graph} pipeline for manipulating and analyzing the
 Software Heritage graph dataset in a compressed format.

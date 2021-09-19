@@ -124,31 +124,25 @@ definitions of forking and compare their impact in terms of the amount and
 structure of forks identified using platform metadata. Specifically, we will
 answer the following research questions:
 
-% \RQBOX{RQ1: how do code hosting platform information about which repositories
-%   are forks of other repositories trustable w.r.t.~the presence of shared
-%   source code artifacts in version control systems (VCS)?}
+\begin{researchquestion}%
+\label{rq:forks-1}
+How do code hosting platform information about which VCS repositories are forks
+compare to the presence of shared source code artifacts in repositories?
+\end{researchquestion}
 
-\vspace{1em}
+\begin{researchquestion}%
+\label{rq:forks-2}
+How are (a) the amount of forks and (b) the structure of fork networks affected
+by fork definitions based on VCS artifact sharing?
+\end{researchquestion}
 
-\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ1: How do code hosting
-platform information about which VCS repositories are forks compare to the
-presence of shared source code artifacts in repositories?}}
-
-\vspace{1em}
-
-\noindent\fbox{\parbox{0.97\linewidth}{\bfseries RQ2: How are (a) the amount of
-forks and (b) the structure of fork networks affected by fork definitions based
-on VCS artifact sharing?}}
-
-\vspace{1em}
-
-RQ1 will intuitively assess the level of trustworthiness of platform fork
-metadata: if many repositories, e.g., share commits but are not identified as
-fork by platform metadata, then relying on this metadata alone would appear to
-be methodologically dangerous. As one might consider different types of shared
-VCS artifacts (commits, source tree directories, individual files, \ldots) as
-fork evidence, RQ2 will provide an empirical evaluation of the effects of
-basing fork definitions on one or the other.
+\Cref{rq:forks-1} will intuitively assess the level of trustworthiness of platform fork
+metadata: for instance, if many repositories share commits but are not
+identified as forks by platform metadata, then relying on this metadata alone
+would appear to be methodologically dangerous. As one might consider different
+types of shared VCS artifacts (commits, source tree directories, individual
+files, \ldots) as fork evidence, \cref{rq:forks-2} will provide an empirical
+evaluation of the effects of basing fork definitions on one or the other.
 
 % \paragraph{Paper structure}
 % \Cref{sec:forks-defs} explores the spectrum of fork definitions considered in
@@ -348,12 +342,12 @@ In theory, we could go further, and introduce an even more lax notion of fork,
 that equates repositories sharing as little as a single file, but that would
 exacerbate the problematic behavior we discussed for sharing sub-directories.
 
-Armed with these definitions we will be able to answer RQ1, by comparing the
-number of forks identified by \cref{def:type1-fork} with those
-identified by \cref{def:type2-fork} and/or \cref{def:type3-fork}
-(that we refer to as \emph{intrinsic} forks).
-To fully address RQ2 on the other hand we need to capture the notion of
-``community'' of repositories used for collaboration, as follows:
+Armed with these definitions we will be able to answer \cref{rq:forks-1}, by
+comparing the number of forks identified by \cref{def:type1-fork} with those
+identified by \cref{def:type2-fork} and/or \cref{def:type3-fork} (that we refer
+to as \emph{intrinsic} forks).
+To fully address \cref{rq:forks-2} on the other hand we need to capture the
+notion of ``community'' of repositories used for collaboration, as follows:
 \begin{definition}[Type $T$ fork network]%
   \label{def:fork-network}
   The \emph{type $T$ fork network} of a repository $A$ is the smallest set

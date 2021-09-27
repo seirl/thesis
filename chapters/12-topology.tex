@@ -1,12 +1,12 @@
 \chapter{Topological Properties}%
 \label{chp:topology}
 
-In \cref{chp:swh-model}, we have described how the wealth of software source
+In \cref{chp:swh-model} we detailed how the wealth of software source
 code artifacts produced by collaborative software development, due to code
 reuse and the fork-based development model, form the \emph{graph of public
 software development}: a globally interconnected graph that constitutes a
 shared software commons of a size comparable to the graph of the Web.
-Little is known yet about the network structure of this graph, whereas such
+Little is known yet about the network structure of this graph, yet such
 knowledge is needed to determine the best practical approach to efficiently
 analyze very large subsets of it (if not \emph{all} of it) and to avoid
 methodological pitfalls (e.g., when extrapolating results from small samples)
@@ -35,23 +35,24 @@ approximation of the entire \emph{software commons} as a corpus that can be
 exploited by researchers, and discussed various ways to retrieve and analyze
 the data it contains for software mining purposes.
 One important property of the software commons is that they are not a
-collection of distant islands of software artifacts, but rather a very
+collection of distant islands of software artifacts, but rather a single very
 entangled object. This is because modern software products are built by reusing
 components from other projects, rather than being completely independent pieces
 of work. This organic code reuse happens through different means, either by
 simply copying source code across projects (also known as ``software
 vendoring''), or by explicitly forking~\cite{robles2012forks,
 swh-msr2020-forking} an existing project and then building upon its preexisting
-development history. Modern VCS also allow to explicitly reference external
-repositories (e.g., via Git submodules or Subversion external) to be fetched as
-dependencies, which further binds separate software projects together.
+development history. Modern \glspl{VCS} also allow one to explicitly reference
+external repositories (e.g., via Git submodules or Subversion external) to be
+fetched as dependencies, which further binds separate software projects
+together.
 
 As we discussed in \cref{chp:swh-model}, gathering as much publicly available
 source code artifacts together and consolidating them in a canonical and
 deduplicated data model is a way to materialize the \emph{global graph of
 public software development}: an immense interconnected network of artifacts of
 various kinds (files, directories, commits, repositories), linking together all
-the derivative works, shared code bases and common development histories that
+derivative works, shared code bases and common development histories that
 form the software commons. As of today, little is known yet about the
 \emph{network structure} of this entangled graph. This is in contrast with what
 is known about other large graphs that are obtained as byproducts of
@@ -59,7 +60,7 @@ technology-related human activities, such as the graph of the
 Web~\cite{vigna2015webstruct} or social network
 graphs~\cite{ugander2011facebook, myers2014twitter}.
 
-To fill this gap, we conduct in this chapter the first systematic exploratory
+To fill this gap, in this chapter we conduct the first systematic exploratory
 study on the intrinsic structure of the software commons and its most salient
 topological properties~\cite{barabasi2002networkstats}, using the Software
 Heritage Graph Dataset as our best approximation for the graph of public
@@ -68,7 +69,7 @@ software development.
 \subsection{Motivations and relevance}
 
 Understanding the graph structure of public software development is important
-for a number of reasons, which we briefly detail below.
+for a number of reasons.
 
 \paragraph{Determine the most appropriate large-scale analysis approach.}
 
@@ -78,36 +79,37 @@ existing collections or focus on popular repositories. This is a potential
 source of bias, but is understandable for practical reasons.
 
 To enable studies on larger samples of the software commons (up to its fullest
-extent) we need, in addition to archival and computational
-platforms~\cite{dyer2013boa, swhcacm2018, mockus2019woc}, an understanding of
-its intrinsic structure, to choose the most appropriate large-scale analysis
-approach depending on the study needs.  For instance, if the graph turns out to
-be easy to partition into disconnected or loosely-connected components, then a
-\emph{scale-out} approach with several compute nodes holding in memory graph
-quasi-partitions would be best. On the other hand, if the graph is highly
-connected then a \emph{scale-up} approach based on large-scale graph database
-or relying on graph compression~\cite{saner-2020-swh-graph} would be
+extent), in addition to suitable archival and compute
+platforms~\cite{dyer2013boa, swhcacm2018, mockus2019woc}, we need an
+understanding of its intrinsic
+structure, to choose the most appropriate large-scale analysis approach
+depending on the study needs.  For instance, if the graph turns out to be easy
+to partition into disconnected or loosely-connected components, then a
+\emph{scale-out} approach with several compute nodes each holding graph
+(quasi-)partitions in memory would be best. Conversely, if the graph is
+highly connected then a \emph{scale-up} approach based on large-scale graph
+database or relying on graph compression~\cite{saner-2020-swh-graph} would be
 preferable.
 
 
 \paragraph{Avoid methodological pitfalls.}
 
-The same understanding is needed to avoid making too strong assumptions on what
-constitutes ``typical'' VCS data. These pitfalls have been warned against since
-the early days of GitHub~\cite{kalliamvakou2014promises}, but they have been
-neither quantified nor described at the scale we consider in this study yet.
+The same understanding is needed to avoid making overly strong assumptions on
+what constitutes ``typical'' VCS data. These pitfalls have been warned against
+since the early days of GitHub~\cite{kalliamvakou2014promises}, but as of yet
+they have been neither quantified nor described at the scale we consider in
+this study.
 
 The extent to which repositories on popular forges correspond to
 ``well-behaved'' development repositories, as opposed to being outliers that
 are not used for software development or are built just to test the limits of
-hosting platforms or \gls{VCS} technology, is unknown. In our experience GitHub
-alone contains repositories with very unusual artifacts (commits with one
-million parents or mimicking bitcoin mining in their IDs, the longest possible
-paths, bogus timestamps, etc.).
-
-How many statistically relevant outliers of this kind exist is unknown and
-needs to be documented as reference knowledge to help researchers in the
-interpretation of their empirical findings.
+hosting platforms or \gls{VCS} technology, remains unknown. In our experience
+GitHub alone contains repositories with very weird artifacts: commits with one
+million parents or artificially built to mimic bitcoin mining in their
+identifiers, the longest possible paths, bogus timestamps, etc.  How many
+statistically relevant outliers of this kind exist is unknown and needs to be
+documented as reference knowledge to help researchers in the interpretation of
+their empirical findings.
 
 
 \paragraph{Improve our understanding of daily objects of study.}
@@ -240,7 +242,7 @@ preconceived notions about the graph properties at a large scale.
 Other computer-related graphs that have been widely studied as complex networks
 are social network graphs, whose nodes correspond to users and whose edges to
 ``friendship'' or ``follower'' relationships. All major commercial social
-networks have been studied under this optics, including the social graphs of
+networks have been studied under these optics, including the social graphs of
 Facebook~\cite{ugander2011facebook} and Twitter~\cite{myers2014twitter}.
 
 In the realm of interconnected software-related artifacts, software dependency
@@ -283,7 +285,7 @@ We use the latest export of the edge dataset that was available at the time we
 started our experiments, dated 2020-12-15. In terms of size, this export
 contains 19 billion nodes and 221 billion edges in total.
 
-Some of the analyses we need to perform could be easily performed in a
+Some of the analyses we require could easily be performed in a
 scale-out/distributed fashion (e.g., degree measurements, for
 \cref{rq:degrees}), others benefit more from a scale-up/centralized approach
 (e.g., connected components for \cref{rq:ccs} and path lengths for

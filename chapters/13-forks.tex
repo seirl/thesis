@@ -42,7 +42,7 @@ new VCS repository that contains the full history (at the time of fork) of a
 preexisting repository, without an implicit negative connotation (also called
 ``development forks''~\cite{fogel2005producingoss}). Repository forks can be
 created on social coding platforms~\cite{dabbish2012socialcoding,
-thung2013network} with as little as a click on a button. Then, while a forked
+thung2013network} with as little as a click of a button. Then, while a forked
 repository \emph{can} be used to hard fork a project, often it is just a way to
 work on software improvements that will be eventually sent back to the
 originating project as pull requests~\cite{gousios2014pullrequests} for
@@ -61,8 +61,8 @@ which makes them robust across different workflows.
 Likely as a consequence of the prevalence of social coding platforms, recent
 literature on forks has focused on a single source of truth to determine what
 constitutes a fork: metadata provided by code hosting providers, and most
-notably GitHub. Clicking the fork button on GitHub indeed, in addition to
-cloning development history into a new repository, also registers a ``is forked
+notably GitHub. In addition to cloning development history into a new
+repository, clicking the fork button on GitHub also registers an ``is forked
 from'' relationship between the new repository and its parent. This
 relationship forms an ancestry graph that GitHub makes available through its
 API and that is what has traditionally been studied as a large, easily
@@ -70,9 +70,9 @@ exploitable fork network. However, using this forge-level information can pose
 some important methodological challenges for empirical studies.
 
 The first drawback of trusting platform metadata as source of truth for what
-repository is a fork is that it is platform-specific. One cannot identify as
-forks repositories hosted on GitHub that has been forked from, say, GitLab, or
-more generally non-GitHub hosted repositories, and vice-versa. Similarly,
+repository is a fork is that it is platform-specific.  Repositories hosted on
+GitHub that have been forked from, say, GitLab, or more generally non-GitHub
+hosted repositories, cannot be identified as forks and vice-versa. Similarly,
 although arguably less relevant from a quantitative point of view, one cannot
 recognize as forks, say, Git repositories used to collaborate with Subversion
 repositories via the \texttt{git-svn}
@@ -84,9 +84,10 @@ making the platform-specific part of this problem potentially severe.
 
 A second, more subtle methodological drawback is that trusting platform
 metadata introduces a selection bias on both the amount and type of forks that
-are considered. The fact that social coding platform strongly encourage, and
-sometimes even automate, the creation of forked repositories as the main way to
-contribute even the smallest one-liner change, inflates the number of forks.
+are considered. The number of forks is inflated by the fact that social coding
+platforms strongly encourage, and sometimes even automate, the creation of
+forked repositories as the main way to contribute even the smallest one-liner
+change.
 Many of these (soft) forks will be short-lived in terms of development
 activity. Hard forks will comparatively be more long-lived and will not
 necessarily reside on the same code hosting platform. The example of the Linux
@@ -100,9 +101,9 @@ Fork inflation also results in increased duplication of software artifacts
 (source code files or directories, commits, \ldots) across
 repositories~\cite{swh-provenance-emse}, which has a significant impact on fork
 studies that rely on metrics as simple as repository size (measured as the
-number of hosted commits). Filtering out forked repository is a common solution
-to this problem, which calls into question \emph{how} to properly identify
-forks.
+number of hosted commits). Filtering out forked repositories is a common
+solution to this problem, which calls into question \emph{how} to properly
+identify forks.
 It has been shown~\cite{swh-provenance-emse} that a partition of commits within
 origins sharing at least 1 commit (``most fit fork'' partition), could decrease
 by several orders of magnitude the tail of the distribution of origin size, and
@@ -290,7 +291,7 @@ forge forks because it allows recognizing as forks---in the broad sense of
 hosted on different platforms. A repository hosted on GitLab.com, or your
 personal git repository on your homepage, can be recognized as a fork of a
 another hosted on GitHub. The price to pay is that, due to symmetry, the
-definition \emph{alone} is not enough to orientate the relation; it does not
+definition \emph{alone} is not enough to orient the relationship; it does not
 capture which repository ``came first''.
 
 We can push this idea further, trying to make it even more robust, and capable
@@ -511,7 +512,7 @@ contained in each component.
 While partitioning the corpus in fork networks gives a good idea of how
 intrinsic forks are linked together, it can group together repositories that
 are not forks of each other, as the intrinsic fork relationship is not
-transitive. \Cref{fig:fork-transitive-fail} shows a pattern, that we
+transitive. \Cref{fig:fork-transitive-fail} shows a pattern that we
 have verified as commonly found in the wild, where two different cliques will
 be merged in the same fork network---A and B are part of the same clique as
 they share development history; the same applies to B and C\@; whereas A and C
@@ -791,7 +792,7 @@ be very close to each other, even farther in the tail. This \textbf{suggests
 that type 2 forks capture well what developers typically recognize as forks}.
 
 To formally assess this similarity, the graph also exhibits the cumulative
-difference between the clique distribution and the baseline. This is in
+difference between the clique distribution and the baseline. This is, in
 essence, the cumulative size distribution of the cliques of forks
 \emph{overlooked} when using only the GitHub metadata. 
 This cumulative
@@ -998,7 +999,7 @@ from various forges to the extent of what is covered by the \SWH{} archive,
 which might lag behind the tracked forges, and GHTorrent is GitHub-specific. As
 we need comparable samples we were limited by the intersection of the two
 datasets in this study, which composes these limitations. Still, to the best of
-our knowledge this is one of the largest quantitative fork study to date,
+our knowledge this is one of the largest quantitative fork studies to date,
 having considered more than 40 M public version control system repositories.
 
 In the future it would be interesting to extend this approach to forges that
@@ -1062,7 +1063,7 @@ Various performance aspects of the pull request development
 model~\cite{gousios2014pullrequests, gousios2015work} have been also
 studied. Latency in acceptance has been a popular one~\cite{yu2015waitforit,
   tsay2014influence}; the amount of generated community
-engagement~\cite{dabbish2012socialcoding, dabbish2012transparency} another one.
+engagement~\cite{dabbish2012socialcoding, dabbish2012transparency} another.
 A more general accounting of efficient forking patterns has recently been given
 by Zhou et al.~\cite{zhou2019fork}.
 

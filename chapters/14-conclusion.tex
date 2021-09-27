@@ -8,10 +8,10 @@ the use of most conventional approaches for data processing, and necessitates
 state-of-the art techniques in big data and graph analysis.
 While venturing to organize this development graph in a way that could be
 empirically studied, I encountered and tackled challenging issues in both the
-technical and research aspects of my work, which I described extensively in
-this thesis. In this final chapter, I summarize my main academic contributions
-to the fields of empirical software engineering and software mining, and
-discuss open questions and future research directions.
+technical and research aspects of my work, which I have described extensively
+in this thesis. In this final chapter, I summarize my main academic
+contributions to the fields of empirical software engineering and software
+mining, and discuss open questions and future research directions.
 
 \section{Summary of academic contributions}
 
@@ -35,7 +35,7 @@ platform for the Software Heritage archive (\cref{sec:roadmap}).
 \paragraph*{Small-scale artifact processing}
 
 I presented the designs and implementations for two techniques to access and
-process small to medium sets of software artifacts (up the order of tens of
+process small to medium sets of software artifacts (up to tens of
 thousands) from a large remote repository of artifacts, one based on preparing
 bundles of artifacts on the server-side (\cref{chp:vault}) and another using a
 virtual filesystem~\cite{swh-2021-swhfs} to provide lazy access to objects
@@ -250,7 +250,7 @@ such a feat.
 
 This thesis presents a work which leverages the Software Heritage archive to
 build an analysis platform open to all software mining researchers. Among them,
-one of the primary beneficiary of this platform could be the Software Heritage
+one of the primary beneficiaries of this platform could be the Software Heritage
 initiative itself, as analyzing the data in the archive could yield valuable
 insights that could be used to fine-tune archiving behavior. One example of
 this is for scheduling predictions: the compressed graph augmented with commit
@@ -295,7 +295,7 @@ root directory of its source tree, it would instead point to the changes that
 happened since the last revision (i.e., new, deleted, modified and renamed
 files). This could help answer more research questions efficiently, such as
 finding the list of revisions in which a given file was added for the first
-time. Constructing this derived graph has been experimented at a reasonably
+time. Constructing this derived graph has been attempted at a reasonably
 large scale (10\% of the edges in the graph) as part of an unpublished study
 with Wellenzohn et al., delivering promising early results.
 

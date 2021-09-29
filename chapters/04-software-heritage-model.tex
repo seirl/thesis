@@ -251,10 +251,10 @@ content (a blob of length zero) in the entire archive, and millions of
 directories reference it.
 
 Merging all archived repositories into a single large collection of software
-artifacts leverages all the benefits of Merkle \gls{DAG} models for single
-repositories to the entire archive: simple identification of unique artifacts,
-built-in data integrity checks, very high rate of deduplication and reduced
-storage costs.
+artifacts takes all the benefits of Merkle \gls{DAG} models for single
+repositories and leverages them for the entire archive: simple identification
+of unique artifacts, built-in data integrity checks, very high rate of
+deduplication and reduced storage costs.
 
 In addition, storing canonical artifacts only once in the archive is also
 semantically useful for research. Essentially, it becomes easy to visualize
@@ -308,8 +308,8 @@ pointed by multiple directories).
 A few observations can be drawn from this diagram:
 
 \begin{itemize}
-    \item Most relationships are many-to-many. Only release$\to$commit
-        and\linebreak commit$\to$directory relationships are many-to-one, as
+    \item Most relationships are many-to-many. Only release $\to$ commit
+        and commit $\to$ directory relationships are many-to-one, as
         they can only point respectively to a single commit and a single
         directory.
 
@@ -421,8 +421,8 @@ The current version of the identifier scheme, stored in the second field, is
 \texttt{1}. The third field contains a three-letter code for the object type
 (\texttt{snp} for snapshots, \texttt{rel} for releases, \texttt{rev} for
 revisions, \texttt{dir} for directories and \texttt{cnt} for contents). The
-last field contains a hexadecimal-encoded intrinsic hash computed with the
-SHA-1 algorithm on the content and metadata of the object.
+last field contains an intrinsic hash computed with the SHA-1 algorithm on the
+content and metadata of the object and encoded in hexadecimal.
 
 Here are a few examples of \glspl{SWHID} and the objects they point to:
 
@@ -449,10 +449,10 @@ computed from the intrinsic properties of the object they refer to.
 \section{Implementation}%
 \label{sec:swh-infrastructure}
 
-Although a full description of the physical implementation of the Software
-Heritage archive is out of scope for this thesis, a cursory understanding of
-some of its core systems is needed for later chapters, as we present frameworks
-and tools built upon these foundations.
+Although a full description of the physical infrastructure powering the
+Software Heritage archive is out of scope for this thesis, a cursory
+understanding of some of its core systems is needed for later chapters, as we
+present frameworks and tools built upon these foundations.
 
 At a physical level, the archive is stored using a few different technologies,
 due to the differences in technical requirements for storing the different

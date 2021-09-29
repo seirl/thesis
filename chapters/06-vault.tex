@@ -273,17 +273,18 @@ relevant data from them. Because Git is the most popular \gls{VCS}, it makes
 sense to provide a way to export revisions and snapshot bundles as Git bundles.
 
 To export archived artifacts as a Git repository, we first investigated the
-\texttt{git fast-import}
-format\footnote{\url{https://git-scm.com/docs/git-fast-import}}, designed to be
-an interchange format between \glspl{VCS} and which can efficiently import data
-into a git repository. This format contains a stream of ``commands'' which
-describe all the Git objects to import (tags, commits, trees and blobs), and is
-used by many \gls{VCS} converters. Implementing this cooker exposed a few
-limitations of the format itself: poor documentation, unfriendly interface due
-to its relatively uncommon usage, lossiness (no tagged trees and incomplete
-handling of signed tags) and large output (the format was not meant for long
-term storage and has no built in delta-compression of blobs).  Most
-importantly, it is very expensive to export from the archive, because the
+format used by \texttt{git
+fast-import},\footnote{\url{https://git-scm.com/docs/git-fast-import}} designed
+to be an interchange format between \glspl{VCS} and which can efficiently
+import data into a git repository.
+This format contains a stream of ``commands'' which describe all the Git
+objects to import (tags, commits, trees and blobs), and is used by many
+\gls{VCS} converters. Implementing this cooker exposed a few limitations of the
+format itself: poor documentation, unfriendly interface due to its relatively
+uncommon usage, lossiness (no tagged trees and incomplete handling of signed
+tags) and large output (the format was not meant for long term storage and has
+no built in delta-compression of blobs).
+Most importantly, it is very expensive to export from the archive, because the
 commits are represented as a list of changes between one state to the other.
 Generating revisions under this format requires computing diffs between
 consecutive commits, which is expensive and hard to parallelize.

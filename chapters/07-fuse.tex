@@ -13,9 +13,10 @@ prototype data mining tools. This kind of lazy-loading of resources over the
 network can be provided at the filesystem level by \emph{virtual filesystems}.
 
 In this chapter, we introduce the \emph{Software Heritage Filesystem
-  (\SWHFS)},\footnote{\url{https://docs.softwareheritage.org/devel/swh-fuse/}}
-  a user-space filesystem that gives access to the \SWH{} archive as a POSIX
-  filesystem. \SWHFS{} integrates with research and development workflows by
+(\SWHFS)},\footnote{\url{https://docs.softwareheritage.org/devel/swh-fuse/}}
+a tool that gives access to the \SWH{} archive by exposing a user-space POSIX
+filesystem as its interface.
+\SWHFS{} integrates with research and development workflows by
 presenting the data in the archive as regular directory trees.
 Provided that a reference to the desired code can be obtained, the
 corresponding file, directory, or commit can be used as if it were locally
@@ -148,9 +149,9 @@ with \SWHFS{} documentation.
 \SWHFSpy{} is an adapter between the \SWH{} REST
 API\footnote{\url{https://archive.softwareheritage.org/api/}} (SWH API) and the
 FUSE API\@. When filesystem entities that represent archived objects are
-accessed, \SWHFSpy{} uses the SWH API to retrieve data and metadata about them.
-Obtained results are then used to assemble the expected filesystem layout and
-return it to the kernel via the FUSE API\@.
+accessed, the \SWHFSpy{} backend uses the SWH API to retrieve data and metadata
+about them.  Obtained results are then used to assemble the expected filesystem
+layout and return it to the kernel via the FUSE API\@.
 
 For example, when a source tree object is listed using
 \mintinline{c}{readdir()}, \SWHFS{} invokes the \texttt{/directory} endpoint of
@@ -247,7 +248,7 @@ distributed via PyPI\@.
 % as \SWHFSpy.\footnote{\url{https://pypi.org/project/swh.fuse/}}
 It can be installed from there running \mintinline{bash}{pip install swh.fuse}.
 
-\SWHFS{} development happens on the \SWH{}
+The development of \SWHFS{} happens on the \SWH{}
 forge,\footnote{\url{https://forge.softwareheritage.org/source/swh-fuse/}}
 where issues and patches can be submitted.
 
@@ -365,8 +366,8 @@ completion.
 
 \paragraph{Repository snapshots and branches}
 
-Snapshot objects keep track of where each branch and release (or ``tag'')
-pointed to at archival time. Here is an example with the Unix history
+Snapshot objects record where each branch and release (or ``tag'') pointed to
+at archival time. Here is an example with the Unix history
 repository~\cite{SpinellisUnix2017}, which uses historical Unix releases as
 nested branch names:
 

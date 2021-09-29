@@ -56,7 +56,8 @@
 
 % Font
 \usepackage{fontspec}
-\usepackage{fouriernc}
+% \usepackage{fouriernc}
+\usepackage{anyfontsize}
 \setmainfont[
     Path=fonts/,
     UprightFont = *-regular,
@@ -68,13 +69,18 @@
 % 1.5 line spacing
 \OnehalfSpacing
 
+% Line breaking config
+\emergencystretch=1.5em
+\raggedbottom
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+
 % Sets numbering division level
 \setsecnumdepth{subsection}
 \maxsecnumdepth{subsubsection}
 
 % Chapter style (taken and slightly modified from Lars Madsen Memoir Chapter
 % Styles document)
-\usepackage{calc,soul,fourier}
+\usepackage{calc,soul}
 \makeatletter
 \newlength\dlf@normtxtw
 \setlength\dlf@normtxtw{\textwidth}
@@ -107,10 +113,15 @@
 \makeatother
 \chapterstyle{daleifmodif}
 
+% TOC style
+\renewcommand\printpartnum{\hspace{0.5cm}\thepart}
+\setpnumwidth{2em}  % avoid overfull hbox of page numbers
+\setlength{\cftpartnumwidth}{2em}
+\setlength{\cftchapternumwidth}{2em}
+
 % Part style
 \renewcommand\partnamefont{\normalfont\Large\scshape\so}
 \renewcommand\parttitlefont{\normalfont\Huge\bfseries\scshape}
-\renewcommand\printpartnum{\hspace{0.5cm}\thepart}
 
 % Page style
 \makepagestyle{myvf}

@@ -71,11 +71,11 @@ software development.
 Understanding the graph structure of public software development is important
 for a number of reasons.
 
-\paragraph{Determine the most appropriate large-scale analysis approach.}
+\paragraph{Determine the most appropriate approach for large-scale analysis.}
 
-Most ``large-scale'' studies of VCS fall short of the full body of publicly
-available source code artifacts and either resort to random sampling from
-existing collections or focus on popular repositories. This is a potential
+Most ``large-scale'' studies of VCS generally fall short of the full body of
+publicly available source code artifacts and either resort to random sampling
+from existing collections or focus on popular repositories. This is a potential
 source of bias, but is understandable for practical reasons.
 
 To enable studies on larger samples of the software commons (up to its fullest
@@ -286,8 +286,8 @@ started our experiments, dated 2020-12-15. In terms of size, this export
 contains 19 billion nodes and 221 billion edges in total.
 
 Some of the analyses we require could easily be performed in a
-scale-out/distributed fashion (e.g., degree measurements, for
-\cref{rq:degrees}), others benefit more from a scale-up/centralized approach
+scale-out / distributed fashion (e.g., degree measurements, for
+\cref{rq:degrees}), others benefit more from a scale-up / centralized approach
 (e.g., connected components for \cref{rq:ccs} and path lengths for
 \cref{rq:paths}) to avoid incurring the price of costly synchronization points.
 For uniformity, and also because there is no real drawback in doing \emph{all}

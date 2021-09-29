@@ -13,9 +13,9 @@
 
 % Language
 \usepackage[french,main=english]{babel}
+\usepackage{fvextra}  % Verbatim improvements. Should be before csquotes
 \usepackage{csquotes}
-\usepackage[acronym]{glossaries}
-\usepackage{lipsum}
+\usepackage[acronym,noredefwarn]{glossaries}
 
 % Graphics
 \usepackage{graphicx}       % Calls figure environment
@@ -27,7 +27,12 @@
 
 
 % Bibliography
-\usepackage[backend=biber, style=numeric, maxnames=6]{biblatex}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  maxbibnames=6,
+  maxcitenames=2
+]{biblatex}
 % Only show DOI when both DOI and URL are present
 % https://tex.stackexchange.com/a/424799
 \DeclareSourcemap{%

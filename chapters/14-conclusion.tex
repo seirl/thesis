@@ -137,9 +137,9 @@ findings.
 
 \paragraph*{Graph connectivity and sharding}
 
-Another important empirical finding from the topology analysis is that the
-graph is generally well-connected due to the deduplication of the software
-artifacts it contains. This is particularly true at the level of the
+Another important empirical finding from the low-level topology analysis is
+that the graph is generally well-connected due to the deduplication of the
+software artifacts it contains. This is particularly true at the level of the
 filesystem, where 97\% of all the files and directories in the graph are all
 reachable from each other and form a giant connected component. This giant
 component precludes the use of naive partition techniques, such as regrouping

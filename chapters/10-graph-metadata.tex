@@ -46,8 +46,8 @@ The added complexity gets even worse when the traversed edges are conditional
 on the properties themselves. Consider the following query:
 
 \textbf{Query 2}: \emph{Given a snapshot, find all unique blobs which were
-present at the path \allowbreak\texttt{src/test/README.txt} at any point in its
-development history.}
+present at the path \allowbreak{}\texttt{src/test/README.txt} at any point in
+its development history.}
 
 With direct access to the properties of the graph, the algorithm is again
 straightforward: (1) traverse the revision history (2) for each revision,
@@ -71,7 +71,7 @@ graph.
 
 \section{SWHID mappings}
 
-The most basic property of the graph is the \acrfull{SWHID} of each node, their
+The most basic property of the graph nodes is their \acrfull{SWHID}, their
 unique identifier in the archive. They are of prime importance to be able to
 relate the nodes being manipulated in the compressed representation with the
 archived artifacts themselves.
@@ -430,11 +430,11 @@ are available in \cref{sec:relational-model}):
 \begin{itemize}
     \setlength\itemsep{0em}
 \item \texttt{snapshot\_branch.name} (binary): name of a snapshot branch
-    (on snapshot $\to\ast$ edges)
+    (snapshot $\to\ast$ edges)
 \item \texttt{directory\_entry.name} (binary): name of a directory entry
-    (on directory $\to\ast$ edges)
+    (directory $\to\ast$ edges)
 \item \texttt{directory\_entry.perms} (int): permissions of a directory
-    entry (on directory $\to\ast$ edges)
+    entry (directory $\to\ast$ edges)
 \end{itemize}
 
 \subsection{Data structure}%
@@ -451,9 +451,9 @@ data structure.
 
 To solve this issue, the WebGraph framework provides an experimental set of
 libraries\footnote{\url{https://webgraph.di.unimi.it/docs/it/unimi/dsi/webgraph/labelling/package-summary.html}}
-under \texttt{webgraph.labelling} which implements arc labeling, i.e.,
-associating arbitrary properties to the graph edges. The basic principle for
-the serialization of labels (the objects storing the edge properties) using
+under the \texttt{webgraph.labelling} namespace which implements arc labeling,
+i.e., associating arbitrary properties to the graph edges. The basic principle
+for the serialization of labels (the objects storing the edge properties) using
 this system is twofold.
 
 First, all labels are written to a \texttt{graph.labels} file in the order
@@ -689,8 +689,8 @@ names.
 
 \paragraph{Reverse mapping}
 In order to access the value of any given label name from its integer rank in
-$O(1)$ time, we then build an efficient on-disk map using the
-\texttt{FrontCodedStringBigList} class by giving it the sorted list of labels
+$O(1)$ time, we then build an efficient on-disk map using
+\texttt{FrontCodedStringBigList} by giving it the sorted list of labels
 as an input, which stores them efficiently using front-coding compression while
 allowing fast random access. This map $m_L$ is the inverse function
 of $h_L$ over its input domain: $\forall l \in L,~m_L(h_L(l)) = l$.

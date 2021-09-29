@@ -1,5 +1,6 @@
-$pdf_mode = 5;  # xelatex
-$xelatex = 'xelatex -shell-escape %O %S';
+$pdf_mode = 4;  # lualatex
+$lualatex = 'lualatex -shell-escape %O %S';
+$postscript_mode = $dvi_mode = 0;
 $bibtex_use = 2;
 $out_dir = "_build";
 

@@ -1,3 +1,11 @@
+\usepackage[rgb,hyperref,dvipsnames]{xcolor} % Creates coloured text/bg
+
+% PDF/A-1B
+\usepackage{iftex}
+\ifluatex
+    \usepackage[a-3b]{pdfx}
+\fi
+
 % Symbols, math improvements, fonts, etc
 \usepackage{amsfonts}            % Calls Amer. Math. Soc. (AMS) fonts
 \usepackage[centertags]{amsmath} % Writes maths centered down
@@ -19,7 +27,7 @@
 % Graphics
 \usepackage{graphicx}       % Calls figure environment
 \usepackage{graphbox}       % Vertical align figures
-\usepackage[dvipsnames]{xcolor}         % Creates coloured text and background
+\usepackage[rgb,hyperref,dvipsnames]{xcolor} % Creates coloured text/bg
 \usepackage{microtype}      % Makes pdf look better.
 \usepackage[normalem]{ulem} % Underline command
 \setlength{\cftpartnumwidth}{2em}
@@ -46,7 +54,7 @@
 }
 
 % Links and refs
-\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\usepackage{hyperref}
 % \usepackage[ocgcolorlinks]{ocgx2}
 \usepackage{url}
 \usepackage[capitalize,noabbrev]{cleveref}  % Better \cref with automatic fig names

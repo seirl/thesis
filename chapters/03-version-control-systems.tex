@@ -267,7 +267,7 @@ complexity of $O(1)$.
             \node [
                 shape=rectangle, draw=black, align=center, font=\footnotesize,
                 label={[above]Result hash}
-            ] (output) at (10, 0) {
+            ] (output) at (10, 0) {%
                 % \texttt{7a50e30ada8f09b2}%
                 % \texttt{24d348d314de4c09} \\
                 % \texttt{ae0ebcb443334442}%
@@ -412,7 +412,51 @@ recursively dependent on its entire chain of descendants has first been
 described by Merkle~\cite{Merkle}. We call \emph{Merkle tree} or \emph{hash
 tree} a tree in which every node is labelled with the cryptographic hash of a
 data manifest containing its key and the hashes of its child nodes.
-%\TODO{Figure of a data manifest to explain this better.}
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \matrix [draw=black, matrix of nodes, nodes={anchor=west}] (dirmanifest)
+        [label=above:{\emph{Directory manifest}}] {%
+            \texttt{100644} & |[rounded corners, contentfill]| \texttt{blob}
+                            & \texttt{82fab97d8d…} & \texttt{README}\\
+            \texttt{100644} & |[rounded corners, contentfill]| \texttt{blob}
+                            & \texttt{1b25a2041c…} & \texttt{evalexpr.c}\\
+            \texttt{100755} & |[rounded corners, contentfill]| \texttt{blob}
+                            & \texttt{1b25a2041c…} & \texttt{configure.sh}\\
+            \texttt{040000} & |[rounded corners, directoryfill]| \texttt{tree}
+                            & \texttt{b62e96afcf…} & \texttt{parser}\\
+            \texttt{160000} & |[rounded corners, revisionfill]| \texttt{commit}
+                            & \texttt{e1a77d8342…} & \texttt{libcuda}\\
+        };
+
+        \node [draw, right=2cm of dirmanifest.east,
+            label=above:{\emph{Directory hash}}] (treehash)
+            {\texttt{a009a5c4fd63bc5262…}};
+
+        \draw[style=arrow] (dirmanifest.east) -- (treehash.west)
+            node[midway, above] {\footnotesize SHA-1};
+
+        \node [below=1.3cm of dirmanifest-5-1.south] (labelentryperms)
+            {Permissions};
+        \node [below=0.7cm of dirmanifest-5-2.south] (labelentrytype)
+            {Target type};
+        \node [below=1.3cm of dirmanifest-5-3.south] (labelentryhash)
+            {Target hash};
+        \node [below=0.7cm of dirmanifest-5-4.south] (labelentryname)
+            {Entry name};
+        \draw[style=arrow] (labelentryperms.north) -- (dirmanifest-5-1.south);
+        \draw[style=arrow] (labelentrytype.north) -- (dirmanifest-5-2.south);
+        \draw[style=arrow] (labelentryhash.north) -- (dirmanifest-5-3.south);
+        \draw[style=arrow] (labelentryname.north) -- (dirmanifest-5-4.south);
+
+    \end{tikzpicture}
+    \caption{Data manifest of an example directory. Inner nodes in a Merkle DAG
+        are identified by a cryptographic hash of a \emph{data manifest} that
+        contains the hash of all their children, which recursively makes their
+        hash dependent of all their descendants.}%
+    \label{fig:directory-manifest}
+\end{figure}
 
 In our case, the structure that contains the development history is technically
 not a tree, but a \emph{\gls{DAG}}: a tree can only have one parent node, which

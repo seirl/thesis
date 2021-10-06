@@ -43,6 +43,21 @@ attach such directory-dependent information to blobs.
 Blobs are identified by a cryptographic hash computed from the full binary data
 they contain.
 
+
+\begin{figure}%[!h]
+    \centering
+\begin{tikzpicture}
+    \umlclass[contentfill, rectangle split parts=2, type=Blob]{3ac7d980…}{%
+      +data = \\
+      \quad \texttt{\#include <stdio.h>} \\
+      \quad \texttt{int main(void) \{} \\
+      \quad     \quad \texttt{printf("Hello!");} \\
+      \quad \texttt{\}}
+    }{}
+\end{tikzpicture}
+\caption{Example of a Blob object.}
+\end{figure}
+
 % \TODO{Add examples of manifests}
 
 
@@ -66,6 +81,27 @@ regular files.
 A directory node is identified by a cryptographic hash of a canonical textual
 representation of all its entries, that include the identifier of target
 objects.
+
+\begin{figure}%[!h]
+    \centering
+    \begin{tikzpicture}
+    \umlclass[directoryfill, rectangle split parts=2, type=Directory]{7178d6cc…}{%
+      +entries = \\
+      \quad \texttt{doc/}\\
+      \quad \texttt{README.md}\\
+      \quad \texttt{hello.c}\\
+    }{}
+
+    \umlsimpleclass[contentfill, type=Blob, right=1.5cm of 7178d6cc…]{da960397…}
+    \umlsimpleclass[directoryfill, type=Directory, above=0.3cm of da960397…]{b97c9c58…}
+    \umlsimpleclass[contentfill, type=Blob, below=0.3cm of da960397…]{a1a3772c…}
+
+    \draw[style=arrow] (7178d6cc….350) -- (b97c9c58….west);
+    \draw[style=arrow] (7178d6cc….335) -- (da960397….west);
+    \draw[style=arrow] (7178d6cc….320) -- (a1a3772c….west);
+\end{tikzpicture}
+\caption{Example of a Directory object.}
+\end{figure}
 
 
 
@@ -110,6 +146,27 @@ manifest containing all their metadata, their parent identifiers, and the
 identifier of the directory node denoting the root of the source tree at the
 time of the revision.
 
+\begin{figure}%[!h]
+    \centering
+    \begin{tikzpicture}
+    \umlclass[revisionfill, rectangle split parts=2, type=Revision]{9215efc5…}{%
+      +author = "Linus Torvalds <torvalds@…>" \\
+      +message = "Fix missing return values" \\
+      +timestamp = "Sat Apr 9 00:25:22 2005 -0700" \\
+      +directory = Directory \\
+      +parents = Revision list
+    }{}
+
+    \umlsimpleclass[directoryfill, type=Directory, right=1.5cm of 9215efc5…]{c54d14d1…}
+    \umlsimpleclass[revisionfill, type=Revision, below=1cm of 9215efc5….south west, anchor=west]{f0df6963…}
+
+    % \draw[style=arrow] (9215efc5….345) -- (c54d14d1….west);
+    \draw[style=arrow] (9215efc5….east) -- (c54d14d1….west);
+    \draw[style=arrow] (9215efc5….200) to [bend right] (f0df6963….west);
+\end{tikzpicture}
+\caption{Example of a Revision object.}
+\end{figure}
+
 
 \begin{wrapfigure}{l}{0.07\textwidth}\centering
 \begin{tikzpicture}\node [style=release,scale=1.5] (0) at (0, 0) {};\end{tikzpicture}
@@ -139,6 +196,25 @@ found in real-world repositories.
 Releases are identified by a cryptographic hash taken on a canonical text
 manifest containing release name, release properties, and the identifier of the
 revision node they reference.
+
+\begin{figure}%[!h]
+    \centering
+    \begin{tikzpicture}
+    \umlclass[releasefill, rectangle split parts=2, type=Release]{e05dae84…}{%
+      +author = "Guido van Rossum <guido@…>" \\
+      +name = "2.0" \\
+      +message = "3.0 release" \\
+      +timestamp = "Sat Mar 5 15:09:43 2011 +0100" \\
+      +target = Revision \\
+    }{}
+
+    \umlsimpleclass[revisionfill, type=Revision, right=1.5cm of e05dae84…]{3afc8cb8…}
+
+    % \draw[style=arrow] (e05dae84….340) -- (3afc8cb8….west);
+    \draw[style=arrow] (e05dae84….east) -- (3afc8cb8….west);
+\end{tikzpicture}
+\caption{Example of a Release object.}
+\end{figure}
 
 
 \begin{wrapfigure}{l}{0.07\textwidth}\centering
@@ -179,6 +255,28 @@ space-complexity of purely functional persistent structures as described in
 show that nothing changed in the interval, the visits can both share the same
 deduplicated snapshot in the data model, instead of having to copy and store
 the set of branches and tags twice.
+
+\begin{figure}%[!h]
+    \centering
+    \begin{tikzpicture}
+    \umlclass[snapshotfill, rectangle split parts=2, type=Snapshot]{acf6b31f…}{%
+      +entries = \\
+      \quad \texttt{HEAD}\\
+      \quad \texttt{refs/heads/master}\\
+      \quad \texttt{refs/tags/1.0}\\
+    }{}
+
+    \umlsimpleclass[revisionfill, type=Revision, right=1.5cm of acf6b31f…]{cdcb9c35…}
+    \umlsimpleclass[revisionfill, type=Revision, above=0.3cm of cdcb9c35…]{fd262af8…}
+    \umlsimpleclass[releasefill, type=Release, below=0.3cm of cdcb9c35…]{84d3a02f…}
+
+    \draw[style=arrow] (acf6b31f….350) -- (fd262af8….west);
+    \draw[style=arrow] (acf6b31f….340) -- (cdcb9c35….west);
+    \draw[style=arrow] (acf6b31f….330) -- (84d3a02f….west);
+\end{tikzpicture}
+\caption{Example of a Snapshot object.}
+\end{figure}
+
 
 
 \begin{wrapfigure}{l}{0.07\textwidth}\centering
@@ -230,11 +328,6 @@ software artifacts in a deduplicated and canonical fashion is inherently a way
 to materialize an immense highly interconnected graph, linking together all
 derivative works and shared codebases.
 
-This process is illustrated in \cref{fig:consolidating-archive}. The
-intrinsic cryptographic hashes of the software artifacts are used to enforce
-their full deduplication, consolidating them in a unified Merkle \gls{DAG} with
-all the artifacts in the archive.
-
 \begin{figure}
     \centering
     \input{tikz/figures/consolidating-archive.tikz}
@@ -243,6 +336,11 @@ all the artifacts in the archive.
     \label{fig:consolidating-archive}
 \end{figure}
 
+This process is illustrated in \cref{fig:consolidating-archive}. The
+intrinsic cryptographic hashes of the software artifacts are used to enforce
+their full deduplication, consolidating them in a unified Merkle \gls{DAG} with
+all the artifacts in the archive.
+%
 In short, this means that whenever a directory, file or any artifact is
 referenced by multiple projects, it will get deduplicated as a single node in
 the graph, and will be directly referenced by all projects and artifacts

@@ -1067,7 +1067,7 @@ need to explore on the fly (and as quickly as possible) artifact relationships
 that are not available as pre-computed mappings.
 
 Large-scale VCS analyses have been conducted in the past, usually at much
-smaller scale than ours. An exception is~\cite{swh-provenance-emse}, which
+smaller scale than ours. An exception is \textcite{swh-provenance-emse}, which
 developed a compressed representation for software provenance tracking and used
 it to conduct the multiplication experiments that we have replicated in
 \cref{sec:compression-expmultiplication}. Both approaches can be applied
@@ -1095,18 +1095,18 @@ histories, them on other activities) and needed resources.
 \label{sec:graph-compression-techniques}
 
 The problem of finding compression-friendly node orderings was studied from a
-theoretical viewpoint in~\cite{CKLCSN}, where the authors show that the problem
-of determining the optimal renumbering of nodes is NP-hard, but propose a
-heuristic (called ``shingle ordering'') for the problem, based on a fingerprint
-of the out-neighborhoods.
+theoretical viewpoint in \textcite{CKLCSN}, where the authors show that the
+problem of determining the optimal renumbering of nodes is NP-hard, but propose
+a heuristic (called ``shingle ordering'') for the problem, based on a
+fingerprint of the out-neighborhoods.
 
-More recently,~\cite{DKKCGIRGB} extended the theoretical model of~\cite{CKLCSN}
-and designed a novel ordering technique, called \emph{recursive graph
-bisection}, that yields the most competitive compression ratios in several
-cases. The core idea is to recursively divide the graph into two clusters of
-the same size so as to minimize an objective function that estimates the
-compressibility of the overall graph when nodes in the first cluster have
-smaller identifiers than nodes in the second cluster.
+More recently, \textcite{DKKCGIRGB} extended the theoretical model
+of~\cite{CKLCSN} and designed a novel ordering technique, called
+\emph{recursive graph bisection}, that yields the most competitive compression
+ratios in several cases. The core idea is to recursively divide the graph into
+two clusters of the same size so as to minimize an objective function that
+estimates the compressibility of the overall graph when nodes in the first
+cluster have smaller identifiers than nodes in the second cluster.
 
 To the best of our knowledge, the first technique would not scale to our use
 case. Recursive bisection might have some margin of benefit over a BFS or LLP

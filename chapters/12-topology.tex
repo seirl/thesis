@@ -189,7 +189,7 @@ software ``forks'' without relying on forge metadata have been proposed using
 either the history layer~\cite{swh-msr2020-forking}, or community subgraphs
 derived from the metadata in the history layer~\cite{mockus2020complete}.
 
-A recent work~\cite{trujillo2021penumbra} by Trujillo et al.\ highlighted
+A recent work by \textcite{trujillo2021penumbra} highlighted
 representativeness issues when only using popular platforms like GitHub as a
 convenience sample, by showing large disparities in the characteristics of
 projects stored in these centralized platforms and those existing outside them.
@@ -221,14 +221,14 @@ ranking methods, compact representation techniques, as well as sociological
 insights onto its growth, social structure, and communities.
 
 Studying the topology of the graph of the Web using large corpuses has been
-done as early as 2000 in~\cite{broder2000graph} at a large scale: 200 million
-nodes (Web pages), 1.5 billion edges (hyperlinks between them). In this study
-we apply a similar analysis approach, including the study of in-degree and
-out-degree distributions, as well as the distribution of connect component
+done as early as 2000 in \textcite{broder2000graph} at a large scale: 200
+million nodes (Web pages), 1.5 billion edges (hyperlinks between them). In this
+study we apply a similar analysis approach, including the study of in-degree
+and out-degree distributions, as well as the distribution of connect component
 sizes.
 
 Further analyses of the graph of the Web have been pursued more recently
-in~\cite{vigna2015webstruct}, which extends previous work characterizing
+in \textcite{vigna2015webstruct}, which extends previous work characterizing
 different aggregation levels (pages, hosts, and domains). The size of the
 analyzed corpus is comparable to ours (3.5 billion nodes, 128 billion edges),
 and their analysis methodology is very close to what we propose here. The graph
@@ -247,15 +247,15 @@ Facebook~\cite{ugander2011facebook} and Twitter~\cite{myers2014twitter}.
 
 In the realm of interconnected software-related artifacts, software dependency
 graphs have also been studied and characterized as complex networks.
-\Cite{labelle2004inter} looked at the basic properties of the dependency graphs
-of Debian and BSD packages, again with a methodology similar to the web graph
-studies, albeit on a much smaller graph. \Cite{abate2009strong} is a different
-take on characterizing the graph of software dependencies in Debian,
+\Textcite{labelle2004inter} looked at the basic properties of the dependency
+graphs of Debian and BSD packages, again with a methodology similar to the web
+graph studies, albeit on a much smaller graph. \Textcite{abate2009strong} is a
+different take on characterizing the graph of software dependencies in Debian,
 considering semantic rather than merely semantic dependencies. On the same
-graph,~\cite{maillart2008empirical} adds the time dimension to the analysis by
-studying its dynamic growth and trying to fit it to a Zipf law model. We do not
-look into dynamic growth of our graph in the present study; it hence remains
-a relevant research direction for future work.
+graph, \textcite{maillart2008empirical} adds the time dimension to the analysis
+by studying its dynamic growth and trying to fit it to a Zipf law model. We do
+not look into dynamic growth of our graph in the present study; it hence
+remains a relevant research direction for future work.
 
 The designs of specific software systems have also been studied as complex
 networks, mainly by looking at the relationships between related software
@@ -348,8 +348,8 @@ cluster together in high-density groups, we estimate the global undirected
 clustering coefficient~\cite{watts1998collective} of the entire graph. As
 getting an exact value of the clustering coefficient has a complexity of
 $O(|V|^3)$, which is impractical at this scale, we use approximation
-heuristics described in~\cite{schank2005approximating} based on uniform random
-sampling.
+heuristics described by \textcite{schank2005approximating} based on uniform
+random sampling.
 % TODO: describe how they work
 
 At a finer-grained level, we also represent the local undirected clustering
@@ -1051,7 +1051,7 @@ threats to validity.
 \subsection{Internal validity}
 
 This study closely follows the registered protocol described
-in~\cite{msr-2020-topology}, and extracts the quantitative data required to
+in \textcite{msr-2020-topology}, and extracts the quantitative data required to
 answer its three research questions from the Software Heritage graph dataset.
 This data is extracted and analyzed using the algorithms and statistical tools
 described in the protocol, without any particular changes to the methodology.

@@ -1,0 +1,32 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=none] (9) at (-3.5, 1.5) {};
+		\node [style=none] (10) at (1.5, 1.5) {};
+		\node [style=none] (11) at (1.5, 2) {};
+		\node [style=none] (12) at (1.5, 5) {};
+		\node [style=directory] (13) at (0, 5) {};
+		\node [style=directory] (14) at (-1, 4) {};
+		\node [style=directory] (15) at (0.5, 4) {};
+		\node [style=content] (16) at (-2.25, 3) {};
+		\node [style=content] (17) at (-1.5, 3) {};
+		\node [style=content] (18) at (-0.75, 3) {};
+		\node [style=directory] (19) at (0.5, 3) {};
+		\node [style=content] (20) at (0, 2) {};
+		\node [style=content] (22) at (-3, 3) {};
+		\node [style=content] (23) at (1, 2) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=dashed arrow] (12.center) to (11.center);
+		\draw [style=arrow] (13) to (14);
+		\draw [style=arrow] (13) to (15);
+		\draw [style=arrow] (15) to (19);
+		\draw [style=arrow] (14) to (18);
+		\draw [style=arrow] (14) to (17);
+		\draw [style=arrow] (19) to (20);
+		\draw [style=arrow] (19) to (23);
+		\draw [style=arrow] (14) to (16);
+		\draw [style=arrow] (14) to (22);
+		\draw [style=dashed arrow] (12.center) to node [right, align=left] {Characteristic\\depth} (11.center);
+		\draw [decorate, decoration={brace,amplitude=10pt}] (10.center) to node [align=center, below=10pt] {Arbitrary\\outdegree} (9.center);
+	\end{pgfonlayer}
+\end{tikzpicture}

@@ -1017,7 +1017,29 @@ Commits have a characteristic out-degree, with very few outliers that merge
 more than 3 commits together. However, the commit chains do not have a bounded
 height, and the distribution of the shortest path lengths between the root
 commits and the branch heads has a heavy tail, with a high frequency of chains
-longer than the average height.
+longer than the average height. This discrepancy between the topological
+properties of the two layers is illustrated in \cref{fig:topology-summary}.
+
+\begin{figure}
+    \begin{subfigure}{.40\textwidth}
+        \centering
+        \input{tikz/figures/topology-summary-filesystem.tikz}
+        \caption{Filesystem layer}%
+        \label{fig:topology-summary-filesystem}
+    \end{subfigure}\hfill%
+    \begin{subfigure}{.40\textwidth}
+        \centering
+        \input{tikz/figures/topology-summary-revision.tikz}
+        \caption{Commit layer}%
+        \label{fig:topology-summary-revision}
+    \end{subfigure}
+    \caption{The filesystem and commit layers have drastically different
+    topological properties: the filesystem layer has a characteristic depth
+    (generally under 10 directories) but no characteristic out-degree, whereas
+    the commit layer has a characteristic out-degree (generally two parent
+    commits or less) but no characteristic depth.}
+    \label{fig:topology-summary}
+\end{figure}
 
 Finally, the hosting layer is a bipartite graph containing a small fraction of
 the nodes in the graph. It is also sparse and minimally connected, with some

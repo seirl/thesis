@@ -1,24 +1,26 @@
 \begin{tikzpicture}[scale=1, label distance=1pt]
 	\begin{pgfonlayer}{nodelayer}
-		\node [style=origin] (0) at (0, 0) {};
-		\node [style=snapshot] (1) at (0, -2) {};
-		\node [style=release] (2) at (4, -2) {};
-		\node [style=revision] (3) at (2, -4) {};
-		\node [style=directory] (4) at (2, -6) {};
-		\node [style=content] (5) at (2, -8) {};
+		\node [draw,shape=ellipse,style=originfill] (origin) at (0, 0) {Origin};
+		\node [draw,shape=ellipse,style=snapshotfill] (snapshot) at (0, -2) {Snapshot};
+		\node [draw,shape=ellipse,style=releasefill] (release) at (4, -2) {Release};
+		\node [draw,shape=ellipse,style=revisionfill] (revision) at (2, -4) {Revision};
+		\node [draw,shape=ellipse,style=directoryfill] (directory) at (2, -6) {Directory};
+		\node [draw,shape=ellipse,style=contentfill] (content) at (2, -8) {Blob};
 	\end{pgfonlayer}
 	\begin{pgfonlayer}{edgelayer}
-		\draw [style=arrow] (0) to node [pos=0.1, left] {$\ast$} node [pos=0.9, left] {$\ast$} (1);
-		\draw [style=arrow] (1) to node [pos=0.1, above] {$\ast$} node [pos=0.9, above] {$\ast$} (2);
+		\draw [style=arrow] (origin) to node [pos=0.1, left] {$\ast$} node [pos=0.9, left] {$\ast$} (snapshot);
+		\draw [style=arrow] (snapshot) to node [pos=0.1, above] {$\ast$} node [pos=0.9, above] {$\ast$} (release);
+		\draw [style=arrow] (snapshot) to node [pos=0.15, right] {$\ast$} node [pos=0.9, above] {$\ast$} (revision);
+		\draw [style=arrow] (release) to node [pos=0.15, left] {$\ast$} node [pos=0.9, above] {1} (revision);
+		\draw [style=arrow, bend right] (revision) to node [pos=0.1, right] {$\ast$} node [pos=0.85, right] {1} (directory);
+		\draw [style=arrow, loop left] (revision) to node [pos=0.1, below] {$\ast$} node [pos=0.9, above] {$\ast$} (revision);
+		\draw [style=arrow, bend right] (directory) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (revision);
+		\draw [style=arrow, loop left] (directory) to node [pos=0.1, below] {$\ast$} node [pos=0.9, above] {$\ast$} (directory);
+		\draw [style=arrow] (directory) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (content);
 
-		\draw [style=arrow] (1) to node [pos=0.1, above right] {$\ast$} node [pos=0.9, above right] {$\ast$} (3);
-		\draw [style=arrow] (2) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (3);
-		\draw [style=arrow, bend right] (3) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (4);
-		\draw [style=arrow, bend right=45, looseness=1.25] (4) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (3);
-		\draw [style=arrow] (4) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (5);
-		\draw [style=dashed arrow, bend right=15] (1) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (4);
-		\draw [style=dashed arrow, bend left=15] (2) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (4);
-		\draw [style=dashed arrow, bend right=15] (1) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (5);
-		\draw [style=dashed arrow, bend left=15] (2) to node [pos=0.1, right] {$\ast$} node [pos=0.9, right] {$\ast$} (5);
+		\draw [style=dashed arrow, draw=lightgray, bend right=30] (snapshot) to node [text=lightgray, pos=0.15, right] {$\ast$} node [text=lightgray, pos=0.9, left] {$\ast$} (directory);
+		\draw [style=dashed arrow, draw=lightgray, bend right=30] (snapshot) to node [text=lightgray, pos=0.1, left] {$\ast$}   node [text=lightgray, pos=0.9, left] {$\ast$} (content);
+		\draw [style=dashed arrow, draw=lightgray, bend left=30] (release) to   node [text=lightgray, pos=0.15, left] {$\ast$}  node [text=lightgray, pos=0.9, right] {1} (directory);
+		\draw [style=dashed arrow, draw=lightgray, bend left=30] (release) to   node [text=lightgray, pos=0.1, right] {$\ast$}  node [text=lightgray, pos=0.9, right] {1} (content);
 	\end{pgfonlayer}
 \end{tikzpicture}

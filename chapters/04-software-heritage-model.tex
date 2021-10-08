@@ -46,7 +46,7 @@ they contain.
 \begin{figure}%[!h]
     \centering
     \begin{tikzpicture}
-        \umlobj[contentfill]{Blob}{3ac7d980…}{%
+        \umlobj[contentfillhalf]{Blob}{3ac7d980…}{%
             +data = \\
             \quad \texttt{\#include <stdio.h>} \\
             \quad \texttt{int main(void) \{} \\
@@ -84,7 +84,7 @@ objects.
 \begin{figure}%[!h]
     \centering
     \begin{tikzpicture}
-    \umlobj[directoryfill]{Directory}{7178d6cc…}{%
+    \umlobj[directoryfillhalf]{Directory}{7178d6cc…}{%
       +entries = \\
       \quad \texttt{doc/}\\
       \quad \texttt{README.md}\\
@@ -148,10 +148,10 @@ time of the revision.
 \begin{figure}%[!h]
     \centering
     \begin{tikzpicture}
-    \umlobj[revisionfill]{Revision}{9215efc5…}{%
-      +author = "Linus Torvalds <torvalds@…>" \\
-      +message = "Fix missing return values" \\
-      +timestamp = "Sat Apr 9 00:25:22 2005 -0700" \\
+    \umlobj[revisionfillhalf]{Revision}{9215efc5…}{%
+      +author = ``Linus Torvalds <torvalds@…>'' \\
+      +message = ``Fix missing return values'' \\
+      +timestamp = ``Sat Apr 9 00:25:22 2005 -0700'' \\
       +directory = Directory \\
       +parents = Revision list
     }{}
@@ -199,11 +199,11 @@ revision node they reference.
 \begin{figure}%[!h]
     \centering
     \begin{tikzpicture}
-    \umlobj[releasefill]{Release}{e05dae84…}{%
-      +author = "Guido van Rossum <guido@…>" \\
-      +name = "3.0" \\
-      +message = "3.0 release" \\
-      +timestamp = "Sat Mar 5 15:09:43 2011 +0100" \\
+    \umlobj[releasefillhalf]{Release}{e05dae84…}{%
+      +author = ``Guido van Rossum <guido@…>'' \\
+      +name = ``3.0'' \\
+      +message = ``3.0 release'' \\
+      +timestamp = ``Sat Mar 5 15:09:43 2011 +0100'' \\
       +target = Revision
     }{}
 
@@ -258,7 +258,7 @@ the set of branches and tags twice.
 \begin{figure}%[!h]
     \centering
     \begin{tikzpicture}
-    \umlobj[snapshotfill]{Snapshot}{acf6b31f…}{%
+    \umlobj[snapshotfillhalf]{Snapshot}{acf6b31f…}{%
       +entries = \\
       \quad \texttt{HEAD}\\
       \quad \texttt{refs/heads/master}\\
@@ -377,6 +377,30 @@ After having walked through the key principles that underpin the design of the
 Software Heritage archive, this section describes its data model in more
 detail.
 
+\begin{figure}
+    \centering
+    \input{tikz/figures/swh-model.tikz}
+    \caption{The Software Heritage Archive: a unified Merkle \gls{DAG} of all
+    the software artifacts in public development.}%
+    \label{fig:swh-model}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{tikz/figures/swh-cardinality.tikz}
+    \caption{Cardinality diagram of the possible relationships between the node
+    types in the archive, highlighting the difference between
+    \emph{many-to-one} and \emph{many-to-many} edge types.}%
+    \label{fig:swh-cardinality}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/swh-merkle-dag}
+    \caption{Detailed view of the Merkle \gls{DAG}, with object contents,
+    metadata fields and intrinsic hashes.}%
+\end{figure}
+
 The archive is stored as a single large Merkle \gls{DAG}, as depicted
 in \cref{fig:swh-model}. In this graph, all software artifacts we have
 described correspond to the nodes, which can be of six different types:
@@ -438,30 +462,6 @@ and snapshots) and thus, even if they \emph{can} be represented in the \SWH{}
 data model, we generally exclude them from our discussion for the sake of
 simplicity.
 
-\begin{figure}
-    \centering
-    \input{tikz/figures/swh-model.tikz}
-    \caption{The Software Heritage Archive: a unified Merkle \gls{DAG} of all
-    the software artifacts in public development.}%
-    \label{fig:swh-model}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{img/swh-cardinality}
-    \caption{Cardinality diagram of the possible relationships between the node
-    types in the archive, highlighting the difference between
-    \emph{many-to-one} and \emph{many-to-many} edge types.}%
-    \label{fig:swh-cardinality}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{img/swh-merkle-dag}
-    \caption{Detailed view of the Merkle \gls{DAG}, with object contents,
-    metadata fields and intrinsic hashes.}%
-\end{figure}
-
 \subsection{Layers}%
 \label{sec:layers}
 
@@ -489,7 +489,8 @@ Software Heritage graph:
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth,trim=1cm 1cm 1cm 1cm]{img/swh-layers}
+    % \includegraphics[width=0.6\linewidth,trim=1cm 1cm 1cm 1cm]{img/swh-layers}
+    \input{tikz/figures/swh-layers.tikz}
     \caption{Logical layers used to refer to specific subsets of the graph.}%
     \label{fig:layers}
 \end{figure}

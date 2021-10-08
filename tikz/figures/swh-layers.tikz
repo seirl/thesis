@@ -1,0 +1,71 @@
+\begin{tikzpicture}[scale=0.8, label distance=1pt]
+	\begin{pgfonlayer}{nodelayer}
+		\node [draw, shape=ellipse, style=originfill] (origin) at (2, 2) {Origin};
+		\node [draw, shape=ellipse, style=snapshotfill] (snapshot) at (2, 0) {Snapshot};
+		\node [draw, shape=ellipse, style=releasefill] (release) at (2, -2) {Release};
+		\node [draw, shape=ellipse, style=revisionfill] (revision) at (2, -4) {Revision};
+		\node [draw, shape=ellipse, style=directoryfill] (directory) at (2, -6) {Directory};
+		\node [draw, shape=ellipse, style=contentfill] (content) at (2, -8) {Blob};
+		\node [style=none] (1) at (-1.25, -5.25) {};
+		\node [style=none] (2) at (4, -5.25) {};
+		\node [style=none] (3) at (-1.25, -8.75) {};
+		\node [style=none] (4) at (4, -8.75) {};
+		\node [style=none] (5) at (-1.25, 2.75) {};
+		\node [style=none] (6) at (4, 2.75) {};
+		\node [style=none] (7) at (-1.25, -0.75) {};
+		\node [style=none] (8) at (4, -0.75) {};
+		\node [style=none] (9) at (-1, -3.25) {};
+		\node [style=none] (10) at (-1, -4.75) {};
+		\node [style=none] (11) at (4, -4.75) {};
+		\node [style=none] (12) at (4, -3.25) {};
+		\node [style=none] (13) at (-1.25, -1) {};
+		\node [style=none] (14) at (7, -1) {};
+		\node [style=none] (15) at (-1.25, -5) {};
+		\node [style=none] (16) at (7, -5) {};
+		\node [style=none] (17) at (-1.5, 3) {};
+		\node [style=none] (18) at (-1.5, -9) {};
+		\node [style=none] (19) at (10, -9) {};
+		\node [style=none] (20) at (10, 3) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=cluster] (5.center) to (6.center);
+		\draw [style=cluster] (6.center) to (8.center);
+		\draw [style=cluster] (8.center) to (7.center);
+		\draw [style=cluster] (5.center) to (7.center);
+		\draw [style=cluster] (13.center) to (14.center);
+		\draw [style=cluster] (14.center) to (16.center);
+		\draw [style=cluster] (16.center) to (15.center);
+		\draw [style=cluster] (15.center) to (13.center);
+		\draw [style=cluster] (9.center) to (10.center);
+		\draw [style=cluster] (10.center) to (11.center);
+		\draw [style=cluster] (11.center) to (12.center);
+		\draw [style=cluster] (9.center) to (12.center);
+		\draw [style=cluster] (1.center) to (3.center);
+		\draw [style=cluster] (3.center) to (4.center);
+		\draw [style=cluster] (1.center) to (2.center);
+		\draw [style=cluster] (2.center) to (4.center);
+		\draw [style=cluster] (17.center) to (18.center);
+		\draw [style=cluster] (18.center) to (19.center);
+		\draw [style=cluster] (19.center) to (20.center);
+		\draw [style=cluster] (20.center) to (17.center);
+		\draw [style=arrow] (origin) to (snapshot);
+		\draw [style=arrow] (snapshot) to (release);
+		\draw [style=arrow] (release) to (revision);
+		\draw [style=arrow] (revision) to (directory);
+		\draw [style=arrow] (directory) to (content);
+		\draw [style=dashed arrow, draw=lightgray, bend right=60, looseness=0.75] (snapshot) to (content);
+		\draw [style=dashed arrow, draw=lightgray, bend right=60, looseness=0.75] (snapshot) to (directory);
+		\draw [style=dashed arrow, draw=lightgray, bend right=45] (release) to (directory);
+		\draw [style=dashed arrow, draw=lightgray, bend right=45] (release) to (content);
+		\draw [style=arrow, loop left, loop] (revision) to ();
+		\draw [style=arrow, bend right] (directory) to (revision);
+		\draw [style=arrow, loop left, loop] (directory) to ();
+		\draw [style=arrow, bend right=60] (snapshot) to (revision);
+
+        \draw [decorate, decoration={brace,raise=5pt,amplitude=10pt}] (6) to node [align=left, right=20pt, style=none] {Hosting\\ layer} (8);
+        \draw [decorate, decoration={brace,raise=5pt,amplitude=5pt}] (12) to node [align=left, right=20pt, style=none] {Commit\\ layer} (11);
+        \draw [decorate, decoration={brace,raise=5pt,amplitude=10pt}] (2) to node [align=left, right=20pt, style=none] {Filesystem\\ layer} (4);
+        \draw [decorate, decoration={brace,raise=5pt,amplitude=10pt}] (14) to node [align=left, right=20pt, style=none] {History\\ layer} (16);
+        \draw [decorate, decoration={brace,raise=5pt,amplitude=10pt}] (20) to node [align=left, right=20pt, style=none] {Full graph} (19);
+	\end{pgfonlayer}
+\end{tikzpicture}

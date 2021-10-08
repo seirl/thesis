@@ -9,9 +9,10 @@
 \tikzstyle{directory}=[fill={rgb,255: red,218; green,219; blue,231}, draw=black, shape=document, tab width=6pt, tab height=2pt, minimum width=14pt, minimum height=8pt]
 \tikzstyle{content}=[fill={rgb,255: red,198; green,192; blue,193}, draw=black, shape=cylinder, shape border rotate=90, minimum width=12pt, minimum height=13pt, aspect=0.30]
 \tikzstyle{release}=[fill={rgb,255: red,255; green,252; blue,204}, draw=black, shape=star, inner sep=0pt, minimum size=15pt]
-\tikzstyle{snapshot}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9]
+\tikzstyle{snapshot}=[fill={rgb,255: red,245; green,245; blue,245}, draw=black, shape=rectangle, minimum width=15, minimum height=9]
 \tikzstyle{branch}=[fill=white, draw=black, shape=rectangle, minimum width=15, minimum height=9, dashed]
 \tikzstyle{server}=[fill=white, draw=black, shape=rounded rectangle, align=center, minimum height=3em]
+\tikzstyle{diagramitem}=[fill=white, draw=black, shape=rectangle, drop shadow, rounded corners, align=center, minimum width=2.5cm, minimum height=1.5cm]
 
 % Edge styles
 \tikzstyle{arrow}=[->, >=Stealth, thick]

@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+	\begin{pgfonlayer}{nodelayer}
+		\node [style=diagramitem] (0) at (0, 0) {Dataset \\ in public \\ clouds};
+		\node [style=diagramitem] (1) at (3.5, 0) {Local \\ dataset \\ mirrors};
+		\node [style=diagramitem] (2) at (7, 0) {Collect \\ use cases};
+		\node [style=diagramitem] (3) at (0, -2.5) {Elicit \\ Query DSL};
+		\node [style=diagramitem] (4) at (3.5, -2.5) {Index \\ derived \\ data};
+		\node [style=diagramitem] (5) at (7, -2.5) {In-memory \\ graph};
+		\node [style=none] (6) at (7, -1.25) {};
+		\node [style=none] (7) at (0, -1.25) {};
+	\end{pgfonlayer}
+	\begin{pgfonlayer}{edgelayer}
+		\draw [style=arrow] (0) to (1);
+		\draw [style=arrow] (1) to (2);
+		\draw (2) to (6.center);
+		\draw (6.center) to (7.center);
+		\draw [style=arrow] (7.center) to (3);
+		\draw [style=arrow] (3) to (4);
+		\draw [style=arrow] (4) to (5);
+	\end{pgfonlayer}
+\end{tikzpicture}

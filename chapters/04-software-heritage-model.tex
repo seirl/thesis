@@ -41,9 +41,10 @@ associated to blob nodes. Other types of nodes, and most notably directories,
 attach such directory-dependent information to blobs.
 
 Blobs are identified by a cryptographic hash computed from the full binary data
-they contain.
+they contain. An example of a blob object is depicted in
+\cref{fig:blob-example}.
 
-\begin{figure}%[!h]
+\begin{figure}[ht]
     \centering
     \begin{tikzpicture}
         \umlobj[contentfillhalf]{Blob}{3ac7d980…}{%
@@ -54,7 +55,8 @@ they contain.
             \quad \texttt{\}}
         }
     \end{tikzpicture}%
-    \caption{Example of a Blob object.}
+    \caption{Example of a Blob object.}%
+    \label{fig:blob-example}
 \end{figure}
 
 % \TODO{Add examples of manifests}
@@ -79,9 +81,10 @@ regular files.
 
 A directory node is identified by a cryptographic hash of a canonical textual
 representation of all its entries, that include the identifier of target
-objects.
+objects. An example of a directory object is depicted in
+\cref{fig:directory-example}.
 
-\begin{figure}%[!h]
+\begin{figure}[ht]
     \centering
     \begin{tikzpicture}
     \umlobj[directoryfillhalf]{Directory}{7178d6cc…}{%
@@ -99,7 +102,8 @@ objects.
     \draw[style=arrow] (7178d6cc….335) -- (da960397….west);
     \draw[style=arrow] (7178d6cc….320) -- (a1a3772c….west);
 \end{tikzpicture}
-\caption{Example of a Directory object.}
+\caption{Example of a Directory object.}%
+\label{fig:directory-example}
 \end{figure}
 
 
@@ -144,8 +148,9 @@ Revisions are identified by an intrinsic hash of a canonical textual
 manifest containing all their metadata, their parent identifiers, and the
 identifier of the directory node denoting the root of the source tree at the
 time of the revision.
+An example of a revision object is depicted in \cref{fig:revision-example}.
 
-\begin{figure}%[!h]
+\begin{figure}[ht]
     \centering
     \begin{tikzpicture}
     \umlobj[revisionfillhalf]{Revision}{9215efc5…}{%
@@ -163,7 +168,8 @@ time of the revision.
     \draw[style=arrow] (9215efc5….east) -- (c54d14d1….west);
     \draw[style=arrow] (9215efc5….200) to [bend right] (f0df6963….west);
 \end{tikzpicture}
-\caption{Example of a Revision object.}
+\caption{Example of a Revision object.}%
+\label{fig:revision-example}
 \end{figure}
 
 
@@ -195,8 +201,9 @@ found in real-world repositories.
 Releases are identified by a cryptographic hash taken on a canonical text
 manifest containing release name, release properties, and the identifier of the
 revision node they reference.
+An example of a release object is depicted in \cref{fig:release-example}.
 
-\begin{figure}%[!h]
+\begin{figure}[ht]
     \centering
     \begin{tikzpicture}
     \umlobj[releasefillhalf]{Release}{e05dae84…}{%
@@ -212,7 +219,8 @@ revision node they reference.
     % \draw[style=arrow] (e05dae84….340) -- (3afc8cb8….west);
     \draw[style=arrow] (e05dae84….east) -- (3afc8cb8….west);
 \end{tikzpicture}
-\caption{Example of a Release object.}
+\caption{Example of a Release object.}%
+\label{fig:release-example}
 \end{figure}
 
 
@@ -254,8 +262,9 @@ space-complexity of purely functional persistent structures as described in
 show that nothing changed in the interval, the visits can both share the same
 deduplicated snapshot in the data model, instead of having to copy and store
 the set of branches and tags twice.
+An example of a snapshot object is depicted in \cref{fig:snapshot-example}.
 
-\begin{figure}%[!h]
+\begin{figure}[ht]
     \centering
     \begin{tikzpicture}
     \umlobj[snapshotfillhalf]{Snapshot}{acf6b31f…}{%
@@ -273,7 +282,8 @@ the set of branches and tags twice.
     \draw[style=arrow] (acf6b31f….340) -- (cdcb9c35….west);
     \draw[style=arrow] (acf6b31f….330) -- (84d3a02f….west);
 \end{tikzpicture}
-\caption{Example of a Snapshot object.}
+\caption{Example of a Snapshot object.}%
+\label{fig:snapshot-example}
 \end{figure}
 
 

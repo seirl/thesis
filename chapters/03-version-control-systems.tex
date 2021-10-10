@@ -217,7 +217,7 @@ describing the release.
 \section{Artifact deduplication}
 
 The simple repository model we described is general enough to represent the
-data stored in the majority of \acrlong{VCS}, both at the level of the files
+data stored in the majority of \acrlongpl{VCS}, both at the level of the files
 and directories that constitute the source tree, and at the level of the
 development history by capturing the successive states of this source tree over
 time.
@@ -260,7 +260,7 @@ complexity of $O(1)$.
             };
 
             \node [
-                shape=ellipse, draw=black, align=left, fill=blue!20,
+                shape=ellipse, draw=black, align=left, fill=cyan!10,
                 label={[above,align=center]Cryptographic \\ hash function}
             ] (hash) at (5.5, 0) {SHA-256};
 
@@ -462,7 +462,7 @@ In our case, the structure that contains the development history is technically
 not a tree, but a \emph{\gls{DAG}}: a tree can only have one parent node, which
 is not the case if a software artifact is referenced by two other artifacts.
 This can happen when merging (it creates a revision with two parents) or when
-sharing objects (a deduplicated directory or a content is referenced by
+sharing objects (a deduplicated directory or a blob is referenced by
 multiple objects). We thus call this structure a \textbf{Merkle DAG}. Note that
 it, by definition, cannot contain any cycles: because adding a node requires
 the hash of all its children be already known to compute its own hash, a cycle

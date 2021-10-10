@@ -237,7 +237,7 @@ positives are possible with a probability of {\Large $\frac{1}{2^w}$}. While
 this is useful to catch bugs, a probabilistic approach does not allow us to
 systematically fall back when encountering an unknown \gls{SWHID} unless using
 very large signatures. These can also dramatically increase the size of the
-hashing function: for the 2020-12-15 dataset, a 32-bit signatures increases its
+hashing function: for the 2020-12-15 dataset, a 32-bit signature increases its
 size from 5\,GiB to 72\,GiB while still allowing a false positive every 4
 billion \gls{SWHID} on average, which is less than a quarter of the number of
 objects in the graph.
@@ -997,6 +997,7 @@ ArcLabelledImmutableGraph graph = BitStreamArcLabelledImmutableGraph.loadMapped(
 NodeIdMap nodeMap = new NodeIdMap(graphPath, graph.numNodes());
 FrontCodedStringBigList labelNameMap = (FrontCodedStringBigList) BinIO.loadObject(
     graphPath + "-labels.fcl");
+
 
 // Print all edges and their labels
 ArcLabelledNodeIterator it = graph.nodeIterator();

@@ -21,7 +21,7 @@
 		\node [text width=3cm] (25) at (9.25, -1.5) {releases};
 		\node [text width=3cm] (26) at (9.25, -2.5) {revisions};
 		\node [text width=3cm] (27) at (9.25, -4) {directories};
-		\node [text width=3cm] (28) at (9.25, -5.5) {contents};
+		\node [text width=3cm] (28) at (9.25, -5.5) {blobs};
 		\node [style=revision] (43) at (3.75, -2) {};
 		\node [style=revision] (44) at (3.75, -3) {};
 		\node [style=revision] (45) at (2.75, -2) {};

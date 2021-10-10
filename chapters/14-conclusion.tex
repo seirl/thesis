@@ -313,3 +313,35 @@ thesis, in chronological order of publication.
     \item \fullcite{msr-2020-topology}
     \item \fullcite{swh-2021-swhfs}
 \end{enumerate}
+
+\section{Software}
+
+All the software I developed for this thesis is available in the Software
+Heritage forge,\footnote{https://forge.softwareheritage.org/} and released
+under a free software license (GPLv3).
+In particular, the following software packages implement the various systems
+described in this thesis:
+
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item \texttt{swh-vault} implements the Vault (see \cref{chp:vault})
+    \item \texttt{swh-fuse} implements SwhFS (see \cref{chp:fuse})
+    \item \texttt{swh-dataset} implements the export pipeline for the graph
+        dataset (see \cref{chp:graph-dataset})
+    \item \texttt{swh-graph} implements graph compression, manipulation of
+        graph property data and an RPC API to query the compressed
+        graph (see
+        \cref{chp:graph-compression,chp:graph-metadata,chp:graph-exploitation}).
+\end{itemize}
+
+Additionally, the empirical studies described in \cref{chp:topology,chp:forks}
+can be repeated using their respective replication
+packages.%
+\footnote{\url{https://zenodo.org/record/3610708}}%
+\footnote{\url{https://github.com/seirl/swh-graph-structure}}
+% The graph analysis code is also available in the \texttt{swh-graph} package.
+%
+All plots shown in this thesis can be reproduced by running the Jupyter
+notebooks provided in its public
+repository,\footnote{\url{https://github.com/seirl/thesis}}
+which also includes the raw experimental data in textual format.

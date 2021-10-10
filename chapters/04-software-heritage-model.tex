@@ -195,7 +195,7 @@ target revision, releases additionally contain some metadata:
 \end{itemize}
 
 The data model also supports revisions pointing to other kinds of artifacts
-(contents and directories), which is supported by some \glspl{VCS} and can be
+(blobs and directories), which is supported by some \glspl{VCS} and can be
 found in real-world repositories.
 
 Releases are identified by a cryptographic hash taken on a canonical text
@@ -245,7 +245,7 @@ artifacts, which have an associated binary name (e.g., ``refs/heads/main'' or
 ``refs/tags/v0.1.2'') and the intrinsic hash of the artifact they reference.
 Most references are either to revisions (in the case of branches) or release
 objects, but on rare occasions they can also point to directories and
-contents, which is supported by some \glspl{VCS} and also sometimes present in
+blobs, which is supported by some \glspl{VCS} and also sometimes present in
 real-world repositories.
 
 The data model also supports \emph{branch aliasing}: some branches stored in
@@ -354,7 +354,7 @@ In short, this means that whenever a directory, file or any artifact is
 referenced by multiple projects, it will get deduplicated as a single node in
 the graph, and will be directly referenced by all projects and artifacts
 that contain it. As an example, there is only one artifact for the empty
-content (a blob of length zero) in the entire archive, and millions of
+file content (a blob of length zero) in the entire archive, and millions of
 directories reference it.
 
 Merging all archived repositories into a single large collection of software
@@ -414,7 +414,7 @@ detail.
 The archive is stored as a single large Merkle \gls{DAG}, as depicted
 in \cref{fig:swh-model}. In this graph, all software artifacts we have
 described correspond to the nodes, which can be of six different types:
-contents, directories, revisions, releases, snapshots and
+blobs, directories, revisions, releases, snapshots and
 origins\footnote{Origins are technically not part of the Merkle DAG but rather
 only \emph{point} to it, as their intrinsic identifiers are not computed from
 their list of descendants, which changes over time.}.
@@ -433,7 +433,7 @@ noted $\prescript{\ast}{}\rightarrow^1$ represent \emph{many-to-one}
 relationships (e.g., a revision only points to a single directory, but a
 directory can be pointed by multiple revisions) and edges noted
 $\prescript{\ast}{}\rightarrow^\ast$ are \emph{many-to-many} relationships
-(e.g., a directory can point to multiple contents, and a single content can be
+(e.g., a directory can point to multiple blobs, and a single blob can be
 pointed by multiple directories).
 
 A few observations can be drawn from this diagram:
@@ -529,9 +529,9 @@ documentation\footnote{\url{https://docs.softwareheritage.org/devel/swh-model/pe
 The current version of the identifier scheme, stored in the second field, is
 \texttt{1}. The third field contains a three-letter code for the object type
 (\texttt{snp} for snapshots, \texttt{rel} for releases, \texttt{rev} for
-revisions, \texttt{dir} for directories and \texttt{cnt} for contents). The
-last field contains an intrinsic hash computed with the SHA-1 algorithm on the
-content and metadata of the object and encoded in hexadecimal.
+revisions, \texttt{dir} for directories and \texttt{cnt} for file contents).
+The last field contains an intrinsic hash computed with the SHA-1 algorithm on
+the content and metadata of the object and encoded in hexadecimal.
 
 Here are a few examples of \glspl{SWHID} and the objects they point to:
 
@@ -566,7 +566,7 @@ present frameworks and tools built upon these foundations.
 At a physical level, the archive is stored using a few different technologies,
 due to the differences in technical requirements for storing the different
 layers of the graph~\cite{swhipres2017}.
-Most notably, the source contents require orders of magnitude more space
+Most notably, the source file contents require orders of magnitude more space
 ($\approx 850$ TiB as of May 2021) than the rest of the archive and are thus
 stored on dedicated key-value object storage systems, keyed by their intrinsic
 hash.  In the infrastructure hosted in-house by the Software Heritage
@@ -575,7 +575,7 @@ assigning hash prefixes to specific servers. This technique is used to
 trivially implement a reasonably performant and redundant storage.
 Key-value object storage systems are an almost universal primitive in cloud
 offerings, which allows Software Heritage to store an entire copy of the
-content layers in two different clouds: the Microsoft Azure Blob Storage and
+blob layer in two different clouds: the Microsoft Azure Blob Storage and
 Amazon AWS S3.
 
 On the other hand, the upper layers of the archive require significantly less

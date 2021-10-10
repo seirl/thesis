@@ -541,7 +541,7 @@ number of commits and $R$ the number of repositories in the graph.
 However, clever use of some properties on the DAG structure of the commit graph
 can substantially speed up the algorithm. First, fork cliques can be generated
 by iterating on the common ancestors instead of the repositories: for each
-commit $c$, if it has more than one repository leave when doing a traversal on
+commit $c$, if it has more than one repository leaf when doing a traversal on
 the transposed graph, then $c$ was a common commit ancestor, and the generated
 set of repositories is a fork clique. Besides, since the ancestry relationship
 is transitive, the clique with commit $c$ as a common ancestor is the same as

@@ -86,9 +86,9 @@ the Merkle DAG to assemble all the artifacts that are \emph{reachable} in the
 subgraph rooted at that artifact.
 
 Concretely, this means that cooking a directory will assemble all its
-subdirectories and contents, whereas for a revision it will walk down the
+subdirectories and blobs, whereas for a revision it will walk down the
 entire chain of parent revisions and assemble all their associated root
-directories (and, recursively, their own subdirectories and contents).
+directories (and, recursively, their own subdirectories and blobs).
 Once the objects are cooked, they are assembled in a suitable format that is
 specific to the type of object that was cooked, respectively:
 
@@ -185,8 +185,8 @@ traversal happens in a depth-first fashion, the directory names are pushed onto
 a stack; during the traversal, the full path of the current object is obtained
 by reading the contents of the stack.
 
-As fetching contents individually is generally expensive, the content retrieval
-requests to the storage are \emph{batched}: instead of fetching the contents
+As fetching blobs individually is generally expensive, the blob retrieval
+requests to the storage are \emph{batched}: instead of fetching the blobs
 during the recursive directory traversal, they are added to an asynchronous
 fetching queue, which retrieves the files by batches of a thousand items. These
 files are then written to the tarball output, as archives in the tar format can
@@ -207,7 +207,7 @@ be built incrementally.
         \EndFunction
 
         \Function{CookDir}{$\mathit{swhid}$}
-        \State $Q \gets$ empty queue  \Comment{Queue of contents to fetch}
+        \State $Q \gets$ empty queue  \Comment{Queue of blobs to fetch}
         \State $T \gets$ empty tarball  \Comment{Output tarball}
         \State $\Call{FetchDirRec}{Q,~\mathit{swhid}, ""}$
         \State $C \gets \Call{FetchContentsBatched}{Q, 1000}$
@@ -225,8 +225,8 @@ be built incrementally.
 
 \Cref{algo:cooking-directory} shows the recursive directory cooking
 algorithm.
-In this algorithm, fetching contents is \emph{embarrassingly
-parallel} and can be scaled up at will. However, building the queue of contents
+In this algorithm, fetching blobs is \emph{embarrassingly
+parallel} and can be scaled up at will. However, building the queue of blobs
 to fetch is done in a sequential fashion with several directory listing
 requests sent to the archive storage, each request being directly dependent on
 the SWHID retrieved by the previous requests.

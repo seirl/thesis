@@ -210,7 +210,7 @@ we observed in the study designs.
          l. & Number of issues or pull-requests & 1 \\
          m. & Number of contributors & 1 \\
          n. & File sizes & 1 \\
-         o. & Lines of code in contents & 1 \\
+         o. & Lines of code in source blobs & 1 \\
     \end{tabular}
 \end{table}
 
@@ -247,7 +247,7 @@ several groups, ordered by difficulty of implementation:
 \item \emph{Derived Metadata} (crit.\ b, f, h, o, k): for filtering on properties
     that are not directly part of the data, but which can be derived from them.
     By running a programming language recognition tool on the file contents, we
-    can index contents by their detected programming language and allow users
+    can index blobs by their detected programming language and allow users
     to filter objects on this criterion. This requires additional indexes as
     well as processing pipelines to generate this derived data.  While some
     derived data can be easily generated (e.g., counting the lines of code in
@@ -404,9 +404,9 @@ find out the sources of specific objects.
 
 Of course, the platform should be flexible enough for complex queries that
 combine multiple of these capabilities together. For instance, it should be
-possible to find all contents referenced from a file with a specific extension
-and which contain some specific function name, or to search nodes in the
-history graph of a repository while filtering on their associated metadata.
+possible to find all file contents referenced from a file with a specific
+extension and which contain some specific function name, or to search nodes in
+the history graph of a repository while filtering on their associated metadata.
 
 \section{Challenges}
 
@@ -434,7 +434,7 @@ require some form of custom content packing to take place beforehand.
 Compressing the blobs works well to reduce the size with a compression
 ratio of $\approx 2$ (estimated on a random sample of about 1\% of the
 archive). Further techniques based on ``packing heuristics'' to compress
-similar contents together should be investigated to reduce their size even
+similar blobs together should be investigated to reduce their size even
 more.
 
 The size of the Merkle DAG itself is more reasonable (around 6\,TiB when stored
@@ -488,9 +488,9 @@ analysis tools usually expect.
 
 \subsection{Provenance mappings}
 
-Making provenance mappings accessible as a way to look up the different
-places where an object can be found is a hard problem, because of the
-combinatorial explosion of the ancestor relationship mappings.
+Providing a way to look up the different places where an object can be found
+(i.e., its \emph{provenance}) is a hard problem, because of the combinatorial
+explosion of ancestry mappings.
 A single file content can be found in thousands if not millions of origins.
 There is a difficult balance to find between reducing the size of the
 mappings using intermediate objects in the relationship as layers to compress
@@ -547,7 +547,7 @@ identified.
 \section{Roadmap}%
 \label{sec:roadmap}
 
-\begin{figure}
+\begin{figure}[b]
     \centering
     \input{tikz/figures/roadmap.tikz}
     % \includegraphics[width=0.55\textwidth]{img/roadmap}
@@ -591,3 +591,9 @@ interesting research direction performance-wise will be to store as much of the
 history graph as possible directly in memory. This should enable efficient
 querying of the complex structures that constitute the archive graph and allow
 us to analyze it in more detail.
+
+These different steps, summarized as a roadmap in \cref{fig:roadmap}, together
+form a useful overview of the work required to implement a large scale research
+platform for universal software mining. As this thesis inscribes itself in this
+long-term plan, these steps will be discussed in more detail in the following
+chapters.

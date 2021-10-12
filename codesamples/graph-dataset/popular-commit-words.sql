@@ -1,4 +1,4 @@
--- Fist word of 1.1 billion commit messages ordered by decreasing frequency
+-- First word of 1.1 billion commit messages ordered by decreasing frequency
 -- (Run time: 29.79 seconds, Data scanned: 37.51 GB)
 SELECT COUNT(*) AS c, word
 FROM

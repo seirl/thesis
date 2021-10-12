@@ -358,7 +358,7 @@ $ jq .date history/by-date/2020/01/08/*/meta.json
 \end{minted}
 
 Note that to populate the \texttt{by-date} view, metadata about all commits in
-the history are needed. To avoid blocking, metadata are retrieved asynchronously
+the history are needed. To avoid blocking, metadata is retrieved asynchronously
 in the background, populating the view incrementally. The hidden
 \texttt{by-date/.status} file provides a progress report and is removed upon
 completion.

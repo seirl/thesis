@@ -226,8 +226,8 @@ One immediately apparent issue that arises when trying to implement this model
 in a naive way is the sheer amount of \emph{duplication} of identical data
 across revisions: creating a new revision for a single line change duplicates
 the entire source tree and all the files it contains. This drawback goes
-opposite to one of the goal of modern \glspl{VCS}, which is to encourage a high
-granularity of development history to isolate every logical change in a
+opposite to one of the goals of modern \glspl{VCS}, which is to encourage a
+high granularity of development history to isolate every logical change in a
 separate revision.
 
 However, it is possible to integrate \emph{deduplication} in the model as a way
@@ -357,10 +357,10 @@ should not be copied and instead be stored as a single tree.
 
 The challenge of doing so arises from the difficulty of checking whether two
 subtrees are identical, which is typically an operation with a time complexity
-of $O(n)$, as it requires recursively checking that all the descendant of the
+of $O(n)$, as it requires recursively checking that all the descendants of the
 root of the subtree are identical. To improve this, we can instead
 \emph{recursively compute a cryptographic hash} for each directory, that will
-be dependent of the hashes of all its children. Put simply, if a single element
+be dependent on the hashes of all its children. Put simply, if a single element
 anywhere in the subtree changes, its hash will also change, which will then
 change the hash of its parent and recursively do so up to the top of the
 subtree.
@@ -465,9 +465,9 @@ This can happen when merging (it creates a revision with two parents) or when
 sharing objects (a deduplicated directory or a blob is referenced by
 multiple objects). We thus call this structure a \textbf{Merkle DAG}. Note that
 it, by definition, cannot contain any cycles: because adding a node requires
-the hash of all its children be already known to compute its own hash, a cycle
-would require computing two mutually dependent cryptographic hashes, which is
-at least as hard as finding a collision.
+the hash of all its children to be already known to compute its own hash, a
+cycle would require computing two mutually dependent cryptographic hashes,
+which is at least as hard as finding a collision.
 
 Like all Merkle structures, this data model exhibits interesting and useful
 algorithmic properties. In particular, it is worth noting that as long as two

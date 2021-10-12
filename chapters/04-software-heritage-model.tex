@@ -36,9 +36,9 @@ model:
 \paragraph{\textbf{Blobs}} (or ``file contents'') represent the raw content of
 source code files, as recorded in modern \glspl{VCS}. A blob contains only the
 data stored in a file as a raw sequence of bytes. File names and other
-properties normally associated to the more abstract notion of ``file'' are not
-associated to blob nodes. Other types of nodes, and most notably directories,
-attach such directory-dependent information to blobs.
+properties usually associated to the more abstract notion of ``file'' are
+not stored in blob nodes. Other types of nodes, and most notably
+directories, attach such directory-dependent information to blobs.
 
 Blobs are identified by a cryptographic hash computed from the full binary data
 they contain. An example of a blob object is depicted in
@@ -255,7 +255,7 @@ branch name in the same snapshot (e.g.,
 symbolic links to the target of the branch they reference.
 
 Snapshots are also deduplicated and identified by an intrinsic hash, computed
-from a textual manifest which associate each branch name and the intrinsic
+from a textual manifest which associates each branch name and the intrinsic
 identifier of its target. Therefore, they also benefit from the advantageous
 space-complexity of purely functional persistent structures as described in
 \cref{sec:purely-functional}: if two consecutive visits of the same repository
@@ -307,7 +307,7 @@ that are not directly present in the archive; the data model is mostly
 concerned about directly addressable and concrete artifacts, and \emph{origins}
 are better suited for this purpose. In the rest of the thesis, we sometimes use
 the term ``project'' to refer to origins when the meaning is not ambiguous, as
-the latter are often are our best approximation for the former.
+the latter are often our best approximation for the former.
 
 \section{Consolidating software artifacts in a unified archive}%
 \label{sec:consolidation}
@@ -461,7 +461,7 @@ A few observations can be drawn from this diagram:
 \end{itemize}
 
 Note: in the wild one can rarely encounter VCS repositories that contain
-unusualy relationships between source code artifacts, depicted as dashed arrows
+unusual relationships between source code artifacts, depicted as dashed arrows
 in \cref{fig:swh-cardinality}.
 For instance, Git allows you to tag blobs and directories as releases, or to
 use blobs as branch destinations.
@@ -475,10 +475,10 @@ simplicity.
 \subsection{Layers}%
 \label{sec:layers}
 
-While each relationship can be analyzed independently, is useful to regroup
-the node and edges of the Merkle \gls{DAG} by type into logical layers that are
-conceptually meaningful.  To that end we define the following subgraphs of the
-Software Heritage graph:
+While each relationship can be analyzed independently, it is useful to regroup
+the nodes and edges of the Merkle \gls{DAG} by type into logical layers that
+are conceptually meaningful.  To that end we define the following subgraphs of
+the Software Heritage graph:
 \begin{itemize}
 
 \item \emph{Full corpus}: the entire graph of public software development

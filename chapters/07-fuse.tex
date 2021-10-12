@@ -443,12 +443,12 @@ filesystem level.
 
 However, \SWHFS{} has a few important limitations that makes it generally
 unsuitable for large-scale software mining. First, it is not optimized for
-heavy workloads, as its primarily goal was to target small experiments and
+heavy workloads, as its primary goal was to target small experiments and
 localized analyses. The software components of \SWHFS{} (the SQLite cache, the
 HTTP library, etc.) were not designed to handle large-scale analyses, high
 parallelism and data intensive tasks. In general, while user-space filesystems
 based on FUSE can sometimes reach performance reasonably close to kernel-level
-filesystems, they require a particular attention on optimization and some
+filesystems, they require a particular attention to optimization and some
 workloads are unfriendly even when optimized~\cite{vangoor2017fuseperf}.
 
 While there is always room for performance improvements, another important

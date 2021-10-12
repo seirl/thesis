@@ -266,7 +266,7 @@ corpus.
 \section{Compressing the Graph of Public Software Development}%
 \label{sec:compression-comp}
 
-We set to establish whether graph compression is a suitable approach for
+We set out to establish whether graph compression is a suitable approach for
 enabling ultra-large-scale repository analysis on modest hardware resources.
 To that end we conduct a case study by (1) retrieving a suitably large
 graph of development history, (2) compressing it using graph compression
@@ -620,7 +620,7 @@ values. The results are shown in \cref{tab:compression-llp-gammas}.
 
 As can be seen, the compression ratio is significantly improved using the LLP
 algorithm. In the best case, the size of the compressed graph is reduced by
-35\% from the BFS baseline. If the graph is to be loaded in fully RAM, such
+35\% from the BFS baseline. If the graph is to be loaded fully in RAM, such
 differences are very significant to determine the practicality of the approach
 on some given hardware. The additional complexity of adding LLP in the
 compression pipeline can therefore be easily justified.
@@ -864,7 +864,7 @@ repository only, but multiplication grows quickly from there: 100 thousand
 commits (1\%) can be found in 1000 repositories or more and 10 thousand commits
 (0.01\%) can be found in 10 thousand repositories or more. We observe that
 software development is nowadays very distributed, to a point of strong
-resiliency to the disappearance of a single point of source code distribution.
+resilience to the disappearance of a single point of source code distribution.
 
 \begin{figure}
 \end{figure}
@@ -1153,9 +1153,9 @@ be more efficient than succinctly encoding the entire graph (for example, using
 an Elias-Fano list to represent the positions of the ones in the adjacency
 matrix, or using truly succinct representations~\cite{FaMSEAG}). This happens
 because by Jensen's inequality the average cost \emph{per successor} is
-necessarily lower.  However, if one takes also into account the constant costs
-associated to storing each successor list, there is a trade-off that has to be
-evaluated on a case-by-case basis.  The Elias-Fano representation has been
+necessarily lower.  However, if one also takes into account the constant costs
+associated with storing each successor list, there is a trade-off that has to
+be evaluated on a case-by-case basis.  The Elias-Fano representation has been
 recently made dynamic~\cite{PiVDEFR} when the universe is polynomial in the
 list size, which makes it possible to use it in the case of dynamic graph
 representation.

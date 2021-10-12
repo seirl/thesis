@@ -290,7 +290,7 @@ Intuitively, the notion of shared commit forks is more robust than that of
 forge forks because it allows recognizing as forks---in the broad sense of
 ``repositories that collaborate with one another''---repositories that are
 hosted on different platforms. A repository hosted on GitLab.com, or your
-personal git repository on your homepage, can be recognized as a fork of a
+personal Git repository on your homepage, can be recognized as a fork of
 another hosted on GitHub. The price to pay is that, due to symmetry, the
 definition \emph{alone} is not enough to orient the relationship; it does not
 capture which repository ``came first''.
@@ -481,7 +481,7 @@ counting the number of repositories that belong to non-singleton networks.
 Besides, a direct comparison can be made between the distribution of forge
 forks and shared commit or root forks, as networks provide a partition method
 for both graphs. The network sizes can be directly compared between the three
-definitions while keeping the invariant of number of total repositories.
+definitions while keeping the invariant of the number of total repositories.
 This is not the case when looking at fork cliques, since the same repository
 can be found in multiple cliques, which makes comparison harder.
 
@@ -521,7 +521,7 @@ do not share any part of their respective development histories but will end up
 in the same network. In simpler terms, this means that a repository containing
 a merge commit with two parents from otherwise unrelated repositories will make
 those repositories belong to the same fork network.  We expect this effect to
-merge cliques into giant components, that will make the size of the largest
+merge cliques into giant components, which will make the size of the largest
 networks hard to interpret.
 
 The other interesting metric that can be looked at is the distribution of fork
@@ -534,7 +534,7 @@ algorithm to find all the inclusion-maximal cliques is superlinear: for each
 repository, walk through its commit history and add all the commits to a queue,
 then take the transposed graph to walk through the commit history backwards and
 list all repository leaves. The time complexity of this algorithm is highly
-unpractical: in the worst case, if all the repositories are forks of each
+impractical: in the worst case, if all the repositories are forks of each
 other, is has time complexity of $O(R \times C)$ where $C$ is the
 number of commits and $R$ the number of repositories in the graph.
 
@@ -619,9 +619,9 @@ belongs to'' allows direct access to the subsequent occurrences of repositories
 in smaller cliques to remove them. After doing so, the cliques left empty are
 removed and the newly generated graph partition can be returned.
 
-The output of this algorithm generate a set of sets of origins that are subsets
-of the input fork cliques. We call this set \emph{``fork p-cliques''} to
-emphasize the fact that they form a partition of the repository set in which
+This algorithm generates as its output a set of sets of origins that are
+subsets of the input fork cliques. We call this set \emph{``fork p-cliques''}
+to emphasize the fact that they form a partition of the repository set in which
 all the groups are fork cliques.
 
 \begin{algorithm}[t]
@@ -701,7 +701,7 @@ For shared root forks (type 3), we found 18.5 M connected components, among
 which 16.1 M isolated repositories and 25.3 intrinsic forks (61.08\% of all
 repositories), which is almost 37\% more than the forge forks. These results
 are summarized in \cref{tab:fork-network-results}.  They suggest that
-\textbf{in between 1.6 M (3.8\% of total) and 6.8 M (16\%) repositories might
+\textbf{between 1.6 M (3.8\% of total) and 6.8 M (16\%) repositories might
   be overlooked when studying forks using only GitHub metadata} as a source of
 truth for what is a fork.
 
@@ -729,7 +729,7 @@ the size of the largest connected component, which is significantly larger than
 the largest networks of forge forks (by a factor of 17 for shared revision
 forks, and 157 for shared root forks). As discussed in
 \cref{sec:methodology-fork-cliques}, this is an expected outcome of our
-use of network as a quantification metric and confirms the need for further
+use of networks as a quantification metric and confirms the need for further
 analysis through fork cliques.  This does not however have any implications on
 the quantification aspect of the experiment, as partitioning this network
 further using fork cliques would still yield the same number of non-isolated
@@ -763,7 +763,7 @@ Computing the p-clique partition function using
 \cref{algo:fork-clique-partition} removes this overlap to allow a direct
 comparison with the forge fork networks. This algorithm takes a few minutes to
 process the 24 million cliques and returns the p-clique partition directly,
-restoring the invariant of total number of repositories (41.5 M).
+restoring the invariant of the total number of repositories (41.5 M).
 
 There are 24.0 M of p-cliques partitioning the graph, which is pretty close to
 the number of forge fork networks in GitHub (25.3 M).
@@ -888,7 +888,7 @@ global flux.
 
 Several points are noteworthy.
 First, only $15\%$ (200 k origins over 1.53 M, the red dotted line) of the
-origins that were isolated (blue dot for $size=2$) in forge fork network
+origins that were isolated (blue dot for $size=2$) in forge fork networks
 are aggregated in the giant network of shared commit fork.
 This shows that the aggregation mechanism is not only to this ``giant''
 network, since $\approx 85\%$ of the origins are aggregated within smaller
@@ -1004,7 +1004,7 @@ our knowledge this is one of the largest quantitative fork studies to date,
 having considered more than 40 M public version control system repositories.
 
 In the future it would be interesting to extend this approach to forges that
-are raising in popularity, and most notably GitLab.com. For that we would need
+are rising in popularity, and most notably GitLab.com. For that we would need
 a GHTorrent equivalent (or corresponding ad hoc crawling of that forge for the
 purposes of the study only).
 
@@ -1016,10 +1016,10 @@ Accounts of the history of forking have been given by
 Nyman~\cite{nyman2016forkhistory} and Zhou et al.~\cite[Section
 2]{zhou2019fork}. The latter also covers the terminological and cultural shift
 from hard forks (to be avoided) to forking as the mere technical act of
-duplicating \gls{VCS} history, possibly as basis for future collaboration. The
-present work is agnostic to which interpretation prevails, as in both cases the
-main observable effect of forking are \gls{VCS} repositories that share parts
-of an initially common development history.
+duplicating \gls{VCS} history, possibly as a basis for future collaboration.
+The present work is agnostic to which interpretation prevails, as in both cases
+the main observable effect of forking are \gls{VCS} repositories that share
+parts of an initially common development history.
 
 
 \paragraph{Hard forks}

@@ -18,7 +18,7 @@ leverage the graph compression framework described in
 \cref{chp:graph-compression} to analyze the structure of the Software Heritage
 graph.
 We explore topology characteristics such as: degree distributions,
-determining whether they are scale-free or not; distribution of connect
+determining whether they are scale-free or not; distribution of connected
 component sizes; distribution of shortest path lengths. We characterize these
 topology aspects for both the entire graph and relevant subgraphs.
 
@@ -41,11 +41,11 @@ components from other projects, rather than being completely independent pieces
 of work. This organic code reuse happens through different means, either by
 simply copying source code across projects (also known as ``software
 vendoring''), or by explicitly forking~\cite{robles2012forks,
-swh-msr2020-forking} an existing project and then building upon its preexisting
-development history. Modern \glspl{VCS} also allow one to explicitly reference
-external repositories (e.g., via Git submodules or Subversion external) to be
-fetched as dependencies, which further binds separate software projects
-together.
+swh-msr2020-forking} an existing project and then building upon its
+pre-existing development history. Modern \glspl{VCS} also allow one to
+explicitly reference external repositories (e.g., via Git submodules or
+Subversion external) to be fetched as dependencies, which further binds
+separate software projects together.
 
 As we discussed in \cref{chp:swh-model}, gathering as much publicly available
 source code artifacts together and consolidating them in a canonical and
@@ -167,7 +167,7 @@ history graph?  How does it vary across graph layers?
 \begin{researchquestion}%
 \label{rq:paths}
 What is the distribution of shortest path lengths from roots to leaves in the
-recursive layers (file system and development history layers) of public VCS
+recursive layers (file system and development history layers) of the public VCS
 history graph?
 \end{researchquestion}
 
@@ -214,18 +214,18 @@ now.
 % networks, and an understanding of their structure and topological properties
 % is often a key research direction to accumulate more knowledge about the
 % objects and orient future studies.
-One of the best examples and most studied complex network is the graph of the
-World Wide Web. The understanding of it obtained from complex network studies
-has given valuable practical insights to design crawling engines, searching and
-ranking methods, compact representation techniques, as well as sociological
-insights onto its growth, social structure, and communities.
+One of the best examples and the most studied complex network is the graph of
+the World Wide Web. The understanding of it we obtained from complex network
+studies has given valuable practical insights to design crawling engines,
+searching and ranking methods, compact representation techniques, as well as
+sociological insights into its growth, social structure, and communities.
 
 Studying the topology of the graph of the Web using large corpuses has been
 done as early as 2000 in \textcite{broder2000graph} at a large scale: 200
 million nodes (Web pages), 1.5 billion edges (hyperlinks between them). In this
 study we apply a similar analysis approach, including the study of in-degree
-and out-degree distributions, as well as the distribution of connect component
-sizes.
+and out-degree distributions, as well as the distribution of connected
+component sizes.
 
 Further analyses of the graph of the Web have been pursued more recently
 in \textcite{vigna2015webstruct}, which extends previous work characterizing
@@ -376,7 +376,7 @@ root (in-degree = 0) and all the leave (out-degree = 0) nodes in the filesystem
 and the commit layers. This is a common measure of network topology, and gives
 an idea of the difficulty of finding the \emph{provenance} of an artifact.
 Computing this metric requires one breadth-first search per root node, making
-its complexity superlinear in time, which would require to compute this metric
+its complexity superlinear in time, which would require computing this metric
 on a sample. However, as the degree distribution will show in
 section~\cref{sec:topo:degrees},
 commit chains are generally long and degenerate, allowing us to run an exact
@@ -603,9 +603,9 @@ distribution will not capture how frequently the repository is updated, but
 rather how often the crawler visits it.
 On the other hand, the in-degree distribution describes the number of origins
 associated to each snapshot, that is, the number of ``exact forks'' of a given
-repository. This happens anytime time someone makes an exact copy of a
-repository, for instance by clicking on the ``fork'' button in GitHub, without
-then updating it with new commits or branches: a new origin is created, but it
+repository. This happens anytime someone makes an exact copy of a repository,
+for instance by clicking on the ``fork'' button in GitHub, without then
+updating it with new commits or branches: a new origin is created, but it
 points to the same repository state as the first origin.
 
 
@@ -961,7 +961,7 @@ top-level.
 
 In contrast, \cref{sec:topo:degrees} showed that the history layer was
 sparse with an average degree close to one, indicating that it was mainly
-constituted of degenerate strings of commits. \Cref{fig:shortestpath_rev} shows
+consisting of degenerate strings of commits. \Cref{fig:shortestpath_rev} shows
 us the distribution of the lengths of these strings, which appears to have some
 scale invariance. Because these lengths can be interpreted as the ``age'' of a
 given project measured in number of commits, it makes sense that they would
@@ -974,7 +974,7 @@ which contains two million commits.
 \label{sec:topology-discussion}
 
 Our results shed light on some properties of the software development graph
-which have important implications for empirical research and large scale
+which have important implications for empirical research and large-scale
 analysis.
 
 The first salient characteristic is the large topological disparity between the
@@ -1052,7 +1052,7 @@ tightly connected clusters in order to perform scale-out computations. The
 filesystem layer should be seen as a dense network of highly connected software
 artifacts, and there is no obvious way to remove high-connectivity nodes to
 break it down into multiple disconnected subgroups.  However, because the
-hosting and history layers are sparse, have a low connectivity and smaller
+hosting and history layers are sparse, have low connectivity and smaller
 giant components, it is possible to easily separate them into multiple
 partitions that can be processed in parallel while retaining the performance
 advantages of exploiting node locality within them.

@@ -518,9 +518,9 @@ dataset as when it was performed for the first time. That way, an experiment
 can be \emph{repeated} by performing it on the timestamped state of the
 archive, and \emph{reproduced} by performing it on a different dataset.
 
-The usual way to get an intrinsic identifier a Merkle DAG is simply to hash the
-list of its roots. However, it does not work in this case because the graph is
-incomplete: the Software Heritage DAG can have a lot of holes (missing
+The usual way to get an intrinsic identifier of a Merkle DAG is simply to hash
+the list of its roots. However, it does not work in this case because the graph
+is incomplete: the Software Heritage DAG can have a lot of holes (missing
 revisions, files, etc.) that can be added or removed without changing the
 intrinsic identifier of the nodes, relying solely on those hashes is not
 sufficient to reliably obtain a hash of the archive as a whole.
@@ -593,7 +593,7 @@ querying of the complex structures that constitute the archive graph and allow
 us to analyze it in more detail.
 
 These different steps, summarized as a roadmap in \cref{fig:roadmap}, together
-form a useful overview of the work required to implement a large scale research
+form a useful overview of the work required to implement a large-scale research
 platform for universal software mining. As this thesis inscribes itself in this
 long-term plan, these steps will be discussed in more detail in the following
 chapters.

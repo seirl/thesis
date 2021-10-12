@@ -367,7 +367,7 @@ million persons in the 2021-03-23 graph export, whereas there are 2 billion
 objects containing person fields (revisions and releases), which highlights the
 usefulness of having some deduplication of unique authors. Second, as discussed
 in \cref{sec:relational-model}, the research use cases we want to support are
-not those exploiting the names and e-mails of the authors themselves (which we
+not those exploiting the names and emails of the authors themselves (which we
 anonymize anyway), but rather those trying to relate identical authors, e.g.,
 for the purpose of analyzing the structure of social coding networks.
 
@@ -378,7 +378,7 @@ Because the graph is static, persons can be mapped to integers in the range
 $\{0,\ldots,N-1\}$ where $N$ is the total number of persons referenced in the
 graph artifacts. This is once again achieved with the use of an \gls{MPH}: we
 first extract the list of unique persons in the graph, then compute a minimal
-perfect hash on the full names and e-mails to associate each person to a unique
+perfect hash on the full names and emails to associate each person to a unique
 integer. The integer array is then stored in binary format using the method
 described above for regular integer fields. There is no need to build and
 provide a reverse mapping for the anonymization reasons explained above.
@@ -461,8 +461,8 @@ obtained by iterating on all edges of the graph.  As a reminder, WebGraph
 stores the outgoing arcs of each node as an ordered adjacency list, and all the
 nodes in the graph are ordered from $0$ to $N-1$.  Enumerating all nodes
 and all outgoing arcs of each enumerated node in the compressed graph
-yields a natural ordering for all edges stored in the graph, which can be
-then be followed to store the labels on disk.
+yields a natural ordering for all edges stored in the graph, which can then be
+followed to store the labels on disk.
 
 Second, a \texttt{graph.labeloffsets} file is used to index the offsets of the
 arc labels. This file can be seen as an integer array which associates a node
@@ -884,7 +884,7 @@ graph itself), for instance when running different experiments on the same
 graph. This is problematic in terms of RAM usage when using direct memory
 loading, as the same data of potentially hundreds of gigabytes is loaded in
 memory twice. Memory-mapping can be used to avoid storing redundant data in
-RAM, but comes at a cost of potentially slower I/O as the data is no longer
+RAM, but comes at the cost of potentially slower I/O as the data is no longer
 guaranteed to be loaded in main memory and is reliant on kernel heuristics.
 
 We propose another approach to share data across two different compressed graph

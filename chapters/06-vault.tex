@@ -93,19 +93,19 @@ Once the objects are cooked, they are assembled in a suitable format that is
 specific to the type of object that was cooked, respectively:
 
 \begin{itemize}
-    \item for \textbf{directories}, the entire file hierarchy contained in the
+    \item For \textbf{directories}, the entire file hierarchy contained in the
         directory is cooked as a \emph{tarball}, a file format which combines
         and compresses multiple files and directories.
-    \item for \textbf{revisions}, the entire commit chain of the revision's
-        ancestors is put in an empty \emph{git repository}, along with all the
+    \item For \textbf{revisions}, the entire commit chain of the revision's
+        ancestors is put in an empty \emph{Git repository}, along with all the
         files and directories they contain.
-    \item for \textbf{snapshots}, each branch and tag in the snapshot is
+    \item For \textbf{snapshots}, each branch and tag in the snapshot is
         followed to get the entire commit graph of the snapshotted repository,
-        and all objects are similarly written to an empty git repository.
+        and all objects are similarly written to an empty Git repository.
 \end{itemize}
 
 In essence, cooking a snapshot allows one to ``clone'' an entire repository
-stored in the archive as a git repository. Because this cooking process can
+stored in the archive as a Git repository. Because this cooking process can
 take some time, the Vault is designed as a two-step cache. First, the cooking
 step asynchronously prepares the bundle of artifacts and writes it as a single
 file in its internal storage, then notifies the requester that the object is
@@ -171,7 +171,7 @@ to efficiently retrieve it.
 
 The cooking process itself has many design considerations that impact ease of
 retrieval and ease of use. Being able to cook bundles efficiently is key for
-this process to be practical for large scale analysis, as researchers can
+this process to be practical for large-scale analysis, as researchers can
 sometimes request thousands of repositories to use for a single study. In this
 section we look at the ways to efficiently assemble the two main kinds of
 bundles: directories and commit graphs (for revisions and snapshots).
@@ -276,7 +276,7 @@ To export archived artifacts as a Git repository, we first investigated the
 format used by \texttt{git
 fast-import},\footnote{\url{https://git-scm.com/docs/git-fast-import}} designed
 to be an interchange format between \glspl{VCS} and which can efficiently
-import data into a git repository.
+import data into a Git repository.
 This format contains a stream of ``commands'' which describe all the Git
 objects to import (tags, commits, trees and blobs), and is used by many
 \gls{VCS} converters. Implementing this cooker exposed a few limitations of the

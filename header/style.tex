@@ -102,8 +102,8 @@
 		\makebox[1cm][r]{\usebox\feline@chapter}%
 	}}
 \makechapterstyle{daleifmodif}{
-	\renewcommand\chapnamefont{\normalfont\Large\scshape\so}
-	\renewcommand\chaptitlefont{\normalfont\huge\bfseries\scshape}
+	\renewcommand\chapnamefont{\normalfont\Large\so}
+	\renewcommand\chaptitlefont{\normalfont\huge\bfseries}
 	\renewcommand\chapternamenum{} \renewcommand\printchaptername{}
 % 	\renewcommand\printchapternum{\null\hspace{2.5cm}\feline@chm[2.5cm]}%\renewcommand\afterchapternum{\par\vskip\midchapskip}
     \renewcommand\printchapternum{\null\hfill\feline@chm[2.5cm]\par}
@@ -128,8 +128,8 @@
 \makeoddfoot{myvf}{}{\thepage}{}
 \makeevenfoot{myvf}{}{\thepage}{}
 \makeheadrule{myvf}{\textwidth}{\normalrulethickness}
-\makeevenhead{myvf}{\small\textsc{\leftmark}}{}{}
-\makeoddhead{myvf}{}{}{\small\textsc{\rightmark}}
+\makeevenhead{myvf}{\small\textnormal{\leftmark}}{}{}
+\makeoddhead{myvf}{}{}{\small\textnormal{\rightmark}}
 \pagestyle{myvf}
 
 % Fills blank pages until next odd-numbered page. Used to emulate single-sided

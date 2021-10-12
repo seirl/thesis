@@ -560,13 +560,13 @@ object described by the following JSON document:
         {
             "name": "main.c",
             "type": "file",
-            "perms": 420,
+            "perms": 33188,
             "target": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
         },
         {
             "name": "tests",
             "type": "dir",
-            "perms": 493,
+            "perms": 33261,
             "target": "ee4d20e80af850cc0f417d25dc5073792c5010d2",
         }
     ]
@@ -592,9 +592,9 @@ tables:
     \emph{\texttt{directory\_id}} & \emph{\texttt{name}} & \emph{\texttt{type}}
                                   & \emph{\texttt{perms}} &
                                   \emph{\texttt{target}} \\ \hline
-    \texttt{87b339104f\ldots} & \texttt{main.c} & \texttt{file} & \texttt{420}
+    \texttt{87b339104f\ldots} & \texttt{main.c} & \texttt{file} & \texttt{33188}
                               & \texttt{4b825dc642\ldots} \\ \hline
-    \texttt{87b339104f\ldots} & \texttt{tests} & \texttt{dir} & \texttt{493}
+    \texttt{87b339104f\ldots} & \texttt{tests} & \texttt{dir} & \texttt{33261}
                               & \texttt{ee4d20e80a\ldots} \\ \hline
 \end{tabular}
 \end{center}
@@ -649,7 +649,7 @@ entry named \texttt{test.c} with permissions \texttt{0o644}:
 
 \begin{minted}{text}
 swh:1:snp:4548a5… swh:1:rev:0d6834… cmVmcy9oZWFkcy9tYXN0ZXI=
-swh:1:dir:05faa1… swh:1:cnt:a35136… dGVzdC5j 420
+swh:1:dir:05faa1… swh:1:cnt:a35136… dGVzdC5j 33188
 \end{minted}
 
 Generally, the edges CSV is not sufficient for graph processing services, as

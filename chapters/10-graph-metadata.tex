@@ -40,7 +40,7 @@ available externally, the process is more involved: it requires returning the
 entire transitive closure from the blob, then joining it with the timestamps,
 which can require transferring very large amounts of nodes to join with the
 timestamps (up to significant fractions of the entire graph, e.g., for the
-empty file), before finally filtering on the highest timestamp found.
+empty file), before finally filtering on the lowest timestamp found.
 
 The added complexity gets even worse when the traversed edges are conditional
 on the properties themselves. Consider the following query:

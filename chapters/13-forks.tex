@@ -638,9 +638,7 @@ all the groups are fork cliques.
         \ForAll{$c_i \in L_C$}
             \ForAll{$r_j \in c_i$}
                 \ForAll{$s \in I[r_j]$}
-                \Comment{\parbox[t]{.32\linewidth}{
-                    Remove subsequent occurrences of $r_j$}}
-                    \vspace{-\baselineskip}
+                \Comment{Remove subsequent occurrences of $r_j$}
                     \If{$k > i$}
                         \State remove $r_j$ from $s$
                     \EndIf

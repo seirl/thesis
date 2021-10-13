@@ -29,6 +29,11 @@ def pltsetup():
         "figure.autolayout": True,
     })
 
+    # from cycler import cycler
+    # plt.rcParams['axes.prop_cycle'] = cycler(
+    #     'color', plt.get_cmap('Dark2').colors
+    # )
+
 
 def load_text_distribution(path):
     d = [
@@ -177,6 +182,7 @@ class Distribution:
                 * np.sum(y_after_pivot)
             ),
             "-",
+            color='black',
             label='Power law fit ($\\alpha = {:.2}$)'.format(power),
             rasterized=True,
         )

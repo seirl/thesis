@@ -411,7 +411,9 @@ This technique of building trees identified by a cryptographic hash that is
 recursively dependent on its entire chain of descendants has first been
 described by \textcite{Merkle}. We call \emph{Merkle tree} or \emph{hash
 tree} a tree in which every node is labelled with the cryptographic hash of a
-data manifest containing its key and the hashes of its child nodes.
+data manifest containing its key and the hashes of its child nodes. An example
+of such a manifest for a directory object is shown in
+\cref{fig:directory-manifest}.
 
 \begin{figure}
     \centering

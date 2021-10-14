@@ -1,373 +1,2071 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-242 -1321 1743 1443">
-  <defs>
-    <clipPath id="a" clipPathUnits="userSpaceOnUse">
-      <path fill="#d8d8d8" fill-opacity=".05" stroke-width="1.58" d="M209.86-3314.42h473.22v674.75H209.86z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="-242 -1321 1743 1443"
+   version="1.1"
+   id="svg683"
+   sodipodi:docname="swh-merkle-dag.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview685"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="0.32"
+     inkscape:cx="840.625"
+     inkscape:cy="568.75"
+     inkscape:window-width="1547"
+     inkscape:window-height="1041"
+     inkscape:window-x="369"
+     inkscape:window-y="37"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg683" />
+  <defs
+     id="defs5">
+    <clipPath
+       id="a"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         fill="#d8d8d8"
+         fill-opacity=".05"
+         stroke-width="1.58"
+         d="M209.86-3314.42h473.22v674.75H209.86z"
+         id="path2" />
     </clipPath>
   </defs>
-  <rect width="820" height="100" x="-240" y="-1320" fill="#ebebea" stroke="#ebebea" stroke-linejoin="round" stroke-width="2" rx="8" ry="8"/>
-  <text x="-40" y="-1294.52" font-family="sans-serif" font-size="15.8" font-style="italic" font-weight="400" text-anchor="middle"><tspan x="-40" y="-1294.52">origin</tspan></text>
-  <text x="180" y="-1294.52" font-family="sans-serif" font-size="15.8" font-style="italic" font-weight="400" text-anchor="middle"><tspan x="180" y="-1294.52">visit</tspan></text>
-  <text x="-40" y="-1275.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="-40" y="-1275.3">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
-  <text x="280" y="-1294.52" font-family="sans-serif" font-size="15.8" font-style="italic" font-weight="400" text-anchor="middle"><tspan x="280" y="-1294.52">snapshot</tspan></text>
-  <text x="180" y="-1274.52" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="180" y="-1274.52">1</tspan></text>
-  <text x="-40" y="-1255.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="-40" y="-1255.3">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
-  <text x="180" y="-1254.53" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="180" y="-1254.53">2</tspan></text>
-  <text x="460" y="-1294.52" font-family="sans-serif" font-size="15.8" font-style="italic" font-weight="400" text-anchor="middle"><tspan x="460" y="-1294.52">timestamp</tspan></text>
-  <text x="460" y="-1275.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="460" y="-1275.3">Fri Feb 9 12:38:45 2018 +0100</tspan></text>
-  <text x="460" y="-1255.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="460" y="-1255.3">Fri Feb 9 13:29:00 2018 +0100</tspan></text>
-  <text x="-40" y="-1235.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="-40" y="-1235.3">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
-  <text x="180" y="-1234.53" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="180" y="-1234.53">3</tspan></text>
-  <text x="460" y="-1235.3" font-family="sans-serif" font-size="13.55" font-weight="400" text-anchor="middle"><tspan x="460" y="-1235.3">Fri Feb 9 15:52:50 2018 +0100</tspan></text>
-  <text x="280" y="-1234.53" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="280" y="-1234.53">510aa88b…</tspan></text>
-  <text x="280" y="-1254.53" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="280" y="-1254.53">0861db5e…</tspan></text>
-  <text x="280" y="-1274.52" font-family="sans-serif" font-size="15.8" font-weight="400" text-anchor="middle"><tspan x="280" y="-1274.52">0861db5e…</tspan></text>
-  <path fill="#c6c0c1" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200 0h203v48h-203z"/>
-  <text x="1301.5" y="19" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-  <text x="1301.5" y="39" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">c839dea9…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200 48h203v24h-203z"/>
-  <text x="1203" y="65" font-family="monospace" font-size="16" font-weight="400">+data = &quot;#include …&quot;</text>
-  <path fill="#dadbe7" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900-20h135.45v48H900z"/>
-  <text x="967.72" y="-1" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-  <text x="967.72" y="19" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">6ca2e444…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900 28h135.45v44H900z"/>
-  <text x="903" y="45" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-  <text xml:space="preserve" x="903" y="65" font-family="monospace" font-size="16" font-weight="400">   &quot;hello.c&quot;</text>
-  <path fill="#e6f2f2" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-80h415.3v48H360z"/>
-  <text x="567.65" y="-61" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-  <text x="567.65" y="-41" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">1886826f…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-32h415.3V72H360z"/>
-  <text x="363" y="-15" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-  <text x="363" y="5" font-family="monospace" font-size="16" font-weight="400">+message = &quot;implement a trivial …&quot;</text>
-  <text x="363" y="25" font-family="monospace" font-size="16" font-weight="400">+timestamp = Thu Feb 8 10:44:35 2018 +0100</text>
-  <text x="363" y="45" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-  <text x="363" y="65" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list = None</text>
-  <path fill="#e6f2f2" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-280h415.3v48H360z"/>
-  <text x="567.65" y="-261" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-  <text x="567.65" y="-241" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">a3ee21ad…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-232h415.3v104H360z"/>
-  <text x="363" y="-215" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-  <text x="363" y="-195" font-family="monospace" font-size="16" font-weight="400">+message = &quot;add build toolchain …&quot;</text>
-  <text x="363" y="-175" font-family="monospace" font-size="16" font-weight="400">+timestamp = Thu Feb 8 10:49:29 2018 +0100</text>
-  <text x="363" y="-155" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-  <text x="363" y="-135" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list</text>
-  <path fill="#dadbe7" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900-200h154.75v48H900z"/>
-  <text x="977.38" y="-181" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-  <text x="977.38" y="-161" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">b94a90cd…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900-152h154.75v84H900z"/>
-  <text x="903" y="-135" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-  <text xml:space="preserve" x="903" y="-115" font-family="monospace" font-size="16" font-weight="400">   &quot;.gitignore&quot;</text>
-  <text xml:space="preserve" x="903" y="-95" font-family="monospace" font-size="16" font-weight="400">   &quot;Makefile&quot;</text>
-  <text xml:space="preserve" x="903" y="-75" font-family="monospace" font-size="16" font-weight="400">   &quot;hello.c&quot;</text>
-  <path fill="#c6c0c1" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-220h203v48h-203z"/>
-  <text x="1301.5" y="-201" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-  <text x="1301.5" y="-181" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">59b32b2f…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-172h203v24h-203z"/>
-  <text x="1203" y="-155" font-family="monospace" font-size="16" font-weight="400">+data = &quot;*.o\nhello&quot;</text>
-  <path fill="#c6c0c1" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-120h251.25v48H1200z"/>
-  <text x="1325.62" y="-101" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-  <text x="1325.62" y="-81" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">225ae01b…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-72h251.25v24H1200z"/>
-  <text x="1203" y="-55" font-family="monospace" font-size="16" font-weight="400">+data = &quot;all: hello\n\n…&quot;</text>
-  <path fill="#e6f2f2" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-480h482.85v48H360z"/>
-  <text x="601.42" y="-461" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-  <text x="601.42" y="-441" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">43ef7dcd…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-432h482.85v104H360z"/>
-  <text x="363" y="-415" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-  <text x="363" y="-395" font-family="monospace" font-size="16" font-weight="400">+message = &quot;add licensing information and README&quot;</text>
-  <text x="363" y="-375" font-family="monospace" font-size="16" font-weight="400">+timestamp = Thu Feb 8 10:54:09 2018 +0100</text>
-  <text x="363" y="-355" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-  <text x="363" y="-335" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list</text>
-  <path fill="#e6f2f2" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-680h415.3v48H360z"/>
-  <text x="567.65" y="-661" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-  <text x="567.65" y="-641" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">c7640e8d…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M360-632h415.3v104H360z"/>
-  <text x="363" y="-615" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-  <text x="363" y="-595" font-family="monospace" font-size="16" font-weight="400">+message = &quot;move source code to src/\n…&quot;</text>
-  <text x="363" y="-575" font-family="monospace" font-size="16" font-weight="400">+timestamp = Thu Feb 8 15:26:08 2018 +0100</text>
-  <text x="363" y="-555" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-  <text x="363" y="-535" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list</text>
-  <path fill="#dadbe7" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900-420h154.75v48H900z"/>
-  <text x="977.38" y="-401" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-  <text x="977.38" y="-381" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">fa8c0908…</text>
-  <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M900-372h154.75v124H900z"/>
-  <text x="903" y="-355" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-  <text xml:space="preserve" x="903" y="-335" font-family="monospace" font-size="16" font-weight="400">   &quot;.gitignore&quot;</text>
-  <text xml:space="preserve" x="903" y="-315" font-family="monospace" font-size="16" font-weight="400">   &quot;COPYING&quot;</text>
-  <text xml:space="preserve" x="903" y="-295" font-family="monospace" font-size="16" font-weight="400">   &quot;Makefile&quot;</text>
-  <text xml:space="preserve" x="903" y="-275" font-family="monospace" font-size="16" font-weight="400">   &quot;README.md&quot;</text>
-  <text xml:space="preserve" x="903" y="-255" font-family="monospace" font-size="16" font-weight="400">   &quot;hello.c&quot;</text>
-  <g>
-    <path fill="#c6c0c1" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-320h231.95v48H1200z"/>
-    <text x="1315.97" y="-301" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-    <text x="1315.97" y="-281" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">94a9ed02…</text>
-    <path fill="#fff" stroke="#000" stroke-linejoin="round" stroke-width="2" d="M1200-272h231.95v24H1200z"/>
-    <text x="1203" y="-255" font-family="monospace" font-size="16" font-weight="400">+data = &quot;…GNU GENERAL…&quot;</text>
+  <rect
+     width="820"
+     height="100"
+     x="-240"
+     y="-1320"
+     fill="#ebebea"
+     stroke="#ebebea"
+     stroke-linejoin="round"
+     stroke-width="2"
+     rx="8"
+     ry="8"
+     id="rect7" />
+  <text
+     x="-40"
+     y="-1294.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-style="italic"
+     font-weight="400"
+     text-anchor="middle"
+     id="text11"><tspan
+       x="-40"
+       y="-1294.52"
+       id="tspan9">origin</tspan></text>
+  <text
+     x="180"
+     y="-1294.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-style="italic"
+     font-weight="400"
+     text-anchor="middle"
+     id="text15"><tspan
+       x="180"
+       y="-1294.52"
+       id="tspan13">visit</tspan></text>
+  <text
+     x="-40"
+     y="-1275.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text19"><tspan
+       x="-40"
+       y="-1275.3"
+       id="tspan17">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
+  <text
+     x="280"
+     y="-1294.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-style="italic"
+     font-weight="400"
+     text-anchor="middle"
+     id="text23"><tspan
+       x="280"
+       y="-1294.52"
+       id="tspan21">snapshot</tspan></text>
+  <text
+     x="180"
+     y="-1274.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text27"><tspan
+       x="180"
+       y="-1274.52"
+       id="tspan25">1</tspan></text>
+  <text
+     x="-40"
+     y="-1255.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text31"><tspan
+       x="-40"
+       y="-1255.3"
+       id="tspan29">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
+  <text
+     x="180"
+     y="-1254.53"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text35"><tspan
+       x="180"
+       y="-1254.53"
+       id="tspan33">2</tspan></text>
+  <text
+     x="460"
+     y="-1294.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-style="italic"
+     font-weight="400"
+     text-anchor="middle"
+     id="text39"><tspan
+       x="460"
+       y="-1294.52"
+       id="tspan37">timestamp</tspan></text>
+  <text
+     x="460"
+     y="-1275.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text43"><tspan
+       x="460"
+       y="-1275.3"
+       id="tspan41">Fri Feb 9 12:38:45 2018 +0100</tspan></text>
+  <text
+     x="460"
+     y="-1255.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text47"><tspan
+       x="460"
+       y="-1255.3"
+       id="tspan45">Fri Feb 9 13:29:00 2018 +0100</tspan></text>
+  <text
+     x="-40"
+     y="-1235.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text51"><tspan
+       x="-40"
+       y="-1235.3"
+       id="tspan49">https://forge.softwareheritage.org/source/helloworld.git</tspan></text>
+  <text
+     x="180"
+     y="-1234.53"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text55"><tspan
+       x="180"
+       y="-1234.53"
+       id="tspan53">3</tspan></text>
+  <text
+     x="460"
+     y="-1235.3"
+     font-family="sans-serif"
+     font-size="13.55"
+     font-weight="400"
+     text-anchor="middle"
+     id="text59"><tspan
+       x="460"
+       y="-1235.3"
+       id="tspan57">Fri Feb 9 15:52:50 2018 +0100</tspan></text>
+  <text
+     x="280"
+     y="-1234.53"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text63"><tspan
+       x="280"
+       y="-1234.53"
+       id="tspan61">510aa88b…</tspan></text>
+  <text
+     x="280"
+     y="-1254.53"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text67"><tspan
+       x="280"
+       y="-1254.53"
+       id="tspan65">0861db5e…</tspan></text>
+  <text
+     x="280"
+     y="-1274.52"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="400"
+     text-anchor="middle"
+     id="text71"><tspan
+       x="280"
+       y="-1274.52"
+       id="tspan69">0861db5e…</tspan></text>
+  <path
+     fill="#c6c0c1"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200 0h203v48h-203z"
+     id="path73"
+     style="fill:#bfa6aa;fill-opacity:1" />
+  <text
+     x="1301.5"
+     y="19"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text75">&lt;&lt;Content&gt;&gt;</text>
+  <text
+     x="1301.5"
+     y="39"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text77">c839dea9…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200 48h203v24h-203z"
+     id="path79" />
+  <text
+     x="1203"
+     y="65"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text81">+data = &quot;#include …&quot;</text>
+  <path
+     fill="#dadbe7"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900-20h135.45v48H900z"
+     id="path83"
+     style="fill:#cfd2f2;fill-opacity:1" />
+  <text
+     x="967.72"
+     y="-1"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text85">&lt;&lt;Directory&gt;&gt;</text>
+  <text
+     x="967.72"
+     y="19"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text87">6ca2e444…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900 28h135.45v44H900z"
+     id="path89" />
+  <text
+     x="903"
+     y="45"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text91">+entries</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="65"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text93">   &quot;hello.c&quot;</text>
+  <path
+     fill="#e6f2f2"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-80h415.3v48H360z"
+     id="path95"
+     style="fill:#c3e3e3;fill-opacity:1" />
+  <text
+     x="567.65"
+     y="-61"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text97">&lt;&lt;Revision&gt;&gt;</text>
+  <text
+     x="567.65"
+     y="-41"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text99">1886826f…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-32h415.3V72H360z"
+     id="path101" />
+  <text
+     x="363"
+     y="-15"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text103">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+  <text
+     x="363"
+     y="5"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text105">+message = &quot;implement a trivial …&quot;</text>
+  <text
+     x="363"
+     y="25"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text107">+timestamp = Thu Feb 8 10:44:35 2018 +0100</text>
+  <text
+     x="363"
+     y="45"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text109">+directory: Directory</text>
+  <text
+     x="363"
+     y="65"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text111">+parents: Revision list = None</text>
+  <path
+     fill="#e6f2f2"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-280h415.3v48H360z"
+     id="path113"
+     style="fill:#c3e3e3;fill-opacity:1" />
+  <text
+     x="567.65"
+     y="-261"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text115">&lt;&lt;Revision&gt;&gt;</text>
+  <text
+     x="567.65"
+     y="-241"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text117">a3ee21ad…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-232h415.3v104H360z"
+     id="path119" />
+  <text
+     x="363"
+     y="-215"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text121">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+  <text
+     x="363"
+     y="-195"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text123">+message = &quot;add build toolchain …&quot;</text>
+  <text
+     x="363"
+     y="-175"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text125">+timestamp = Thu Feb 8 10:49:29 2018 +0100</text>
+  <text
+     x="363"
+     y="-155"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text127">+directory: Directory</text>
+  <text
+     x="363"
+     y="-135"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text129">+parents: Revision list</text>
+  <path
+     fill="#dadbe7"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900-200h154.75v48H900z"
+     id="path131"
+     style="fill:#cfd2f2;fill-opacity:1" />
+  <text
+     x="977.38"
+     y="-181"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text133">&lt;&lt;Directory&gt;&gt;</text>
+  <text
+     x="977.38"
+     y="-161"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text135">b94a90cd…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900-152h154.75v84H900z"
+     id="path137" />
+  <text
+     x="903"
+     y="-135"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text139">+entries</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-115"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text141">   &quot;.gitignore&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-95"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text143">   &quot;Makefile&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-75"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text145">   &quot;hello.c&quot;</text>
+  <path
+     fill="#c6c0c1"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200-220h203v48h-203z"
+     id="path147"
+     style="fill:#bfa6aa;fill-opacity:1" />
+  <text
+     x="1301.5"
+     y="-201"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text149">&lt;&lt;Content&gt;&gt;</text>
+  <text
+     x="1301.5"
+     y="-181"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text151">59b32b2f…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200-172h203v24h-203z"
+     id="path153" />
+  <text
+     x="1203"
+     y="-155"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text155">+data = &quot;*.o\nhello&quot;</text>
+  <path
+     fill="#c6c0c1"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200-120h251.25v48H1200z"
+     id="path157"
+     style="fill:#bfa6aa;fill-opacity:1" />
+  <text
+     x="1325.62"
+     y="-101"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text159">&lt;&lt;Content&gt;&gt;</text>
+  <text
+     x="1325.62"
+     y="-81"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text161">225ae01b…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M1200-72h251.25v24H1200z"
+     id="path163" />
+  <text
+     x="1203"
+     y="-55"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text165">+data = &quot;all: hello\n\n…&quot;</text>
+  <path
+     fill="#e6f2f2"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-480h482.85v48H360z"
+     id="path167"
+     style="fill:#c3e3e3;fill-opacity:1" />
+  <text
+     x="601.42"
+     y="-461"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text169">&lt;&lt;Revision&gt;&gt;</text>
+  <text
+     x="601.42"
+     y="-441"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text171">43ef7dcd…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-432h482.85v104H360z"
+     id="path173" />
+  <text
+     x="363"
+     y="-415"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text175">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+  <text
+     x="363"
+     y="-395"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text177">+message = &quot;add licensing information and README&quot;</text>
+  <text
+     x="363"
+     y="-375"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text179">+timestamp = Thu Feb 8 10:54:09 2018 +0100</text>
+  <text
+     x="363"
+     y="-355"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text181">+directory: Directory</text>
+  <text
+     x="363"
+     y="-335"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text183">+parents: Revision list</text>
+  <path
+     fill="#e6f2f2"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-680h415.3v48H360z"
+     id="path185"
+     style="fill:#c3e3e3;fill-opacity:1" />
+  <text
+     x="567.65"
+     y="-661"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text187">&lt;&lt;Revision&gt;&gt;</text>
+  <text
+     x="567.65"
+     y="-641"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text189">c7640e8d…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M360-632h415.3v104H360z"
+     id="path191" />
+  <text
+     x="363"
+     y="-615"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text193">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+  <text
+     x="363"
+     y="-595"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text195">+message = &quot;move source code to src/\n…&quot;</text>
+  <text
+     x="363"
+     y="-575"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text197">+timestamp = Thu Feb 8 15:26:08 2018 +0100</text>
+  <text
+     x="363"
+     y="-555"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text199">+directory: Directory</text>
+  <text
+     x="363"
+     y="-535"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text201">+parents: Revision list</text>
+  <path
+     fill="#dadbe7"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900-420h154.75v48H900z"
+     id="path203"
+     style="fill:#cfd2f2;fill-opacity:1" />
+  <text
+     x="977.38"
+     y="-401"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     text-anchor="middle"
+     id="text205">&lt;&lt;Directory&gt;&gt;</text>
+  <text
+     x="977.38"
+     y="-381"
+     font-family="sans-serif"
+     font-size="16"
+     font-weight="700"
+     text-anchor="middle"
+     id="text207">fa8c0908…</text>
+  <path
+     fill="#fff"
+     stroke="#000"
+     stroke-linejoin="round"
+     stroke-width="2"
+     d="M900-372h154.75v124H900z"
+     id="path209" />
+  <text
+     x="903"
+     y="-355"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text211">+entries</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-335"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text213">   &quot;.gitignore&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-315"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text215">   &quot;COPYING&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-295"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text217">   &quot;Makefile&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-275"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text219">   &quot;README.md&quot;</text>
+  <text
+     xml:space="preserve"
+     x="903"
+     y="-255"
+     font-family="monospace"
+     font-size="16"
+     font-weight="400"
+     id="text221">   &quot;hello.c&quot;</text>
+  <g
+     id="g233">
+    <path
+       fill="#c6c0c1"
+       stroke="#000"
+       stroke-linejoin="round"
+       stroke-width="2"
+       d="M1200-320h231.95v48H1200z"
+       id="path223"
+       style="fill:#bfa6aa;fill-opacity:1" />
+    <text
+       x="1315.97"
+       y="-301"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text225">&lt;&lt;Content&gt;&gt;</text>
+    <text
+       x="1315.97"
+       y="-281"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text227">94a9ed02…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-linejoin="round"
+       stroke-width="2"
+       d="M1200-272h231.95v24H1200z"
+       id="path229" />
+    <text
+       x="1203"
+       y="-255"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text231">+data = &quot;…GNU GENERAL…&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" stroke-linejoin="round" d="M1035.45 60a292.21 292.21 0 0 1 153.57-36.64"/>
-    <path fill-rule="evenodd" d="M1035.45 60c-.49-.87-.1-2.23.78-2.72.87-.49 2.23-.1 2.72.78.48.87.09 2.23-.78 2.72-.87.48-2.23.1-2.72-.78zM1189.42 18.17l-.77 9.97 10.35-4.22z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g239">
+    <path
+       fill="none"
+       stroke-linejoin="round"
+       d="M1035.45 60a292.21 292.21 0 0 1 153.57-36.64"
+       id="path235" />
+    <path
+       fill-rule="evenodd"
+       d="M1035.45 60c-.49-.87-.1-2.23.78-2.72.87-.49 2.23-.1 2.72.78.48.87.09 2.23-.78 2.72-.87.48-2.23.1-2.72-.78zM1189.42 18.17l-.77 9.97 10.35-4.22z"
+       id="path237" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-120a281.13 281.13 0 0 1 134.49-73.75"/>
-    <path fill-rule="evenodd" d="M1054.75-120c-.7-.71-.69-2.13.02-2.83.71-.7 2.13-.69 2.83.02.7.72.69 2.13-.02 2.83-.71.7-2.13.7-2.83-.02zM1188.26-198.88l1.86 9.83 8.9-6.76z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g245">
+    <path
+       fill="none"
+       d="M1054.75-120a281.13 281.13 0 0 1 134.49-73.75"
+       id="path241" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-120c-.7-.71-.69-2.13.02-2.83.71-.7 2.13-.69 2.83.02.7.72.69 2.13-.02 2.83-.71.7-2.13.7-2.83-.02zM1188.26-198.88l1.86 9.83 8.9-6.76z"
+       id="path243" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-100a222.19 222.19 0 0 1 134.87.38"/>
-    <path fill-rule="evenodd" d="M1054.75-100c-.3-.95.35-2.2 1.31-2.5.95-.31 2.2.34 2.5 1.3.31.95-.35 2.2-1.3 2.5-.95.3-2.21-.35-2.51-1.3zM1191.47-104.56l-3.53 9.36 11.12-1.15z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g251">
+    <path
+       fill="none"
+       d="M1054.75-100a222.19 222.19 0 0 1 134.87.38"
+       id="path247" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-100c-.3-.95.35-2.2 1.31-2.5.95-.31 2.2.34 2.5 1.3.31.95-.35 2.2-1.3 2.5-.95.3-2.21-.35-2.51-1.3zM1191.47-104.56l-3.53 9.36 11.12-1.15z"
+       id="path249" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-80a332.71 332.71 0 0 1 138.22 95.55"/>
-    <path fill-rule="evenodd" d="M1054.75-80a2.14 2.14 0 0 1 2.56-1.2 2.16 2.16 0 0 1 1.2 2.57c-.34.94-1.63 1.54-2.57 1.2-.94-.35-1.53-1.63-1.19-2.57zM1197 12.3l-7.79 6.26 10.16 4.66z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g257">
+    <path
+       fill="none"
+       d="M1054.75-80a332.71 332.71 0 0 1 138.22 95.55"
+       id="path253" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-80a2.14 2.14 0 0 1 2.56-1.2 2.16 2.16 0 0 1 1.2 2.57c-.34.94-1.63 1.54-2.57 1.2-.94-.35-1.53-1.63-1.19-2.57zM1197 12.3l-7.79 6.26 10.16 4.66z"
+       id="path255" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M775.3 40A169.27 169.27 0 0 1 889.05 3.12"/>
-    <path fill-rule="evenodd" d="M775.3 40a2.15 2.15 0 0 1 .31-2.81 2.15 2.15 0 0 1 2.81.31c.63.78.47 2.19-.3 2.81-.79.63-2.2.47-2.82-.31zM889.63-2.2l-1.12 9.93 10.5-3.84z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g263">
+    <path
+       fill="none"
+       d="M775.3 40A169.27 169.27 0 0 1 889.05 3.12"
+       id="path259" />
+    <path
+       fill-rule="evenodd"
+       d="M775.3 40a2.15 2.15 0 0 1 .31-2.81 2.15 2.15 0 0 1 2.81.31c.63.78.47 2.19-.3 2.81-.79.63-2.2.47-2.82-.31zM889.63-2.2l-1.12 9.93 10.5-3.84z"
+       id="path261" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M775.3-160a292 292 0 0 1 113.73-16.77"/>
-    <path fill-rule="evenodd" d="M775.3-160a2.15 2.15 0 0 1 1.2-2.56c.95-.34 2.23.27 2.56 1.2.34.95-.26 2.23-1.2 2.57a2.15 2.15 0 0 1-2.56-1.21zM889.49-181.96l-.89 9.96 10.4-4.09z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g269">
+    <path
+       fill="none"
+       d="M775.3-160a292 292 0 0 1 113.73-16.77"
+       id="path265" />
+    <path
+       fill-rule="evenodd"
+       d="M775.3-160a2.15 2.15 0 0 1 1.2-2.56c.95-.34 2.23.27 2.56 1.2.34.95-.26 2.23-1.2 2.57a2.15 2.15 0 0 1-2.56-1.21zM889.49-181.96l-.89 9.96 10.4-4.09z"
+       id="path267" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-340a255.25 255.25 0 0 1 139.75 110.48"/>
-    <path fill-rule="evenodd" d="M1054.75-340c.31-.95 1.57-1.6 2.52-1.29.95.3 1.59 1.57 1.29 2.52-.31.95-1.57 1.6-2.52 1.29-.95-.3-1.6-1.57-1.29-2.52zM1199.09-232.05l-8.77 4.82 9.2 6.35z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g275">
+    <path
+       fill="none"
+       d="M1054.75-340a255.25 255.25 0 0 1 139.75 110.48"
+       id="path271" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-340c.31-.95 1.57-1.6 2.52-1.29.95.3 1.59 1.57 1.29 2.52-.31.95-1.57 1.6-2.52 1.29-.95-.3-1.6-1.57-1.29-2.52zM1199.09-232.05l-8.77 4.82 9.2 6.35z"
+       id="path273" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-320a162 162 0 0 1 136.2 17.79"/>
-    <path fill-rule="evenodd" d="M1054.75-320c-.3-.95.35-2.2 1.3-2.51.95-.3 2.21.34 2.51 1.3.3.95-.34 2.2-1.3 2.51-.95.3-2.21-.35-2.51-1.3zM1194.11-306.55l-5.93 8.05 11.02 1.91z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g281">
+    <path
+       fill="none"
+       d="M1054.75-320a162 162 0 0 1 136.2 17.79"
+       id="path277" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-320c-.3-.95.35-2.2 1.3-2.51.95-.3 2.21.34 2.51 1.3.3.95-.34 2.2-1.3 2.51-.95.3-2.21-.35-2.51-1.3zM1194.11-306.55l-5.93 8.05 11.02 1.91z"
+       id="path279" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-300a405.8 405.8 0 0 1 140.93 169.89"/>
-    <path fill-rule="evenodd" d="M1054.75-300c.57-.82 1.96-1.08 2.78-.51.83.56 1.08 1.95.51 2.78-.56.82-1.95 1.08-2.78.51-.82-.57-1.08-1.96-.51-2.78zM1200.44-132.07l-9.25 3.8 8.43 7.35z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g287">
+    <path
+       fill="none"
+       d="M1054.75-300a405.8 405.8 0 0 1 140.93 169.89"
+       id="path283" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-300c.57-.82 1.96-1.08 2.78-.51.83.56 1.08 1.95.51 2.78-.56.82-1.95 1.08-2.78.51-.82-.57-1.08-1.96-.51-2.78zM1200.44-132.07l-9.25 3.8 8.43 7.35z"
+       id="path285" />
   </g>
-  <g>
-    <path fill="#c6c0c1" stroke="#000" stroke-width="2" d="M1200-420h231.95v48H1200z"/>
-    <text x="1315.97" y="-401" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-    <text x="1315.97" y="-381" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">a1afd006…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M1200-372h231.95v24H1200z"/>
-    <text x="1203" y="-355" font-family="monospace" font-size="16" font-weight="400">+data = &quot;…Yet another…&quot;</text>
+  <g
+     id="g299">
+    <path
+       fill="#c6c0c1"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-420h231.95v48H1200z"
+       id="path289"
+       style="fill:#bfa6aa;fill-opacity:1" />
+    <text
+       x="1315.97"
+       y="-401"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text291">&lt;&lt;Content&gt;&gt;</text>
+    <text
+       x="1315.97"
+       y="-381"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text293">a1afd006…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-372h231.95v24H1200z"
+       id="path295" />
+    <text
+       x="1203"
+       y="-355"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text297">+data = &quot;…Yet another…&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-280a428 428 0 0 1 135.43-111.04"/>
-    <path fill-rule="evenodd" d="M1054.75-280a2.15 2.15 0 0 1-.3-2.81c.62-.78 2.03-.93 2.81-.3.78.62.93 2.03.3 2.8-.63.79-2.03.94-2.81.31zM1187.92-395.66l4.4 8.98 6.78-8.88z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g305">
+    <path
+       fill="none"
+       d="M1054.75-280a428 428 0 0 1 135.43-111.04"
+       id="path301" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-280a2.15 2.15 0 0 1-.3-2.81c.62-.78 2.03-.93 2.81-.3.78.62.93 2.03.3 2.8-.63.79-2.03.94-2.81.31zM1187.92-395.66l4.4 8.98 6.78-8.88z"
+       id="path303" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-260a815.32 815.32 0 0 1 141.66 249.6"/>
-    <path fill-rule="evenodd" d="M1054.75-260c.77-.64 2.18-.5 2.82.26.64.77.51 2.18-.26 2.82-.77.64-2.18.5-2.82-.26a2.15 2.15 0 0 1 .26-2.82zM1201.22-12.02l-9.48 3.2 7.94 7.87z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g311">
+    <path
+       fill="none"
+       d="M1054.75-260a815.32 815.32 0 0 1 141.66 249.6"
+       id="path307" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-260c.77-.64 2.18-.5 2.82.26.64.77.51 2.18-.26 2.82-.77.64-2.18.5-2.82-.26a2.15 2.15 0 0 1 .26-2.82zM1201.22-12.02l-9.48 3.2 7.94 7.87z"
+       id="path309" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M842.85-360a55.74 55.74 0 0 1 46.3-35.9"/>
-    <path fill-rule="evenodd" d="M842.85-360a2.15 2.15 0 0 1-1.17-2.57 2.15 2.15 0 0 1 2.57-1.18 2.15 2.15 0 0 1 1.17 2.58 2.15 2.15 0 0 1-2.57 1.17zM889.49-401.95l-.89 9.96 10.4-4.1z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g317">
+    <path
+       fill="none"
+       d="M842.85-360a55.74 55.74 0 0 1 46.3-35.9"
+       id="path313" />
+    <path
+       fill-rule="evenodd"
+       d="M842.85-360a2.15 2.15 0 0 1-1.17-2.57 2.15 2.15 0 0 1 2.57-1.18 2.15 2.15 0 0 1 1.17 2.58 2.15 2.15 0 0 1-2.57 1.17zM889.49-401.95l-.89 9.96 10.4-4.1z"
+       id="path315" />
   </g>
-  <g>
-    <path fill="#dadbe7" stroke="#000" stroke-width="2" d="M900-640h145.1v48H900z"/>
-    <text x="972.55" y="-621" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-    <text x="972.55" y="-601" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">45f0c078…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M900-592h145.1v104H900z"/>
-    <text x="903" y="-575" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-    <text xml:space="preserve" x="903" y="-555" font-family="monospace" font-size="16" font-weight="400">   &quot;COPYING&quot;</text>
-    <text xml:space="preserve" x="903" y="-535" font-family="monospace" font-size="16" font-weight="400">   &quot;Makefile&quot;</text>
-    <text xml:space="preserve" x="903" y="-515" font-family="monospace" font-size="16" font-weight="400">   &quot;README.md&quot;</text>
-    <text xml:space="preserve" x="903" y="-495" font-family="monospace" font-size="16" font-weight="400">   &quot;src&quot;</text>
+  <g
+     id="g337">
+    <path
+       fill="#dadbe7"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-640h145.1v48H900z"
+       id="path319"
+       style="fill:#cfd2f2;fill-opacity:1" />
+    <text
+       x="972.55"
+       y="-621"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text321">&lt;&lt;Directory&gt;&gt;</text>
+    <text
+       x="972.55"
+       y="-601"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text323">45f0c078…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-592h145.1v104H900z"
+       id="path325" />
+    <text
+       x="903"
+       y="-575"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text327">+entries</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-555"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text329">   &quot;COPYING&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-535"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text331">   &quot;Makefile&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-515"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text333">   &quot;README.md&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-495"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text335">   &quot;src&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-560a435.47 435.47 0 0 1 152.16 229.35"/>
-    <path fill-rule="evenodd" d="M1045.1-560a2.15 2.15 0 0 1 2.81-.34c.79.61.96 2.02.34 2.8-.61.8-2.02.96-2.81.35-.78-.62-.96-2.02-.34-2.81zM1202.25-331.87l-9.71 2.37 7.22 8.53z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g343">
+    <path
+       fill="none"
+       d="M1045.1-560a435.47 435.47 0 0 1 152.16 229.35"
+       id="path339" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-560a2.15 2.15 0 0 1 2.81-.34c.79.61.96 2.02.34 2.8-.61.8-2.02.96-2.81.35-.78-.62-.96-2.02-.34-2.81zM1202.25-331.87l-9.71 2.37 7.22 8.53z"
+       id="path341" />
   </g>
-  <g>
-    <path fill="#c6c0c1" stroke="#000" stroke-width="2" d="M1200-600h212.65v48H1200z"/>
-    <text x="1306.32" y="-581" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-    <text x="1306.32" y="-561" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">a8becc46…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M1200-552h212.65v24H1200z"/>
-    <text x="1203" y="-535" font-family="monospace" font-size="16" font-weight="400">+data = &quot;SRC_DIR = …&quot;</text>
+  <g
+     id="g355">
+    <path
+       fill="#c6c0c1"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-600h212.65v48H1200z"
+       id="path345"
+       style="fill:#bfa6aa;fill-opacity:1" />
+    <text
+       x="1306.32"
+       y="-581"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text347">&lt;&lt;Content&gt;&gt;</text>
+    <text
+       x="1306.32"
+       y="-561"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text349">a8becc46…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-552h212.65v24H1200z"
+       id="path351" />
+    <text
+       x="1203"
+       y="-535"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text353">+data = &quot;SRC_DIR = …&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-540a168.06 168.06 0 0 0 146.42-29.02"/>
-    <path fill-rule="evenodd" d="M1045.1-540c.26-.96 1.49-1.67 2.45-1.4a2.15 2.15 0 0 1 1.41 2.45c-.26.96-1.49 1.66-2.45 1.4a2.15 2.15 0 0 1-1.41-2.45zM1188.44-572.49l6.6 7.51 4.21-10.36z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g361">
+    <path
+       fill="none"
+       d="M1045.1-540a168.06 168.06 0 0 0 146.42-29.02"
+       id="path357" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-540c.26-.96 1.49-1.67 2.45-1.4a2.15 2.15 0 0 1 1.41 2.45c-.26.96-1.49 1.66-2.45 1.4a2.15 2.15 0 0 1-1.41-2.45zM1188.44-572.49l6.6 7.51 4.21-10.36z"
+       id="path359" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-520a222.46 222.46 0 0 0 144.07 98.13"/>
-    <path fill-rule="evenodd" d="M1045.1-520c.84-.54 2.22-.24 2.76.6.54.85.24 2.23-.6 2.77s-2.22.24-2.76-.6a2.15 2.15 0 0 1 .6-2.77zM1189.84-426.55l-1.45 9.9 10.62-3.49z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g367">
+    <path
+       fill="none"
+       d="M1045.1-520a222.46 222.46 0 0 0 144.07 98.13"
+       id="path363" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-520c.84-.54 2.22-.24 2.76.6.54.85.24 2.23-.6 2.77s-2.22.24-2.76-.6a2.15 2.15 0 0 1 .6-2.77zM1189.84-426.55l-1.45 9.9 10.62-3.49z"
+       id="path365" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M775.3-560a200.22 200.22 0 0 1 113.77-54.89"/>
-    <path fill-rule="evenodd" d="M775.3-560c-.7-.72-.68-2.13.04-2.83.72-.7 2.13-.67 2.83.04.7.72.68 2.14-.04 2.83-.72.7-2.13.68-2.83-.04zM888.66-620.18l.74 9.98 9.6-5.73z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g373">
+    <path
+       fill="none"
+       d="M775.3-560a200.22 200.22 0 0 1 113.77-54.89"
+       id="path369" />
+    <path
+       fill-rule="evenodd"
+       d="M775.3-560c-.7-.72-.68-2.13.04-2.83.72-.7 2.13-.67 2.83.04.7.72.68 2.14-.04 2.83-.72.7-2.13.68-2.83-.04zM888.66-620.18l.74 9.98 9.6-5.73z"
+       id="path371" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-500a385.87 385.87 0 0 1 13.45 289.68"/>
-    <path fill-rule="evenodd" d="M1045.1-500c.91-.42 2.23.07 2.65.98.42.9-.07 2.23-.98 2.65-.9.42-2.23-.07-2.65-.98-.42-.9.07-2.23.98-2.65zM1063.37-208.47l-9.34-3.59 1.08 11.13z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g379">
+    <path
+       fill="none"
+       d="M1045.1-500a385.87 385.87 0 0 1 13.45 289.68"
+       id="path375" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-500c.91-.42 2.23.07 2.65.98.42.9-.07 2.23-.98 2.65-.9.42-2.23-.07-2.65-.98-.42-.9.07-2.23.98-2.65zM1063.37-208.47l-9.34-3.59 1.08 11.13z"
+       id="path377" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M360-540a32.5 32.5 0 0 0-8.96 54.4"/>
-    <path fill-rule="evenodd" d="M360-540c.39.92-.15 2.23-1.08 2.62a2.15 2.15 0 0 1-2.61-1.08 2.15 2.15 0 0 1 1.07-2.62c.93-.38 2.23.16 2.62 1.08zM351.77-488.85l-3.85 9.23 11.16-.76z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g385">
+    <path
+       fill="none"
+       d="M360-540a32.5 32.5 0 0 0-8.96 54.4"
+       id="path381" />
+    <path
+       fill-rule="evenodd"
+       d="M360-540c.39.92-.15 2.23-1.08 2.62a2.15 2.15 0 0 1-2.61-1.08 2.15 2.15 0 0 1 1.07-2.62c.93-.38 2.23.16 2.62 1.08zM351.77-488.85l-3.85 9.23 11.16-.76z"
+       id="path383" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M360-340a54.1 54.1 0 0 0-7.68 76.36"/>
-    <path fill-rule="evenodd" d="M360-340c.63.78.48 2.18-.3 2.81-.77.63-2.17.49-2.8-.29a2.15 2.15 0 0 1 .29-2.81 2.15 2.15 0 0 1 2.81.29zM354.61-266.81l-6.3 7.76 10.91 2.42z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g391">
+    <path
+       fill="none"
+       d="M360-340a54.1 54.1 0 0 0-7.68 76.36"
+       id="path387" />
+    <path
+       fill-rule="evenodd"
+       d="M360-340c.63.78.48 2.18-.3 2.81-.77.63-2.17.49-2.8-.29a2.15 2.15 0 0 1 .29-2.81 2.15 2.15 0 0 1 2.81.29zM354.61-266.81l-6.3 7.76 10.91 2.42z"
+       id="path389" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M360-140a54.1 54.1 0 0 0-7.68 76.36"/>
-    <path fill-rule="evenodd" d="M360-140c.63.78.48 2.18-.3 2.81-.77.63-2.17.49-2.8-.29a2.15 2.15 0 0 1 .29-2.81 2.15 2.15 0 0 1 2.81.29zM354.61-66.82l-6.3 7.77 10.91 2.42z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g397">
+    <path
+       fill="none"
+       d="M360-140a54.1 54.1 0 0 0-7.68 76.36"
+       id="path393" />
+    <path
+       fill-rule="evenodd"
+       d="M360-140c.63.78.48 2.18-.3 2.81-.77.63-2.17.49-2.8-.29a2.15 2.15 0 0 1 .29-2.81 2.15 2.15 0 0 1 2.81.29zM354.61-66.82l-6.3 7.77 10.91 2.42z"
+       id="path395" />
   </g>
-  <g>
-    <path fill="#fffccc" stroke="#000" stroke-width="2" d="M-140-600h415.3v48H-140z"/>
-    <text x="67.65" y="-581" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Release&gt;&gt;</text>
-    <text x="67.65" y="-561" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">edf82f21…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M-140-552h415.3v104H-140z"/>
-    <text x="-137" y="-535" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-    <text x="-137" y="-515" font-family="monospace" font-size="16" font-weight="400">+name = &quot;1.0&quot;</text>
-    <text x="-137" y="-495" font-family="monospace" font-size="16" font-weight="400">+message = &quot;1.0 release&quot;</text>
-    <text x="-137" y="-475" font-family="monospace" font-size="16" font-weight="400">+timestamp = Thu Feb 8 15:51:00 2018 +0100</text>
-    <text x="-137" y="-455" font-family="monospace" font-size="16" font-weight="400">+target</text>
+  <g
+     id="g417">
+    <path
+       fill="#fffccc"
+       stroke="#000"
+       stroke-width="2"
+       d="M-140-600h415.3v48H-140z"
+       id="path399"
+       style="fill:#fff9a3;fill-opacity:1" />
+    <text
+       x="67.65"
+       y="-581"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text401">&lt;&lt;Release&gt;&gt;</text>
+    <text
+       x="67.65"
+       y="-561"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text403">edf82f21…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M-140-552h415.3v104H-140z"
+       id="path405" />
+    <text
+       x="-137"
+       y="-535"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text407">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+    <text
+       x="-137"
+       y="-515"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text409">+name = &quot;1.0&quot;</text>
+    <text
+       x="-137"
+       y="-495"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text411">+message = &quot;1.0 release&quot;</text>
+    <text
+       x="-137"
+       y="-475"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text413">+timestamp = Thu Feb 8 15:51:00 2018 +0100</text>
+    <text
+       x="-137"
+       y="-455"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text415">+target</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M275.3-460a925.67 925.67 0 0 1 79.26-186.44"/>
-    <path fill-rule="evenodd" d="M275.3-460a2.15 2.15 0 0 1-1.34-2.5 2.15 2.15 0 0 1 2.5-1.33 2.15 2.15 0 0 1 1.33 2.5 2.15 2.15 0 0 1-2.49 1.33zM350.17-648.97l8.66 5 .67-11.16z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g423">
+    <path
+       fill="none"
+       d="M275.3-460a925.67 925.67 0 0 1 79.26-186.44"
+       id="path419" />
+    <path
+       fill-rule="evenodd"
+       d="M275.3-460a2.15 2.15 0 0 1-1.34-2.5 2.15 2.15 0 0 1 2.5-1.33 2.15 2.15 0 0 1 1.33 2.5 2.15 2.15 0 0 1-2.49 1.33zM350.17-648.97l8.66 5 .67-11.16z"
+       id="path421" />
   </g>
-  <g>
-    <path fill="#f5f5f5" stroke="#000" stroke-width="2" d="M-200-780H3v48h-203z"/>
-    <text x="-98.5" y="-761" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Snapshot&gt;&gt;</text>
-    <text x="-98.5" y="-741" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">0861db5e…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M-200-732H3v84h-203z"/>
-    <text x="-197" y="-715" font-family="monospace" font-size="16" font-weight="400">+branches</text>
-    <text xml:space="preserve" x="-197" y="-695" font-family="monospace" font-size="16" font-weight="400">   HEAD</text>
-    <text xml:space="preserve" x="-197" y="-675" font-family="monospace" font-size="16" font-weight="400">   refs/heads/master</text>
-    <text xml:space="preserve" x="-197" y="-655" font-family="monospace" font-size="16" font-weight="400">   refs/tags/1.0</text>
+  <g
+     id="g441">
+    <path
+       fill="#f5f5f5"
+       stroke="#000"
+       stroke-width="2"
+       d="M-200-780H3v48h-203z"
+       id="path425"
+       style="fill:#e3e3e3;fill-opacity:1" />
+    <text
+       x="-98.5"
+       y="-761"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text427">&lt;&lt;Snapshot&gt;&gt;</text>
+    <text
+       x="-98.5"
+       y="-741"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text429">0861db5e…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M-200-732H3v84h-203z"
+       id="path431" />
+    <text
+       x="-197"
+       y="-715"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text433">+branches</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-695"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text435">   HEAD</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-675"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text437">   refs/heads/master</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-655"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text439">   refs/tags/1.0</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-700a531.25 531.25 0 0 1 346.82 15.83"/>
-    <path fill-rule="evenodd" d="M3-700c-.28-.96.4-2.2 1.35-2.48.96-.29 2.2.39 2.49 1.35.28.96-.4 2.2-1.36 2.48-.95.28-2.2-.4-2.48-1.35ZM351.81-688.88l-3.89 9.21 11.16-.72z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g447">
+    <path
+       fill="none"
+       d="M3-700a531.25 531.25 0 0 1 346.82 15.83"
+       id="path443" />
+    <path
+       fill-rule="evenodd"
+       d="M3-700c-.28-.96.4-2.2 1.35-2.48.96-.29 2.2.39 2.49 1.35.28.96-.4 2.2-1.36 2.48-.95.28-2.2-.4-2.48-1.35ZM351.81-688.88l-3.89 9.21 11.16-.72z"
+       id="path445" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-680a754.03 754.03 0 0 1 346.49 20.76"/>
-    <path fill-rule="evenodd" d="M3-680a2.15 2.15 0 0 1 1.63-2.31c.98-.18 2.14.64 2.31 1.62.17.99-.64 2.15-1.63 2.32A2.15 2.15 0 0 1 3-680ZM351.02-664.09l-3.02 9.54 11.05-1.75z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g453">
+    <path
+       fill="none"
+       d="M3-680a754.03 754.03 0 0 1 346.49 20.76"
+       id="path449" />
+    <path
+       fill-rule="evenodd"
+       d="M3-680a2.15 2.15 0 0 1 1.63-2.31c.98-.18 2.14.64 2.31 1.62.17.99-.64 2.15-1.63 2.32A2.15 2.15 0 0 1 3-680ZM351.02-664.09l-3.02 9.54 11.05-1.75z"
+       id="path451" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-660a59.45 59.45 0 0 1 63.8 49.17"/>
-    <path fill-rule="evenodd" d="M3-660c-.09-1 .82-2.08 1.82-2.17 1-.09 2.08.82 2.16 1.82.1 1-.82 2.08-1.81 2.17-1 .08-2.08-.82-2.17-1.82ZM72.79-610.93l-10-.14L67.66-601z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g459">
+    <path
+       fill="none"
+       d="M3-660a59.45 59.45 0 0 1 63.8 49.17"
+       id="path455" />
+    <path
+       fill-rule="evenodd"
+       d="M3-660c-.09-1 .82-2.08 1.82-2.17 1-.09 2.08.82 2.16 1.82.1 1-.82 2.08-1.81 2.17-1 .08-2.08-.82-2.17-1.82ZM72.79-610.93l-10-.14L67.66-601z"
+       id="path457" />
   </g>
-  <g>
-    <path fill="#e6f2f2" stroke="#000" stroke-width="2" d="M420-980h415.3v48H420z"/>
-    <text x="627.65" y="-961" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-    <text x="627.65" y="-941" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">3d515253…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M420-932h415.3v104H420z"/>
-    <text x="423" y="-915" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-    <text x="423" y="-895" font-family="monospace" font-size="16" font-weight="400">+message = &quot;README: add homepage link&quot;</text>
-    <text x="423" y="-875" font-family="monospace" font-size="16" font-weight="400">+timestamp = Fri Feb 9 15:44:30 2018 +0100</text>
-    <text x="423" y="-855" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-    <text x="423" y="-835" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list</text>
+  <g
+     id="g479">
+    <path
+       fill="#e6f2f2"
+       stroke="#000"
+       stroke-width="2"
+       d="M420-980h415.3v48H420z"
+       id="path461"
+       style="fill:#c3e3e3;fill-opacity:1" />
+    <text
+       x="627.65"
+       y="-961"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text463">&lt;&lt;Revision&gt;&gt;</text>
+    <text
+       x="627.65"
+       y="-941"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text465">3d515253…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M420-932h415.3v104H420z"
+       id="path467" />
+    <text
+       x="423"
+       y="-915"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text469">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+    <text
+       x="423"
+       y="-895"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text471">+message = &quot;README: add homepage link&quot;</text>
+    <text
+       x="423"
+       y="-875"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text473">+timestamp = Fri Feb 9 15:44:30 2018 +0100</text>
+    <text
+       x="423"
+       y="-855"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text475">+directory: Directory</text>
+    <text
+       x="423"
+       y="-835"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text477">+parents: Revision list</text>
   </g>
-  <g>
-    <path fill="#e6f2f2" stroke="#000" stroke-width="2" d="M360-1160h415.3v48H360z"/>
-    <text x="567.65" y="-1141" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Revision&gt;&gt;</text>
-    <text x="567.65" y="-1121" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">1a99a56b…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M360-1112h415.3v104H360z"/>
-    <text x="363" y="-1095" font-family="monospace" font-size="16" font-weight="400">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
-    <text x="363" y="-1075" font-family="monospace" font-size="16" font-weight="400">+message = &quot;Merge branch &apos;doc&apos;&quot;</text>
-    <text x="363" y="-1055" font-family="monospace" font-size="16" font-weight="400">+timestamp = Fri Feb 9 15:44:45 2018 +0100</text>
-    <text x="363" y="-1035" font-family="monospace" font-size="16" font-weight="400">+directory: Directory</text>
-    <text x="363" y="-1015" font-family="monospace" font-size="16" font-weight="400">+parents: Revision list</text>
+  <g
+     id="g499">
+    <path
+       fill="#e6f2f2"
+       stroke="#000"
+       stroke-width="2"
+       d="M360-1160h415.3v48H360z"
+       id="path481"
+       style="fill:#c3e3e3;fill-opacity:1" />
+    <text
+       x="567.65"
+       y="-1141"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text483">&lt;&lt;Revision&gt;&gt;</text>
+    <text
+       x="567.65"
+       y="-1121"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text485">1a99a56b…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M360-1112h415.3v104H360z"
+       id="path487" />
+    <text
+       x="363"
+       y="-1095"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text489">+author = &quot;Stefano Zacchiroli &lt;zack@…&gt;&quot;</text>
+    <text
+       x="363"
+       y="-1075"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text491">+message = &quot;Merge branch 'doc'&quot;</text>
+    <text
+       x="363"
+       y="-1055"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text493">+timestamp = Fri Feb 9 15:44:45 2018 +0100</text>
+    <text
+       x="363"
+       y="-1035"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text495">+directory: Directory</text>
+    <text
+       x="363"
+       y="-1015"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text497">+parents: Revision list</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M360-1020a381.25 381.25 0 0 0-4.76 330.09"/>
-    <path fill-rule="evenodd" d="M360-1020c.9.45 1.34 1.79.9 2.68-.45.9-1.79 1.35-2.68.9-.9-.45-1.35-1.79-.9-2.68.44-.9 1.78-1.35 2.68-.9zM359.57-692.08l-8.95 4.46 8.93 6.73z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g505">
+    <path
+       fill="none"
+       d="M360-1020a381.25 381.25 0 0 0-4.76 330.09"
+       id="path501" />
+    <path
+       fill-rule="evenodd"
+       d="M360-1020c.9.45 1.34 1.79.9 2.68-.45.9-1.79 1.35-2.68.9-.9-.45-1.35-1.79-.9-2.68.44-.9 1.78-1.35 2.68-.9zM359.57-692.08l-8.95 4.46 8.93 6.73z"
+       id="path503" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M360-1020c-60 80 20 56 49.79 44.09"/>
-    <path fill-rule="evenodd" d="M360-1020c.8.6 1 2 .4 2.8-.6.8-2 1-2.8.4-.8-.6-1-2-.4-2.8.6-.8 2-1 2.8-.4zM407.93-980.56l3.71 9.29 7.43-8.36z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g511">
+    <path
+       fill="none"
+       d="M360-1020c-60 80 20 56 49.79 44.09"
+       id="path507" />
+    <path
+       fill-rule="evenodd"
+       d="M360-1020c.8.6 1 2 .4 2.8-.6.8-2 1-2.8.4-.8-.6-1-2-.4-2.8.6-.8 2-1 2.8-.4zM407.93-980.56l3.71 9.29 7.43-8.36z"
+       id="path509" />
   </g>
-  <g>
-    <path fill="#f5f5f5" stroke="#000" stroke-width="2" d="M-200-980H3v48h-203z"/>
-    <text x="-98.5" y="-961" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Snapshot&gt;&gt;</text>
-    <text x="-98.5" y="-941" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">510aa88b…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M-200-932H3v104h-203z"/>
-    <text x="-197" y="-915" font-family="monospace" font-size="16" font-weight="400">+branches</text>
-    <text xml:space="preserve" x="-197" y="-895" font-family="monospace" font-size="16" font-weight="400">   HEAD</text>
-    <text xml:space="preserve" x="-197" y="-875" font-family="monospace" font-size="16" font-weight="400">   refs/heads/master</text>
-    <text xml:space="preserve" x="-197" y="-855" font-family="monospace" font-size="16" font-weight="400">   refs/heads/doc</text>
-    <text xml:space="preserve" x="-197" y="-835" font-family="monospace" font-size="16" font-weight="400">   refs/tags/1.0</text>
+  <g
+     id="g531">
+    <path
+       fill="#f5f5f5"
+       stroke="#000"
+       stroke-width="2"
+       d="M-200-980H3v48h-203z"
+       id="path513"
+       style="fill:#e3e3e3;fill-opacity:1" />
+    <text
+       x="-98.5"
+       y="-961"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text515">&lt;&lt;Snapshot&gt;&gt;</text>
+    <text
+       x="-98.5"
+       y="-941"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text517">510aa88b…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M-200-932H3v104h-203z"
+       id="path519" />
+    <text
+       x="-197"
+       y="-915"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text521">+branches</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-895"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text523">   HEAD</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-875"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text525">   refs/heads/master</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-855"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text527">   refs/heads/doc</text>
+    <text
+       xml:space="preserve"
+       x="-197"
+       y="-835"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text529">   refs/tags/1.0</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-840a235.6 235.6 0 0 1 67.57 229.4"/>
-    <path fill-rule="evenodd" d="M3-840c.68-.73 2.1-.78 2.83-.1.73.69.77 2.1.1 2.83-.7.73-2.1.78-2.84.1A2.15 2.15 0 0 1 3-840ZM75.61-609.09l-9.58-2.89 1.91 11.02z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g537">
+    <path
+       fill="none"
+       d="M3-840a235.6 235.6 0 0 1 67.57 229.4"
+       id="path533" />
+    <path
+       fill-rule="evenodd"
+       d="M3-840c.68-.73 2.1-.78 2.83-.1.73.69.77 2.1.1 2.83-.7.73-2.1.78-2.84.1A2.15 2.15 0 0 1 3-840ZM75.61-609.09l-9.58-2.89 1.91 11.02z"
+       id="path535" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-900a1229.06 1229.06 0 0 0 349.38-252.07"/>
-    <path fill-rule="evenodd" d="M3-900c-.43-.9.03-2.24.93-2.67.9-.43 2.24.03 2.67.93.44.9-.03 2.24-.93 2.67-.9.44-2.24-.03-2.67-.93ZM348.8-1155.48l7.24 6.9 3.27-10.7z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g543">
+    <path
+       fill="none"
+       d="M3-900a1229.06 1229.06 0 0 0 349.38-252.07"
+       id="path539" />
+    <path
+       fill-rule="evenodd"
+       d="M3-900c-.43-.9.03-2.24.93-2.67.9-.43 2.24.03 2.67.93.44.9-.03 2.24-.93 2.67-.9.44-2.24-.03-2.67-.93ZM348.8-1155.48l7.24 6.9 3.27-10.7z"
+       id="path541" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-880a1216.16 1216.16 0 0 0 349.33-248.12"/>
-    <path fill-rule="evenodd" d="M3-880c-.43-.9.05-2.23.96-2.66.9-.43 2.23.05 2.66.95.42.9-.05 2.24-.96 2.67-.9.42-2.23-.06-2.66-.96ZM348.77-1131.55l7.19 6.94 3.35-10.67z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g549">
+    <path
+       fill="none"
+       d="M3-880a1216.16 1216.16 0 0 0 349.33-248.12"
+       id="path545" />
+    <path
+       fill-rule="evenodd"
+       d="M3-880c-.43-.9.05-2.23.96-2.66.9-.43 2.23.05 2.66.95.42.9-.05 2.24-.96 2.67-.9.42-2.23-.06-2.66-.96ZM348.77-1131.55l7.19 6.94 3.35-10.67z"
+       id="path547" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M3-860a1154.41 1154.41 0 0 0 406.9-91.64"/>
-    <path fill-rule="evenodd" d="M3-860c-.04-1 .92-2.04 1.92-2.08 1-.04 2.04.92 2.08 1.92.04 1-.92 2.04-1.92 2.08-1 .04-2.04-.92-2.08-1.92ZM407.92-956.17l4.01 9.16 7.15-8.59z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g555">
+    <path
+       fill="none"
+       d="M3-860a1154.41 1154.41 0 0 0 406.9-91.64"
+       id="path551" />
+    <path
+       fill-rule="evenodd"
+       d="M3-860c-.04-1 .92-2.04 1.92-2.08 1-.04 2.04.92 2.08 1.92.04 1-.92 2.04-1.92 2.08-1 .04-2.04-.92-2.08-1.92ZM407.92-956.17l4.01 9.16 7.15-8.59z"
+       id="path553" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" stroke-dasharray="6" d="M220-1280c-40 40-100 340-210.5 491.12"/>
-    <path fill-rule="evenodd" d="M220-1280c.7.71.7 2.12 0 2.83s-2.12.71-2.83 0c-.7-.71-.7-2.12 0-2.83s2.12-.71 2.83 0zM13.53-785.93l-8.07-5.9-1.87 11.02z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g561">
+    <path
+       fill="none"
+       stroke-dasharray="6"
+       d="M220-1280c-40 40-100 340-210.5 491.12"
+       id="path557" />
+    <path
+       fill-rule="evenodd"
+       d="M220-1280c.7.71.7 2.12 0 2.83s-2.12.71-2.83 0c-.7-.71-.7-2.12 0-2.83s2.12-.71 2.83 0zM13.53-785.93l-8.07-5.9-1.87 11.02z"
+       id="path559" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" stroke-dasharray="6" d="M220-1260c-40 80-60 320-209.86 495.63"/>
-    <path fill-rule="evenodd" d="M220-1260c.9.45 1.34 1.79.9 2.68-.45.9-1.8 1.34-2.69.9-.9-.45-1.34-1.79-.9-2.69.45-.89 1.8-1.34 2.69-.89zM13.94-761.12l-7.6-6.49-2.69 10.85z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g567">
+    <path
+       fill="none"
+       stroke-dasharray="6"
+       d="M220-1260c-40 80-60 320-209.86 495.63"
+       id="path563" />
+    <path
+       fill-rule="evenodd"
+       d="M220-1260c.9.45 1.34 1.79.9 2.68-.45.9-1.8 1.34-2.69.9-.9-.45-1.34-1.79-.9-2.69.45-.89 1.8-1.34 2.69-.89zM13.94-761.12l-7.6-6.49-2.69 10.85z"
+       id="path565" />
   </g>
-  <g>
-    <path fill="#dadbe7" stroke="#000" stroke-width="2" d="M900-1000h154.75v48H900z"/>
-    <text x="977.38" y="-981" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-    <text x="977.38" y="-961" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">ded70c63…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M900-952h154.75v124H900z"/>
-    <text x="903" y="-935" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-    <text xml:space="preserve" x="903" y="-915" font-family="monospace" font-size="16" font-weight="400">   &quot;.gitignore&quot;</text>
-    <text xml:space="preserve" x="903" y="-895" font-family="monospace" font-size="16" font-weight="400">   &quot;COPYING&quot;</text>
-    <text xml:space="preserve" x="903" y="-875" font-family="monospace" font-size="16" font-weight="400">   &quot;Makefile&quot;</text>
-    <text xml:space="preserve" x="903" y="-855" font-family="monospace" font-size="16" font-weight="400">   &quot;README.md&quot;</text>
-    <text xml:space="preserve" x="903" y="-835" font-family="monospace" font-size="16" font-weight="400">   &quot;hello.c&quot;</text>
+  <g
+     id="g589">
+    <path
+       fill="#dadbe7"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-1000h154.75v48H900z"
+       id="path569"
+       style="fill:#cfd2f2;fill-opacity:1" />
+    <text
+       x="977.38"
+       y="-981"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text571">&lt;&lt;Directory&gt;&gt;</text>
+    <text
+       x="977.38"
+       y="-961"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text573">ded70c63…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-952h154.75v124H900z"
+       id="path575" />
+    <text
+       x="903"
+       y="-935"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text577">+entries</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-915"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text579">   &quot;.gitignore&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-895"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text581">   &quot;COPYING&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-875"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text583">   &quot;Makefile&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-855"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text585">   &quot;README.md&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-835"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text587">   &quot;hello.c&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M835.3-860a163.66 163.66 0 0 1 56.15-109.11"/>
-    <path fill-rule="evenodd" d="M835.3-860c-1-.1-1.9-1.18-1.81-2.17.1-1 1.18-1.9 2.17-1.81 1 .09 1.9 1.17 1.81 2.17-.09 1-1.17 1.9-2.17 1.81zM888.2-973.39l6.01 7.99 4.99-10z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g595">
+    <path
+       fill="none"
+       d="M835.3-860a163.66 163.66 0 0 1 56.15-109.11"
+       id="path591" />
+    <path
+       fill-rule="evenodd"
+       d="M835.3-860c-1-.1-1.9-1.18-1.81-2.17.1-1 1.18-1.9 2.17-1.81 1 .09 1.9 1.17 1.81 2.17-.09 1-1.17 1.9-2.17 1.81zM888.2-973.39l6.01 7.99 4.99-10z"
+       id="path593" />
   </g>
-  <text x="1054.75" y="-923.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1054.75" y="-923.75">...</tspan></text>
-  <text x="1054.75" y="-903.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1054.75" y="-903.75">...</tspan></text>
-  <text x="1054.75" y="-883.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1054.75" y="-883.75">...</tspan></text>
-  <text x="1054.75" y="-843.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1054.75" y="-843.75">...</tspan></text>
-  <g>
-    <path fill="#c6c0c1" stroke="#000" stroke-width="2" d="M1200-900h251.25v48H1200z"/>
-    <text x="1325.62" y="-881" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Content&gt;&gt;</text>
-    <text x="1325.62" y="-861" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">4ec6b1e9…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M1200-852h251.25v24H1200z"/>
-    <text x="1203" y="-835" font-family="monospace" font-size="16" font-weight="400">+data = &quot;…For more info…&quot;</text>
+  <text
+     x="1054.75"
+     y="-923.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text599"><tspan
+       x="1054.75"
+       y="-923.75"
+       id="tspan597">...</tspan></text>
+  <text
+     x="1054.75"
+     y="-903.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text603"><tspan
+       x="1054.75"
+       y="-903.75"
+       id="tspan601">...</tspan></text>
+  <text
+     x="1054.75"
+     y="-883.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text607"><tspan
+       x="1054.75"
+       y="-883.75"
+       id="tspan605">...</tspan></text>
+  <text
+     x="1054.75"
+     y="-843.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text611"><tspan
+       x="1054.75"
+       y="-843.75"
+       id="tspan609">...</tspan></text>
+  <g
+     id="g623">
+    <path
+       fill="#c6c0c1"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-900h251.25v48H1200z"
+       id="path613"
+       style="fill:#bfa6aa;fill-opacity:1" />
+    <text
+       x="1325.62"
+       y="-881"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text615">&lt;&lt;Content&gt;&gt;</text>
+    <text
+       x="1325.62"
+       y="-861"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text617">4ec6b1e9…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M1200-852h251.25v24H1200z"
+       id="path619" />
+    <text
+       x="1203"
+       y="-835"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text621">+data = &quot;…For more info…&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1054.75-860a377.18 377.18 0 0 0 134.71-12.86"/>
-    <path fill-rule="evenodd" d="M1054.75-860c.09-1 1.17-1.9 2.16-1.82 1 .08 1.91 1.16 1.83 2.16-.09 1-1.17 1.9-2.17 1.82-.99-.08-1.91-1.16-1.82-2.16zM1188.01-877.47l3 9.54 8.04-7.77z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g629">
+    <path
+       fill="none"
+       d="M1054.75-860a377.18 377.18 0 0 0 134.71-12.86"
+       id="path625" />
+    <path
+       fill-rule="evenodd"
+       d="M1054.75-860c.09-1 1.17-1.9 2.16-1.82 1 .08 1.91 1.16 1.83 2.16-.09 1-1.17 1.9-2.17 1.82-.99-.08-1.91-1.16-1.82-2.16zM1188.01-877.47l3 9.54 8.04-7.77z"
+       id="path627" />
   </g>
-  <g>
-    <path fill="#dadbe7" stroke="#000" stroke-width="2" d="M900-1180h145.1v48H900z"/>
-    <text x="972.55" y="-1161" font-family="monospace" font-size="16" font-weight="400" text-anchor="middle">&lt;&lt;Directory&gt;&gt;</text>
-    <text x="972.55" y="-1141" font-family="sans-serif" font-size="16" font-weight="700" text-anchor="middle">ded70c63…</text>
-    <path fill="#fff" stroke="#000" stroke-width="2" d="M900-1132h145.1v104H900z"/>
-    <text x="903" y="-1115" font-family="monospace" font-size="16" font-weight="400">+entries</text>
-    <text xml:space="preserve" x="903" y="-1095" font-family="monospace" font-size="16" font-weight="400">   &quot;COPYING&quot;</text>
-    <text xml:space="preserve" x="903" y="-1075" font-family="monospace" font-size="16" font-weight="400">   &quot;Makefile&quot;</text>
-    <text xml:space="preserve" x="903" y="-1055" font-family="monospace" font-size="16" font-weight="400">   &quot;README.md&quot;</text>
-    <text xml:space="preserve" x="903" y="-1035" font-family="monospace" font-size="16" font-weight="400">   &quot;src&quot;</text>
+  <g
+     id="g649">
+    <path
+       fill="#dadbe7"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-1180h145.1v48H900z"
+       id="path631"
+       style="fill:#cfd2f2;fill-opacity:1" />
+    <text
+       x="972.55"
+       y="-1161"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       text-anchor="middle"
+       id="text633">&lt;&lt;Directory&gt;&gt;</text>
+    <text
+       x="972.55"
+       y="-1141"
+       font-family="sans-serif"
+       font-size="16"
+       font-weight="700"
+       text-anchor="middle"
+       id="text635">ded70c63…</text>
+    <path
+       fill="#fff"
+       stroke="#000"
+       stroke-width="2"
+       d="M900-1132h145.1v104H900z"
+       id="path637" />
+    <text
+       x="903"
+       y="-1115"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text639">+entries</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-1095"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text641">   &quot;COPYING&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-1075"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text643">   &quot;Makefile&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-1055"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text645">   &quot;README.md&quot;</text>
+    <text
+       xml:space="preserve"
+       x="903"
+       y="-1035"
+       font-family="monospace"
+       font-size="16"
+       font-weight="400"
+       id="text647">   &quot;src&quot;</text>
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-1060a456.25 456.25 0 0 1 149.3 150.54"/>
-    <path fill-rule="evenodd" d="M1045.1-1060a2.16 2.16 0 0 1 2.75-.65c.85.53 1.18 1.91.65 2.76a2.14 2.14 0 0 1-2.75.64c-.85-.52-1.18-1.9-.65-2.75zM1198.84-912.03l-8.66 5 9.32 6.16z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g655">
+    <path
+       fill="none"
+       d="M1045.1-1060a456.25 456.25 0 0 1 149.3 150.54"
+       id="path651" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-1060a2.16 2.16 0 0 1 2.75-.65c.85.53 1.18 1.91.65 2.76a2.14 2.14 0 0 1-2.75.64c-.85-.52-1.18-1.9-.65-2.75zM1198.84-912.03l-8.66 5 9.32 6.16z"
+       id="path653" />
   </g>
-  <text x="1045.1" y="-1103.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1045.1" y="-1103.75">...</tspan></text>
-  <text x="1045.1" y="-1083.75" font-family="sans-serif" font-size="15.8" font-weight="700"><tspan x="1045.1" y="-1083.75">...</tspan></text>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M1045.1-1040a1071.81 1071.81 0 0 1 19.09 849.83"/>
-    <path fill-rule="evenodd" d="M1045.1-1040c.91-.42 2.23.07 2.65.98.42.91-.07 2.24-.98 2.66-.91.41-2.24-.08-2.65-.99-.42-.91.07-2.23.98-2.65zM1068.85-188.22l-9.23-3.86.77 11.16z"/>
+  <text
+     x="1045.1"
+     y="-1103.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text659"><tspan
+       x="1045.1"
+       y="-1103.75"
+       id="tspan657">...</tspan></text>
+  <text
+     x="1045.1"
+     y="-1083.75"
+     font-family="sans-serif"
+     font-size="15.8"
+     font-weight="700"
+     id="text663"><tspan
+       x="1045.1"
+       y="-1083.75"
+       id="tspan661">...</tspan></text>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g669">
+    <path
+       fill="none"
+       d="M1045.1-1040a1071.81 1071.81 0 0 1 19.09 849.83"
+       id="path665" />
+    <path
+       fill-rule="evenodd"
+       d="M1045.1-1040c.91-.42 2.23.07 2.65.98.42.91-.07 2.24-.98 2.66-.91.41-2.24-.08-2.65-.99-.42-.91.07-2.23.98-2.65zM1068.85-188.22l-9.23-3.86.77 11.16z"
+       id="path667" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" d="M420-840c-160 40-120 340-68.87 377.5"/>
-    <path fill-rule="evenodd" d="M420-840c.24.97-.48 2.18-1.46 2.42a2.15 2.15 0 0 1-2.42-1.45 2.15 2.15 0 0 1 1.46-2.43c.97-.24 2.18.49 2.42 1.46zM354.09-466.54l-5.92 8.07 11.02 1.88z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g675">
+    <path
+       fill="none"
+       d="M420-840c-160 40-120 340-68.87 377.5"
+       id="path671" />
+    <path
+       fill-rule="evenodd"
+       d="M420-840c.24.97-.48 2.18-1.46 2.42a2.15 2.15 0 0 1-2.42-1.45 2.15 2.15 0 0 1 1.46-2.43c.97-.24 2.18.49 2.42 1.46zM354.09-466.54l-5.92 8.07 11.02 1.88z"
+       id="path673" />
   </g>
-  <g stroke="#000" stroke-width="2">
-    <path fill="none" stroke-dasharray="6" d="M220-1240A277 277 0 0 1 13.69-958.58"/>
-    <path fill-rule="evenodd" d="M220-1240c1-.05 2.05.9 2.1 1.9.04 1-.9 2.05-1.9 2.1-1 .04-2.05-.91-2.1-1.9-.05-1 .9-2.05 1.9-2.1zM14.82-953.49l-2.16-9.76-8.68 7.03z"/>
+  <g
+     stroke="#000"
+     stroke-width="2"
+     id="g681">
+    <path
+       fill="none"
+       stroke-dasharray="6"
+       d="M220-1240A277 277 0 0 1 13.69-958.58"
+       id="path677" />
+    <path
+       fill-rule="evenodd"
+       d="M220-1240c1-.05 2.05.9 2.1 1.9.04 1-.9 2.05-1.9 2.1-1 .04-2.05-.91-2.1-1.9-.05-1 .9-2.05 1.9-2.1zM14.82-953.49l-2.16-9.76-8.68 7.03z"
+       id="path679" />
   </g>
 </svg>

@@ -10,6 +10,7 @@
 
 \input{header/sankey}
 
+\input{tikz/swhcolors}
 \input{tikz/document}
 \input{tikz/swh.tikzstyles}
 
@@ -32,18 +33,18 @@
 
 % object fill styles
 \tikzstyle{originfill}=[fill=white]
-\tikzstyle{revisionfill}=[fill={rgb,255: red,230; green,242; blue,242}]
-\tikzstyle{directoryfill}=[fill={rgb,255: red,218; green,219; blue,231}]
-\tikzstyle{contentfill}=[fill={rgb,255: red,198; green,192; blue,193}]
-\tikzstyle{releasefill}=[fill={rgb,255: red,255; green,252; blue,204}]
-\tikzstyle{snapshotfill}=[fill={rgb,255: red,245; green,245; blue,245}]
+\tikzstyle{revisionfill}=[fill=rev]
+\tikzstyle{directoryfill}=[fill=dir]
+\tikzstyle{contentfill}=[fill=cnt]
+\tikzstyle{releasefill}=[fill=rel]
+\tikzstyle{snapshotfill}=[fill=snp]
 
 \tikzstyle{originfillhalf}=[fill=white]
-\tikzstyle{revisionfillhalf}=[rectangle split part fill={{rgb,255: red,230; green,242; blue,242}, white}]
-\tikzstyle{directoryfillhalf}=[rectangle split part fill={{rgb,255: red,218; green,219; blue,231}, white}]
-\tikzstyle{contentfillhalf}=[rectangle split part fill={{rgb,255: red,198; green,192; blue,193}, white}]
-\tikzstyle{releasefillhalf}=[rectangle split part fill={{rgb,255: red,255; green,252; blue,204}, white}]
-\tikzstyle{snapshotfillhalf}=[rectangle split part fill={{rgb,255: red,245; green,245; blue,245}, white}]
+\tikzstyle{revisionfillhalf}=[rectangle split part fill={rev, white}]
+\tikzstyle{directoryfillhalf}=[rectangle split part fill={dir, white}]
+\tikzstyle{contentfillhalf}=[rectangle split part fill={cnt, white}]
+\tikzstyle{releasefillhalf}=[rectangle split part fill={rel, white}]
+\tikzstyle{snapshotfillhalf}=[rectangle split part fill={snp, white}]
 
 % For UML-style diagrams
 % Usage: \umlobj[fill=white]{ObjectType}{ObjectName}{Content}

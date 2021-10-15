@@ -66,6 +66,189 @@ de graphe, compression de graphe
 
 \clearpage
 
+\begin{otherlanguage}{french}
+\chapter*{Résumé détaillé}
+
+Software Heritage est une initiative ambitieuse de préservation numérique qui
+amasse des quantités sans précédent de code source de logiciels d'origines
+diverses, en gardant la trace de toutes leurs évolutions telles que capturées
+par les systèmes de contrôle de version (VCS). L'archive Software Heritage est
+devenue le corpus le plus important et le plus complet d'artefacts logiciels
+publics, englobant les principaux hébergeurs de code source (par exemple,
+GitHub, GitLab, Bitbucket, Google Code), et supportant une variété de VCS (par
+exemple, Git, Mercurial, SVN) et de gestionnaires de paquets (Debian, NixOS,
+PyPI, NPM, \ldots).
+
+Ces données sont stockées dans un format canonique et dédupliquées à travers
+toute l'archive au niveau des artefacts logiciels, ce qui construit un immense
+graphe partagé du développement logiciel, où les nœuds sont les fichiers
+sources, les répertoires et les commits, et les arêtes contiennent les noms des
+fichiers et les liens entre les commits et les répertoires.
+
+La mise à disposition de cette base de connaissances universelle sur le
+développement de logiciels offre des opportunités uniques pour ce que l'on
+appelle communément la recherche sur le « Big Code » : interroger, analyser et
+extraire des connaissances à partir du contenu des données et de la structure
+du graphe de l'historique du développement logiciel. Rendre ces données
+accessibles aux chercheurs pourrait débloquer de nouvelles capacités dans le
+domaine de la fouille de logiciels. La possibilité d'effectuer des expériences
+sur l'ensemble du graphe de développement des logiciels publics pourrait nous
+aider à mieux comprendre l'évolution des logiciels au niveau macro et les
+structures sociales sous-jacentes des projets logiciels. Cela réduirait
+également les barrières à l'entrée des études empiriques en diminuant les coûts
+de la collecte de données et en éliminant le besoin de récupérer et extraire
+manuellement les données, et faciliterait la reproduction des études à grande
+échelle en utilisant des échantillons de données complets.
+
+L'exploitation d'une telle collection de codes sources sans précédent pose des
+défis importants en termes de disponibilité et de représentation des données,
+d'architecture système et de passage à l'échelle. Le graphe de l'archive
+Software Heritage contient plus de 20 milliards de nœuds et 200 milliards
+d'arêtes et croît de manière exponentielle au fil du temps. À cette échelle, il
+est généralement difficile d'utiliser des outils standard pour l'analyse des
+données, et de nouvelles techniques doivent être élaborées sur la base de
+l'état de l'art du traitement des grands graphes.
+
+\subsection*{Mise à disposition des artefacts logiciels à différentes échelles}
+
+Pour mieux comprendre les types de données qui doivent être mises à
+disposition, nous classons systématiquement les exigences fonctionnelles des
+chercheurs dans les études d'extraction de logiciels. Nous classons les données
+disponibles dans l'archive Software Heritage, y compris le contenu des fichiers
+de code source, l'historique de développement et d'autres types de métadonnées,
+mais aussi les données qui peuvent être dérivées du graphe : les différences de
+commit, les graphes de dépendance, les graphes de communauté, etc.
+Pour cela, nous faisons une revue de littérature de 54 articles scientifiques
+sur la fouille de logiciels, et agrégeons leurs besoins en analysant les types
+de données utilisées par chaques étude.
+
+Notre première étape pour mettre à disposition une plateforme généraliste
+d'analyse de données consiste à rendre les données disponibles dans un format
+rudimentaire mais exploitable. Cela peut susciter un intérêt pour l'utilisation
+de l'archive à des fins de recherche et nous permettre de mieux comprendre les
+défis liés à son exploitation, en identifiant les principaux points sensibles
+des chercheurs et les limites des différents formats que nous mettons à leur
+disposition.
+
+Nous fournissons quelques utilitaires pour récupérer les données à un niveau
+micro : le Vault, un outil simple pour assembler la fermeture transitive d'un
+artefact logiciel spécifique dans le graphe et le représenter dans un format
+ouvert, et SwhFS, un système de fichiers virtuel pour exécuter des programmes
+d'analyse ordinaires sur le code stocké dans l'archive sans avoir à le
+télécharger au préalable.
+
+Pour permettre des macro-analyses sur l'ensemble du graphe, nous extrayons de
+l'archive un graphe de propriétés contenant toutes les métadonnées de
+développement du logiciel au niveau du système de fichiers, de son historique
+de développement et de l'endroit où il est hébergé. Nous représentons ce graphe
+dans deux formats relationnels différents : un format en colonnes pour un
+traitement à grande échelle sur des plateformes de cloud, et un format adapté à
+l'importation dans des bases de données locales pour une analyse en interne.
+Nous discutons de diverses considérations liées à ce jeu de données : les
+différents formats, les performances, la dénormalisation des données et la
+confidentialité des données. La mise en place de ces jeux de données sur des
+plateformes cloud nous permet de comprendre les cas d'utilisation pour lesquels
+ce format relationnel est adapté, ainsi que ses limites, notamment la
+difficulté d'exécuter des expériences qui nécessitent des algorithmes de
+parcours de graphe (par exemple, descendre une chaîne de commits).
+
+\subsection*{Exploitation du graphe de développement logiciel en tant que
+structure récursive}
+
+Étant donné que le jeu de données contenant le graphe est une structure
+intrinsèquement récursive, les outils d'analyse des données volumineuses qui
+exploitent l'horizontalité des données pour mettre à l'échelle leur traitement
+ne peuvent pas être utilisés de manière similaire sur des problèmes qui n'ont
+pas une structure avec un parallélisme embarrassant. Une approche naïve
+consistant à utiliser des hachages d'objets pour affecter aléatoirement les
+artefacts à différentes shards n'est pas très efficace, car un algorithme de
+parcours nécessitera de passer en permanence d'une shard à l'autre. Nous
+examinons les solutions de passage à l'échelle existantes (GraphFrames, Neo4j,
+AIGraph) et discutons de leurs limites pour l'analyse de notre graphe.
+
+Une autre approche est celle de la compression de graphes : en utilisant des
+techniques existantes pour la compression de très grands graphes, nous pouvons
+faire tenir le graphe Software Heritage sans ses propriétés en mémoire sur une
+seule machine. Cela nous permet d'exécuter des algorithmes de graphes standard
+sans avoir à trouver un moyen de les paralléliser. Le graphe compressé peut
+être utilisé à des fins de prototypage, mais aussi comme un service en
+production qui peut répondre à des requêtes de parcours simples. Nous discutons
+des différentes techniques de compression utilisées pour faire tenir la
+topologie entière du graphe dans seulement $\sim150$ GiB de RAM, ainsi que de
+certains arbitrages de stockage pour les métadonnées des nœuds et des bords du
+graphe de propriétés.
+
+Pour permettre aux chercheurs d'effectuer des expériences à plus petite
+échelle, nous présentons un moyen d'extraire des sous-ensembles de données de
+graphes représentatifs de n'importe quelle taille donnée à partir de l'archive.
+Nous discutons de diverses implémentations des moyens d'obtenir une « vue »
+d'une partie donnée du graphe, et nous mettons à disposition quelques
+sous-ensembles de données « accrocheurs » en utilisant ces techniques.
+
+\subsection*{Structure en graphe du développement logiciel}
+
+La compréhension de la structure du graphe de développement est une étape
+fondamentale vers l'analyse à grande échelle, car elle peut nous aider à
+déterminer comment partitionner les données en groupes étroitement liés. De
+plus, une meilleure compréhension de la topologie de ses différentes couches
+ainsi que des différents cas limites et aberrants que l'on y trouve nous permet
+de mieux organiser les données pour certains algorithmes spécifiques.
+
+Dans un premier temps, nous examinons les propriétés topologiques de bas niveau
+du graphe, en mesurant systématiquement quelques paramètres clés sur ses
+différentes couches : distributions des degrés entrants et degrés sortants,
+taille des composantes connexes, coefficients de clustering, longueur des plus
+cours chemins. Nous comparons ces métriques avec d'autres graphes à grande
+échelle générés par des activités humaines (réseaux sociaux, graphe du Web,
+\ldots).
+
+Nous observons une grande disparité topologique entre les différentes couches
+qui constitutent le graphe, tant au niveau local que dans leur structure
+globale. En décomposant le graphe en trois couches en fonction des types des
+nœuds, nous constatons qu'elles ont des formes, des densités et des
+connectivités radicalement différentes. En particulier, la couche du système de
+fichiers domine largement les propriétés topologiques du graphe étant donné
+qu'elle contient 90\% de ses nœuds et 97\% de ses arêtes. Les deux couches
+principales du graphe ont des propriétés diamétralement opposées~: la couche du
+système de fichiers a une forte connexité, une profondeur moyenne
+caractéristique et un degré sortant moyen divergeant, tandis que la couche de
+l'historique de développement a une faible connexité, une profondeur moyenne
+divergeante et un degré sortant moyen caractéristique.
+
+Une autre observation importante est que, étant donné que les nœuds de la
+couche du système de fichier s'agrègent dans une composante géante, le graphe
+ne peut pas être partitionné facilement grâce à une séparation en composantes
+connexes strictes. Cependant, la plus grosse composante connexe de la couche de
+l'historique de développement ne contient que 3\% des nœuds de cette dernière,
+ce qui rend possible leur séparation en multiples partitions localement
+connectées qui peuvent être traitées en parallèle de manière efficace.
+
+Au niveau macro, nous cherchons à comprendre comment les artefacts logiciels
+sont organisés et partagés entre différents dépôts en étudiant les « forks »
+dans l'archive, en comparant les différentes définitions de ce qu'est un fork.
+En exploitant le fait que les projets qui sont développés à partir d'autres
+projets partagent une partie de leur histoire de développement, nous proposons
+un algorithme pour organiser la liste de tous les dépôts dans l'archive en «
+cliques de forks » (groupes de projets qui sont tous des forks les uns des
+autres) et en « réseaux de forks » (groupes de projets qui sont transitivement
+liés entre eux par des relations de forks). Nous calculons ces structures pour
+l'ensemble du graphe de Software Heritage et mesurons leurs distributions de
+taille.
+
+\subsection*{Conclusion}
+
+Enfin, nous résumons les principales contributions académiques de cette thèse,
+et ses implications pour la recherche empirique en génie logiciel. Nous
+discutons des futures directions de recherche et des sujets ouverts : le
+support des requêtes arbitraires sur le graphe par le biais d'un langage de
+requête expressif, la mise à disposition d'outils pour faciliter les analyses à
+grande échelle, ainsi que la réduction du délai entre les jeux de données
+publiques et les données de l'archive par le biais d'exportations incrémentales
+du graphe.
+
+\end{otherlanguage}
+
+
 \chapter*{Extended abstract}
 
 Software Heritage is an ambitious digital preservation initiative that is
@@ -75,7 +258,7 @@ control systems (VCS). The Software Heritage archive has grown to be the
 largest and most comprehensive corpus of public software artifacts,
 encompassing major source code hosts (e.g., GitHub, GitLab, Bitbucket,
 Google Code), supporting a variety of VCS (e.g., Git, Mercurial, SVN) and
-package managers (Debian, NixOS, PyPI, NPM…).
+package managers (Debian, NixOS, PyPI, NPM, …).
 
 This data is stored in a canonical format and deduplicated across the entire
 archive at the level of software artifacts, which constructs an immense shared

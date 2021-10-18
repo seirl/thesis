@@ -158,6 +158,13 @@ them a name to keep track of their purpose. For that, we can use
 \emph{branch} objects, which are simple references to the tip of a revision
 chain and which get automatically updated when new revisions are added to it.
 
+\begin{figure}[b]
+    \centering
+    \input{tikz/figures/rev-branches.tikz}
+    \caption{Feature branches keeping track of parallel revision chains.}%
+    \label{fig:vcs-rev-branches}
+\end{figure}
+
 In most simple development workflows, developers tend to always keep a main
 branch that is long-lived and reflects the current state of the project, and
 various kinds of additional ``topic'' branches which contain features that are
@@ -166,13 +173,6 @@ example of three branches pointing to different revision chains. Note that
 since branches are just pointers, there is no obvious notion of a revision
 \emph{belonging} to a specific branch, but rather revisions are
 \emph{reachable} from one or even several branches.
-
-\begin{figure}[b]
-    \centering
-    \input{tikz/figures/rev-branches.tikz}
-    \caption{Feature branches keeping track of parallel revision chains.}%
-    \label{fig:vcs-rev-branches}
-\end{figure}
 
 \subsection{Releases}
 

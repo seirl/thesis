@@ -1,0 +1,273 @@
+\documentclass[aspectratio=169,xcolor=table]{beamer}
+\input{header.tex}
+
+\begin{document}
+    \maketitle
+
+    \begin{frame}{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \section{Introduction: Universal Mining in Software Heritage}
+    % presentation
+    % universal software mining
+
+    \section{Data Model}
+
+    \begin{frame}
+        \frametitle{A source code directory}
+
+        \begin{columns}
+            \column{.30\textwidth}
+            \begin{figure}
+                \begin{minipage}{\textwidth}
+                \dirtree{%
+                    .1 /.
+                        .2 src.
+                            .3 evalexpr.c.
+                            .3 parser.
+                                .4 ast.c.
+                                .4 parser.c.
+                                .4 lexer.c.
+                        .2 tests.
+                            .3 eval.c.
+                            .3 operands.c.
+                }
+            \end{minipage}
+            \end{figure}
+            \column{.70\textwidth}
+            \begin{figure}
+                \centering
+                \scalebox{0.9}{\input{../tikz/figures/dir-tree.tikz}}
+            \end{figure}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Revisions}
+        % Parallel history
+        \begin{block}{}
+            \begin{itemize}
+                \item \textbf{Revisions} (or ``commits'') keep track of
+                    successive states of a source directory.
+            \end{itemize}
+        \end{block}
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/rev-chain-example.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Branching and merging}
+
+        \begin{block}{}
+            \begin{itemize}
+                \item ``Branching'' allows multiple developers to work on
+                    different features simultaneously.
+                \item ``Merging'' is used to integrate their respective changes
+                    back to a shared state.
+            \end{itemize}
+        \end{block}
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/rev-branching-merging.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Branches}
+        \begin{block}{}
+            \begin{itemize}
+                \item \textbf{Branches} are dynamic pointers to revisions,
+                    using mnemonic names to keep track of their purpose.
+                \item Branch pointers move when more revisions are added to the
+                    branch.
+            \end{itemize}
+        \end{block}
+        % TODO: animate
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/rev-branches.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Releases}
+        \begin{block}{}
+            \begin{itemize}
+                \item \textbf{Releases} (or ``tags'') point to specific
+                    milestones in the development history.
+                \item They have mnemonic names, usually representing the
+                    software version.
+            \end{itemize}
+        \end{block}
+        % TODO: animate
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/rel-example.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Deduplication}
+        \begin{block}{}
+            \begin{itemize}
+                \item Lots of frozen states $\Rightarrow$ lots of copies of
+                    objects
+                \item Most objects stay identical from one revision to another
+                \pause
+                \item We can identify \& deduplicate them with
+                    \textbf{cryptographic hash functions}.
+            \end{itemize}
+        \end{block}
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/cryptographic-hash-function.tikz}}
+        \end{figure}
+        \begin{block}{Cryptographic hash functions (SHA-1, SHA-256, BLAKE2, …)}
+            \begin{itemize}
+                \item Associates an arbitrary input with a
+                    \emph{unique\footnote{Terms and conditions apply.}
+                    identifier} called a \textbf{hash}
+                \item Check if two objects are identical in O(1).
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Deduplicating files}
+        \begin{block}{}
+            \begin{itemize}
+                \item VCSs identify each file via their unique hash
+                \item Identical files are \emph{deduplicated} (= shared) from
+                    one revision to another.
+            \end{itemize}
+        \end{block}
+        % TODO: animate
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/deduplicate-contents.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Deduplicating directories}
+        \begin{block}{}
+            \begin{itemize}
+                \item Similarly, directories can be identified by a unique hash
+                \item Recursively computed from their entire subtree
+                \item Identical directories are also deduplicated across
+                    revisions
+            \end{itemize}
+        \end{block}
+        % TODO: animate
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/deduplicate-subtrees.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Merkle DAG}
+        \begin{block}{}
+            \begin{itemize}
+                \item Deduplication applied on every node in the graph
+                    $\Rightarrow$ \textbf{Merkle DAG}
+                \item Saves space, ensures data integrity
+                \item Changing a single object only requires
+                    $O(h)$ new nodes
+            \end{itemize}
+        \end{block}
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.8}{\input{../tikz/figures/okasaki-complexity.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Consolidation in a single archive}
+
+        \begin{columns}
+            \column{.40\textwidth}
+            \begin{block}{}
+                \begin{itemize}
+                    \item In Software Heritage, \emph{all} the repositories are
+                        consolidated in a single archive
+                    \item Software artifacts are deduplicated \emph{across
+                        different repositories}
+                    \item The result is a single graph containing \textbf{all
+                        the software artifacts in our software commons}.
+                \end{itemize}
+            \end{block}
+            \column{.60\textwidth}
+            \begin{figure}
+                \centering
+                \scalebox{0.5}{\input{../tikz/figures/consolidating-archive.tikz}}
+            \end{figure}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Software Heritage Merkle DAG}
+        \begin{block}{}
+            The Software Heritage Merkle DAG \textbf{materializes the
+            relationships} between software artifacts found in all the public
+            software development in a single immense graph.
+        \end{block}
+        \vfill
+        \begin{figure}
+            \centering
+            \scalebox{0.7}{\input{../tikz/figures/swh-model.tikz}}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Software Heritage Merkle DAG: Detailed view}
+        \begin{figure}
+            \centering
+            \includegraphics[height=7.5cm]{../img/swh-merkle-dag}
+        \end{figure}
+    \end{frame}
+
+    % vcs
+    % archive
+
+    \section{Making Software Data Available for Mining}
+
+    \section{Graph Compression and Exploitation}
+
+    \section{Graph Topology of Software Development}
+
+    \section{Identification of Software Forks}
+
+    \begin{frame}
+        \frametitle{Title}
+
+        \begin{block}{test}
+            \begin{itemize}
+                \item test
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \section{Conclusion}
+
+    \begin{frame}
+        \frametitle{Title}
+
+        \begin{block}{Test}
+            \begin{itemize}
+                \item TODO
+            \end{itemize}
+        \end{block}
+    \end{frame}
+\end{document}

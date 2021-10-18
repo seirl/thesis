@@ -1,0 +1,59 @@
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{graphbox}
+
+\usepackage{dirtree}
+\input{../tikz/swhcolors}
+\input{../tikz/document}
+\input{../header/sankey}
+\input{../tikz/swh.tikzstyles}
+\input{../tikz/swh.tikzdefs}
+
+\definecolor{palegrey}{RGB}{242, 242, 244}
+\definecolor{SwhLightRed}{cmyk}{.0,.89,.84,.07}
+
+\setbeamercolor{background canvas}{bg=palegrey}
+\useinnertheme{rounded}
+\useoutertheme{shadow}
+\usecolortheme{orchid}
+\usecolortheme{whale}
+\usecolortheme[named=SwhLightRed]{structure}
+
+\titlegraphic{%
+    \hfill%
+    \includegraphics[align=c, width=0.3\textwidth]{../img/frontmatter/uni_paris}%
+    \hfill%
+    \includegraphics[align=c, width=0.20\textwidth]{../img/frontmatter/inria.pdf}%
+    \hfill%
+    \includegraphics[align=c, width=0.3\textwidth]{../img/frontmatter/SWH-logo}
+    \hfill%
+}
+
+\AtBeginSection[]{%
+    \begin{frame}
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\setbeamertemplate{headline}{}
+
+
+\title{Organizing the graph of public software development for large-scale
+mining}
+\subtitle{PhD Thesis Defense}
+\author{Antoine \textsc{Pietri}}
+\institute{Inria, Paris}
+\date{November 5, 2021}
+
+\hypersetup{%
+    pdfauthor={Antoine Pietri},
+    pdftitle={Organizing the graph of public software development for
+        large-scale mining},
+    pdfkeywords={empirical software engineering, source code, open source
+        software, version control system, digital preservation, graph topology,
+        graph
+    compression},
+    pdflang={English}
+}

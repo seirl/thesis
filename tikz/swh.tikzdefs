@@ -1,1 +1,50 @@
-\usetikzlibrary{shapes,shapes.geometric,shapes.misc,patterns}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{matrix}
+\usetikzlibrary{patterns}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,shapes.geometric,shapes.misc}
+\usetikzlibrary{shadows}
+
+% these are dummy properties used by TikZiT, but ignored by LaTex
+\pgfkeys{/tikz/tikzit fill/.initial=0}
+\pgfkeys{/tikz/tikzit draw/.initial=0}
+\pgfkeys{/tikz/tikzit shape/.initial=0}
+\pgfkeys{/tikz/tikzit category/.initial=0}
+
+% standard layers used in .tikz files
+\pgfdeclarelayer{edgelayer}
+\pgfdeclarelayer{nodelayer}
+\pgfsetlayers{background,edgelayer,nodelayer,main}
+
+% style for blank nodes
+\tikzstyle{none}=[inner sep=0mm]
+
+% object fill styles
+\tikzstyle{originfill}=[fill=white]
+\tikzstyle{revisionfill}=[fill=rev]
+\tikzstyle{directoryfill}=[fill=dir]
+\tikzstyle{contentfill}=[fill=cnt]
+\tikzstyle{releasefill}=[fill=rel]
+\tikzstyle{snapshotfill}=[fill=snp]
+
+\tikzstyle{originfillhalf}=[fill=white]
+\tikzstyle{revisionfillhalf}=[rectangle split part fill={rev, white}]
+\tikzstyle{directoryfillhalf}=[rectangle split part fill={dir, white}]
+\tikzstyle{contentfillhalf}=[rectangle split part fill={cnt, white}]
+\tikzstyle{releasefillhalf}=[rectangle split part fill={rel, white}]
+\tikzstyle{snapshotfillhalf}=[rectangle split part fill={snp, white}]
+
+% For UML-style diagrams
+% Usage: \umlobj[fill=white]{ObjectType}{ObjectName}{Content}
+\newcommand{\umlobj}[4][]{
+    \node[rectangle split, rectangle split parts=2, draw, align=center, text
+        centered, inner sep=1.5ex, #1]
+        (#3) {$\ll$#2$\gg$ \\ \textbf{#3} \nodepart[align=left]{second} #4};
+}
+\newcommand{\umlsimpleobj}[3][]{
+    \node[draw, align=center, text centered, inner sep=1.5ex, #1]
+        (#3) {$\ll$#2$\gg$ \\ \textbf{#3}};
+}

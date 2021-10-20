@@ -12,6 +12,58 @@
     % presentation
     % universal software mining
 
+    \begin{frame}
+        \frametitle{Sofware Mining}
+
+        \begin{block}{Definition}
+            \textbf{Software mining}: studying existing software to help
+            improve future software development.
+        \end{block}
+
+        \begin{block}{Applications}
+            \begin{itemize}
+                \item Software health, software evolution
+                \item Automated bug detection
+                \item Automated vulnerability repair
+                \item Code autocompletion
+                \item Clone detection
+                \item License compliance
+                \item …
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Universal Software Mining}
+
+        \begin{block}{Current scale of software mining studies}
+            \begin{itemize}
+                \item Individual projects
+                \item Hundreds to thousands of repositories (e.g., ``top
+                    1000 by stars'')
+                \item Entire ecosystems (app stores, package managers, …)
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Universal software mining}
+            Next step: a framework to run empirical studies the
+            \textbf{entire software commons}?
+
+            \begin{itemize}
+                \item Less repetitive, no need to crawl the data for each study
+                \item Easier to replicate studies
+                \item Reduce selection bias
+                \item High-level view of social processes in software
+                    development
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{The Software Heritage Initiative}
+        
+    \end{frame}
+
     \section{Data Model}
 
     \begin{frame}
@@ -206,6 +258,8 @@
                         different repositories}
                     \item The result is a single graph containing \textbf{all
                         the software artifacts in our software commons}.
+                    \item Helpful analogy: like a single Git repository but
+                        with all the public code in the world.
                 \end{itemize}
             \end{block}
             \column{.60\textwidth}
@@ -221,7 +275,7 @@
         \begin{block}{}
             The Software Heritage Merkle DAG \textbf{materializes the
             relationships} between software artifacts found in all the public
-            software development in a single immense graph.
+            software development in a \textbf{single immense graph}.
         \end{block}
         \vfill
         \begin{figure}
@@ -236,6 +290,28 @@
             \centering
             \includegraphics[height=7.5cm]{../img/swh-merkle-dag}
         \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Graph statistics}
+        \begin{columns}
+            \column{.50\textwidth}
+            \begin{block}{Graph topology}
+                \begin{itemize}
+                    \item $\approx$ 20 billion nodes
+                    \item $\approx$ 220 billion edges
+                \end{itemize}
+            \end{block}
+
+            \column{.50\textwidth}
+            \begin{block}{Software artifacts}
+                \begin{itemize}
+                    \item $\approx$ 150 million software projects
+                    \item $\approx$ 2 billion commits
+                    \item $\approx$ 10 billion source code files
+                \end{itemize}
+            \end{block}
+        \end{columns}
     \end{frame}
 
     % vcs

@@ -2,6 +2,14 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{graphbox}
+\usepackage{siunitx}
+\usepackage[maxcitenames=6, url=false,doi=false]{biblatex}
+\usepackage{subcaption}
+\usepackage[outputdir=_build,draft=false]{minted}
+
+\usepackage{lmodern}
+\usepackage{libertine}
+\renewcommand\ttdefault{lmtt}
 
 \usepackage{dirtree}
 \input{../tikz/swhcolors}
@@ -19,6 +27,11 @@
 \usecolortheme{orchid}
 \usecolortheme{whale}
 \usecolortheme[named=SwhLightRed]{structure}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{bibliography item}[article]
+
+\rowcolors[]{1}{blue!10}{blue!05}
 
 \titlegraphic{%
     \hfill%

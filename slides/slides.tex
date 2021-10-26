@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169,xcolor=table]{beamer}
 \input{header.tex}
+\addbibresource{../thesis.bib}
 
 \begin{document}
     \maketitle
@@ -18,6 +19,9 @@
         \begin{block}{Definition}
             \textbf{Software mining}: studying existing software to help
             improve future software development.
+            % all the byproducts of software development
+            % improve the software of tomorrow
+            % inform development best practices
         \end{block}
 
         \begin{block}{Applications}
@@ -39,13 +43,15 @@
         \begin{block}{Current scale of software mining studies}
             \begin{itemize}
                 \item Individual projects
-                \item Hundreds to thousands of repositories (e.g., ``top
+                \item Up to thousands of popular repositories (e.g., ``top
                     1000 by stars'')
                 \item Entire ecosystems (app stores, package managers, …)
             \end{itemize}
         \end{block}
 
         \begin{block}{Universal software mining}
+            New possibilities offered by the rise of DVCS in the past 15 years.
+
             Next step: a framework to run empirical studies the
             \textbf{entire software commons}?
 
@@ -60,9 +66,96 @@
     \end{frame}
 
     \begin{frame}
-        \frametitle{The Software Heritage Initiative}
-        
+        \frametitle{In this thesis…}
+
+        \begin{block}{}
+            I study how to organize the \textbf{Software Heritage graph}, a
+            comprehensive dataset of software development data, to make it
+            \textbf{accessible for software mining research}.
+        \end{block}
+
+        \begin{block}{}
+            \emph{End goal}: building a research platform for Universal
+            Software Analysis.
+            % Cite BENEVOL
+        \end{block}
     \end{frame}
+
+    \begin{frame}
+        \frametitle{The Software Heritage Initiative}
+
+        \begin{center}
+            \includegraphics[width=.5\linewidth]{img/SWH-logo+motto.pdf}
+        \end{center}
+
+        \begin{block}{Collect, preserve and share \emph{all} software source
+            code}
+            \hfill Preserving our heritage, enabling better software and better
+            science for all
+            % \pause
+        \end{block}
+
+        \begin{columns}
+            \begin{column}{.3\columnwidth}
+                \begin{block}{Reference catalog}
+                    \begin{center}
+                        \includegraphics[width=.6\linewidth]{img/myriadsources}
+                    \end{center}
+                    \alert{find} and \alert{reference} all software source code
+                    % \pause
+                \end{block}
+            \end{column}
+            \begin{column}{.3\columnwidth}
+                \begin{block}{Universal archive}
+                    \begin{center}
+                        \includegraphics[width=.6\linewidth]{img/fragilecloud}
+                    \end{center}
+                    \alert{preserve} all software source code
+                    % \pause
+                \end{block}
+            \end{column}
+            \begin{column}{.3\columnwidth}
+                \begin{block}{Research infrastructure}
+                    \begin{center}
+                        \includegraphics[width=.7\linewidth]{img/atacama-telescope}
+                    \end{center}
+                    \alert{enable analysis} of all software source code
+                \end{block}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Data flow}
+        \begin{center}
+            \includegraphics[width=0.9\textwidth]{img/swh-dataflow.pdf}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Archive coverage --- archive.softwareheritage.org}
+        % \vspace{-1mm}
+        \begin{center}
+            \includegraphics[trim=0 2cm 0 0, clip, width=0.7\linewidth]{img/archive-growth.png}
+        \end{center}
+        % \vspace{-2mm}
+        \begin{center}
+            \colorbox{white}{\includegraphics[width=0.8\linewidth]{img/archive-coverage.png}}
+        \end{center}
+        % \pause
+        \vspace{-2mm}
+        \begin{block}{}
+            \begin{itemize}
+                \item on disk: \textasciitilde{}750 TB (uncompressed); as a
+                    graph \textasciitilde{}20 B nodes, \textasciitilde{}220 B
+                    edges
+                \item the largest public source code archive in the world (and
+                    growing!)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+
 
     \section{Data Model}
 
@@ -231,9 +324,11 @@
         \frametitle{Merkle DAG}
         \begin{block}{}
             \begin{itemize}
-                \item Deduplication applied on every node in the graph
+                \item Hash-based deduplication applied on every node in the graph
                     $\Rightarrow$ \textbf{Merkle DAG}
                 \item Saves space, ensures data integrity
+                \item Persistent structure, never rewrites nodes, great for
+                    archival
                 \item Changing a single object only requires
                     $O(h)$ new nodes
             \end{itemize}
@@ -292,57 +387,1121 @@
         \end{figure}
     \end{frame}
 
-    \begin{frame}
-        \frametitle{Graph statistics}
-        \begin{columns}
-            \column{.50\textwidth}
-            \begin{block}{Graph topology}
-                \begin{itemize}
-                    \item $\approx$ 20 billion nodes
-                    \item $\approx$ 220 billion edges
-                \end{itemize}
-            \end{block}
+    % \begin{frame}
+    %     \frametitle{Graph statistics}
+    %     \begin{columns}
+    %         \column{.50\textwidth}
+    %         \begin{block}{Graph topology}
+    %             \begin{itemize}
+    %                 \item $\approx$ 20 billion nodes
+    %                 \item $\approx$ 220 billion edges
+    %             \end{itemize}
+    %         \end{block}
 
-            \column{.50\textwidth}
-            \begin{block}{Software artifacts}
-                \begin{itemize}
-                    \item $\approx$ 150 million software projects
-                    \item $\approx$ 2 billion commits
-                    \item $\approx$ 10 billion source code files
-                \end{itemize}
-            \end{block}
-        \end{columns}
-    \end{frame}
+    %         \column{.50\textwidth}
+    %         \begin{block}{Software artifacts}
+    %             \begin{itemize}
+    %                 \item $\approx$ 150 million software projects
+    %                 \item $\approx$ 2 billion commits
+    %                 \item $\approx$ 10 billion source code files
+    %             \end{itemize}
+    %         \end{block}
+    %     \end{columns}
+    % \end{frame}
 
     % vcs
     % archive
 
     \section{Making Software Data Available for Mining}
 
-    \section{Graph Compression and Exploitation}
-
-    \section{Graph Topology of Software Development}
-
-    \section{Identification of Software Forks}
-
     \begin{frame}
-        \frametitle{Title}
+        \frametitle{Research requirements}
 
-        \begin{block}{test}
+        \begin{block}{Identifying researchers need}
+            Literature review of \textbf{54 papers} from the Mining Software
+            Repositories conference (MSR 2019).
+        \end{block}
+
+        \begin{block}{Categories of requested data}
             \begin{itemize}
-                \item test
+                \item Blobs
+                \item Filesystem hierarchy (\emph{file names, directories})
+                \item History graph (\emph{revisions})
+                \item Content search (\emph{full-text search index})
+                \item Provenance (\emph{backwards index})
+                \item Commit diffs
+                \item Community graph (\emph{revision authors})
+                \item Dependency data
             \end{itemize}
         \end{block}
     \end{frame}
 
+    \begin{frame}
+        \frametitle{Data volume challenges}
+
+        \begin{block}{Local analysis}
+            Handling data at that scale is a hard problem for researchers:
+            \begin{itemize}
+                \item Data does not fit on a single machine
+                \item Unusual size distribution of contents (a lot of very small files: median \textasciitilde{}3 kB) \\
+                    → hard to use classical distributed storage solutions
+                \item Downloading this volume of data can take months
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Potential solutions}
+            \begin{itemize}
+                \item Sampling: access restricted amounts of data
+                \item Scale-out: platform for distributed computing
+                \item Scale-up: graph compression
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{The Vault}
+
+        \begin{block}{}
+            The \textbf{Vault}: Download single directories or entire
+            repositories.
+        \end{block}
+
+        \begin{center}
+            \includegraphics[width=\linewidth]{img/vault.png}
+        \end{center}
+
+        \begin{block}{}
+            \begin{itemize}
+                \item Retrieves the transitive closure of a
+                    given object and bundles it in a tarball.
+                \item Serves as a cache for downloadable tarballs.
+                \item Scales up to tens of thousands of repositories
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{SwhFS}
+
+        \begin{block}{}
+            The \textbf{Software Heritage Filesystem}: a virtual FUSE
+            filesystem to mount the archive as a local directory.
+
+            \begin{itemize}
+                \item Useful for prototyping
+                \item Easy to exploit with common CLI tools \\
+                    → Local file hierarchy maps well with archived repositories
+                \item Suited for small-scale experiments
+            \end{itemize}
+
+            \footnotesize
+            \begin{thebibliography}{swhfs}
+                \bibitem{swhfs2020} Thibault Allançon, Antoine Pietri, Stefano Zacchiroli\newblock
+                The Software Heritage Filesystem (SwhFS): Integrating Source Code Archival with Development\newblock
+                ICSE 2021, IEEE\newblock
+            \end{thebibliography}
+        \end{block}
+
+        \begin{block}{}
+            \begin{minted}{console}
+$ cd archive/swh:1:dir:1fee702c7e6d14395bbf5ac3598e73bcbf97b030
+$ grep -i antenna THE_LUNAR_LANDING.s | cut -f 5
+# IS THE LR ANTENNA IN POSITION 1 YET
+# BRANCH IF ANTENNA ALREADY IN POSITION 1
+            \end{minted}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{The Software Heritage Graph Dataset}
+
+        \begin{block}{}
+            The \textbf{Software Heritage Graph Dataset}: a snapshot of the
+            entire graph of software development (without the file contents).
+
+            \footnotesize
+            \begin{thebibliography}{msr2019}
+                \bibitem{swhgraph2019} Antoine Pietri, Diomidis Spinellis, Stefano Zacchiroli\newblock
+                The Software Heritage graph dataset: public software development under one roof\newblock
+                Mining Software Repositories 2019\newblock
+            \end{thebibliography}
+        \end{block}
+
+        \begin{block}{Formats}
+            \begin{itemize}
+                \item A set of \emph{relational tables} in columnar format for
+                    scale-out processing
+                \item A \emph{graph edges} format for use in graph databases
+                    and graph analysis platforms
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Availability}
+            \begin{itemize}
+                \item Downloadable for local use
+                \item Cloud processing platforms: Amazon Athena, Azure
+                    Databricks
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}[fragile]{Example queries}
+        \begin{block}{Most frequent first commit words}
+            \begin{minted}[fontsize=\small]{sql}
+SELECT COUNT(*) AS c, word FROM (
+  SELECT LOWER(REGEXP_EXTRACT(FROM_UTF8(
+  message), 'ˆ\w+')) AS word FROM revision)
+WHERE word != ''
+GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
+            \end{minted}
+
+            \begin{center}
+                \begin{tabular}{rl}
+                    Count & Word\\
+                    \hline
+                    \num{71338310} & update\\
+                    \num{64980346} & merge\\
+                    \num{56854372} & add\\
+                    \num{44971954} & added\\
+                    \num{33222056} & fix\\
+                \end{tabular}
+            \end{center}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}[fragile]{Example queries}
+        \begin{columns}
+            \column{0.5\textwidth}
+            \begin{block}{Weekend work}
+                \inputminted[fontsize=\tiny, firstline=3]{sql}{../codesamples/graph-dataset/weekend-work.sql}
+            \end{block}
+            \column{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\linewidth]{../img/graph-dataset/weekend-work}
+            \end{center}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}[fragile]{Example queries}
+        \begin{block}{Spark: Connected components size distribution}
+            \inputminted[fontsize=\small]{sql}{../codesamples/graph-dataset/spark-cc.py}
+        \end{block}
+
+        \begin{block}{}
+            \textbf{Warning}: distributed graph algorithms on Spark are very
+            expensive (\textasciitilde{}5000 USD for the entire graph with
+            Azure Databricks).
+        \end{block}
+    \end{frame}
+
+    \section{Graph Compression and Exploitation}
+
+    \begin{frame}
+        \frametitle{Compression approach}
+
+        \begin{block}{}
+            \textbf{Objective}: Storing the \emph{entire graph of public
+            software development} on a single machine.
+
+            \footnotesize
+            \begin{thebibliography}{swhgraphcomp}
+                \bibitem{Boldi2020} Paolo Boldi, Antoine Pietri, Sebastiano Vigna, Stefano Zacchiroli
+                \newblock Ultra-Large-Scale Repository Analysis via Graph Compression
+                \newblock SANER 2020, 27th Intl. Conf. on Software Analysis, Evolution and Reengineering. IEEE
+            \end{thebibliography}
+        \end{block}
+
+        \begin{block}{Advantages}
+            \begin{itemize}
+                \item Simpler for prototyping, no need to write distributed
+                    algorithms
+                \item Cheaper than scale-out processing
+                \item No need to resort to sampling
+                \item Allows us to run topological analyses quickly
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Background: (Web) graph compression}
+        \begin{definition}[The graph of the Web]
+            Directed graph that has Web pages as nodes and hyperlinks between them as
+            edges.
+        \end{definition}
+        \begin{block}{Properties (1)}
+            \begin{itemize}
+                \item \alert{\alert{Locality:}} pages links to pages whose URL is lexicographically
+                    similar. URLs share long common prefixes.
+            \end{itemize}
+
+            → use \alert{D-gap compression}
+        \end{block}
+        \begin{columns}
+            \begin{column}{0.5\columnwidth}
+                \begin{block}{Adjacency lists}
+                    \scriptsize
+                    \begin{center}
+                        \begin{tabular}{rrl}
+                            \alert{Node} & \alert{Outd.} & \alert{Successors}\\
+                            \hline
+                            \ldots{} & \ldots{} & \ldots{}\\
+                            15 & 11 & 13,15,16,17,18,19,23,24,203,315,1034\\
+                            16 & 10 & 15,16,17,22,23,24,315,316,317,3041\\
+                            17 & 0 & \\
+                            18 & 5 & 13,15,16,17,50\\
+                            \ldots{} & \ldots{} & \ldots{}\\
+                        \end{tabular}
+                    \end{center}
+                \end{block}
+            \end{column}
+            \begin{column}{0.50\columnwidth}
+                \begin{block}{D-gapped adjacency lists}
+                    \scriptsize
+                    \begin{center}
+                        \begin{tabular}{rrl}
+                            \alert{Node} & \alert{Outdegree} & \alert{Successors}\\
+                            \hline
+                            \ldots{} & \ldots{} & \ldots{}\\
+                            15 & 11 & 3,1,0,0,0,0,3,0,178,111,718\\
+                            16 & 10 & 1,0,0,4,0,0,290,0,0,2723\\
+                            17 & 0 & \\
+                            18 & 5 & 9,1,0,0,32\\
+                            \ldots{} & \ldots{} & \ldots{}\\
+                        \end{tabular}
+                    \end{center}
+                \end{block}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}{Background: (Web) graph compression (cont.)}
+        \begin{definition}[The graph of the Web]
+            Directed graph that has Web pages as nodes and hyperlinks between them as
+            edges.
+        \end{definition}
+        \begin{block}{Properties (2)}
+            \begin{itemize}
+                \item \alert{\alert{Similarity:}} pages that are close together in lexicographic order tend
+                    to have many common successors.
+            \end{itemize}
+            → use \alert{reference compression}
+        \end{block}
+        \begin{columns}
+            \begin{column}{0.47\columnwidth}
+                \begin{block}{Adjacency lists}
+                    \scriptsize
+                    \begin{center}
+                        \begin{tabular}{rrl}
+                            \alert{Node} & \alert{Outd.} & \alert{Successors}\\
+                            \hline
+                            \ldots{} & \ldots{} & \ldots{}\\
+                            15 & 11 & 13,15,16,17,18,19,23,24,203,315,1034\\
+                            16 & 10 & 15,16,17,22,23,24,315,316,317,3041\\
+                            17 & 0 & \\
+                            18 & 5 & 13,15,16,17,50\\
+                            \ldots{} & \ldots{} & \ldots{}\\
+                        \end{tabular}
+                    \end{center}
+                \end{block}
+            \end{column}
+            \begin{column}{0.60\columnwidth}
+                \begin{block}{Copy lists}
+                    \scriptsize
+                    \begin{center}
+                        \begin{tabular}{rrll}
+                            \alert{Node} & \alert{Ref.} & \alert{Copy list} & \alert{Extra nodes}\\
+                            \hline
+                            \ldots{} & \ldots{} & \ldots{} & \ldots{}\\
+                            15 & 0 &  & 13,15,16,17,18,19,23,24,203,315,1034\\
+                            16 & 1 & 01110011010 & 22,316,317,3041\\
+                            17 &  &  & \\
+                            18 & 3 & 11110000000 & 50\\
+                            \ldots{} & \ldots{} & \ldots{} & \\
+                        \end{tabular}
+                    \end{center}
+                \end{block}
+            \end{column}
+        \end{columns}
+    \end{frame}
+
+
+    \begin{frame}{Compression pipeline}
+        \begin{block}{Application to the software development graph: (re)establishing locality}
+            \begin{itemize}
+                \item key for good compression is a node ordering that ensures locality and
+                    similarity
+                \item which is very much \emph{not} the case with Merkle IDs\ldots{}
+                \item \ldots{}but is the case \emph{again} after BFS
+            \end{itemize}
+        \end{block}
+        \begin{center}
+            \includegraphics[width=1\linewidth]{../img/compression/compression_steps-nofiles}
+        \end{center}
+        \vspace{-1cm}
+        \begin{itemize}
+            \item \alert{MPH:} minimal perfect hash, mapping Merkle IDs to 0..N-1 integers
+            \item \alert{BV compress:} Boldi-Vigna compression (based on MPH order)
+            \item \alert{BFS:} breadth-first visit to renumber
+            \item \alert{Permute:} update BV compression according to BFS order
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Compression time}
+        We ran the compression pipeline on the input corpus using the WebGraph
+        framework
+        \begin{thebibliography}{}
+            \footnotesize
+            \bibitem{BoVWFI} Paolo Boldi and Sebastiano Vigna.
+            \newblock The WebGraph framework I: Compression techniques
+            \newblock WWW 2004: 13th Intl. World Wide Web Conference. ACM
+        \end{thebibliography}
+
+        \begin{center}
+            \begin{tabular}{lr}
+                \alert{Step} & \alert{Wall time} (hours)\\
+                \hline
+                MPH & 2\\
+                BV Compress & 84\\
+                BFS & 19\\
+                Permute & 18\\
+                Transpose & 15\\
+                \hline
+                Total & 138 (6 days)\\
+            \end{tabular}
+        \end{center}
+
+        \begin{itemize}
+            \item server equipped with 24 CPUs and 750 GB of RAM
+            \item RAM mostly used as I/O cache for the BFS step
+            \item \emph{minimum} memory requirements are close to the RAM needed to load the
+                final compressed graph in memory
+        \end{itemize}
+    \end{frame}
+
+    \begin{frame}{Compression efficiency}
+        \begin{block}{}
+            \begin{itemize}
+                \item Starting point: 6 TiB edges file
+                \item Output: compressed graph containing the topology only (no
+                    names or attributes)
+            \end{itemize}
+        \end{block}
+        \begin{columns}
+            \begin{column}{0.4\columnwidth}
+                \begin{block}{Forward graph}
+                    \begin{center}
+                        \begin{tabular}{lr}
+                            total size & 91 GiB\\
+                            bits per edge & 4.91\\
+                        \end{tabular}
+                    \end{center}
+                \end{block}
+            \end{column}
+            \begin{column}{0.4\columnwidth}
+                \begin{block}{Backward graph}
+                    \begin{center}
+                        \begin{tabular}{lr}
+                            total size & 83 GiB\\
+                            bits per edge & 4.49\\
+                        \end{tabular}
+                    \end{center}
+                    \vfill
+                \end{block}
+            \end{column}
+        \end{columns}
+        \begin{block}{Operational cost}
+            The structure of a full bidirectional archive graph fits in less than 200
+            GiB of RAM, for a hardware cost of \textasciitilde{}300 USD.
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{A domain-agnostic benchmark --- full corpus traversal}
+        \begin{block}{Benchmark --- Full BFS visit}
+            \begin{columns}\begin{column}{0.45\textwidth}
+                \begin{center}
+                    \begin{tabular}{ll}
+                        \alert{Forward  graph} & \\
+                        \hline
+                        wall time & 1h48m\\
+                        throughput & 1.81 M nodes/s\\
+                                   & (553 ns/node)\\
+                    \end{tabular}
+                \end{center}
+                \end{column}\begin{column}{0.45\textwidth}
+                \begin{center}
+                    \begin{tabular}{ll}
+                        \alert{Backward graph} & \\
+                        \hline
+                        wall time & 3h17m\\
+                        throughput & 988 M nodes/s\\
+                                   & (1.01 µs/node)\\
+                    \end{tabular}
+                \end{center}
+            \end{column}\end{columns}
+        \end{block}
+        For comparison, BFS of this graph on Spark/GraphFrames: 4 hours, 80
+        nodes(!), 5000~USD.
+    \end{frame}
+
+    \begin{frame}{A domain-agnostic benchmark --- edge lookup}
+        \begin{block}{Benchmark --- Edge lookup}
+            random sample: 1 B nodes (8.3\% of entire graph)
+            \begin{columns}\begin{column}{0.45\textwidth}
+                \begin{center}
+                    \begin{tabular}{ll}
+                        \alert{Forward  graph} & \\
+                        \hline
+                        visited edges & 13.6 B\\
+                        throughput & 12.0 M edges/s\\
+                                   & (83 ns/edge)\\
+                    \end{tabular}
+                \end{center}
+                \end{column}\begin{column}{0.45\textwidth}
+                \begin{center}
+                    \begin{tabular}{ll}
+                        \alert{Backward graph} & \\
+                        \hline
+                        visited edges & 13.6 B\\
+                        throughput & 9.45 M edges/s\\
+                                   & (106 ns/edge)\\
+                    \end{tabular}
+                \end{center}
+            \end{column}\end{columns}
+        \end{block}
+        Note how edge lookup time is close to DRAM random access time (50-60 ns).
+    \end{frame}
+
+    % \begin{frame}{Limitations}
+    %     \begin{block}{Incrementality}
+    %         \begin{itemize}
+    %             \item compression is inherently \alert{not incremental}
+    %             \item not an issue for most research use cases, because we analyze immutable
+    %                 data dumps
+    %             \item common workaround (e.g., for the Web and social networks) is to keep an
+    %                 uncompressed \alert{in-memory overlay} for graph updates, and periodically
+    %                 recompress
+    %         \end{itemize}
+    %     \end{block}
+    % \end{frame}
+
+    \begin{frame}{LLP compression}
+        \begin{block}{Layered Label Propagation}
+            \begin{thebibliography}{Foo Bar, 1969}
+                \small \vspace{-2mm}
+                \bibitem{Boldi2010} Paolo Boldi, Marco Rosa, Massimo Santini, Sebastiano Vigna
+                \newblock Layered Label Propagation: A MultiResolution Coordinate-Free Ordering for Compressing Social Networks
+            \end{thebibliography}
+        \end{block}
+        \begin{block}{}
+            \begin{itemize}
+                \item New algorithm to find locality information
+                \item Propagates labels on random nodes to discover neighborhoods
+                \item Compression requires more runtime memory (33 bytes per node)
+                \item Even more impressive compression ratio (117 GiB → 77 GiB)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Graph Attributes}
+        \begin{block}{Node attributes}
+            \begin{itemize}
+                \item the compressed in-memory graph structure has \alert{no attributes}
+                \item usual data design is to exploit the 0..N-1 integer ranges to \alert{memory map
+                    \emph{node} attributes} to secondary storage (node ID →
+                    node attribute)
+                    \begin{itemize}
+                        \item We do this for node types (mapping: 4 GiB),
+                            timestamps (mapping: 149 GiB), etc.
+                        \item Data structures: integer/byte arrays, front-coded
+                            string lists, etc.
+                    \end{itemize}
+            \end{itemize}
+        \end{block}
+        \begin{block}{Edge attributes}
+            \begin{itemize}
+                \item Built-in WebGraph support for attributes on the \alert{edges} (generally integers)
+                \item For file \emph{names}, we use another minimal perfect hash to map file names to integers
+            \end{itemize}
+        \end{block}
+        \begin{block}{Disk/memory consideration}
+            \begin{itemize}
+                \item Labels and mappings can be either in RAM or
+                    \texttt{mmap()}-ed from disk
+                \item Time/memory tradeoff, depends on access patterns, intensive
+                    workloads etc.
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}[fragile]{Graph Querying}
+        \begin{block}{}
+            \textbf{Option 1}: Write a traversal algorithm using low-level Java
+            primitives
+        \end{block}
+        \begin{minted}[fontsize=\scriptsize,highlightlines={8}]{java}
+HashSet<Long> visited = new HashSet<>();
+Stack<Long> stack = new Stack<>();
+stack.push(srcNodeId);
+visited.add(srcNodeId);
+
+while (!stack.isEmpty()) {
+    long currentNodeId = stack.pop();
+    LazyLongIterator it = graph.successors(currentNodeId);
+    for (long neighborNodeId; (neighborNodeId = it.nextLong()) != -1; ) {
+        if (!visited.contains(neighborNodeId)) {
+            stack.push(neighborNodeId);
+            visited.add(neighborNodeId);
+        }
+    }
+}
+        \end{minted}
+        \begin{block}{}
+            \begin{itemize}
+                \item Very efficient but burdensome, requires local access to
+                    the graph server.
+                \item Most traversals are simple traversals ⇒ need for a
+                    generic traversal query interface.
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Graph Querying}
+
+        \begin{block}{}
+            \textbf{Option 2}: HTTP API for simple graph traversals
+
+            \begin{itemize}
+                \item Generic remote API for graph traversals, Java/Python/aiohttp backend
+                \item Limited to simple DFS from a single node (forward or
+                    backward graph)
+                \item Traversal types: neighbors, leaves, all nodes, all edges
+                \item Supports edge type filtering
+            \end{itemize}
+        \end{block}
+
+        \begin{minted}[fontsize=\scriptsize]{text}
+> GET /leaves/swh:1:rev:f39d[...]2a35?direction=backward
+swh:1:ori:634a2b699d442aa9abd5008f379847816f54ab85
+swh:1:ori:571a86b198c6c66ef33025249f7e455b529aae65
+swh:1:ori:c15194d6cb59a6d32777ca3b287ea6664d540df3
+...
+
+> GET /visit/nodes/swh:1:rev:c6df[...]fc28?edges=rel:rev,rev:rev
+swh:1:rel:c6df0a7ef73ca90825f1472b8a3c5f7a2ce3fc28
+swh:1:rev:c8448ff2f9234332f0bc25dc3a13031f8ab3c73c
+swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
+...
+        \end{minted}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Graph Subdatasets}
+
+        \begin{block}{Generating representative subgraphs}
+            \begin{itemize}
+                \item Useful for smaller-scale experimentation, prototyping
+                \item Focusing analysis on a relevant subset
+                \item Representative samples → transitive closure of a subset
+                    of origins
+                \item Use a fitted log model to estimate the size of the
+                    resulting subgraph
+            \end{itemize}
+        \end{block}
+
+        \begin{center}
+            \includegraphics[width=.5\linewidth]{../img/graph-exploitation/subdataset_size_function_fit.pdf}
+        \end{center}
+    \end{frame}
+
+    \section{Graph Topology of Software Development}
+
+    \begin{frame}
+        \frametitle{Graph Topology: Research Questions}
+
+        \begin{block}{}
+            The Software Heritage Graph Dataset materializes a \emph{network of
+            relationships between software artifacts} which has not yet been
+            empirically studied as a whole.
+        \end{block}
+
+        \begin{block}{Research questions}
+
+            \begin{itemize}
+                \item What is the low-level topology of the graph of software
+                    development?
+
+                    Network topology metrics: Degree distributions, connected
+                    components, distance between roots and leaves, clustering
+                    coefficient.
+
+                \item What do these metrics tell us about this graph and its
+                    layers?
+                    \begin{itemize}
+                \item Best approaches for large scale analysis?
+                \item Methodological implications for software mining?
+                    \end{itemize}
+            \end{itemize}
+
+            The \textbf{compressed graph framework} allows us to answer these
+            questions experimentally.
+
+            \footnotesize
+            \begin{thebibliography}{swhforks}
+                \bibitem{swhforks} Antoine Pietri, Guillaume Rousseau, Stefano Zacchiroli\newblock
+                Determining the intrinsic structure of public software development history\newblock
+                Mining Software Repositories 2020\newblock
+            \end{thebibliography}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Graph layers}
+
+        \begin{block}{}
+            We study the topology of the graph as a whole, but also of its
+            different semantic layers:
+        \end{block}
+
+        \begin{center}
+            \scalebox{0.6}{\input{../tikz/figures/swh-layers.tikz}}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Average degree}
+
+        \begin{table}
+            \centering
+            \begin{tabular}[t]{l S[table-format=3.3]}
+                \textbf{Dataset} & \textbf{Average degree} \\
+                \hline
+                \textbf{swh-2020-history}    & 1.021 \\
+                \textbf{swh-2020-commit}     & 1.022 \\
+                \textbf{swh-2020-hosting}    & 3.39 \\
+                bitcoin-2013 & 6.4 \\
+                dblp-2011 (Co-authorship)       & 6.8 \\
+                \textbf{swh-2020}            & 11.0 \\
+                \textbf{swh-2020-filesystem} & 12.1 \\
+                twitter-2010      & 35.2 \\
+                clueweb12                    & 43.1 \\
+                uk-2014 (Web)               & 60.4 \\
+                fb-2011 (Facebook)          & 169.0 \\
+            \end{tabular}
+        \end{table}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Degree distributions: full graph}
+        \begin{figure}
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/full_in}
+                \caption{In-degrees.}
+            \end{subfigure}\hfill
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/full_out}
+                \caption{Out-degrees.}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Degree distributions: filesystem layer}
+        \begin{figure}
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/dir+cnt_in}
+                \caption{In-degrees.}
+            \end{subfigure}\hfill
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/dir+cnt_out}
+                \caption{Out-degrees.}
+            \end{subfigure}
+        \end{figure}
+
+        \begin{block}{}
+            Scale invariance, no characteristic degree (diverging average).
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Degree distributions: commit layer}
+        \begin{figure}
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/rev_in}
+                \caption{In-degrees (``fork-degrees'').}
+            \end{subfigure}\hfill
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/inout/rev_out}
+                \caption{Out-degrees (``merge-degrees'').}
+            \end{subfigure}
+        \end{figure}
+
+        \begin{block}{}
+            Characteristic degrees due to development patterns.
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Distance between roots and leaves}
+        \begin{figure}
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/shortestpath/dir+cnt}
+                \caption{Filesystem layer}
+            \end{subfigure}\hfill
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=\linewidth]{../img/topology/shortestpath/rev}
+                \caption{Commit layer}
+            \end{subfigure}
+        \end{figure}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Connected components}
+        \begin{figure}
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=0.9\linewidth]{../img/topology/connectedcomponents/dir+cnt}
+                \caption{Filesystem layer}
+            \end{subfigure}\hfill
+            \begin{subfigure}{.49\textwidth}
+                \centering
+                \includegraphics[width=0.9\linewidth]{../img/topology/connectedcomponents/rev}
+                \caption{Commit layer}
+            \end{subfigure}
+        \end{figure}
+
+        \begin{center}
+            \begin{tabular}[t]{l r r r}
+                \textbf{Layer} & \textbf{\# of WCC}
+                               & \textbf{Size of largest WCC}
+                               & \textbf{\% of nodes in largest}
+                               \\
+                               \hline
+                Full graph       & \num{33104255}  & \num{18902683142} & 97.79\% \\
+                Filesystem layer & \num{46286502}  & \num{16565521611} & 97.16\% \\
+                Commit layer     & \num{88031649}  & \num{51543944}    & 2.61\% \\
+            \end{tabular}
+        \end{center}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Takeways: filesystem / commit layer duality}
+
+        \begin{block}{}
+            The filesystem and commit layers have almost opposite topological
+            properties.
+        \end{block}
+
+        \begin{columns}
+            \column{0.5\columnwidth}
+            \begin{block}{Filesystem layer}
+                \begin{itemize}
+                    \item Dense, non-partitionable (giant WCC)
+                    \item Characteristic depth
+                    \item Arbitrary outdegree
+                \end{itemize}
+                \begin{center}
+                    \scalebox{0.7}{\input{../tikz/figures/topology-summary-filesystem.tikz}}
+                \end{center}
+            \end{block}
+
+            \column{0.5\columnwidth}
+            \begin{block}{Commit layer}
+                \begin{itemize}
+                    \item Sparse, partitionable (max WCC = 3\%)
+                    \item Arbitrary depth
+                    \item Characteristic outdegree (degenerate)
+                \end{itemize}
+                \begin{center}
+                    \scalebox{0.5}{\input{../tikz/figures/topology-summary-revision.tikz}}
+                \end{center}
+            \end{block}
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Takeaways: implications for software mining research}
+
+        \begin{block}{Layers}
+            \begin{itemize}
+                \item Large disparity in the low-level structure of layers
+                \item Important to study layers separately to understand
+                    the graph structure
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Methodology}
+            \begin{itemize}
+                \item High kurtosis / propensity to produce outliers
+                \item No obvious rule to ``filter'' outliers in many
+                    distributions
+                \item Highlights the importance of exhaustive approaches
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Distributed analysis}
+            \begin{itemize}
+                \item No natural partitioning in small connected components
+                \item Need for more subtle approaches (modular decomposition?)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \section{Identification of Software Forks}
+
+    \begin{frame}
+        \frametitle{Why study software forks?}
+
+        \begin{block}{}
+            \begin{itemize}
+                \item Getting a high-level view of how the graph is organized
+                    in software projects
+                \item Key research direction in software health and software
+                    evolution
+                    \begin{itemize}
+                        \item Finding active and maintained projects
+                        \item Understanding ``Hard'' and ``development'' forks
+                        \item Identifying criteria for successful forks
+                    \end{itemize}
+                \item The compressed graph allows us to run exhaustive
+                    quantitative studies on software forks
+            \end{itemize}
+
+            \footnotesize
+            \begin{thebibliography}{swhforks}
+                \bibitem{swhforks} Antoine Pietri, Guillaume Rousseau, Stefano Zacchiroli\newblock
+                Forking Without Clicking: on How to Identify Software Repository Forks\newblock
+                Mining Software Repositories 2020\newblock
+            \end{thebibliography}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Previous approaches for studying forks}
+
+        \begin{block}{}
+            \begin{itemize}
+                \item Historically, studies have relied on forge-specific
+                    metadata: relationships created by pressing the "fork"
+                    button
+                    \begin{center}
+                        \includegraphics[width=2cm]{img/forkbutton}
+                    \end{center}
+                \item Github provides a \textbf{directed} graph of forks to parent
+                    repositories
+                    \begin{center}
+                        \includegraphics[width=7cm]{img/forknetwork}
+                    \end{center}
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Biases}
+            \begin{itemize}
+                \item Restricted to intra-forge forks
+                \item No cross-VCS information
+                \item No ``manual forks''
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Intrinsic forks}
+        \begin{block}{Concept}
+            \begin{center}
+                \begin{tikzpicture}[every node/.append style={cloud,draw,very thick,align=center}]
+                    \node[cloud puffs=50, aspect=7] (cloud){%
+                        \textbf{Intrinsic forks} are software projects\\
+                        with \textbf{shared development history}.
+                    };
+                \end{tikzpicture}
+            \end{center}
+
+            \begin{itemize}
+                \item Identified by intrinsic DVCS information
+                    \begin{itemize}
+                        \item Shared commits
+                        \item Shared root directories
+                        \item \ldots
+                    \end{itemize}
+                \item Includes projects for which no forge-level metadata is present
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Research question}
+            How do forge forks compare to forks defined by shared development
+            history?
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Methodology}
+        \begin{block}{Fork networks}
+            \begin{center}
+                Finding all the networks of intrinsic forks
+
+                $\approx$
+
+                Finding all the \textbf{connected components} in the
+                undirected subgraph of repositories, branches, tags and commits.
+            \end{center}
+        \end{block}
+
+        \begin{block}{Experimental design}
+            \begin{itemize}
+                \item List common repositories in Software Heritage and GitHub
+                    (through GHTorrent)
+                \item Extract the relevant subgraphs
+                    \begin{itemize}
+                        \item \textbf{Software Heritage}: hosting + history
+                            layers (development graph)
+                        \item \textbf{GHTorrent}: repositories → repositories (fork graph)
+                    \end{itemize}
+                \item Compute the connected components ⇒ \textbf{fork networks}
+                \item Count the number of repositories in each fork network
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Fork network results}
+        \begin{center}
+            \includegraphics[width=0.6\linewidth]{../img/forks/fork-network-freq-distribution.pdf}
+        \end{center}
+        \begin{block}{}
+            \begin{itemize}
+                \item \textbf{+8\% new forks discovered} (shared-commit forks)
+                \item Large proportion of the repositories merged in giant
+                    components
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Fork cliques}
+        \begin{block}{}
+            \begin{itemize}
+                \item By transitivity, fork networks cluster together
+                    repositories which are not direct forks of each other
+                \item This is in large part responsible for the giant connected
+                    components
+                \item Need a more restrictive definition for quantitative
+                    comparisons
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Fork cliques}
+            Set of repositories which are \emph{all forks of each other}.
+        \end{block}
+
+        \begin{block}{Fork p-cliques}
+            Partition function of the graph based on fork cliques (without
+            duplicates)
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Fork network results}
+        \begin{center}
+            \includegraphics[width=0.6\linewidth]{../img/forks/fork-clique-partition-freq-distribution.pdf}
+        \end{center}
+        \begin{block}{}
+            \begin{itemize}
+                \item Positive difference ⇒ more exhaustive identification of
+                    forks
+                \item Distribution similarity ⇒ Matches developers'
+                    expectations of what a fork is
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+
     \section{Conclusion}
 
     \begin{frame}
-        \frametitle{Title}
+        \frametitle{Academic contributions}
 
-        \begin{block}{Test}
+        \begin{block}{Contextualization}
             \begin{itemize}
-                \item TODO
+                \item Literature review: identify research needs
+                \item Roadmap to universal software mining
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Making software artifacts data available}
+            \begin{itemize}
+                \item Small scale: Vault, SwhFS
+                \item Scale-out: Graph dataset
+                \item Scale-up: Graph compression \& exploitation
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Empirical studies on the graph structure}
+            \begin{itemize}
+                \item Low-level: topological properties
+                \item High-level: structure of forks
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Empirical findings \& impact on software mining}
+        \begin{block}{Topology}
+            \begin{itemize}
+                \item Disparity between graph layers
+                \item Graph cannot be partitioned naturally
+                \item No sound way to filter outliers
+            \end{itemize}
+        \end{block}
+        \begin{block}{Forks}
+            \begin{itemize}
+                \item Forks can be identified more exhaustively with shared
+                    development history
+                \item They qualitatively fit established notions of what constitutes a ``fork''
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Future work}
+
+        \begin{block}{}
+            \begin{itemize}
+                \item Incremental graph compression
+                \item Expressive remote graph querying
+                \item Graph partitioning techniques for sharding (modular
+                    decomposition?)
+                \item Derived graphs (community graphs, diff graphs, …)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Thanks!}
+
+        \begin{block}{}
+            \emph{All} this work is open \{source, data, access, …\}.
+
+            \url{https://forge.softwareheritage.org}
+            \hfill
+            \url{https://github.com/seirl/thesis}
+        \end{block}
+
+        \begin{block}{}
+            \tiny
+            \begin{itemize}
+                \item \fullcite{swh-benevol2018-universal-analysis}
+                \item \fullcite{swh-msr2019-dataset}
+                \item \fullcite{msr-2020-challenge}
+                \item \fullcite{saner-2020-swh-graph}
+                \item \fullcite{swh-msr2020-forking}
+                \item \fullcite{msr-2020-topology}
+                \item \fullcite{swh-2021-swhfs}
             \end{itemize}
         \end{block}
     \end{frame}

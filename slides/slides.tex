@@ -52,7 +52,7 @@
         \begin{block}{Universal software mining}
             New possibilities offered by the rise of DVCS in the past 15 years.
 
-            Next step: a framework to run empirical studies the
+            Next step: a framework to run empirical studies on the
             \textbf{entire software commons}?
 
             \begin{itemize}
@@ -146,10 +146,10 @@
         \vspace{-2mm}
         \begin{block}{}
             \begin{itemize}
-                \item on disk: \textasciitilde{}750 TB (uncompressed); as a
+                \item On disk: \textasciitilde{}750 TB (uncompressed); as a
                     graph \textasciitilde{}20 B nodes, \textasciitilde{}220 B
                     edges
-                \item the largest public source code archive in the world (and
+                \item The largest public source code archive in the world (and
                     growing!)
             \end{itemize}
         \end{block}
@@ -246,8 +246,7 @@
             \begin{itemize}
                 \item \textbf{Releases} (or ``tags'') point to specific
                     milestones in the development history.
-                \item They have mnemonic names, usually representing the
-                    software version.
+                \item Their names usually represent the software versions.
             \end{itemize}
         \end{block}
         % TODO: animate
@@ -348,7 +347,7 @@
             \begin{block}{}
                 \begin{itemize}
                     \item In Software Heritage, \emph{all} the repositories are
-                        consolidated in a single archive
+                        consolidated into a single archive
                     \item Software artifacts are deduplicated \emph{across
                         different repositories}
                     \item The result is a single graph containing \textbf{all
@@ -443,7 +442,8 @@
             Handling data at that scale is a hard problem for researchers:
             \begin{itemize}
                 \item Data does not fit on a single machine
-                \item Unusual size distribution of contents (a lot of very small files: median \textasciitilde{}3 kB) \\
+                \item Unusual size distribution of blobs (large quantity
+                    of very small files: median \textasciitilde{}3 kB) \\
                     → hard to use classical distributed storage solutions
                 \item Downloading this volume of data can take months
             \end{itemize}
@@ -727,10 +727,10 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \begin{frame}{Compression pipeline}
         \begin{block}{Application to the software development graph: (re)establishing locality}
             \begin{itemize}
-                \item key for good compression is a node ordering that ensures locality and
+                \item Key for good compression is a node ordering that ensures locality and
                     similarity
-                \item which is very much \emph{not} the case with Merkle IDs\ldots{}
-                \item \ldots{}but is the case \emph{again} after BFS
+                \item Which is very much \emph{not} the case with Merkle IDs\ldots{}
+                \item \ldots{}but is the case \emph{again} after a BFS
             \end{itemize}
         \end{block}
         \begin{center}
@@ -770,9 +770,9 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \end{center}
 
         \begin{itemize}
-            \item server equipped with 24 CPUs and 750 GB of RAM
+            \item Server equipped with 24 CPUs and 750 GB of RAM
             \item RAM mostly used as I/O cache for the BFS step
-            \item \emph{minimum} memory requirements are close to the RAM needed to load the
+            \item \emph{Minimum} memory requirements are close to the RAM needed to load the
                 final compressed graph in memory
         \end{itemize}
     \end{frame}
@@ -844,7 +844,7 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
 
     \begin{frame}{A domain-agnostic benchmark --- edge lookup}
         \begin{block}{Benchmark --- Edge lookup}
-            random sample: 1 B nodes (8.3\% of entire graph)
+            Random sample: 1 B nodes (8.3\% of entire graph)
             \begin{columns}\begin{column}{0.45\textwidth}
                 \begin{center}
                     \begin{tabular}{ll}
@@ -904,8 +904,8 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \begin{frame}{Graph Attributes}
         \begin{block}{Node attributes}
             \begin{itemize}
-                \item the compressed in-memory graph structure has \alert{no attributes}
-                \item usual data design is to exploit the 0..N-1 integer ranges to \alert{memory map
+                \item The compressed in-memory graph structure has \alert{no attributes}
+                \item Usual data design is to exploit the 0..N-1 integer ranges to \alert{memory map
                     \emph{node} attributes} to secondary storage (node ID →
                     node attribute)
                     \begin{itemize}
@@ -1328,7 +1328,6 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
                     \begin{itemize}
                         \item Shared commits
                         \item Shared root directories
-                        \item \ldots
                     \end{itemize}
                 \item Includes projects for which no forge-level metadata is present
             \end{itemize}

@@ -28,7 +28,13 @@
 \usecolortheme{whale}
 \usecolortheme[named=SwhLightRed]{structure}
 
-\setbeamertemplate{navigation symbols}{}
+\setbeamerfont{footline}{series=\bfseries}
+\setbeamertemplate{navigation symbols}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber%
+}
 \setbeamertemplate{bibliography item}[article]
 
 \rowcolors[]{1}{blue!10}{blue!05}

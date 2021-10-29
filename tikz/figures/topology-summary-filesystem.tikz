@@ -28,5 +28,7 @@
 		\draw [style=arrow] (14) to (22);
 		\draw [style=dashed arrow] (12.center) to node [right, align=left] {Characteristic\\depth} (11.center);
 		\draw [decorate, decoration={brace,amplitude=10pt}] (10.center) to node [align=center, below=10pt] {Arbitrary\\outdegree} (9.center);
+		\draw [style=arrow] (15) to (18);
+		\draw [style=arrow, bend right=15] (15) to (17);
 	\end{pgfonlayer}
 \end{tikzpicture}

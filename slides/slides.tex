@@ -155,8 +155,8 @@
         \begin{block}{}
             \begin{itemize}
                 \item On disk: \textasciitilde{}750 TB (uncompressed)
-                \item The largest public source code archive in the world (and
-                    growing!)
+                \item The largest public archive of source code in the world
+                    (and growing!)
             \end{itemize}
         \end{block}
     \end{frame}
@@ -368,8 +368,8 @@
     \begin{frame}
         \frametitle{Software Heritage Merkle DAG}
         \begin{block}{}
-            The SWH graph \textbf{materializes the relationships} between
-            all public software artifacts.
+            % The SWH graph \textbf{materializes the relationships} between
+            % all public software artifacts.
 
             \begin{itemize}
                 \item Hash-based deduplication applied on every node in the
@@ -652,8 +652,7 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
                 \item Simpler for prototyping, no need to write distributed
                     algorithms
                 \item Cheaper than scale-out processing
-                \item No need to resort to sampling
-                \item Allows us to run topological analyses quickly
+                \item Allows us to run exhaustive analyses quickly
             \end{itemize}
         \end{block}
 
@@ -739,7 +738,7 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
                 \item Propagates labels on random nodes to discover neighborhoods
                 \item Compression requires more runtime memory (33 bytes per node)
                 \item Even more impressive compression ratio (91 GiB → 60 GiB,
-                    reduced by $\textasciitilde{}35\%$)
+                    reduced by \textasciitilde{}35\%)
             \end{itemize}
         \end{block}
     \end{frame}
@@ -918,9 +917,9 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             \begin{tabular}[t]{l S[table-format=3.3]}
                 \textbf{Dataset} & \textbf{Average degree} \\
                 \hline
-                \textbf{swh-2020-history}    & 1.021 \\
+                % \textbf{swh-2020-history}    & 1.021 \\
                 \textbf{swh-2020-commit}     & 1.022 \\
-                \textbf{swh-2020-hosting}    & 3.39 \\
+                % \textbf{swh-2020-hosting}    & 3.39 \\
                 bitcoin-2013 & 6.4 \\
                 dblp-2011 (Co-authorship)       & 6.8 \\
                 \textbf{swh-2020}            & 11.0 \\
@@ -947,7 +946,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \end{figure}
 
         \begin{block}{}
-            ⇒ Scale invariance, no characteristic degree (diverging average).
+            ⇒ No characteristic number of entries in a directory.
         \end{block}
     \end{frame}
 
@@ -963,7 +962,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \end{figure}
 
         \begin{block}{}
-            Characteristic degrees (<3) due to development patterns.
+            ⇒ Characteristic number of parents due to development patterns.
         \end{block}
     \end{frame}
 
@@ -1174,7 +1173,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \begin{block}{Experimental design}
             We \textbf{identify} intrinsic forks in the graph of development
             history, then quantitatively \textbf{compare} them to forks
-            identified by forge metadata.
+            identified by GitHub metadata.
         \end{block}
 
         \begin{block}{New concepts}
@@ -1233,7 +1232,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             \begin{itemize}
                 \item Small scale: Vault, SwhFS
                 \item Scale-out: Graph dataset
-                \item Scale-up: Graph compression \& exploitation
+                \item Scale-up: Graph compression
             \end{itemize}
         \end{block}
 

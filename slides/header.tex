@@ -6,6 +6,7 @@
 \usepackage[maxcitenames=6, url=false,doi=false]{biblatex}
 \usepackage{subcaption}
 \usepackage[outputdir=_build,draft=false]{minted}
+\usepackage{pdfpc}
 
 \usepackage{lmodern}
 \usepackage{libertine}
@@ -24,17 +25,14 @@
 \setbeamercolor{background canvas}{bg=palegrey}
 \useinnertheme{rounded}
 \useoutertheme{shadow}
+% \useoutertheme{infolines}
 \usecolortheme{orchid}
 \usecolortheme{whale}
 \usecolortheme[named=SwhLightRed]{structure}
 
 \setbeamerfont{footline}{series=\bfseries}
-\setbeamertemplate{navigation symbols}{%
-    \usebeamerfont{footline}%
-    \usebeamercolor[fg]{footline}%
-    \hspace{1em}%
-    \insertframenumber/\inserttotalframenumber%
-}
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{bibliography item}[article]
 
 \rowcolors[]{1}{blue!10}{blue!05}
@@ -59,8 +57,7 @@
 \setbeamertemplate{headline}{}
 
 
-\title{Organizing the graph of public software development for large-scale
-mining}
+\title[Organizing the graph of public software development]{Organizing the graph of public software development for large-scale mining}
 \subtitle{PhD Thesis Defense}
 \author{Antoine \textsc{Pietri}}
 \institute{Inria, Paris}

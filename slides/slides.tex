@@ -3,18 +3,33 @@
 \addbibresource{../thesis.bib}
 
 \begin{document}
+    \pdfpcnote{%
+        Welcome to my defense, I'm going to present what I've been working
+        on during my PhD, under the supervision of my advisor, Stefano
+        Zacchiroli.  Before discussing my subject, I first need to give a
+        bit of context.
+    }
     \maketitle
 
-    \begin{frame}{Outline}
-        \tableofcontents
-    \end{frame}
-
-    \section{Introduction: Universal Mining in Software Heritage}
+    \section*{Context}
     % presentation
     % universal software mining
 
     \begin{frame}
         \frametitle{Sofware Mining}
+
+        \pdfpcnote{%
+            I worked in a field of research called "software mining". The goal
+            is to study existing software repositories in a systematic way to
+            try to **uncover patterns** in software development and in the
+            **social processes that govern it**, in the goal of improving these
+            development practices.
+            \\\\
+            This field has a lot of applications, like automated bug fixing,
+            code completion or finding unmaintained dependencies. Because of
+            this potential, it has drawn a lot of interest from computer
+            science researchers.
+        }
 
         \begin{block}{Definition}
             \textbf{Software mining}: studying existing software repositories
@@ -40,6 +55,26 @@
     \begin{frame}
         \frametitle{Universal Software Mining}
 
+        \pdfpcnote{%
+            Initially, software mining studies were done at a relatively
+            small scale, only individual projects or a dozen related projects.
+            Then it started growing in scale, with researchers analyzing
+            thousands of repositories at once or even sometimes up to entire
+            ecosystems. This allowed us to have a more and more exhaustive
+            understanding of software development processes.
+            \\\\
+            The main question that initiated the work I'm presenting here is:
+            could we go even further? Could we provide a way to run empirical
+            studies on all the body of public software development?
+            \\\\
+            This would be really impactful for the software mining field. It
+            would **reduce the barriers of entry** for researchers, who
+            wouldn't have to do all the manual data crawling themselves. It
+            would make it really easy to replicate studies, and give us a more
+            complete/exhaustive view on development practices and social
+            processes.
+        }
+
         \begin{block}{Current scale of software mining studies}
             \begin{itemize}
                 \item Individual projects
@@ -50,15 +85,12 @@
         \end{block}
 
         \begin{block}{Universal software mining}
-            New possibilities offered by the rise of DVCS in the past 15 years.
-
             Next step: a framework to run empirical studies on
             \textbf{all the public software repositories}?
 
             \begin{itemize}
                 \item Less repetitive, no need to crawl the data for each study
                 \item Easier to replicate studies
-                \item Reduce selection bias
                 \item High-level view of social processes in software
                     development
             \end{itemize}
@@ -67,6 +99,15 @@
 
     \begin{frame}
         \frametitle{In this thesis…}
+
+        \pdfpcnote{%
+            In this thesis, I study...
+            \\\\
+            The goal I'm working towards here is trying to build a research
+            platform, a place where researchers could come with their empirical
+            studies and run them on this exhaustive dataset. And all that
+            without having to do the boring work/manual crawling.
+        }
 
         \begin{block}{}
             \Large
@@ -88,49 +129,50 @@
         \end{block}
     \end{frame}
 
-    \begin{frame}
-        \frametitle{The Software Heritage Initiative}
 
-        \begin{center}
-            \includegraphics[width=.5\linewidth]{img/SWH-logo+motto.pdf}
-        \end{center}
+    % \begin{frame}
+    %     \frametitle{The Software Heritage Initiative}
 
-        \begin{block}{Collect, preserve and share \emph{all} software source
-            code}
-            \hfill Preserving our heritage, enabling better software and better
-            science for all
-            % \pause
-        \end{block}
+    %     \begin{center}
+    %         \includegraphics[width=.5\linewidth]{img/SWH-logo+motto.pdf}
+    %     \end{center}
 
-        \begin{columns}
-            \begin{column}{.3\columnwidth}
-                \begin{block}{Reference catalog}
-                    \begin{center}
-                        \includegraphics[width=.6\linewidth]{img/myriadsources}
-                    \end{center}
-                    \alert{find} and \alert{reference} all software source code
-                    % \pause
-                \end{block}
-            \end{column}
-            \begin{column}{.3\columnwidth}
-                \begin{block}{Universal archive}
-                    \begin{center}
-                        \includegraphics[width=.6\linewidth]{img/fragilecloud}
-                    \end{center}
-                    \alert{preserve} all software source code
-                    % \pause
-                \end{block}
-            \end{column}
-            \begin{column}{.3\columnwidth}
-                \begin{block}{Research infrastructure}
-                    \begin{center}
-                        \includegraphics[width=.7\linewidth]{img/atacama-telescope}
-                    \end{center}
-                    \alert{enable analysis} of all software source code
-                \end{block}
-            \end{column}
-        \end{columns}
-    \end{frame}
+    %     \begin{block}{Collect, preserve and share \emph{all} software source
+    %         code}
+    %         \hfill Preserving our heritage, enabling better software and better
+    %         science for all
+    %         % \pause
+    %     \end{block}
+
+    %     \begin{columns}
+    %         \begin{column}{.3\columnwidth}
+    %             \begin{block}{Reference catalog}
+    %                 \begin{center}
+    %                     \includegraphics[width=.6\linewidth]{img/myriadsources}
+    %                 \end{center}
+    %                 \alert{find} and \alert{reference} all software source code
+    %                 % \pause
+    %             \end{block}
+    %         \end{column}
+    %         \begin{column}{.3\columnwidth}
+    %             \begin{block}{Universal archive}
+    %                 \begin{center}
+    %                     \includegraphics[width=.6\linewidth]{img/fragilecloud}
+    %                 \end{center}
+    %                 \alert{preserve} all software source code
+    %                 % \pause
+    %             \end{block}
+    %         \end{column}
+    %         \begin{column}{.3\columnwidth}
+    %             \begin{block}{Research infrastructure}
+    %                 \begin{center}
+    %                     \includegraphics[width=.7\linewidth]{img/atacama-telescope}
+    %                 \end{center}
+    %                 \alert{enable analysis} of all software source code
+    %             \end{block}
+    %         \end{column}
+    %     \end{columns}
+    % \end{frame}
 
     % \begin{frame}
     %     \frametitle{Data flow}
@@ -140,7 +182,35 @@
     % \end{frame}
 
     \begin{frame}
-        \frametitle{Archive coverage --- archive.softwareheritage.org}
+        \frametitle{Corpus: The Software Heritage Archive ---
+        archive.softwareheritage.org}
+
+        \pdfpcnote{%
+            As an approximation for this body of software development data, we
+            use the Software Heritage archive, which is to my knowledge the
+            largest and most exhaustive dataset of software development data
+            available publicly.
+            \\\\
+            It contains more than 10 billion source files from more than 150
+            million projects, which sums up to more than 900 TB on disk.
+            \\\\
+            It archives data from a variety of different places, collaborative
+            development platforms like GitHub, Gitlab or Bitbucket, language
+            package managers like NPM or PyPI or distribution packages like
+            NixOS or Debian. This variety of sources is really interesting
+            because it gives us a complete picture of software development in
+            general, and not specific to a single platform.
+        }
+
+        \begin{block}{}
+            \begin{itemize}
+                \item We use the \textbf{Software Heritage archive} as our best
+                    approximation of the entire corpus of public software
+                    development.
+                \item Largest public source code archive in the world (more
+                    than 900 TB, growing daily).
+            \end{itemize}
+        \end{block}
         % TODO: update numbers?
         % \vspace{-1mm}
         \begin{center}
@@ -148,7 +218,7 @@
         \end{center}
         % \vspace{-2mm}
         \begin{center}
-            \colorbox{white}{\includegraphics[width=0.8\linewidth]{img/archive-coverage.png}}
+            \colorbox{white}{\includegraphics[width=0.7\linewidth]{img/archive-coverage.png}}
         \end{center}
         % \pause
         \vspace{-2mm}
@@ -161,12 +231,45 @@
         \end{block}
     \end{frame}
 
+    \begin{frame}{Outline}
+        \tableofcontents
 
+        \pdfpcnote{%
+            Here is the outline of this presentation.
+            \\\\
+            First I'm going to present a generic data model of the software
+            development data that researchers might want to exploit.
+            \\\\
+            Then I'll discuss different ways we can make this data accessible
+            for software mining at different scales.
+            \\\\
+            We will see that these approaches have some limitations. To address
+            them, I'll introduce graph compression as a way to efficiently run
+            exhaustive studies on our corpus.
+            \\\\
+            Finally I describe two empirical studies I performed, a generic
+            network study to understand the topology of the graph of software
+            development, and another one to look at how this graph is
+            structured by code reuse patterns and software forks.
+        }
+    \end{frame}
 
     \section{Data Model}
 
     \begin{frame}
         \frametitle{A source code directory}
+
+        \pdfpcnote{%
+            At a fundamental level, the basic building block of software
+            development is source code directories. Here is a very simple
+            example of a program written in C.
+            \\\\
+            There are two types of objects here, source code files at the
+            bottom, and the directories that organize them in a tree hierarchy.
+            \\\\
+            This code generally doesn't remain static, it evolves over time.
+            It's really useful to keep track of this evolution.
+        }
 
         \begin{columns}
             \column{.30\textwidth}
@@ -196,6 +299,18 @@
 
     \begin{frame}
         \frametitle{Revisions}
+        \pdfpcnote{%
+            For that, we introduce another type of object called revisions or
+            commits. They form a chain that retains frozen past states of the
+            source directory.
+            \\\\
+            Keeping track of how the codebase evolved is really useful to
+            developers, because it allows them to quickly find where a bug
+            was introduced and go back to a working state. It also allows
+            them to retain institutional knowledge by keeping a memory
+            of all the changes that were introduced over time.
+        }
+
         % Parallel history
         \begin{block}{}
             \begin{itemize}
@@ -206,12 +321,18 @@
         \vfill
         \begin{figure}
             \centering
-            \scalebox{0.8}{\input{../tikz/figures/rev-chain-example.tikz}}
+            \scalebox{0.8}{\input{tikz/rev-chain-example.tikz}}
         \end{figure}
     \end{frame}
 
     \begin{frame}
         \frametitle{Branches}
+        \pdfpcnote{%
+            An advantage of this design is that it allows developers to work in
+            parallel, on separate features. For that, they can work on branches
+            that they ``merge'' back when they want to integrate their work to
+            a mainline.
+        }
 
         \begin{block}{}
             Developers can use ``branches'' to work on different features
@@ -306,6 +427,20 @@
 
     \begin{frame}
         \frametitle{Deduplication}
+        \pdfpcnote{%
+            Copying these states from one revision to another will duplicate a
+            lot of identical objects, like files and directories that weren't
+            modified in a given revision. Instead of just storing copies, we
+            can identify these duplicate nodes using cryptographic hash
+            functions.
+            \\\\
+            We can attribute a unique fixed-length identifier to any given
+            object in the graph by recursively computing these hash functions
+            on their entire subtrees. We then store them as single nodes in the
+            graph, so a unique directory will only be present once in this
+            graph even if a lot of revisions or other directories point towards
+            it.
+        }
         \begin{block}{}
             \begin{itemize}
                 \item Instead of copying the nodes between each revision, we
@@ -340,6 +475,26 @@
 
     \begin{frame}
         \frametitle{Consolidation in a single archive}
+        \pdfpcnote{%
+            The Software Heritage data models extends this idea of
+            deduplication of identical objects, but it applies it to the entire
+            corpus of software data.
+            Basically, all the repositories are consolidated into a single
+            archive, and then the objects contained in these repositories are
+            deduplicated, but across all the repositories at once. If a file or
+            a directory was copied across multiple repositories, they will
+            still only be stored once in the archive.
+            \\\\
+            This is a really interesting data model, because in effect it
+            materializes a giant graph which gives us a global, unified view of
+            all the software development artifacts that software mining
+            researchers might want to analyze. It's like a map of the stars of
+            all the software data; we can directly see how code is reused
+            across repos through the relationships between objects.
+            \\\\
+            One way to imagine it is to visualize a single giant Git repository
+            with all the code in the world.
+        }
 
         \begin{columns}
             \column{.50\textwidth}
@@ -367,14 +522,26 @@
 
     \begin{frame}
         \frametitle{Software Heritage Merkle DAG}
+        \pdfpcnote{%
+            The data model we end up with is called a Merkle DAG because of
+            this hash deduplication on all the nodes in the graph. It has very
+            useful properties for archival, notably the fact that it's an
+            append-only structure where nodes are never modified.
+            \\\\
+            At the bottom there is the filesystem layer with files and
+            directories, then the history layer which contains all the
+            commits, and then it goes up to the repository URLs where the data
+            was crawled in the first place.
+            \\\\
+            The graph contains more than 20 billion nodes and 220 billion
+            edges, which actually makes it the largest publicly available graph
+            dataset.
+        }
         \begin{block}{}
-            % The SWH graph \textbf{materializes the relationships} between
-            % all public software artifacts.
 
             \begin{itemize}
                 \item Hash-based deduplication applied on every node in the
                     graph $\Rightarrow$ \textbf{Merkle DAG}
-                \item Saves space, ensures data integrity
                 \item Persistent structure: append only, great for archival
             \end{itemize}
         \end{block}
@@ -436,6 +603,17 @@
     \begin{frame}
         \frametitle{Requirement analysis for Empirical Software Engineering}
 
+        \pdfpcnote{%
+            The first thing we need is to understand the kinds of studies that
+            researchers might want to perform on this data. To get a better
+            understanding of that, I reviewed 54 papers from the MSR conference
+            and categorized the different types of data that researchers
+            usually make use of in their studies.
+            \\\\
+            A lot of these use cases require being able to efficiently query
+            the graph of software development...
+        }
+
         \begin{block}{Identifying researchers need}
             Literature review of \textbf{54 papers} from the Mining Software
             Repositories conference (MSR~2019).
@@ -457,15 +635,34 @@
 
     \begin{frame}
         \frametitle{Data volume challenges}
+        \pdfpcnote{%
+            But the thing is that this volume of data is completely
+            unmanageable for most researchers. It doesn't fit on a single
+            machine and so it often requires distributed approaches. Just
+            downloading it takes entire months.\\
+            Also, its structure makes it hard to analyze because of the high
+            deduplication, which makes it a very entangled structure where
+            parallel approaches are not necessarily straightforward.
+            \\\\
+            So in my thesis in present three different approaches to reduce the
+            amount of data that researchers need to have **locally**.
+            \\\\
+            The first one is sampling, giving ways to access a small restricted
+            set of data.
+            The second one is to help them query the graph remotely by putting
+            the graph on cloud-based distributed computing platforms.
+            The last one is to compress the data so that it can actually fit on
+            a single machine to be analyzed locally.
+        }
 
         \begin{block}{Local analysis}
             Handling data at that scale is a hard practical problem for
             researchers:
             \begin{itemize}
                 \item Data does not fit on a single machine
+                \item Downloading this volume of data can take months
                 \item High deduplication: entangled structure, hard to
                     parallelize
-                \item Downloading this volume of data can take months
             \end{itemize}
         \end{block}
 
@@ -480,6 +677,23 @@
 
     \begin{frame}
         \frametitle{The Vault}
+
+        \pdfpcnote{%
+            The first thing you could do to analyze many repositories at once
+            is to just download them one by one. In the archive there's no
+            longer a notion of "repository" because everything is deduplicated.
+            So I propose a new tool called the Vault to reconstitute these
+            repositories by computing the transitive closure of a given
+            artifact.
+            \\\\
+            We were able to use this for a few mining experiments that required
+            up to tens of thousands of repositories at once. It's really
+            convienient in that it doesn't require any kind of special analysis
+            tool, because in effect you're just downloading the repository
+            itself and you can study it like you study any repository. However,
+            you lose all the deduplication, so you no longer have this map of
+            relationships between software objects.
+        }
 
         \begin{block}{}
             The \textbf{Vault}: Download single directories or entire
@@ -511,6 +725,24 @@
     \begin{frame}[fragile]
         \frametitle{SwhFS}
 
+        \pdfpcnote{%
+            Another option we propose for sampling is the Software Heritage
+            Filesystem, a way to expose the contents of the archive as a
+            virtual filesystem. It works by lazily fetching the files and
+            directories from the archive when the user accesses them.
+            \\\\
+            Like for the Vault, this is really useful for small-scale
+            experiments because it doesn't require any specialized tools, but
+            it's not suitable for exhaustive analyses of the graph.
+            As an example, here is a simple way to count the number of lines of
+            Javascript code in a given revision.
+            \\\\
+            So the Vault and this filesystem are the two ways we make small
+            sets of data easily accessible for software mining. But our main
+            goal is universal software mining, we want to be able to run more
+            exhaustive experiments...
+        }
+
         \begin{block}{}
             The \textbf{Software Heritage Filesystem}: a virtual FUSE
             filesystem to mount the archive as a local directory.
@@ -532,16 +764,42 @@
 
         \begin{block}{}
             \begin{minted}{console}
-$ cd archive/swh:1:dir:1fee702c7e6d14395bbf5ac3598e73bcbf97b030
-$ grep -i antenna THE_LUNAR_LANDING.s | cut -f 5
-# IS THE LR ANTENNA IN POSITION 1 YET
-# BRANCH IF ANTENNA ALREADY IN POSITION 1
+$ cd archive/swh:1:rev:9d76c0b163675505d1a901e5fe5249a2c55609bc
+$ find root/src/ -type f -name ’*.js’ | xargs cat | wc -l
+10136
             \end{minted}
+%             \begin{minted}{console}
+% $ cd archive/swh:1:dir:1fee702c7e6d14395bbf5ac3598e73bcbf97b030
+% $ grep -i antenna THE_LUNAR_LANDING.s | cut -f 5
+% # IS THE LR ANTENNA IN POSITION 1 YET
+% # BRANCH IF ANTENNA ALREADY IN POSITION 1
+%             \end{minted}
         \end{block}
     \end{frame}
 
     \begin{frame}
         \frametitle{The Software Heritage Graph Dataset}
+
+        \pdfpcnote{%
+            So we present the Software Heritage Graph dataset, which is an
+            export of the entire graph of software development, without the
+            file contents -- just the graph.
+            \\\\
+            We provide it in two different formats, a set of relational tables
+            in columnar format that can be used in classic distributed
+            computing platforms like Spark or Hadoop, and one that is more
+            graph oriented, a set of edges that you can import in graph
+            processing platforms like Neo4J or Amazon Neptune.
+            \\\\
+            Of course you can just download this dataset and process them on
+            your own infrastructure, but the main idea here is to reduce
+            frictions and costs, so we have these available as public datasets
+            on Amazon Athena and Azure Databricks, that anyone can just query
+            without having to pay for the storage.
+            \\\\
+            Let's see a few examples of experiments that this allows us to
+            perform.
+        }
 
         \begin{block}{}
             The \textbf{Software Heritage Graph Dataset}: a snapshot of the
@@ -574,6 +832,15 @@ $ grep -i antenna THE_LUNAR_LANDING.s | cut -f 5
     \end{frame}
 
     \begin{frame}[fragile]{Example queries}
+        \pdfpcnote{%
+            This query is to find the most common "actions" that developers
+            perform in their commits, which are generally the first words of
+            the commit message. So using Amazon Athena, in just a few lines of
+            SQL we are able to extract this information from 1.1 billion
+            revisions, and in just 30 seconds we get this result, with "update"
+            being the most common action followed by "merge".
+        }
+
         \begin{block}{Most frequent first commit words}
             \begin{minted}[fontsize=\small]{sql}
 SELECT COUNT(*) AS c, word FROM (
@@ -602,6 +869,17 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \end{frame}
 
     \begin{frame}[fragile]{Example queries}
+        \pdfpcnote{%
+            For a more complex query, here we're trying to answer the question
+            of whether there's been a change in the proportion of commits
+            made during the week-end. Maybe our hypothesis is that people are
+            changing their work/life balance, something like that. And again we
+            can analyze all the commits in the dataset in just a few seconds,
+            and we get these results. There's no clear trend, the best fit line
+            is flat, so we can't really conclude anything from the commit data
+            at least.
+        }
+
         \begin{columns}
             \column{0.5\textwidth}
             \begin{block}{Weekend work}
@@ -618,6 +896,44 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \end{block}
     \end{frame}
 
+    \begin{frame}
+        \frametitle{Recursive queries}
+        \pdfpcnote{%
+            So this scale-out approach of massively distributing computations
+            on extremly large volumes of data works really well for
+            embarassingly parallel queries, that can be just trivially
+            distributed on clusters of machine.
+            \\\\
+            But for a lot of research use cases, we need to exploit the
+            recursive structure of the graph, run actual graph algorithms on
+            this dataset like getting transitive closures or computing
+            connected components. And doing this on scale-out solutions is
+            completely cost prohibitive, we tried that on Spark using the
+            GraphFrames library and it required spawning a cluster of 80 nodes
+            for 4 hours, which costs approximately 5000 dollars.
+            \\\\
+            So now the question is, could we make it accessible to researchers
+            to run complex graph algorithms on the dataset of software
+            development?
+        }
+        \begin{block}{}
+            \begin{itemize}
+                \item This approach works really well for \textbf{embarassingly
+                    parallel} queries
+                \item Scale-out solutions are less efficient for
+                    \textbf{recursive queries} that exploit the
+                    hierarchical/structured nature of the graph
+                \item BFS Traversal of the graph on Spark: 4 hours, 80
+                    nodes(!), 5000 USD
+            \end{itemize}
+        \end{block}
+
+        \begin{block}{Research question}
+            Can recursive graph algorithms be performed in an
+            accessible and cost-efficient way?
+        \end{block}
+    \end{frame}
+
     % \begin{frame}[fragile]{Example queries}
     %     \begin{block}{Spark: Connected components size distribution}
     %         \inputminted[fontsize=\small]{sql}{../codesamples/graph-dataset/spark-cc.py}
@@ -630,10 +946,29 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     %     \end{block}
     % \end{frame}
 
-    \section{Graph Compression and Exploitation}
+    \section{Graph Compression}
 
     \begin{frame}
         \frametitle{Compression approach}
+
+        \pdfpcnote{%
+            The idea here is to compress the graph of software development in a
+            way that makes it possible to analyze it on a single machine.
+            One major advantage of this approach is that wouldn't need to write
+            distributed versions of the graph algorithms, which can often
+            require a lot of research in itself, and makes it less
+            accessible.\\
+            If done efficiently, we expect it to be a lot cheaper
+            than distributed approaches, so that should allow us to run
+            exhaustive analyses very quickly and gain a better understanding of
+            the graph.
+            \\\\
+            We're not proposing new graph compression techniques here, but
+            importing and evaluating existing ones for our specific domain. In
+            particular we're going to look at techniques used to compress the
+            graph of the Web, and see if they can be adapted for the graph of
+            software development.
+        }
 
         \begin{block}{}
             \textbf{Objective}: Analyzing the \emph{entire graph of public
@@ -663,12 +998,31 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \end{frame}
 
     \begin{frame}{Compression pipeline}
+        \pdfpcnote{%
+            The way the compression works in the graph of the web is that it
+            exploits one of its properties, which is that URLs that are
+            lexicographically similar will generally be in the same
+            neighborhood in the graph. And having this node locality is a key
+            property to be able to compress adjacency lists efficiently.
+            \\\\
+            For the graph of software development we don't have that property,
+            because the node identifiers are just randomly distributed
+            cryptographic hashes. However we can reconstitute a node order that
+            has this locality information by doing a breadth-first traversal.
+            \\\\
+            The idea of this pipeline is that we will first compress the graph
+            using a random node ordering, which will give us a really bad
+            compression ratio. But starting from that graph, we can run a
+            BFS and use that new node ordering to recompress the graph and
+            achieve a better compression ratio.
+        }
+
         \begin{block}{Web graph → Software development graph: (re)establishing locality}
-            Key for good compression is a \alert{node ordering} that ensures
-            neighbor \textbf{locality} and adjacency \textbf{similarity}.
+            Key for good compression of adjacency lists is a \alert{node
+            ordering} that ensures \textbf{neighbor locality}.
             \begin{itemize}
                 \item Lexicographically-ordered URLs in the Graph of the Web
-                    have these properties.
+                    have this property.
                 \item It is \emph{not} the case with cryptographic Merkle
                     IDs\ldots{}
                 \item \ldots{}but is the case \emph{again} after a
@@ -689,7 +1043,21 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \end{frame}
 
     \begin{frame}{Compression results}
-
+        \pdfpcnote{%
+            We ran this compression pipeline on the graph dataset using the
+            WebGraph framework, on a server with 24 CPUs and 750 GB of RAM.
+            The compression only takes 6 days, and from the 6 TB input we
+            obtain a compressed graph of only 91 GB. We can also produce a
+            transposed graph for backward traversals, and this one is 83 GB.
+            Those figures only include the graph structure of nodes and edges,
+            but not the data associated with them (like file contents or commit
+            messages...)
+            \\\\
+            Now it's definitely possible to put these graphs in RAM, at least
+            on a high-end machine. We ran a benchmark to see how fast it was to
+            run algorithms on the entire graph, and a full traversal takes less
+            than 2 hours.
+        }
         \begin{block}{}
             We ran the compression pipeline on the input corpus using the WebGraph
             framework
@@ -710,20 +1078,28 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
             \end{itemize}
         \end{block}
 
-        \begin{block}{Benchmarks}
-            \begin{itemize}
-                \item Full traversal: 1h48m (1.81 M nodes/s)
-                    \begin{itemize}
-                        \item For comparison, on Spark: 4 hours, 80 nodes(!),
-                            5000\,USD
-                    \end{itemize}
-                \item Edge access: 12.0 M edges/s
-            \end{itemize}
+        \begin{block}{Benchmark}
+            Full traversal: 1h48m (1.81 M nodes/s)
         \end{block}
 
     \end{frame}
 
     \begin{frame}{LLP compression}
+        \pdfpcnote{%
+            It's possible to push the compression even further with Layered
+            Label Propagation, which is another algorithm that can discover
+            locality information between nodes.
+            The way it works is by assigning random labels to node and
+            propagating them to they neighbors, which generates clusters of
+            nodes all located in the same neighborhood.
+            \\\\
+            This step goes after the BFS in the pipeline, so we get better and
+            better compression at every step.
+            It has a big tradeoff in that it requires a lot more runtime
+            memory, which is not always achievable depending on your hardware
+            configuration, but the compression ratio we obtain is really
+            impressive, it reduces the size of the graph 35\% further.
+        }
         \begin{block}{Layered Label Propagation}
             \begin{thebibliography}{Foo Bar, 1969}
                 \small \vspace{-2mm}
@@ -744,6 +1120,24 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
     \end{frame}
 
     \begin{frame}{Graph Attributes}
+        \pdfpcnote{%
+            Up until now we have only compressed the structure of the graph but
+            not the attributes stored on the nodes and the edges, like commit
+            messages, timestamps, etc. But this data is needed for a lot of use
+            cases, like if you want to find the earliest commit in which a
+            unique file has ever been found.
+            \\\\
+            In my thesis, I propose various designs to actually store this data
+            so that it can be accessed during graph traversals. These
+            techniques exploit the fact that node IDs are contiguous to store
+            them as binary arrays on disk. We can mmap these arrays at runtime
+            depending on which kinds of data we need access to.
+            \\\\
+            Storing data on edges is a bit more involved, but there is built in
+            support in WebGraph to achieve that. I use other techniques to
+            compress the attributes on the edges, like a MPH on the file names
+            to only have to store them once.
+        }
         \begin{block}{Node attributes}
             \begin{itemize}
                 \item The compressed in-memory graph structure has \alert{no attributes}
@@ -764,20 +1158,32 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
                 \item For file \emph{names}, we use another minimal perfect hash to map file names to integers
             \end{itemize}
         \end{block}
-        \begin{block}{Disk/memory consideration}
-            \begin{itemize}
-                \item Labels and mappings can be either in RAM or
-                    \texttt{mmap()}-ed from disk
-                \item Time/memory tradeoff, depends on access patterns, intensive
-                    workloads etc.
-            \end{itemize}
-        \end{block}
+        % \begin{block}{Disk/memory consideration}
+        %     \begin{itemize}
+        %         \item Labels and mappings can be either in RAM or
+        %             \texttt{mmap()}-ed from disk
+        %         \item Time/memory tradeoff, depends on access patterns, intensive
+        %             workloads etc.
+        %     \end{itemize}
+        % \end{block}
     \end{frame}
 
     \begin{frame}[fragile]{Graph Querying}
+        \pdfpcnote{%
+            Once we have this compressed graph, we need to make it actually
+            accessible for researchers who want to run experiments on it. We
+            have a very basic API to write graph algorithms, but it only
+            provides very low level primitives like the successors() function
+            to get the adjacency list of a node. A big issue here is that this
+            requires local access to the server, so you can't really set it up
+            as a service that researchers can query.
+            \\
+            If we want to do better we need to build a traversal language on
+            top of this.
+        }
         \begin{block}{}
-            \textbf{Option 1}: Write a traversal algorithm using low-level Java
-            primitives
+            \textbf{Option 1}: Write a traversal algorithm using Java
+            graph primitives
         \end{block}
         \begin{minted}[fontsize=\scriptsize,highlightlines={8}]{java}
 HashSet<Long> visited = new HashSet<>();
@@ -798,16 +1204,30 @@ while (!stack.isEmpty()) {
         \end{minted}
         \begin{block}{}
             \begin{itemize}
-                \item Very efficient but burdensome, requires local access to
-                    the graph server.
-                \item Most traversals are simple traversals ⇒ need for a
-                    generic traversal query interface.
+                \item Efficient but low-level \& requires local access to the
+                    graph server.
+                \item Simpler/remote querying ⇒ need to build traversal query
+                    language
             \end{itemize}
         \end{block}
     \end{frame}
 
     \begin{frame}[fragile]
         \frametitle{Graph Querying}
+        \pdfpcnote{%
+            So we built a simple HTTP API which can be used to run simple
+            traversals remotely. It has a few base primitives, like getting the
+            neighbors or the leaves of a node, or return its entire transitive
+            closure. It can't do more complex queries like traversals starting
+            from multiple nodes at the same time, but it does have a few
+            options like a way to add constraints on the types of edges
+            traversed by the algorithm.
+            \\\\
+            Now that we have built this framework to cheaply run exhaustive
+            experiments on the compressed graph, we can use it to try to
+            understand the structure of this giant graph of software
+            development.
+        }
 
         \begin{block}{}
             \textbf{Option 2}: HTTP API for simple graph traversals
@@ -859,6 +1279,24 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Graph Topology: Research Questions}
+        \pdfpcnote{%
+            As we said before, the graph dataset is a very meaningful object
+            for software mining researchers, because it materializes all the
+            relationships between all the software objects available publicly.
+            This creates a very complex structure that has never been
+            empirically studied before, but the now the compressed graph
+            framework can be used to run exhaustive studies on it.
+            \\\\
+            So the first thing we want to do is to compute the key metrics that
+            characterize complex networks in general, like degree
+            distributions, connected components, distances between roots and
+            leaves and clustering coefficient. I computed all these metrics on
+            the entire graph but also on its different layers, so now I can
+            show you what they actually tell us about the graph. And from there
+            we can deduce potential implications for software mining, like ways
+            to distribute computations on the graph efficiently, and
+            methodological implications for empirical studies.
+        }
 
         \begin{block}{}
             The Software Heritage Graph Dataset materializes a \emph{network of
@@ -869,7 +1307,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \begin{block}{Research questions}
 
             \begin{itemize}
-                \item What is the low-level topology of the graph of software
+                \item What is the network topology of the graph of software
                     development?
 
                     Network topology metrics: Degree distributions, connected
@@ -911,6 +1349,26 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Average degree}
+        \pdfpcnote{%
+            The first metric we can look at is the average degree of the graph,
+            which is the average number of neighbors of all the nodes in the
+            graph. We can compare this degree with other complex networks that
+            have been studied in the literature, like social or collaboration
+            networks.
+            \\\\
+            We can see that the graph is relatively sparse, with a degree of
+            around 11. For comparison the social graph of Facebook has an
+            average degree of 169. Another important thing is that this degree
+            of 11 is largely dominated by the filesystem layer, which contains
+            around 90\% of all the nodes in the graph. The commit layer is even
+            more sparse, with an average degree of around one, which likely
+            means it's mostly constituted of long chains.
+        }
+        \begin{block}{}
+            Average number of neighbors of all the nodes in the graph
+
+            % (e.g., social networks → number of friends/followers)
+        \end{block}
 
         \begin{table}
             \centering
@@ -934,6 +1392,21 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Out-degree distributions: filesystem layer}
+        \pdfpcnote{%
+            Here is the plot of the outdegree distribution of the filesystem
+            layer, which corresponds to the distribution of the number of
+            entries of each directory in the graph.
+            \\\\
+            This is how you read this frequency distribution: this shows that
+            there are around 10^8 nodes with **exactly** 20 children. There's
+            also a cumulative frequency distribution, in which you can see that
+            there are around 10^9 nodes with **more** than 20 children.
+            \\\\
+            What we can see here is that there is not really a threshold
+            effect after which the degrees are really unlikely, it decreases in
+            something that looks like a power law. So there is not really a
+            characteristic number of entries in a directory.
+        }
 
         \begin{block}{}
             Distribution of the number of entries of each directory in the
@@ -942,7 +1415,15 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
         \begin{figure}
             \centering
-            \includegraphics[width=0.5\linewidth]{img/topology/inout/dir+cnt_out}
+            \only<1,4>{%
+                \includegraphics[width=0.5\linewidth]{img/topology/inout/dir+cnt_out}
+            }
+            \only<2>{%
+                \includegraphics[width=0.5\linewidth]{img/topology/inout/dir+cnt_out_annotated}
+            }
+            \only<3>{%
+                \includegraphics[width=0.5\linewidth]{img/topology/inout/dir+cnt_out_annotated_cum}
+            }
         \end{figure}
 
         \begin{block}{}
@@ -952,6 +1433,20 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Out-degree distributions: commit layer}
+        \pdfpcnote{%
+            It's very different in the commit layer. This shows the
+            distribution of the number of parents of the commits in the graph.
+            And here we can see a huge threshold effect, basically there are a
+            lot of commits with only one parents, many commits with two
+            parents, but after that it's mostly outliers. Keep in mind that
+            this is a logarithmic scale, so there are three orders of magnitude
+            between these two points.
+            \\\\
+            This happens because of development
+            patterns, most commits will have only one parent, except for merge
+            commits which generally have two. It's possible to make octopus
+            merges with more than 3 parents, but it's exceedingly rare.
+        }
         \begin{block}{}
             Distribution of the number of parents of each commit in the graph
         \end{block}
@@ -968,21 +1463,49 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Distance between roots and leaves}
+        \pdfpcnote{%
+            We can see a similar disparity in the distance between the roots
+            and the leaves. For the filesystem layer, this corresponds to the
+            depth of files in directory trees. Here there is a notable
+            threshold effect: most of the files are less than 10-20 levels
+            deep, and files deeper than that are very rare.
+            \\\\
+            Commit chains don't have characteristic lengths, they seem to
+            decrease in what again looks like a power law, meaning their length
+            is arbitrary.
+        }
+
         \begin{figure}
             \begin{subfigure}{.49\textwidth}
                 \centering
                 \includegraphics[width=\linewidth]{img/topology/shortestpath/dir+cnt}
-                \caption{Filesystem layer}
+                \caption{Depth of files in directory trees}
             \end{subfigure}\hfill
             \begin{subfigure}{.49\textwidth}
                 \centering
                 \includegraphics[width=\linewidth]{img/topology/shortestpath/rev}
-                \caption{Commit layer}
+                \caption{Length of commit chains}
             \end{subfigure}
         \end{figure}
     \end{frame}
 
     \begin{frame}
+        \pdfpcnote{%
+            An interesting metric is the size distribution of connected
+            components. We use connected components to identify clusters of
+            connected nodes but completely isolated from the
+            rest of the graph. This is very useful, because if the graph is
+            constituted a lot of small isolated island of software, it's really
+            easy to shard the entire graph in distributed clusters. You can
+            then just analyze each component separately without needing
+            to synchronize the processes.
+            \\\\
+            Well, it turns out that this is not the case at all for the
+            filesystem layer. more than 97\% of all the nodes are
+            interconnected together in the giant component you see here. For
+            the commit layer, this is a lot more doable, since the largest
+            component only contains 3\% of the nodes.
+        }
         \frametitle{Connected components}
         \begin{figure}
             \begin{subfigure}{.49\textwidth}
@@ -1013,6 +1536,22 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Takeaways: filesystem / commit layer duality}
+        \pdfpcnote{%
+            To summarize, what's really interesting is the duality between the
+            filesystem and the commit layers, they have almost opposite
+            topological properties.
+            \\\\
+            The filesystem layer is very dense and cannot be partitioned easily
+            because it has a giant connected component. The files have a
+            characteristic depth of less than 10-20 levels, but there's no
+            characteristic number of entries in the directories.
+            \\\\
+            The commit layer is the opposite in almost every way. It's a lot
+            sparser, its largest component is rather small which makes it
+            possible to partition it. The commit chains are arbitrarily long,
+            but commits have a characteristic outdegree of about one, which
+            makes them look like long degenerate chains.
+        }
 
         \begin{block}{}
             The filesystem and commit layers have almost opposite topological
@@ -1048,10 +1587,29 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Implications for software mining research}
+        \pdfpcnote{%
+            This has a few implications for software mining research.
+            The first one is that there's a wild disparity between the
+            different layers that constitute the graph, so they need to be
+            studied separately, otherwise the behavior you will observe will be
+            dominated by the filesystem layer and you will miss the subtlety of
+            the topology of the different layers.
+            \\\\
+            The second thing to note is that a lot of distributions seem to
+            have a high propensity to produce outliers, so we should be careful
+            to systematically justify how we filter outliers in empirical
+            studies. It also shows that exhaustive studies can be very useful
+            to check that results generalize properly.
+            \\\\
+            Finally, my experiments show that there is no natural way to
+            partition the graph in small isolated clusters, which would be
+            useful to distribute computations. We probably need more subtle
+            approaches to achieve that, like modular decomposition.
+        }
 
         \begin{block}{Layers}
             \begin{itemize}
-                \item Large disparity in the low-level structure of layers
+                \item Large disparity in the topological structure of layers
                 \item Important to study layers separately to understand
                     the graph structure
             \end{itemize}
@@ -1078,14 +1636,31 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Studying software forks}
+        \pdfpcnote{%
+            The topology analysis is a generic way to analyze any complex
+            network, it's domain agnostic. It's very useful to understand the
+            fundamental structure of the graph. But we also know that because
+            this particular graph shows relationships between deduplicated
+            software artifacts, it is semantically structured by code reuse
+            patterns, people copying code from one version or one project to
+            another. And one way to try to understand this domain-specific
+            structure is to study software forks, which are projects built on
+            top of existing projects, starting from their codebase but
+            continuing the development in parallel.
+            \\\\
+            In general, studying software forks has many useful applications in
+            empirical software engineering, because it helps us understands how
+            communities grow and evolve and how that leads to more or less
+            successful or healthy projects.
+        }
 
         \begin{block}{}
 
             \begin{itemize}
                 \item Topology analysis of the graph of software development
-                    gives us a low-level understanding of relationships between
+                    gives us a domain-agnostic understanding of relationships between
                     \emph{deduplicated software artifacts}
-                \item At a higher level, this graph is structured by
+                \item This particular graph is structured by
                     \textbf{code reuse patterns}
                 \item One way to understand these is to study \textbf{software
                     forks}: projects derived from existing software and being
@@ -1116,12 +1691,23 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Previous approaches for studying forks}
+        \pdfpcnote{%
+            Most studies studying software forks have only looked at platform
+            metadata, like what happens when you press the "fork" button on
+            collaborative development platforms like GitHub. You can extract
+            and study a graph of these relationships from GitHub, but this
+            approach is restricted to a single platform. You can't see the code
+            reuse patterns that happen between different platforms or even
+            different version control systems.\\
+            Using the compressed graph, we can try to have a more exhaustive
+            approach to identify these forks.
+        }
 
         \begin{block}{}
             \begin{itemize}
-                \item Historically, studies have relied on forge-specific
-                    metadata: relationships created by pressing the "fork"
-                    button
+                \item Most studies have relied on metadata from collaborative
+                    development platforms to identify forks: relationships
+                    created by pressing the ``fork'' button
                     \begin{center}
                         \includegraphics[width=2cm]{img/forkbutton}
                     \end{center}
@@ -1134,7 +1720,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
         \begin{block}{}
             \begin{itemize}
-                \item Restricted to a single forge, relies on external metadata
+                \item Restricted to a single platform, relies on external metadata
                 \item We can use the \textbf{compressed graph} for a more
                     exhaustive approach
             \end{itemize}
@@ -1143,57 +1729,86 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Intrinsic forks}
-        \begin{block}{Concept}
-            \begin{center}
-                \begin{tikzpicture}[every node/.append style={cloud,draw,very thick,align=center}]
-                    \node[cloud puffs=50, aspect=7] (cloud){%
-                        \textbf{Intrinsic forks} are software projects\\
-                        with \textbf{shared development history}.
-                    };
-                \end{tikzpicture}
-            \end{center}
+        \pdfpcnote{%
+            The general idea is that instead of relying on platform metadata,
+            we can instead try to find projects that share some development
+            history, that we call intrinsic forks. If two different
+            repositories have at least one commit in common, we can consider
+            that they are forks of each other, without relying on external
+            information.
+            \\\\
+            So we're trying to quantitatively evaluate whether this definition
+            is good, how does it compare to the previous approach of using
+            platform metadata?
+            \\\\
+            So I designed an experiment to do this comparison in an exhaustive
+            way. I use the compressed graph to identify all the intrinsic forks
+            in the graph of software development, then I compare them to the
+            ones you get by using the metadata on GitHub.
+        }
+        \begin{block}{}
+            Intuition: \textbf{Intrinsic forks} are software projects
+            with \textbf{shared development history}.
+        \end{block}
 
+        \begin{block}{}
             \begin{itemize}
-                \item Identified by intrinsic DVCS information
-                    \begin{itemize}
-                        \item Shared commits
-                        \item Shared root directories
-                    \end{itemize}
-                \item Includes projects for which no forge-level metadata is present
+                \item Identified by intrinsic DVCS information (= at least one
+                    shared commit)
+                \item Includes projects for which no forking metadata is present
             \end{itemize}
         \end{block}
 
         \begin{block}{Research question}
-            How do forge forks compare to forks defined by shared development
-            history?
+            How do forks from collaborative development platforms compare to
+            forks defined by shared development history?
         \end{block}
-    \end{frame}
 
-    \begin{frame}{Methodology}
         \begin{block}{Experimental design}
             We \textbf{identify} intrinsic forks in the graph of development
             history, then quantitatively \textbf{compare} them to forks
             identified by GitHub metadata.
         \end{block}
-
-        \begin{block}{New concepts}
-            \begin{itemize}
-                \item \textbf{Fork networks}: repositories connected by
-                    forking relationships
-                \item \textbf{Fork cliques}: repositories that are all forks of
-                    each other
-            \end{itemize}
-        \end{block}
     \end{frame}
 
+    % \begin{frame}{Methodology}
+    %     \pdfpcnote{%
+    %     }
+
+    %     \begin{block}{New concepts}
+    %         \begin{itemize}
+    %             \item \textbf{Fork networks}: repositories connected by
+    %                 forking relationships
+    %             \item \textbf{Fork cliques}: repositories that are all forks of
+    %                 each other
+    %         \end{itemize}
+    %     \end{block}
+    % \end{frame}
+
     \begin{frame}
-        \frametitle{Distribution comparison (fork cliques)}
+        \frametitle{Distribution comparison}
+        \pdfpcnote{%
+            There are a few considerations on how to cluster similar forks
+            together that I detail in the thesis, but basically these are the
+            results we get. We see that by using platform specific metadata, we
+            miss around 8\% of all the forks. And that's only on two comparable
+            datasets, so it doesn't even include the cross-platform forks that
+            we could discover using this technique.
+            \\\\
+            The difference between the two distributions stay mostly positive,
+            which indicates that this method is more exhaustive in general. But
+            the similarities between the two distributions are also visually
+            striking, which indicates that our new definition really matches
+            well with the intuitive notion that people have of what a fork
+            corresponds to.
+        }
         \begin{center}
             \includegraphics[width=0.5\linewidth]{../img/forks/fork-clique-partition-freq-distribution.pdf}
         \end{center}
         \begin{block}{}
             \begin{itemize}
-                \item \textbf{+8\% new forks discovered} (shared-commit forks)
+                \item \textbf{8\% of forks missed} when using platform-level
+                    metadata
                 \item Positive difference ⇒ more exhaustive identification of
                     forks
                 \item Distribution similarity ⇒ Matches developers'
@@ -1204,11 +1819,20 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Implications for software mining research}
+        \pdfpcnote{%
+            This study has a few other implications for software mining
+            research. If we only rely on platform metadata to identify
+            software forks we will miss a lot of forks, and it might introduce
+            an important selection bias because we will only ever consider the
+            forks inside a single platform. The technique we propose to
+            identify intrinsic forks is more robust, and can uncover forks
+            across different platforms and even different VCS.
+        }
 
         \begin{block}{}
             \begin{itemize}
-                \item Relying on forge metadata ⇒ selection bias, not
-                    exhaustive
+                \item Relying on forge metadata ⇒ selection bias,
+                    non-exhaustive
                 \item Using shared development history uncovers more forks
                 \item Robust approach across forges and across VCSs
             \end{itemize}
@@ -1224,43 +1848,43 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \begin{block}{Contextualization}
             \begin{itemize}
                 \item Literature review: identify research needs
-                \item Roadmap to universal software mining
+                \item Roadmap to universal software mining (BENEVOL 2018)
             \end{itemize}
         \end{block}
 
         \begin{block}{Making software artifacts data available}
             \begin{itemize}
-                \item Small scale: Vault, SwhFS
-                \item Scale-out: Graph dataset
-                \item Scale-up: Graph compression
+                \item Small scale: Vault, SwhFS (ICSE 2021)
+                \item Scale-out: Graph dataset (MSR 2019)
+                \item Scale-up: Graph compression (SANER 2020)
             \end{itemize}
         \end{block}
 
         \begin{block}{Empirical studies on the graph structure}
             \begin{itemize}
-                \item Low-level: topological properties
-                \item High-level: structure of forks
+                \item Domain-agnostic: topological properties (MSR 2020)
+                \item Domain-specific: structure of forks (MSR 2020)
             \end{itemize}
         \end{block}
     \end{frame}
 
-    \begin{frame}
-        \frametitle{Empirical findings \& impact on software mining}
-        \begin{block}{Topology}
-            \begin{itemize}
-                \item Disparity between graph layers
-                \item Graph cannot be partitioned naturally
-                \item No sound way to filter outliers
-            \end{itemize}
-        \end{block}
-        \begin{block}{Forks}
-            \begin{itemize}
-                \item Forks can be identified more exhaustively with shared
-                    development history
-                \item They qualitatively fit established notions of what constitutes a ``fork''
-            \end{itemize}
-        \end{block}
-    \end{frame}
+    % \begin{frame}
+    %     \frametitle{Empirical findings \& impact on software mining}
+    %     \begin{block}{Topology}
+    %         \begin{itemize}
+    %             \item Disparity between graph layers
+    %             \item Graph cannot be partitioned naturally
+    %             \item No sound way to filter outliers
+    %         \end{itemize}
+    %     \end{block}
+    %     \begin{block}{Forks}
+    %         \begin{itemize}
+    %             \item Forks can be identified more exhaustively with shared
+    %                 development history
+    %             \item They qualitatively fit established notions of what constitutes a ``fork''
+    %         \end{itemize}
+    %     \end{block}
+    % \end{frame}
 
     \begin{frame}
         \frametitle{Future work}

@@ -1844,6 +1844,26 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Academic contributions}
+        \pdfpcnote{%
+            I'll go over a quick summary of my main academic contributions. The
+            first thing I've done is to frame the problem by doing a literature
+            review of researcher needs, and establishing a roadmap towards
+            universal software mining
+            \\\\
+            I proposed ways to make software development data accessible to
+            researchers at three different scales: restricted sets of data with
+            the Vault and the SwhFS, scale-out processing with the graph
+            dataset on various clouds, and a compression approach to analyze
+            the graph exhaustively on a single machine.
+            \\\\
+            Using these platforms, I realized two empirical studies to try to
+            understand the structure of the graph, both in a domain-agnostic
+            way by computing metrics that characterize its topological
+            properties, but also in a domain-specific way, to see how the graph
+            is structured by code reuse patterns and software forks. I detailed
+            the methodological implications of these studies for software
+            mining.
+        }
 
         \begin{block}{Contextualization}
             \begin{itemize}
@@ -1888,14 +1908,53 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
     \begin{frame}
         \frametitle{Future work}
+        \pdfpcnote{%
+            The work I presented opens various perspectives for future
+            research. The most immediate follow-up would be to make this more
+            production-ready so that it can be reused easily.
+            \\\\
+            Right now the compressed graph works on a static export of the
+            dataset, which means there is always a lag with the live data. We
+            could try to make this compression incremental to reduce this lag.
+            We could also integrate more expressive query languages like GQL or
+            Gremlin to make it possible to run more complex queries without
+            having to use low-level algorithms.
+            \\\\
+            We could also make improvements to scale-out processing. The
+            general idea here is to try to find hybrid approaches between the
+            compressed graph and distributed computing. For instance we could
+            try to shard the graph efficiently using modular decomposition or
+            locality preserving orders like the BFS or LLP. It should also be
+            possible to do more integration between the two, so that you can
+            transparently perform parts of a computation on the compressed
+            graph, and offload the rest on the scale-out platforms to maximize
+            efficiency.
+            \\\\
+            Finally this platform could be used to generate derived graphs that
+            are also interesting to software mining researchers, like community
+            graphs, commit diffs or dependency graphs. We could compress them
+            and make them accessible in the same way.
+        }
 
-        \begin{block}{}
+        \begin{block}{Compressed graph improvements}
             \begin{itemize}
                 \item Incremental graph compression
                 \item Expressive remote graph querying
-                \item Graph partitioning techniques for sharding (modular
-                    decomposition?)
-                \item Derived graphs (community graphs, diff graphs, …)
+            \end{itemize}
+        \end{block}
+        \begin{block}{Scale-out processing}
+            \begin{itemize}
+                \item Sharding the graph with modular decomposition,
+                    locality-preserving orders…
+                \item Integrating the compressed graph with scale-out
+                    processing
+            \end{itemize}
+        \end{block}
+        \begin{block}{Generating derived data}
+            \begin{itemize}
+                \item Community graphs
+                \item Commit diffs
+                \item Dependency graphs
             \end{itemize}
         \end{block}
     \end{frame}

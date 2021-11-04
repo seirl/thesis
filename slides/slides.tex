@@ -1261,25 +1261,6 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \end{minted}
     \end{frame}
 
-    % \begin{frame}
-    %     \frametitle{Graph Subdatasets}
-
-    %     \begin{block}{Generating representative subgraphs}
-    %         \begin{itemize}
-    %             \item Useful for smaller-scale experimentation, prototyping
-    %             \item Focusing analysis on a relevant subset
-    %             \item Representative samples → transitive closure of a subset
-    %                 of origins
-    %             \item Use a fitted log model to estimate the size of the
-    %                 resulting subgraph
-    %         \end{itemize}
-    %     \end{block}
-
-    %     \begin{center}
-    %         \includegraphics[width=.5\linewidth]{../img/graph-exploitation/subdataset_size_function_fit.pdf}
-    %     \end{center}
-    % \end{frame}
-
     \section{Graph Topology of Software Development}
 
     \begin{frame}
@@ -1988,4 +1969,43 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             \end{itemize}
         \end{block}
     \end{frame}
+
+    \begin{frame}
+        \frametitle{Why not…?}
+        \begin{block}{Comparison with other datasets}
+            \begin{itemize}
+                \item GHTorrent, Github on BigQuery: Github only
+                \item source\{d\}: obsolete, top-bookmarked, Github only
+                \item World of Code: Git only, mapping-oriented data model
+                \item CodeDJ: GitHub only, model includes platform-specific
+                    metadata, interesting query system
+            \end{itemize}
+        \end{block}
+        \begin{block}{Graph databases}
+            \begin{itemize}
+                \item Neo4J, Amazon Neptune, GraphFrames → Interesting to
+                    make them available, but costly. Scalability concerns?
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Graph Subdatasets}
+
+        \begin{block}{Generating representative subgraphs}
+            \begin{itemize}
+                \item Useful for smaller-scale experimentation, prototyping
+                \item Focusing analysis on a relevant subset
+                \item Representative samples → transitive closure of a subset
+                    of origins
+                \item Use a fitted log model to estimate the size of the
+                    resulting subgraph
+            \end{itemize}
+        \end{block}
+
+        \begin{center}
+            \includegraphics[width=.5\linewidth]{../img/graph-exploitation/subdataset_size_function_fit.pdf}
+        \end{center}
+    \end{frame}
+
 \end{document}

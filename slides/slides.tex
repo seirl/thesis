@@ -1479,15 +1479,14 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \pdfpcnote{%
             An interesting metric is the size distribution of connected
             components. We use connected components to identify clusters of
-            connected nodes but completely isolated from the
+            nodes that are interconnected together but completely isolated from the
             rest of the graph. This is very useful, because if the graph is
             constituted a lot of small isolated island of software, it's really
             easy to shard the entire graph in distributed clusters. You can
-            then just analyze each component separately without needing
-            to synchronize the processes.
+            then just analyze each component on a separate machine.
             \\\\
-            Well, it turns out that this is not the case at all for the
-            filesystem layer. more than 97\% of all the nodes are
+            Well, it turns out that this is not the case at all, at least for
+            the filesystem layer. more than 97\% of all the nodes are
             interconnected together in the giant component you see here. For
             the commit layer, this is a lot more doable, since the largest
             component only contains 3\% of the nodes.

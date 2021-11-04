@@ -16,14 +16,15 @@
     % universal software mining
 
     \begin{frame}
-        \frametitle{Sofware Mining}
+        \frametitle{Software Mining}
 
         \pdfpcnote{%
-            I worked in a field of research called "software mining". The goal
+            I worked in the field of empirical software engineering, and more
+            specifically a field called "software mining". The goal
             is to study existing software repositories in a systematic way to
-            try to **uncover patterns** in software development and in the
-            **social processes that govern it**, in the goal of improving these
-            development practices.
+            try to extract knowledge and **uncover patterns** in software
+            development and in the **social processes that govern it**, in the
+            goal of improving these practices.
             \\\\
             This field has a lot of applications, like automated bug fixing,
             code completion or finding unmaintained dependencies. Because of
@@ -245,12 +246,11 @@
             \\\\
             We will see that these approaches have some limitations. To address
             them, I'll introduce graph compression as a way to efficiently run
-            exhaustive studies on our corpus.
+            analyses on this corpus.
             \\\\
-            Finally I describe two empirical studies I performed, a generic
-            network study to understand the topology of the graph of software
-            development, and another one to look at how this graph is
-            structured by code reuse patterns and software forks.
+            Finally I describe two empirical studies I performed on the graph
+            of software development, one on the topology of the graph of
+            software development, and another to identify software forks.
         }
     \end{frame}
 
@@ -487,10 +487,10 @@
             \\\\
             This is a really interesting data model, because in effect it
             materializes a giant graph which gives us a global, unified view of
-            all the software development artifacts that software mining
-            researchers might want to analyze. It's like a map of the stars of
-            all the software data; we can directly see how code is reused
-            across repos through the relationships between objects.
+            all the software development artifacts from VCS that software
+            mining researchers might want to analyze. It's like a map of the
+            stars of all the software data; we can directly see how code is
+            reused across repos through the relationships between objects.
             \\\\
             One way to imagine it is to visualize a single giant Git repository
             with all the code in the world.
@@ -506,8 +506,8 @@
                         different repositories}
                     \item The result is a single graph providing a
                         \textbf{global, unified view} on \textbf{all the
-                        software development artifacts} relevant for software
-                        mining research.
+                        software development artifacts} from version control
+                        systems
                     \item Helpful analogy: like a single Git repository but
                         with all the public code in the world.
                 \end{itemize}
@@ -557,8 +557,8 @@
             \column{0.2\columnwidth}
             \begin{block}{}
                 \begin{itemize}
-                    \item 20 B nodes
-                    \item 220 B edges
+                    \item 20B nodes
+                    \item 220B edges
                 \end{itemize}
             \end{block}
         \end{columns}
@@ -647,7 +647,7 @@
             So in my thesis in present three different approaches to reduce the
             amount of data that researchers need to have **locally**.
             \\\\
-            The first one is sampling, giving ways to access a small restricted
+            The first one is sampling, giving ways to access a small limited
             set of data.
             The second one is to help them query the graph remotely by putting
             the graph on cloud-based distributed computing platforms.
@@ -668,7 +668,7 @@
 
         \begin{block}{Approaches addressed in this thesis}
             \begin{itemize}
-                \item Sampling: access restricted amounts of data
+                \item Sampling: access limited amounts of data
                 \item Scale-out: platform for distributed computing
                 \item Scale-up: compression
             \end{itemize}
@@ -688,7 +688,7 @@
             \\\\
             We were able to use this for a few mining experiments that required
             up to tens of thousands of repositories at once. It's really
-            convienient in that it doesn't require any kind of special analysis
+            convenient in that it doesn't require any kind of special analysis
             tool, because in effect you're just downloading the repository
             itself and you can study it like you study any repository. However,
             you lose all the deduplication, so you no longer have this map of
@@ -764,7 +764,8 @@
 
         \begin{block}{}
             \begin{minted}{console}
-$ cd archive/swh:1:rev:9d76c0b163675505d1a901e5fe5249a2c55609bc
+$ swh fs mount swhfs/
+$ cd swhfs/archive/swh:1:rev:9d76c0b163675505d1a901e5fe5249a2c55609bc
 $ find root/src/ -type f -name ’*.js’ | xargs cat | wc -l
 10136
             \end{minted}
@@ -875,9 +876,8 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
             made during the week-end. Maybe our hypothesis is that people are
             changing their work/life balance, something like that. And again we
             can analyze all the commits in the dataset in just a few seconds,
-            and we get these results. There's no clear trend, the best fit line
-            is flat, so we can't really conclude anything from the commit data
-            at least.
+            and we get these results. The trend appears stable over time, with
+            a flat best fit line, so there is no sign of such a shift.
         }
 
         \begin{columns}
@@ -900,8 +900,8 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \frametitle{Recursive queries}
         \pdfpcnote{%
             So this scale-out approach of massively distributing computations
-            on extremly large volumes of data works really well for
-            embarassingly parallel queries, that can be just trivially
+            on extremely large volumes of data works really well for
+            embarrassingly parallel queries, that can be just trivially
             distributed on clusters of machine.
             \\\\
             But for a lot of research use cases, we need to exploit the
@@ -918,13 +918,13 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         }
         \begin{block}{}
             \begin{itemize}
-                \item This approach works really well for \textbf{embarassingly
-                    parallel} queries
+                \item This approach works really well for
+                    \textbf{embarrassingly parallel} queries
                 \item Scale-out solutions are less efficient for
                     \textbf{recursive queries} that exploit the
                     hierarchical/structured nature of the graph
                 \item BFS Traversal of the graph on Spark: 4 hours, 80
-                    nodes(!), 5000 USD
+                    nodes (!), 5000 USD
             \end{itemize}
         \end{block}
 
@@ -992,18 +992,19 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \end{block}
 
         \begin{block}{Compression techniques}
-            We apply existing compression techniques used to compress the
+            Existing compression algorithms used with the
             \textbf{graph of the Web}.
         \end{block}
     \end{frame}
 
     \begin{frame}{Compression pipeline}
         \pdfpcnote{%
-            The way the compression works in the graph of the web is that it
-            exploits one of its properties, which is that URLs that are
-            lexicographically similar will generally be in the same
-            neighborhood in the graph. And having this node locality is a key
-            property to be able to compress adjacency lists efficiently.
+            The graph of the web has a good property for compression, which is
+            that when you order all its nodes lexicographically by URL, you get
+            an order that preserves locality of the nodes in the graph. Similar
+            URLs will be in the same neighborhood of nodes.
+            And having this node locality is a key property to be able to
+            compress adjacency lists efficiently.
             \\\\
             For the graph of software development we don't have that property,
             because the node identifiers are just randomly distributed
@@ -1025,7 +1026,7 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
                     have this property.
                 \item It is \emph{not} the case with cryptographic Merkle
                     IDs\ldots{}
-                \item \ldots{}but is the case \emph{again} after a
+                \item \ldots but is the case \emph{again} after a
                     breadth-first traversal
             \end{itemize}
         \end{block}
@@ -1059,14 +1060,14 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
             than 2 hours.
         }
         \begin{block}{}
-            We ran the compression pipeline on the input corpus using the WebGraph
-            framework
-            \begin{thebibliography}{}
-                \footnotesize
-                \bibitem{BoVWFI} Paolo Boldi and Sebastiano Vigna.
-                \newblock The WebGraph framework I: Compression techniques
-                \newblock WWW 2004: 13th Intl. World Wide Web Conference. ACM
-            \end{thebibliography}
+            We ran the compression pipeline on the input corpus using the
+            \textbf{WebGraph} framework (Boldi, Vigna 2004).
+            % \begin{thebibliography}{}
+            %     \footnotesize
+            %     \bibitem{BoVWFI} Paolo Boldi and Sebastiano Vigna.
+            %     \newblock The WebGraph framework I: Compression techniques
+            %     \newblock WWW 2004: 13th Intl. World Wide Web Conference. ACM
+            % \end{thebibliography}
         \end{block}
 
         \begin{block}{}
@@ -1079,7 +1080,8 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \end{block}
 
         \begin{block}{Benchmark}
-            Full traversal: 1h48m (1.81 M nodes/s)
+            Full traversal: 1h48min (1.81 M nodes/s) on a single thread\\
+            ⇒ Huge improvement over Spark (4 h, 80 nodes, 5000 USD)
         \end{block}
 
     \end{frame}
@@ -1100,21 +1102,23 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
             configuration, but the compression ratio we obtain is really
             impressive, it reduces the size of the graph 35\% further.
         }
-        \begin{block}{Layered Label Propagation}
-            \begin{thebibliography}{Foo Bar, 1969}
-                \small \vspace{-2mm}
-                \bibitem{Boldi2010} Paolo Boldi, Marco Rosa, Massimo Santini, Sebastiano Vigna
-                \newblock Layered Label Propagation: A MultiResolution Coordinate-Free Ordering for Compressing Social Networks
-                \newblock WWW 2010: 20th Intl. World Wide Web Conference. ACM
-            \end{thebibliography}
+        \begin{block}{}
+            \textbf{Layered Label Propagation}: algorithm to uncover better
+            locality-preserving node orderings (Boldi et al. 2010)
+            % \begin{thebibliography}{Foo Bar, 1969}
+            %     \small \vspace{-2mm}
+            %     \bibitem{Boldi2010} Paolo Boldi, Marco Rosa, Massimo Santini, Sebastiano Vigna
+            %     \newblock Layered Label Propagation: A MultiResolution Coordinate-Free Ordering for Compressing Social Networks
+            %     \newblock WWW 2010: 20th Intl. World Wide Web Conference. ACM
+            % \end{thebibliography}
         \end{block}
         \begin{block}{}
             \begin{itemize}
                 \item Algorithm to uncover locality information
                 \item Propagates labels on random nodes to discover neighborhoods
-                \item Compression requires more runtime memory (33 bytes per node)
                 \item Even more impressive compression ratio (91 GiB → 60 GiB,
                     reduced by \textasciitilde{}35\%)
+                \item Compression requires more runtime memory
             \end{itemize}
         \end{block}
     \end{frame}
@@ -1154,8 +1158,9 @@ GROUP BY word ORDER BY COUNT(*) DESC LIMIT 5;
         \end{block}
         \begin{block}{Edge attributes}
             \begin{itemize}
-                \item Built-in WebGraph support for attributes on the \alert{edges} (generally integers)
-                \item For file \emph{names}, we use another minimal perfect hash to map file names to integers
+                \item Built-in WebGraph support for attributes on the
+                    \alert{edges} (generally integers)
+                \item We convert \emph{file names} to integers using a MPH
             \end{itemize}
         \end{block}
         % \begin{block}{Disk/memory consideration}
@@ -1237,7 +1242,7 @@ while (!stack.isEmpty()) {
                 \item Limited to simple DFS from a single node (forward or
                     backward graph)
                 \item Traversal types: neighbors, leaves, all nodes, all edges
-                \item Supports edge type filtering
+                \item Supports edge-type filtering
             \end{itemize}
         \end{block}
 
@@ -1520,22 +1525,20 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             \end{subfigure}
         \end{figure}
 
-        \begin{center}
-            \begin{tabular}[t]{l r r r}
-                \textbf{Layer} & \textbf{\# of WCC}
-                               & \textbf{Size of largest WCC}
-                               & \textbf{\% of nodes in largest}
-                               \\
-                               \hline
-                Full graph       & \num{33104255}  & \num{18902683142} & 97.79\% \\
-                Filesystem layer & \num{46286502}  & \num{16565521611} & 97.16\% \\
-                Commit layer     & \num{88031649}  & \num{51543944}    & 2.61\% \\
-            \end{tabular}
-        \end{center}
+        \begin{tabular}[t]{l r r r}
+            \textbf{Layer} & \textbf{\# of WCC}
+            & \textbf{Size of largest WCC}
+            & \textbf{\% in largest}
+            \\
+            \hline
+            Full graph       & \num{33104255}  & \num{18902683142} & 97.79\% \\
+            Filesystem layer & \num{46286502}  & \num{16565521611} & 97.16\% \\
+            Commit layer     & \num{88031649}  & \num{51543944}    & 2.61\% \\
+        \end{tabular}
     \end{frame}
 
     \begin{frame}
-        \frametitle{Takeaways: filesystem / commit layer duality}
+        \frametitle{Filesystem / commit layer duality}
         \pdfpcnote{%
             To summarize, what's really interesting is the duality between the
             filesystem and the commit layers, they have almost opposite
@@ -1564,7 +1567,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
                 \begin{itemize}
                     \item Dense, non-partitionable (giant WCC)
                     \item Characteristic depth
-                    \item Arbitrary outdegree
+                    \item Arbitrary out-degree
                 \end{itemize}
                 \begin{center}
                     \scalebox{0.7}{\input{../tikz/figures/topology-summary-filesystem.tikz}}
@@ -1576,7 +1579,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
                 \begin{itemize}
                     \item Sparse, partitionable (max WCC = 3\%)
                     \item Arbitrary depth
-                    \item Characteristic outdegree (degenerate)
+                    \item Characteristic out-degree (degenerate)
                 \end{itemize}
                 \begin{center}
                     \scalebox{0.5}{\input{../tikz/figures/topology-summary-revision.tikz}}
@@ -1603,8 +1606,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             \\\\
             Finally, my experiments show that there is no natural way to
             partition the graph in small isolated clusters, which would be
-            useful to distribute computations. We probably need more subtle
-            approaches to achieve that, like modular decomposition.
+            useful to distribute computations.
         }
 
         \begin{block}{Layers}
@@ -1617,8 +1619,8 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
 
         \begin{block}{Methodology}
             \begin{itemize}
-                \item High kurtosis / propensity to produce outliers
-                \item No obvious rule to ``filter'' outliers in many
+                % \item High kurtosis / propensity to produce outliers
+                \item No obvious threshold to ``filter'' outliers in many
                     distributions
                 \item Highlights the importance of exhaustive approaches
             \end{itemize}
@@ -1627,7 +1629,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \begin{block}{Distributed analysis}
             \begin{itemize}
                 \item No natural partitioning in small connected components
-                \item Need for more subtle approaches (modular decomposition?)
+                \item Need for more subtle approaches?
             \end{itemize}
         \end{block}
     \end{frame}
@@ -1678,7 +1680,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
         \begin{block}{Applications in software evolution \& software health}
             \begin{itemize}
                 \item Finding active and maintained projects
-                \item Understanding ``Hard'' and ``development'' forks
+                \item Understanding ``hard'' and ``development'' forks
                 \item Identifying criteria for successful forks
             \end{itemize}
         \end{block}
@@ -1711,7 +1713,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
                     \begin{center}
                         \includegraphics[width=2cm]{img/forkbutton}
                     \end{center}
-                \item Github provides a graph of forks to parent repositories
+                \item GitHub provides a graph of forks to parent repositories
                     \begin{center}
                         \includegraphics[width=7cm]{img/forknetwork}
                     \end{center}
@@ -1801,9 +1803,13 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             striking, which indicates that our new definition really matches
             well with the intuitive notion that people have of what a fork
             corresponds to.
+            \\\\
+            So all in all we show that this technique to identify forks is more
+            robust, and can discover forks across different platforms or even
+            different VCS.
         }
         \begin{center}
-            \includegraphics[width=0.5\linewidth]{../img/forks/fork-clique-partition-freq-distribution.pdf}
+            \includegraphics[width=0.5\linewidth]{img/forks/fork-clique-partition-freq-distribution.pdf}
         \end{center}
         \begin{block}{}
             \begin{itemize}
@@ -1811,34 +1817,34 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
                     metadata
                 \item Positive difference ⇒ more exhaustive identification of
                     forks
-                \item Distribution similarity ⇒ Matches developers'
+                \item Distribution similarity ⇒ Matches
                     expectations of what a fork is
+                \item Robust approach across platforms and across VCSs
             \end{itemize}
         \end{block}
     \end{frame}
 
-    \begin{frame}
-        \frametitle{Implications for software mining research}
-        \pdfpcnote{%
-            This study has a few other implications for software mining
-            research. If we only rely on platform metadata to identify
-            software forks we will miss a lot of forks, and it might introduce
-            an important selection bias because we will only ever consider the
-            forks inside a single platform. The technique we propose to
-            identify intrinsic forks is more robust, and can uncover forks
-            across different platforms and even different VCS.
-        }
+    % \begin{frame}
+    %     \frametitle{Implications for software mining research}
+    %     \pdfpcnote{%
+    %         This study has a few other implications for software mining
+    %         research. If we only rely on platform metadata to identify
+    %         software forks we will miss a lot of forks, and it might introduce
+    %         an important selection bias because we will only ever consider the
+    %         forks inside a single platform. The technique we propose to
+    %         identify intrinsic forks is more robust, and can uncover forks
+    %         across different platforms and even different VCS.
+    %     }
 
-        \begin{block}{}
-            \begin{itemize}
-                \item Relying on forge metadata ⇒ selection bias,
-                    non-exhaustive
-                \item Using shared development history uncovers more forks
-                \item Robust approach across forges and across VCSs
-            \end{itemize}
-        \end{block}
+    %     \begin{block}{}
+    %         \begin{itemize}
+    %             \item Relying on forge metadata ⇒ selection bias,
+    %                 non-exhaustive
+    %             \item Using shared development history uncovers more forks
+    %         \end{itemize}
+    %     \end{block}
 
-    \end{frame}
+    % \end{frame}
 
     \section{Conclusion}
 
@@ -1851,7 +1857,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             universal software mining
             \\\\
             I proposed ways to make software development data accessible to
-            researchers at three different scales: restricted sets of data with
+            researchers at three different scales: limited sets of data with
             the Vault and the SwhFS, scale-out processing with the graph
             dataset on various clouds, and a compression approach to analyze
             the graph exhaustively on a single machine.
@@ -1860,9 +1866,7 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             understand the structure of the graph, both in a domain-agnostic
             way by computing metrics that characterize its topological
             properties, but also in a domain-specific way, to see how the graph
-            is structured by code reuse patterns and software forks. I detailed
-            the methodological implications of these studies for software
-            mining.
+            is structured by code reuse patterns and software forks.
         }
 
         \begin{block}{Contextualization}
@@ -1920,15 +1924,15 @@ swh:1:rev:4b63dbd4e782e74bdc050c4579381d29b4bd41c0
             Gremlin to make it possible to run more complex queries without
             having to use low-level algorithms.
             \\\\
-            We could also make improvements to scale-out processing. The
-            general idea here is to try to find hybrid approaches between the
-            compressed graph and distributed computing. For instance we could
-            try to shard the graph efficiently using modular decomposition or
-            locality preserving orders like the BFS or LLP. It should also be
-            possible to do more integration between the two, so that you can
-            transparently perform parts of a computation on the compressed
-            graph, and offload the rest on the scale-out platforms to maximize
-            efficiency.
+            Another interesting direction is making improvements to scale-out
+            processing. The general idea here is to try to find hybrid
+            approaches between the compressed graph and distributed computing.
+            For instance we could try to shard the graph efficiently using
+            modular decomposition or locality preserving orders like the BFS or
+            LLP. It should also be possible to do more integration between the
+            two, so that you can transparently perform parts of a computation
+            on the compressed graph, and offload the rest on the scale-out
+            platforms to maximize efficiency.
             \\\\
             Finally this platform could be used to generate derived graphs that
             are also interesting to software mining researchers, like community
